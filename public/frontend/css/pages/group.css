@@ -1,0 +1,14 @@
+#group_chat .chat-friend-toggle .chat-frind-content {
+    width: 200px;
+}
+
+.messages .groupuser {
+    overflow: auto;
+    padding-bottom: 10px;
+    z-index: 101;
+    position: relative;
+}
+
+.messages .groupuser .gr-profile {
+    flex-shrink: 0;
+}

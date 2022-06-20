@@ -1,0 +1,128 @@
+/* .contact-chat>ul>li.replies .msg-box li:last-child {
+    flex-direction: column;
+    align-items: flex-end;
+} */
+
+.chatappend .photoRating,
+.content-rating-list .photoRating {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.content-rating-list .photoRating {
+    margin-left: 10px;
+}
+
+.chatappend .photoRating {
+    display: none;
+}
+
+.chatappend .sent .photoRating {
+    width: fit-content;
+}
+
+.photoRating div.checked,
+.photoRating div.checked~div {
+    color: #ffc700;
+}
+
+.modal-content:not(.sent) .photoRating div:hover,
+.modal-content:not(.sent) .photoRating div:hover~div,
+.sent .photoRating div:hover,
+.sent .photoRating div:hover~div {
+    color: #deb217;
+}
+
+.photoRating {
+    line-height: 25px;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.contact-profile .photoRating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.chitchat-right-sidebar .contact-profile .details {
+    padding-top: 10px;
+}
+
+.content-rating-list {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.content-rating-list li {
+    display: flex;
+    align-items: center;
+    margin: 3px 0 !important;
+}
+
+.content-rating-list li i {
+    position: static;
+}
+
+.spining {
+    width: 100%;
+    height: 100%;
+    background-color: #eff7fe;
+    position: absolute;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 100px auto;
+}
+
+.double-bounce1,
+.double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #1abc9c;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+    0%,
+    100% {
+        -webkit-transform: scale(0.0)
+    }
+    50% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes sk-bounce {
+    0%,
+    100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}

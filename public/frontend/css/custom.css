@@ -1,0 +1,750 @@
+body {
+    -webkit-text-size-adjust: 100%;
+}
+
+.config-submenu .nav-link.active {
+    border-color: transparent;
+    box-shadow: unset;
+    color: #7367f0;
+    background-color: transparent;
+}
+
+#contact-list .chat-main .bg-img {
+    border-radius: 20px;
+    width: 50px;
+    height: 50px;
+}
+
+#profileImageUploadBtn {
+    background-color: gray;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+}
+
+.contact-list-tab li .chat-box .date-status {
+    top: 0px;
+}
+
+.emojis-main .contact-poll .contact-poll-content {
+    left: 0px;
+    bottom: 80px;
+}
+
+.chitchat-main .message-input input {
+    flex: 1;
+    font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (1920 - 320)));
+    font-weight: 600;
+}
+
+#detailRequestModal .modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+#detailRequestModal .modal-footer .btn-sm {
+    padding: 5px 20px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-none {
+    display: none;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.self_profile_btn {
+    cursor: pointer;
+}
+
+#detailRequestModal .request-content {
+    width: 100%;
+}
+
+#detailRequestModal .request-description {
+    height: 150px;
+    font-size: 14px;
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    padding: 10px 20px;
+}
+
+#detailRequestModal .request-title,
+#detailRequestModal .request-price {
+    font-size: 20px;
+    color: darkgreen;
+}
+
+#detailRequestModal .sender-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid salmon;
+}
+
+.section-py-space {
+    display: none;
+    width: 100% !important;
+    text-align: center;
+}
+
+.section-py-space .custom-container {
+    margin-top: 45px;
+    border-left: 1px solid lightgray;
+}
+
+.sidebar-active .chitchat-container .chitchat-main.section-py-space {
+    width: 100%;
+}
+
+ul.request-list li {
+    background-color: #d5c5d6;
+    border: 1px solid #83bb83;
+    box-shadow: 0 0 3px rgb(0 0 0 / 80%);
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+ul.request-list li.sent {
+    background-color: #ddf0fc;
+}
+
+/* ul.request-list li .chat-box .date-status {
+    top: -4px;
+} */
+
+ul.request-list li .chat-box .date-status i {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+ul.request-list li .chat-box .date-status .status {
+    padding-top: 0;
+}
+
+ul.request-list li .date-status div {
+    font-size: 20px;
+    font-weight: bold;
+    color: darkred;
+}
+
+.app-sidebar .app-list {
+    height: 100vh;
+}
+
+.contact-chat>ul>li.replies.photo-request .msg-box li h5 {
+    border-radius: 15px 0 0 15px;
+    border-right: 5px solid darkorange;
+    background-color: darkseagreen;
+}
+
+.contact-chat>ul>li.sent.photo-request .msg-box li h5 {
+    border-radius: 0px 15px 15px 0px;
+    border-left: 5px solid darkorange;
+    background-color: darkseagreen;
+}
+
+ul.chatappend .msg-box .camera-icon {
+    width: 60px;
+    height: 50px;
+    background-image: url(/images/camera-icon.png);
+    text-align: center;
+    background-size: 100% 100%;
+    font-size: 23px;
+    line-height: 55px;
+    font-weight: bold;
+    color: darkred;
+}
+
+.input-file {
+    display: none;
+}
+
+#createPhoto .modal-dialog,
+#photo_item .modal-dialog {
+    max-width: 600px;
+}
+
+#createPhoto .modal-header {
+    justify-content: flex-start;
+}
+
+#createPhoto .modal-title {
+    margin-right: 25px;
+}
+
+#createPhoto .price-mode,
+#createPhoto .text-input {
+    position: absolute;
+    top: 53px;
+    left: 16px;
+    font-size: 16px;
+}
+
+#createPhoto .text-input {
+    left: 100px;
+}
+
+#createPhoto .modal-body {
+    overflow: auto;
+}
+
+.text-tool,
+.blur-tool {
+    display: none;
+}
+
+.text-tool>div {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    flex: 1;
+}
+
+.text-tool .text {
+    width: 150px;
+    height: 30px;
+}
+
+.text-tool .font_select {
+    width: 110px;
+    height: 30px;
+}
+
+.text-tool .font-style {
+    display: flex;
+}
+
+.text-tool .font-style span {
+    line-height: 30px;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 0 2px;
+}
+
+.text-tool .font-style span.active {
+    background-color: gray;
+}
+
+.text-tool .font-style span.italic {
+    width: 15px;
+    font-style: italic;
+    margin-left: 5px;
+}
+
+.text-tool .font-style span.bold {
+    font-weight: bold;
+}
+
+.text-tool .btn {
+    padding: 0 10px;
+}
+
+.photo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.canvas-container {
+    min-width: 400px !important;
+    min-height: 400px !important;
+    border-radius: 5px;
+}
+
+.emojis-tool {
+    flex: 1;
+    padding-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.emojis-tool .btn {
+    padding: 5px 10px;
+    border: 1px solid black;
+    /* display: block; */
+    width: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emojis-price {
+    width: 75px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 8px;
+    padding-left: 10px;
+}
+
+.emoji-picker {
+    z-index: 9999;
+}
+
+.emoji-picker__preview {
+    height: 3em !important;
+    margin-top: 1em;
+}
+
+.emoji-button {
+    /* height: 30px; */
+    margin: auto;
+    color: black;
+    background-color: white;
+}
+
+.emoji-button svg {
+    background-color: yellow;
+    border-radius: 50%;
+}
+
+.lock-tool .icon-btn,
+#create_emoji_button svg,
+#edit_emoji_button svg,
+.emojis-tool .btn img,
+.emojis-tool .icon-btn,
+.emoji-button {
+    width: 30px;
+    height: 30px;
+}
+
+#edit_emoji_button {
+    width: 65px;
+    height: 45px;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 80%);
+    border-radius: 5px;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lock-tool.lock .fa-lock,
+.lock-tool.unlock .fa-unlock-alt {
+    display: block;
+}
+
+.lock-tool.lock .fa-unlock-alt,
+.lock-tool.unlock .fa-lock {
+    display: none;
+}
+
+.tool-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.blur-tool>div {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.blur-tool img,
+.blur_btn img,
+#photo_item .blur-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.blur-tool input {
+    margin-left: 10px;
+}
+
+.save-send {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+
+#back_canvas,
+#photo_canvas,
+.upper-canvas {
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.receive_photo {
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+#photo_item .modal-content>div:nth-child(1) {
+    padding: 10px;
+}
+
+#photo_item .modal-content>div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    padding-left: 0;
+}
+
+#photo_item .rate-blur {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#photo_item .blur-tool img {
+    cursor: pointer;
+}
+
+#createPhoto .modal-content .photo-price,
+#photo_item .modal-content .photo-price {
+    text-align: center;
+    font-size: 20px;
+    color: firebrick;
+    font-weight: bold;
+}
+
+#photo_item .modal-content .btn-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
+#photo_item .modal-content .btn-group .btn {
+    flex: initial;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+#photo_item .modal-content .btn-group .btn img {
+    height: 45px;
+    box-shadow: 1px 1px 3px rgb(0 0 0 / 80%);
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+#photo_item .modal-content .btn-group .btn img:hover {
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+
+#photo_item .modal-content .selected-emojis {
+    position: absolute;
+    top: 3px;
+    left: 75%;
+}
+
+#photo_item .modal-content .selected-emojis img {
+    width: 20px;
+    height: 20px;
+    margin: 1px;
+}
+
+#photo_item .modal-content .selected-emojis span {
+    font-size: 15px;
+    margin: 1px;
+}
+
+#photo_item .blur-image {
+    text-align: center;
+}
+
+.colorPicker {
+    width: 30px;
+    height: 30px;
+    background-color: #4700B3;
+    border-radius: 5px;
+    /* outline: 1px solid rgba(0, 100, 0, 0.938); */
+    border: 1px solid rgba(0, 100, 0, 0.938) !important;
+}
+
+.backColorPicker {
+    background-color: #C4E6C1;
+}
+
+.colorpicker {
+    z-index: 2500;
+}
+
+.msg-box>li h5,
+.msg-box>li .h5,
+.msg-box>li .document,
+.msg-box>li .auto-gallery {
+    display: inline-block;
+    padding: 16px 25px;
+    background-color: #1c9dea;
+    color: #fff;
+    border-radius: 0 25px 25px 0;
+    font-weight: 600;
+}
+
+.chitchat-container .chitchat-left-sidebar .recent-default .recent .recent-slider .recent-box .recent-profile {
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+#collapseSeven>div>a {
+    display: block;
+}
+
+#checkoutModal .product-payment {
+    display: grid;
+    grid-template-columns: 150px auto;
+}
+
+#checkoutModal .product-item,
+#checkoutModal .total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#checkoutModal span {
+    font-size: 15px;
+}
+
+#checkoutModal .payment-options {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 5px 60px;
+    grid-gap: 10px;
+    margin-left: 10px;
+    align-content: start;
+}
+
+#checkoutModal .product-list img {
+    width: 30px;
+    height: 30px;
+    /* border-radius: 50%; */
+}
+
+.chitchat-container .main-nav .logo-warpper {
+    padding-bottom: 5px;
+}
+
+.balance {
+    margin-top: 5px;
+}
+
+.balance-amount {
+    font-size: 13px;
+    color: green;
+    cursor: pointer;
+}
+
+.history-list li .chat-box .date-status {
+    top: 10px;
+}
+
+.history-list li .date-status span {
+    font-size: 13px;
+}
+
+
+#paypal-animation-content>div.paypal-button-container.paypal-button-layout-horizontal.paypal-button-shape-pill.paypal-button-branding-branded.paypal-button-number-single.paypal-button-env-sandbox.paypal-should-focus {
+    min-width: fit-content;
+    max-width: fit-content;
+}
+
+.content {
+    position: static;
+}
+
+#checkoutModal>div>div>div.modal-body>div.product-payment>div.payment-options>button {
+    line-height: 25px;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+input.form-control::placeholder {
+    opacity: 0.5;
+}
+
+select#phone {
+    margin-bottom: 10px;
+}
+
+.change-number .text-end {
+    display: flex;
+    justify-content: space-between;
+}
+
+.change-number .text-end a.btn {
+    padding: 5px 10px;
+}
+
+.change-number .text-end .smsTestBtns a.btn.active {
+    border: 1px solid black !important;
+}
+
+h6.sent {
+    color: rgb(58 49 49);
+}
+
+h6.arrived {
+    color: rgb(24 90 189);
+}
+
+h6.read {
+    color: rgb(42 169 0);
+}
+
+.msg-setting-main .msg-dropdown-main .msg-open-btn {
+    display: none;
+    width: 40px;
+    height: 25px;
+    background-color: #e5edf5;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.sent .msg-setting-main .msg-dropdown-main .msg-open-btn {
+    margin-left: 10px;
+}
+
+.msg-setting-main:hover .receive_photo~.msg-dropdown-main .msg-open-btn {
+    display: flex;
+}
+
+.msg-chat-modal .chat-msg-search .input-group .form-control {
+    border: 1px solid;
+}
+
+#castUserListModal .edit_save_cast_list.edit .save_list,
+#castUserListModal .edit_save_cast_list.save .edit_list {
+    display: none;
+}
+
+#custom_modal .search_field .fa-search {
+    line-height: 1.5;
+    cursor: pointer;
+}
+#custom_modal .btn_group .btn {
+    float: right;
+    margin-top: 20px;
+}
+
+@media (max-width: 1366px) {
+    .sidebar-active .chitchat-container .chitchat-main.section-py-space {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .chitchat-main .messages .contact-details .left.media .media-body {
+        display: block;
+    }
+}
+
+@media (max-width: 1024px) {
+    .chitchat-main .messages .contact-details .media-body h5,
+    .chitchat-main .messages .contact-details .media-body .h5 {
+        display: block;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .modal-dialog-centered .modal-content {
+        overflow: auto;
+    }
+}
+
+@media (max-width: 650px) {
+    #createPhoto .modal-dialog,
+    #photo_item .modal-dialog {
+        max-width: 500px;
+    }
+    .modal-body {
+        padding: 8px;
+    }
+    .canvas-container {
+        min-width: 350px !important;
+        min-height: 350px !important;
+    }
+    .text-tool .text {
+        width: 120px;
+    }
+    .text-tool .font-style span.italic {
+        width: 10px;
+    }
+    .text-tool .btn {
+        padding: 0 10px;
+    }
+    .lock-tool .icon-btn,
+    #create_emoji_button svg,
+    #edit_emoji_button svg,
+    .emojis-tool .btn img,
+    .emoji-button,
+    .emojis-tool .icon-btn {
+        width: 20px;
+        height: 20px;
+    }
+    .emojis-tool {
+        gap: 5px;
+    }
+    .emojis-price {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+@media (max-width: 510px) {
+    #createPhoto .modal-dialog,
+    #photo_item .modal-dialog {
+        max-width: 500px;
+    }
+    #createPhoto .modal-body {
+        padding: 5px;
+    }
+    .canvas-container {
+        min-width: 300px !important;
+        min-height: 300px !important;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+    #createPhoto .price-mode,
+    #createPhoto .text-input {
+        top: 36px;
+    }
+    .text-tool .text {
+        width: 110px;
+    }
+    .text-tool .font_select {
+        width: 90px;
+    }
+}
+
+@media (max-width: 425px) {
+    .canvas-container {
+        min-width: 280px !important;
+        min-height: 280px !important;
+    }
+    .emojis-tool {
+        padding-left: 5px;
+    }
+    .emojis-tool .btn {
+        padding: 5px 7px;
+        width: 60px;
+    }
+}
