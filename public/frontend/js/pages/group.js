@@ -16,6 +16,7 @@ $(document).ready(function () {
             contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
     });
+
     $('#custom_modal').on('click', '.modal-content.create_new_group_modal .btn_group .btn', function () {
         let title = $('#custom_modal').find('.sub_title input').val();
         if (!title) {
@@ -53,6 +54,7 @@ $(document).ready(function () {
             contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
     });
+
     $('#custom_modal').on('click', '.modal-content.create_new_cast_modal .btn_group .btn', function () {
         let title = $('#custom_modal').find('.sub_title input').val();
         if (!title) {
@@ -166,6 +168,7 @@ $(document).ready(function () {
         }
         confirmModal('', content, removeGroupAction);
     });
+
     socket.on('remove:group', data => {
         if (data.state == true) {
             currentGroupId = $('#group .group-main>li.active').next().attr('groupId') || $('#group .group-main>li.active').prev().attr('groupId');
@@ -403,13 +406,14 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.contact-chat .groupuser');
                     groupUsersTarget.empty();
-                    let groupUsersAvatar = groupUsers.split(',').filter(id => id != currentUserId).map(id => {
-                        let avatar = getCertainUserInfoById(id).avatar;
-                        return avatar ? `v1/api/downloadFile?path=${avatar}` : '/images/default-avatar.png';
+                    let groupUsersAvatar = groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
+                        let userInfo = getCertainUserInfoById(id);
+                        let avatar =  userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
+                        let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
+                        console.log(item);
+                        // $(
                     });
-                    groupUsersAvatar.forEach(avatar => {
-                        groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`);
-                    })
+                    tippy('.gr-profile[data-tippy-content]', {placement: "top"});
                     convertListItems();
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);

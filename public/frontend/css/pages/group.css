@@ -11,5 +11,6 @@
 
 .messages .groupuser .gr-profile {
     flex-shrink: 0;
-    
+    cursor: pointer;
 }
+
