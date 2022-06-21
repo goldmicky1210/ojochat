@@ -246,6 +246,41 @@ $(document).ready(function () {
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
         $('#custom_modal').modal('hide');
     });
+
+    // showProfile in groupusers
+    let touchtime = 0;
+    $('.groupuser').on('click','.gr-profile', function() {
+        if (touchtime == 0) {
+            touchtime = new Date().getTime();
+        } else {
+            if (((new Date().getTime()) - touchtime) < 800) {
+                let userId = $(this).data('userId');
+                console.log(userId);
+                displayProfileContent(userId);
+
+                $('body').toggleClass('menu-active'); //add class
+                $('.app-sidebar').toggleClass('active'); //remove
+                $('.chitchat-main').toggleClass("small-sidebar"); //remove
+                if ($(window).width() <= 1440) {
+                    $('.chitchat-container').toggleClass('sidebar-overlap');
+                    $('.chitchat-main').addClass("small-sidebar"); //remove
+                }
+                if ($('body').hasClass('menu-active')) {
+                    $('body').addClass('sidebar-active main-page');
+                    $('.app-sidebar').removeClass('active');
+                    $('.chitchat-main').removeClass("small-sidebar");
+                }
+                touchtime = 0;
+            } else {
+                // not a double click so set as a new first click
+                touchtime = new Date().getTime();
+            }
+        }
+    });
+
+    // $('.groupuser').on('click', '.gr-profile', function () {
+
+    // });
 });
 
 function addUsersListItem(target, data, statusItem) {
@@ -403,17 +438,16 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     }
                     console.log(groupUsers);
-                    
+
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.contact-chat .groupuser');
                     groupUsersTarget.empty();
-                    let groupUsersAvatar = groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
+                    groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
                         let userInfo = getCertainUserInfoById(id);
-                        let avatar =  userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
-                        let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
+                        let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
+                        let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
                         console.log(item);
-                        // $(
                     });
-                    tippy('.gr-profile[data-tippy-content]', {placement: "top"});
+                    tippy('.gr-profile[data-tippy-content]', { placement: "right" });
                     convertListItems();
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);
@@ -477,7 +511,7 @@ function getUsersListByGroupId(groupId, resolve) {
                 console.log(res.data);
                 resolve(res.data);
             } else {
-               
+
             }
         },
         error: function (response) { }
