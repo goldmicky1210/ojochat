@@ -23,7 +23,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('send:groupMessage', data => {
         data.senderId = currentUserId;
         if (data.globalGroupId) {
-            db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${data.globalGroupId}", "${data.content}")`, (error, item) => {
+            db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${data.content}", ${data.replyId}, ${data.replyKind})`, (error, item) => {
                 data.id = item.insertId
                 data.kind = 0;
                 data.sender = currentUserId;

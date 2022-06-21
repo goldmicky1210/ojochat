@@ -342,11 +342,13 @@ function addNewGroupItem(target, data) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
-    if (data.reply_id) {
-        if (data.reply_kind == 0) {
-            var replyContent = $('.chatappend').find(`li.msg-item[key="${data.reply_id}"]`).find('.msg-setting-main .content').text();
-        } else if (data.reply_kind == 2) {
-            let imageSrc = $('.chatappend').find(`li.msg-item[key="${data.reply_id}"]`).find('.receive_photo').attr('src');
+    let replyId = data.reply_id || data.replyId;
+    let replyKind = data.reply_kind || data.replyKind;
+    if (replyId) {
+        if (replyKind == 0) {
+            var replyContent = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.msg-setting-main .content').text();
+        } else if (replyKind == 2) {
+            let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.receive_photo').attr('src');
             var replyContent = `<img src="${imageSrc}" width="50">`;
         }
     }
@@ -367,7 +369,7 @@ function addGroupChatItem(target, data, loadFlag) {
                     <ul class="msg-box">
                         <li class="msg-setting-main">
                             ${data.kind == 0 ?
-            `${data.reply_id ? '<div class="replyMessage">\
+            `${replyId ? '<div class="replyMessage">\
                 <span class="replyIcon"><i class="fa fa-reply"></i></span>\
                 <span class="replyContent">' + replyContent + '</span>\
                 <hr style="color: black">\
@@ -437,7 +439,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     if (groupInfo.avatar) {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     }
-                    console.log(groupUsers);
 
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.contact-chat .groupuser');
                     groupUsersTarget.empty();
@@ -445,7 +446,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         let userInfo = getCertainUserInfoById(id);
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
                         let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
-                        console.log(item);
                     });
                     tippy('.gr-profile[data-tippy-content]', { placement: "right" });
                     convertListItems();

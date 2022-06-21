@@ -464,7 +464,7 @@ function newMessage() {
         globalGroupId = currentCastId;
         var castFlag = true;
     }
-    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, castFlag });
+    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, castFlag });
     return;
 };
 
