@@ -159,29 +159,38 @@ const onConnection = (socket) => {
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
-                    db.query(`INSERT INTO photo_galleries(photo, back, blur, blur_price, content) SELECT photo, back, blur, blur_price, content FROM photo_galleries WHERE id = ${messageContent[0].content}`, (error, newPhoto) => {
-                        db.query(`SELECT content FROM photo_galleries WHERE id=${messageContent[0].content}`, (error, contents) => {
-                            let contentData = JSON.stringify(JSON.parse(contents[0].content).map(content => {
+                    db.query(`INSERT INTO photo_galleries(photo, back, blur, blur_price, content) SELECT photo, back, blur, blur_price, content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
+                        db.query(`SELECT content FROM photo_galleries WHERE id=${messageContent[0]['content']}`, (error, contents) => {
+                            let contentData = JSON.stringify(JSON.parse(contents[0]['content']).map(content => {
                                 content.price = content.originalPrice;
                                 content.blur = content.originalBlur;
                                 content.paid = 0;
                                 return content;
                             }));
-
-                            db.query(`INSERT INTO messages (sender, recipient, content, kind) VALUES ("${currentUserId}", "${data.recipient}", "${newPhoto.insertId}", 2)`, (error, item) => {
-                                db.query(`UPDATE photo_galleries SET photo_galleries.from="${currentUserId}", photo_galleries.to="${data.recipient}", content=${JSON.stringify(contentData)} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                            db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
+                                if (error) throw error;
+                                let groupId = groupData[0]['group_id'];
+                                console.log('Foward to:', groupId);
+                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
                                     if (error) throw error;
-                                    sendSMS(currentUserId, data.recipient, 'photo');
+                                    db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contentData)} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                        if (error) throw error;
+                                        Notification.sendSMS(currentUserId, data.recipient, 'photo');
+                                    });
                                 });
-                            });
+                            })
                         });
                     });
                 }
             })
         } else if (data.forwardKind == 0) {
-            db.query(`INSERT INTO messages(content, kind) SELECT content, kind FROM messages WHERE id = ${data.forwardId}`, (error, item) => {
-                db.query(`UPDATE messages SET sender = ${currentUserId}, recipient=${data.recipient} WHERE id=${item.insertId}`, (error, item) => {
-                    if (error) throw error;
+            db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
+                if (error) throw error;
+                let groupId = groupData[0]['group_id'];
+                db.query(`INSERT INTO messages(content, kind) SELECT content, kind FROM messages WHERE id = ${data.forwardId}`, (error, item) => {
+                    db.query(`UPDATE messages SET sender = ${currentUserId}, group_id=${groupId} WHERE id=${item.insertId}`, (error, item) => {
+                        if (error) throw error;
+                    });
                 });
             });
         }

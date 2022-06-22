@@ -188,93 +188,6 @@ function getLastMessage(groupId, resolve) {
     });
 }
 
-function setCurrentChatContent(groupId) {
-    $('.spining').css('display', 'flex');
-
-    var form_data = new FormData();
-    form_data.append('currentGroupId', groupId);
-    $.ajax({
-        url: '/home/getCurrentGroupChatContent',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            if (res.state == 'true') {
-                getUsersList();
-                let { messageData } = res;
-                let contactorInfo = getCertainUserInfoById(contactorId);
-                currentContactId = contactorId;
-                $('.section-py-space').css('display', 'none');
-                $('.app-list').css('display', 'block');
-                $('#content').css('display', 'block');
-                //profile info display
-                $('.chat-content .contactor-name').html(contactorInfo.firstName || contactorInfo.username);
-                if (contactorInfo.logout) {
-                    $('.chat-content .contact-details .profile').addClass('offline');
-                    $('.chat-content .contact-details .profile').removeClass('online');
-                    $('.chat-content .contactor-status').html('Inactive')
-                    $('.chat-content .contactor-status').addClass('badge-dark');
-                    $('.chat-content .contactor-status').removeClass('badge-success');
-                } else {
-                    $('.chat-content .contact-details .profile').addClass('online');
-                    $('.chat-content .contact-details .profile').removeClass('offline');
-                    $('.chat-content .contactor-status').html('Active')
-                    $('.chat-content .contactor-status').addClass('badge-success');
-                    $('.chat-content .contactor-status').removeClass('badge-dark');
-                }
-
-                if (contactorInfo.avatar) {
-                    $('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${contactorInfo.avatar}")`);
-                } else {
-                    $('.profile.menu-trigger').css('background-image', `url("/images/default-avatar.png")`);
-                }
-                //whole rate display
-                // displayProfileContent(rateData)
-                displayProfileContent(contactorId)
-
-                //Chat data display
-                $('#direct_chat .contact-chat ul.chatappend').empty();
-
-                new Promise(resolve => {
-                    if (messageData) {
-                        let target = '#direct_chat .contact-chat ul.chatappend';
-                        messageData.reverse().forEach(item => {
-                            if (item.state != 3 && currentUserId != item.sender) {
-                                let message = {
-                                    from: item.sender,
-                                    to: item.recipient,
-                                    content: item.content,
-                                    messageId: item.id,
-                                    state: item.state,
-                                }
-                                socket.emit('read:message', message);
-                            }
-                            item.messageId = item.id;
-                            addChatItem(target, item.sender, item);
-                        });
-                    }
-                    resolve();
-                }).then(() => {
-                    $(".messages").animate({
-                        scrollTop: $('#direct_chat .contact-chat').height()
-                    }, 'fast');
-                    setTimeout(() => {
-                        $('.spining').css('display', 'none');
-                    }, 1000);
-                });
-            }
-        },
-        error: function (response) { }
-    });
-
-
-}
 
 function getUsersList(resolve) {
     $.ajax({
@@ -732,7 +645,6 @@ function deleteMessages() {
             } else {
                 console.log('not photo');
             }
-            console.log(globalGroupId)
             globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupId');
             socket.emit('delete:message', {
                 globalGroupId,

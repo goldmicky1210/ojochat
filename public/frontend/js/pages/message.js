@@ -52,17 +52,17 @@ $(document).ready(function () {
 
     socket.on('arrive:message', message => {
         setTimeout(() => {
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent')
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).addClass('arrived')
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('read')
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent');
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('read');
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).addClass('arrived');
         }, 1000);
     });
 
     socket.on('read:message', message => {
         setTimeout(() => {
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent')
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('arrived')
-            $(`.chatappend .msg-item[key=${message.messageId}] h6`).addClass('read')
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent');
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('arrived');
+            $(`.chatappend .msg-item[key=${message.messageId}] h6`).addClass('read');
         }, 2000);
     });
 
@@ -241,67 +241,42 @@ $(document).ready(function () {
         // $('#content .chat-content>.replyMessage').attr('forwardId', forwardId);
         // $('#content .chat-content>.replyMessage').attr('forwardKind', forwardKind);
         // $('#content .chat-content>.replyMessage').show();
-        $('#forwardUsersListModal').modal('show');
-        $('#forwardUsersListModal').attr('forwardId', forwardId);
-        $('#forwardUsersListModal').attr('forwardKind', forwardKind);
+        // $('#forwardUsersListModal').modal('show');
+        // $('#forwardUsersListModal').attr('forwardId', forwardId);
+        // $('#forwardUsersListModal').attr('forwardKind', forwardKind);
+        
+        $('#custom_modal').modal('show');
+        $('#custom_modal').attr('forwardId', forwardId);
+        $('#custom_modal').attr('forwardKind', forwardKind);
+        $('#custom_modal .modal-content').addClass('forward_message_modal');
+        $('#custom_modal').find('.modal-title').text('Forward To:');
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.btn_group .btn').hide();
 
-    });
-
-    $('#forwardUsersListModal').on('shown.bs.modal', function (e) {
-        var form_data = new FormData();
-        $.ajax({
-            url: '/home/getContactList',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                let target = '#forwardUsersListModal .chat-main';
-                $(target).empty();
-
-                res.reverse().forEach(data => {
-                    $(target).prepend(
-                        `<li data-to="blank" key="${data.id}">
-                            <div class="chat-box">
-                            <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                                
-                            </div>
-                            <div class="details">
-                                <h5>${data.username}</h5>
-                                <h6>${data.description || 'Hello'}</h6>
-                            </div>
-                            <div class="date-status">
-                                <button class="btn btn-outline-primary button-effect btn-sm forward_btn" type="button">Send</button>
-                            </div>
-                            </div>
-                        </li>`
-                    );
-
-                });
-
-            },
-            error: function (response) {
-
-            }
+        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+            let target = '#custom_modal .chat-main';
+            $(target).empty();
+            let statusItem = '<button class="btn btn-outline-primary button-effect btn-sm forward_btn" type="button">Send</button>';
+            contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
+
     });
 
-    $('#forwardUsersListModal').on('hidden.bs.modal', function (e) {
-        $('#forwardUsersListModal').removeAttr('forwardId');
+    $('#custom_modal').on('hidden.bs.modal', function (e) {
+        $('#custom_modal').removeAttr('forwardId');
+        $('#custom_modal').removeAttr('forwardKind');
+        $('#custom_modal').find('.sub_title').show();
+        $('#custom_modal').find('.btn_group .btn').show();
+        $('#custom_modal .modal-content').removeClass('forward_message_modal');
     });
 
-    $('#forwardUsersListModal').on('click', '.chat-main .date-status .btn.forward_btn', function (e) {
+    $('#custom_modal').on('click', '.modal-content.forward_message_modal .chat-main .date-status .btn.forward_btn', function (e) {
         if ($(this).hasClass('btn-outline-primary')) {
             $(this).addClass('btn-success');
             $(this).removeClass('btn-outline-primary');
             $(this).text('Sent');
-            let forwardId = $('#forwardUsersListModal').attr('forwardId');
-            let forwardKind = $('#forwardUsersListModal').attr('forwardKind');
+            let forwardId = $('#custom_modal').attr('forwardId');
+            let forwardKind = $('#custom_modal').attr('forwardKind');
             let recipient = $(this).closest('li').attr('key');
             socket.emit('forward:message', { recipient, forwardId, forwardKind });
         }
