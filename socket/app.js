@@ -208,7 +208,6 @@ const onConnection = (socket) => {
     socket.on('read:message', data => {
         db.query(`UPDATE messages SET state = 3 WHERE id=${data.messageId}`, (error, item) => {
             if (error) throw error;
-            console.log(data);
             let senderSocketId = user_socketMap.get(data.from.toString());
             let recipientSocketId = user_socketMap.get(data.to.toString());
             if (senderSocketId) {
@@ -438,9 +437,6 @@ const onConnection = (socket) => {
             if (item[0].from == currentUserId) {
                 let content = JSON.parse(item[0].content);
                 let index = content.findIndex(emojiInfo => emojiInfo.id == data.emojiId);
-                console.log(content[index].price);
-                console.log(content[index].paid);
-                console.log(content[index].oldPrice);
                 if (content[index].price && !content[index].paid) {
                     content[index].oldPrice = content[index].price;
                     content[index].price = 0;

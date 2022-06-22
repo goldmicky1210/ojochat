@@ -342,8 +342,8 @@ function addNewGroupItem(target, data) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
-    let replyId = data.reply_id || data.replyId;
-    let replyKind = data.reply_kind || data.replyKind;
+    let replyId =  data.replyId || data.reply_id;
+    let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
         if (replyKind == 0) {
             var replyContent = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.msg-setting-main .content').text();
