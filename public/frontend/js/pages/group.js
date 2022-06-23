@@ -104,7 +104,8 @@ $(document).ready(function () {
             var target = '#cast_chat .contact-chat ul.chatappend';
         }
         else if (!$(`#group > ul.chat-main li[groupId=${Number(data.globalGroupId)}]`).length) {
-
+            console.log(data);
+            console.log('This is first contact');
         }
         addGroupChatItem(target, data);
         $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');

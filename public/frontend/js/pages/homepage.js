@@ -104,29 +104,22 @@ function getRecentChatUsers(type) {
             if (res.state == 'true') {
                 globalGroupId = res.data.slice(-1)[0] ? res.data.slice(-1)[0].id : 0;
                 globalGroupUsers = res.data.slice(-1)[0] ? res.data.slice(-1)[0].users.join(',') : '';
+                var itemTarget = `#myTabContent1 .tab-pane:nth-child(${type}) ul.chat-main`;
+                var messageTarget = `.messages:nth-of-type(${type + 1}) .chatappend`;
                 if (type == 1) {
-                    var itemTarget = '#direct .chat-main';
-                    var messageTarget = '#direct_chat .chatappend'
                     currentDirectId = globalGroupId;
                     currentDirectUsers = globalGroupUsers;
                     let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
                     displayRecentChatFriends(recentChatUsers);
-                    var pageSettingFlag = 1;
                 } else if (type == 2) {
-                    var itemTarget = '#group .chat-main';
-                    var messageTarget = '#group_chat .chatappend'
                     currentGroupId = globalGroupId;
                     currentGroupUsers = globalGroupUsers;
-                    var pageSettingFlag = 2;
                 } else if (type == 3) {
-                    var itemTarget = '#cast .chat-main';
-                    var messageTarget = '#cast_chat .chatappend'
                     currentCastId = globalGroupId;
                     currentCastUsers = globalGroupUsers;
-                    var pageSettingFlag = 3;
                 }
                 if (globalGroupId) {
-                    showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, pageSettingFlag);
+                    showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
                 } else {
                     $(messageTarget).empty();
                 }
@@ -142,6 +135,9 @@ function getRecentChatUsers(type) {
                 $(`${itemTarget}>li:first-child`).addClass('active');
 
             } else {
+                $(`#direct .chat-main`).empty();
+                $(`#cast_chat .chatappend .chat-main`).empty();
+                $(`#myTabContent1 .chatappend .chat-main`).empty();
                 $('.section-py-space').css('display', 'block');
                 $('#content').css('display', 'none');
                 $('.app-list').css('display', 'none');
