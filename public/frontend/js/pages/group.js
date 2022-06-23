@@ -385,7 +385,8 @@ function addGroupChatItem(target, data, loadFlag) {
                                     <ul>
                                         <li class="replyBtn"><a href="#"><i class="fa fa-reply"></i>reply</a></li>
                                         <li class="forwardBtn"><a href="#"><i class="fa fa-share"></i>forward</a></li>
-                                        ${data.kind == 2 ? '<li class="replyEditBtn"><a href="#"><i class="fa fa-edit"></i> edit</a></li>' : ''}
+                                        ${data.kind == 0 ? '<li class="copyBtn"><a href="#"><i class="fa fa-copy"></i>copy</a></li>' : ''}
+                                        ${data.kind == 2 ? '<li class="replyEditBtn"><a href="#"><i class="fa fa-edit"></i>edit</a></li>' : ''}
                                         <li class="rateBtn"><a href="#"><i class="fa fa-star-o"></i>rating</a></li>
                                         <li class="deleteMessageBtn"><a href="#"><i class="ti-trash"></i>delete</a></li>
                                     </ul>

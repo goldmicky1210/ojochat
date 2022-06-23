@@ -1,7 +1,7 @@
 var oldRecipients = '';
 var oldCastTitle = '';
 
-
+var copiedText = '';
 $(document).ready(function () {
     $('#direct-tab').on('click', function () {
         getRecentChatUsers(1);
@@ -67,8 +67,8 @@ $(document).ready(function () {
     });
 
     socket.on('receive:typing', data => {
-        if (data == currentContactId) {
-            typingMessage();
+        if ((data.sender != currentUserId) && (data.globalGroupId == globalGroupId)) {
+            typingMessage(data.sender);
         }
     });
 
@@ -82,10 +82,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#editCastListbtn').on('click', () => {
-        // showNewCastPage();
-    });
-
     socket.on('update:cast', (data) => {
         new Promise((resolve) => {
             getCastData(resolve);
@@ -94,7 +90,7 @@ $(document).ready(function () {
             $('#cast > ul.chat-main >li').filter(function () {
                 return $(this).find('.details>h5').text() === data.newCastTitle;
             }).addClass('active');
-        })
+        });
     });
 
     $('#cast').on('click', 'li .date-status .ti-trash', function (e) {
@@ -244,7 +240,7 @@ $(document).ready(function () {
         // $('#forwardUsersListModal').modal('show');
         // $('#forwardUsersListModal').attr('forwardId', forwardId);
         // $('#forwardUsersListModal').attr('forwardKind', forwardKind);
-        
+
         $('#custom_modal').modal('show');
         $('#custom_modal').attr('forwardId', forwardId);
         $('#custom_modal').attr('forwardKind', forwardKind);
@@ -253,7 +249,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
 
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<button class="btn btn-outline-primary button-effect btn-sm forward_btn" type="button">Send</button>';
@@ -281,34 +277,14 @@ $(document).ready(function () {
             socket.emit('forward:message', { recipient, forwardId, forwardKind });
         }
     });
+
+    // Copy Message
+    $('.messages').on('click', '.copyBtn', function (e) {
+        copiedText = $(this).closest('li.msg-setting-main').find('.content').text();
+        console.log(copiedText);
+    });
+
 });
-
-function showNewCastPage() {
-    // $('#direct').toggleClass('active');
-    // $('#direct').toggleClass('show');
-    // $('#group').toggleClass('active');
-    // $('#group').toggleClass('show');
-    $('.section-py-space').css('display', 'none');
-    $('#content').css('display', 'block');
-    $('.spining').css('display', 'none');
-
-
-    $('#chat .tab-content .tab-pane').removeClass('active show');
-    $('#chat .tab-content .tab-pane#cast').addClass('active show');
-    $('#content .chat-content .messages').removeClass('active');
-
-    $('#myTabContent .nav-item .nav-link').removeClass('active');
-    $('#myTabContent .nav-item .nav-link#cast-tab').addClass('active');
-    // $('#myTab .nav-item .nav-link#cast-tab').click();
-
-
-    $('.chat-cont-setting').removeClass('open');
-    $('.chitchat-container').toggleClass("mobile-menu");
-
-    if ($(window).width() <= 768) {
-        $('.main-nav').removeClass("on");
-    }
-}
 
 function getCastData(resolve) {
     $.ajax({

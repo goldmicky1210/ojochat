@@ -168,16 +168,20 @@ const onConnection = (socket) => {
                                 return content;
                             }));
                             db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
-                                if (error) throw error;
-                                let groupId = groupData[0]['group_id'];
-                                console.log('Foward to:', groupId);
-                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
+                                if (groupData.length) {
                                     if (error) throw error;
-                                    db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contentData)} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                    let groupId = groupData[0]['group_id'];
+                                    console.log('Foward to:', groupId);
+                                    db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
                                         if (error) throw error;
-                                        Notification.sendSMS(currentUserId, data.recipient, 'photo');
+                                        db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contentData)} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                            if (error) throw error;
+                                            Notification.sendSMS(currentUserId, data.recipient, 'photo');
+                                        });
                                     });
-                                });
+                                } else {
+                                    console.log('There is no connection with him')
+                                }
                             })
                         });
                     });
@@ -318,12 +322,14 @@ const onConnection = (socket) => {
     })
 
     socket.on('typing', data => {
-        let recipientSocketId = user_socketMap.get(data.currentContactId.toString());
-        if (recipientSocketId) {
-            if (io.sockets.sockets.get(recipientSocketId)) {
-                io.sockets.sockets.get(recipientSocketId).emit('receive:typing', data.currentUserId);
+        data.globalGroupUsers.split(',').forEach(userId => {
+            let recipientSocketId = user_socketMap.get(userId.toString());
+            if (recipientSocketId) {
+                if (io.sockets.sockets.get(recipientSocketId)) {
+                    io.sockets.sockets.get(recipientSocketId).emit('receive:typing', data);
+                }
             }
-        }
+        })
     });
 
     socket.on('delete:message', data => {

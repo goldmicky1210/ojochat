@@ -21,9 +21,9 @@ $(document).ready(() => {
         getUsersList(resolve);
     }).then(() => {
         $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
-        getRecentChatUsers(1);
-        getRecentChatUsers(2);
         getRecentChatUsers(3);
+        getRecentChatUsers(2);
+        getRecentChatUsers(1);
         searchAndAddRecentChatList();
         displayTypingAction();
         deleteMessages();
@@ -133,19 +133,13 @@ function getRecentChatUsers(type) {
                 $(itemTarget).empty();
                 res.data.forEach(item => {
                     if (item.lastMessage) {
-                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 1 ? 'You have been received PhotoRequest' : 'You have been received Blink';
+                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 1 ? 'You have received a PhotoRequest' : 'You have received a Blink';
                         item.lastMessage = content;
                     }
                     addNewGroupItem(itemTarget, item);
                 });
                 convertListItems();
                 $(`${itemTarget}>li:first-child`).addClass('active');
-                
-                // currentGroupUsers = $('#group .group-main>li.active').attr('groupUsers');
-                // let contentwidth = jQuery(window).width();
-                // if (contentwidth > 768) {
-                //     $('#group > ul.group-main>li.active').click();
-                // }
 
             } else {
                 $('.section-py-space').css('display', 'block');
@@ -155,7 +149,6 @@ function getRecentChatUsers(type) {
         },
         error: function (res) {
             alert('Get Recent User Failed');
-            // document.location.href = '/login';
         }
     });
 }
@@ -383,16 +376,13 @@ function newMessage() {
 
 function displayTypingAction() {
     $('.message-input input').on('keyup', function (e) {
-        if (currentContactId) {
-            socket.emit('typing', {
-                currentUserId,
-                currentContactId
-            });
-        }
+        globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupId');
+        globalGroupUsers = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupUsers');
+        socket.emit('typing', { sender: currentUserId, globalGroupId, globalGroupUsers });
     });
 }
 
-function typingMessage() {
+function typingMessage(senderId) {
     if (!typingTime) {
         typingTime = new Date();
     }
@@ -400,7 +390,7 @@ function typingMessage() {
     var delta = (new Date() - typingTime);
     // }
     if (!$('.typing-m').length) {
-        let contactorInfo = getCertainUserInfoById(currentContactId);
+        let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: url(${contactorInfo.avatar ? 'v1/api/downloadFile?path=' + contactorInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
         $(".messages").animate({
             scrollTop: $('#direct_chat .contact-chat').height()

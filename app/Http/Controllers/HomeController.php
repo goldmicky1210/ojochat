@@ -158,7 +158,7 @@ class HomeController extends Controller
     {
         $id=Auth::id();
         
-        $newContactInfo = User::where('email', $request->input('email'))->get();
+        $newContactInfo = User::where('id', $request->input('userId'))->get();
         $contactIds = Contact::where('user_id', Auth::id())->get();
         if (!count($newContactInfo)) 
             return array(

@@ -5,7 +5,7 @@ $(document).ready(() => {
             let userId = data.find(id => id != currentUserId);
             let contactorInfo = getCertainUserInfoById(userId);
             if (contactorInfo.email) {
-                addContact(contactorInfo.email);
+                addContact(userId);
             }
 
         })
@@ -23,9 +23,10 @@ $(document).ready(() => {
 
 });
 
-function addContact(email) {
+function addContact(userId) {
     var form_data = new FormData();
-    form_data.append('email', email || $('#exampleInputEmail1').val());
+    // form_data.append('email', email || $('#exampleInputEmail1').val());
+    form_data.append('userId', userId || $('#exampleInputEmail1').val());
     $.ajax({
         url: '/home/addContactItem',
         headers: {
@@ -50,7 +51,7 @@ function addContact(email) {
                 let target = '#contact-list .chat-main';
                 addNewUserItem(target, data);
                 if (email) {
-                    let username = getCertainUserInfoById(currentContactId).username;
+                    let username = getCertainUserInfoById(userId).username;
                     alert(`${username} has been added to contacts successfully`);
                 }
             }
