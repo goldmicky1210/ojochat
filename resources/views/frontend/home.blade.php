@@ -2864,7 +2864,11 @@
             </div>
         </aside>
     </div>
-
+    <ul class='custom-menu'>
+        <li data-action="paste">Paste</li>
+        <li data-action="second">Second thing</li>
+        <li data-action="third">Third thing</li>
+    </ul>
 
     <div class="modal fade add-popup add-contact-modal" id="exampleModalCenter" tabindex="-1" role="dialog"
         aria-hidden="true">
@@ -3690,7 +3694,6 @@
         </div>
     </div>
 
-
     <div class="modal fade add-popup msg-chat-modal" id="custom_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -3739,4 +3742,5 @@
     <script src="/frontend/js/pages/message.js"></script>
     <script src="/frontend/js/pages/contact.js"></script>
     <script src="/frontend/js/pages/group.js"></script>
+    <script src="/frontend/js/pages/contextmenu.js"></script>
 @endsection

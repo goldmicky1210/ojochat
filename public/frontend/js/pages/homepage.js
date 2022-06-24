@@ -25,7 +25,7 @@ $(document).ready(() => {
         getRecentChatUsers(2);
         getRecentChatUsers(1);
         searchAndAddRecentChatList();
-        displayTypingAction();
+        typingAction();
         deleteMessages();
         displayRate();
         getUsersListBySearch();
@@ -177,7 +177,6 @@ function getLastMessage(groupId, resolve) {
     });
 }
 
-
 function getUsersList(resolve) {
     $.ajax({
         url: '/home/getUsersList',
@@ -317,7 +316,6 @@ $('#newChatModal .chat-main').on('click', 'li', function () {
     // $(`#direct .chat-main li[userId="${userId}"]`).click();
 });
 
-
 function newMessage() {
     let replyId = $('#content .chat-content>.replyMessage').attr('replyId');
     let replyKind = $('#content .chat-content>.replyMessage').attr('replyKind');
@@ -336,11 +334,8 @@ function newMessage() {
     $('.message-input input').val(null);
     $('.chat-main .active .details h6').html('<span>You : </span>' + content);
 
-    // $(".messages").animate({ scrollTop: $(document).height() }, "fast");
     let senderName = getCertainUserInfoById(currentUserId).username;
 
-
-    console.log("sendername v8 :", getCertainUserInfoById(currentUserId).id);
     $.ajax({
         type: "POST",
         headers: {
@@ -370,7 +365,7 @@ function newMessage() {
     return;
 };
 
-function displayTypingAction() {
+function typingAction() {
     $('.message-input input').on('keyup', function (e) {
         globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupId');
         globalGroupUsers = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupUsers');
@@ -388,9 +383,8 @@ function typingMessage(senderId) {
     if (!$('.typing-m').length) {
         let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: url(${contactorInfo.avatar ? 'v1/api/downloadFile?path=' + contactorInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
-        $(".messages").animate({
-            scrollTop: $('#direct_chat .contact-chat').height()
-        }, "fast");
+        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+
     }
     if (delta < 1500) {
         typingTime = new Date();
@@ -398,9 +392,7 @@ function typingMessage(senderId) {
     }
     timerId = setTimeout(() => {
         $('.typing-m').remove();
-        $(".messages").animate({
-            scrollTop: $('#direct_chat .contact-chat').height()
-        }, "fast");
+        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
         typingTime = undefined;
     }, 1500);
 

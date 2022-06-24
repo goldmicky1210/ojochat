@@ -38,6 +38,7 @@
     <link rel="stylesheet" type="text/css" href="/frontend/css/star.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/message.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/group.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/pages/contextmenu.css">
 </head>
 
 <body class="sidebar-active">

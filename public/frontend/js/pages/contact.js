@@ -1,14 +1,12 @@
 $(document).ready(() => {
     $('#direct_chat .add_contact_user').on('click', () => {
         new Promise(resolve => getUsersListByGroupId(currentDirectId, resolve)).then(data => {
-            console.log(data);
             let userId = data.find(id => id != currentUserId);
             let contactorInfo = getCertainUserInfoById(userId);
             if (contactorInfo.email) {
                 addContact(userId);
             }
-
-        })
+        });
     });
 
     // show Cast List
@@ -20,7 +18,6 @@ $(document).ready(() => {
             data.forEach(item => addNewUserItem(target, item))
         });
     });
-
 });
 
 function addContact(userId) {
@@ -44,7 +41,6 @@ function addContact(userId) {
                 setTimeout(() => {
                     $('.addContactError').html('');
                 }, 1000);
-
             } else {
                 let data = res.data;
                 data.created_at = new Date();

@@ -631,10 +631,12 @@
     $('.chatappend').on('click', '.msg-setting', function (event) {
         event.stopPropagation();
         $(this).siblings('.msg-dropdown').toggle();
-        setTimeout(() => {
-            $(this).siblings('.msg-dropdown').hide();
-        }, 5000);
     });
+
+    $('.chatappend').on('click', '.msg-dropdown li', function (event) {
+        $(this).closest('.msg-dropdown').hide();
+    });
+    
     $(".favourite").on('click', function () {
         $(this).toggleClass("btn-outline-primary").toggleClass("btn-primary");
     });

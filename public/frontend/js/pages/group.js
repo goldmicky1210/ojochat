@@ -454,7 +454,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);
 
-
                 // show chat page display
                 $('.section-py-space').css('display', 'none');
                 $('.app-list').css('display', 'block');

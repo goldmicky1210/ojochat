@@ -1,7 +1,6 @@
 var oldRecipients = '';
 var oldCastTitle = '';
 
-var copiedText = '';
 $(document).ready(function () {
     $('#direct-tab').on('click', function () {
         getRecentChatUsers(1);
@@ -280,8 +279,8 @@ $(document).ready(function () {
 
     // Copy Message
     $('.messages').on('click', '.copyBtn', function (e) {
-        copiedText = $(this).closest('li.msg-setting-main').find('.content').text();
-        console.log(copiedText);
+        copiedContent = $(this).closest('li.msg-setting-main').find('.content').text();
+        console.log(copiedContent);
     });
 
 });
