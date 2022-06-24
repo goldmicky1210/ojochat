@@ -280,7 +280,13 @@ $(document).ready(function () {
     // Copy Message
     $('.messages').on('click', '.copyBtn', function (e) {
         copiedContent = $(this).closest('li.msg-setting-main').find('.content').text();
-        console.log(copiedContent);
+        // let element = $(this).closest('li.msg-setting-main').find('.content');
+        // console.log(copiedContent);
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(copiedContent).select();
+        document.execCommand("copy");
+        $temp.remove();
     });
 
 });
