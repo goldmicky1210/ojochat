@@ -155,7 +155,6 @@ const onConnection = (socket) => {
     });
 
     socket.on('forward:message', data => {
-        console.log(data);
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
@@ -264,11 +263,10 @@ const onConnection = (socket) => {
     });
 
     socket.on('send:state', data => {
-        console.log(data);
+        // console.log(data);
     });
 
     socket.on('edit:photo', data => {
-        console.log(data.content);
         db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)} WHERE id=${data.photoId}`, (error, item) => {
             // if (error) throw error;
             console.log(item);
@@ -391,17 +389,21 @@ const onConnection = (socket) => {
             data.selectedEmojis.forEach(id => {
                 let content = JSON.parse(item[0].content);
                 if (id == 'blur') {
-                    item[0].blur = 0;
-                    item[0].blur_price = 0;
+                    // item[0].blur = 0;
+                    // item[0].blur_price = 0;
+                    item[0].blur_payers_list = item[0].blur_payers_list ? item[0].blur_payers_list + ',' + currentUserId : currentUserId;
                 } else {
                     let index = content.findIndex(emojiInfo => emojiInfo.id == id);
-                    content[index].price = 0;
-                    content[index].blur = 0;
-                    content[index].paid = true;
+                    // content[index].price = 0;
+                    // content[index].blur = 0;
+                    // content[index].paid = true;
+                    content[index].payersList.push(+currentUserId);
                     item[0].content = JSON.stringify(content);
                 }
+                console.log('-----item[0].blur_payers_list-----');
+                console.log(item[0].blur_payers_list);
             });
-            db.query(`UPDATE photo_galleries SET blur=${item[0].blur}, blur_price=${item[0].blur_price}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
+            db.query(`UPDATE photo_galleries SET blur_payers_list=${JSON.stringify(item[0].blur_payers_list || '')}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
                 if (error) throw error;
                 db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
                     if (error) throw error;
@@ -425,6 +427,30 @@ const onConnection = (socket) => {
                     }
                 });
             });
+            // db.query(`UPDATE photo_galleries SET blur=${item[0].blur}, blur_price=${item[0].blur_price}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
+            //     if (error) throw error;
+            //     db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
+            //         if (error) throw error;
+            //         if (messageItem.length) {
+            //             let photoSender = messageItem[0]['sender'];
+
+            //             db.query(`UPDATE users SET balances=balances+${data.addBalance} WHERE id=${photoSender}`, (error, item) => {
+            //                 if (error) throw error;
+            //             });
+            //             db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
+            //                 if (error) throw error;
+            //             });
+            //             db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice})`, (error, historyItem) => {
+            //                 if (error) throw error;
+            //                 console.log('OK');
+            //             });
+            //             Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
+            //             callback({
+            //                 status: 'OK'
+            //             })
+            //         }
+            //     });
+            // });
         });
     });
 

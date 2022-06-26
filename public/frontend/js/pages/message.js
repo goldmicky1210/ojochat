@@ -76,8 +76,9 @@ $(document).ready(function () {
             let element = $('.chatappend').find(`[key=${data.id}]`).closest('li.msg-item');
             element.length ? element.remove() : '';
         } else {
-            let currentContactName = getCertainUserInfoById(currentContactId).username;
-            alert(`This photo has been paid by ${currentContactName}. You can not delete this. `);
+            // let currentContactName = getCertainUserInfoById(currentContactId).username;
+            // alert(`This photo has been paid by ${currentContactName}. You can not delete this. `);
+            alert(`This photo has been paid by other User. You can not delete this. `);
         }
     });
 

@@ -485,7 +485,8 @@ function changeProfileImageAjax() {
             avatarImage.attr('src', reader.result);
             avatarImage.parent().css('background-image', `url("${reader.result}")`);
         }
-        reader.readAsDataURL(files[0]);
+        if (files.length)
+            reader.readAsDataURL(files[0]);
     });
 }
 

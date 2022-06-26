@@ -127,7 +127,6 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     }
     axios.get(smsUrl).then(res => {
         console.log("Status: ", res.data.success);
-        console.log("Content: ", res.data);
     }).catch(error => {
         console.log(error);
     });
