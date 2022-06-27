@@ -78,7 +78,7 @@ $(document).ready(function () {
         } else {
             // let currentContactName = getCertainUserInfoById(currentContactId).username;
             // alert(`This photo has been paid by ${currentContactName}. You can not delete this. `);
-            alert(`This photo has been paid by other User. You can not delete this. `);
+            alert(`This Blink has been paid by other User. You can not delete this. `);
         }
     });
 
