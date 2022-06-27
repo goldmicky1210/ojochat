@@ -352,16 +352,18 @@ function newMessage() {
             console.log("Request Sent");
         },
     });
-
     if ($('#direct_chat').hasClass('active')) {
         globalGroupId = currentDirectId;
+        var groupType = 1;
     } else if ($('#group_chat').hasClass('active')) {
         globalGroupId = currentGroupId;
+        var groupType = 2;
     } else if ($('#cast_chat').hasClass('active')) {
         globalGroupId = currentCastId;
         var castFlag = true;
+        var groupType = 3;
     }
-    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, castFlag });
+    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, castFlag, groupType });
     return;
 };
 

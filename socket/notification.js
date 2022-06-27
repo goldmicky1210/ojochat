@@ -153,9 +153,9 @@ exports.sendSMS = (sender, recipient, type) => {
                             db.query(`SELECT * FROM users where id=${sender}`, (error, user) => {
                                 let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
                                 let message = '';
-                                let messageType = type == 'text' ? 'de texto' : type == 'photo' ? 'con foto' : 'solicitar';
+                                let messageType = type == 'text' ? 'de texto' : type == 'Blink' ? 'Blink' : 'solicitar';
                                 if (spainish) {
-                                    message = `Hola ${row[0].username}, tienes un nuevo mensaje ${messageType} de ${user[0].username}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
+                                    message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${user[0].username}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
                                 } else {
                                     message = `Hey ${row[0].username}, you have a new ${type} message from ${user[0].username || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                 }

@@ -112,7 +112,7 @@ $(document).ready(function () {
 
         // SMS notification
         if (currentUserId != data.sender) {
-            let type = data.kind == 2 ? 'photo' :
+            let type = data.kind == 2 ? 'Blink' :
                 data.kind == 1 ? 'request' :
                     data.kind == 0 ? 'text' : "new";
             //arrived message

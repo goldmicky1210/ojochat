@@ -159,31 +159,22 @@ const onConnection = (socket) => {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
                     db.query(`INSERT INTO photo_galleries(photo, back, blur, blur_price, content) SELECT photo, back, blur, blur_price, content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
-                        // db.query(`SELECT content FROM photo_galleries WHERE id=${messageContent[0]['content']}`, (error, contents) => {
-                            // console.log()
-                            // let contentData = JSON.stringify(JSON.parse(contents[0]['content']).map(content => {
-                            //     // content.price = content.originalPrice;
-                            //     // content.blur = content.originalBlur;
-                            //     content.paid = 0;
-                            //     return content;
-                            // }));
-                            db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
-                                if (groupData.length) {
+                        db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
+                            if (groupData.length) {
+                                if (error) throw error;
+                                let groupId = groupData[0]['group_id'];
+                                console.log('Foward to:', groupId);
+                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
                                     if (error) throw error;
-                                    let groupId = groupData[0]['group_id'];
-                                    console.log('Foward to:', groupId);
-                                    db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
-                                        if (error) throw error;
-                                        // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
-                                        //     if (error) throw error;
-                                        // });
-                                        Notification.sendSMS(currentUserId, data.recipient, 'photo');
-                                    });
-                                } else {
-                                    console.log('There is no connection with him')
-                                }
-                            })
-                        // });
+                                    // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                    //     if (error) throw error;
+                                    // });
+                                    Notification.sendSMS(currentUserId, data.recipient, 'Blink');
+                                });
+                            } else {
+                                console.log('There is no connection with him')
+                            }
+                        });
                     });
                 }
             })
@@ -390,14 +381,9 @@ const onConnection = (socket) => {
             data.selectedEmojis.forEach(id => {
                 let content = JSON.parse(item[0].content);
                 if (id == 'blur') {
-                    // item[0].blur = 0;
-                    // item[0].blur_price = 0;
                     item[0].blur_payers_list = item[0].blur_payers_list ? item[0].blur_payers_list + ',' + currentUserId : currentUserId;
                 } else {
                     let index = content.findIndex(emojiInfo => emojiInfo.id == id);
-                    // content[index].price = 0;
-                    // content[index].blur = 0;
-                    // content[index].paid = true;
                     content[index].payersList.push(+currentUserId);
                     item[0].content = JSON.stringify(content);
                 }
@@ -428,30 +414,6 @@ const onConnection = (socket) => {
                     }
                 });
             });
-            // db.query(`UPDATE photo_galleries SET blur=${item[0].blur}, blur_price=${item[0].blur_price}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
-            //     if (error) throw error;
-            //     db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
-            //         if (error) throw error;
-            //         if (messageItem.length) {
-            //             let photoSender = messageItem[0]['sender'];
-
-            //             db.query(`UPDATE users SET balances=balances+${data.addBalance} WHERE id=${photoSender}`, (error, item) => {
-            //                 if (error) throw error;
-            //             });
-            //             db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
-            //                 if (error) throw error;
-            //             });
-            //             db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice})`, (error, historyItem) => {
-            //                 if (error) throw error;
-            //                 console.log('OK');
-            //             });
-            //             Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
-            //             callback({
-            //                 status: 'OK'
-            //             })
-            //         }
-            //     });
-            // });
         });
     });
 
@@ -463,15 +425,6 @@ const onConnection = (socket) => {
 
     socket.on('send:notification', data => {
         Notification.sendSMS(data.sender, data.recipient, data.type);
-        // db.query(`SELECT user_id FROM users_groups WHERE group_id=${data.groupId}`, (error, users) => {
-        //     if (users.length) {
-        //         console.log(users);
-        //         users.filter(user => user['user_id'] != currentUserId).map(user => user['user_id']).forEach(userId => {
-        //             console.log(userId);
-        //             sendSMS(data.sender, userId, data.type);
-        //         })
-        //     }
-        // });
     });
 
     socket.on('stickyToFree', data => {

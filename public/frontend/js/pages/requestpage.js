@@ -412,10 +412,10 @@ function addEmojisOnPhoto() {
             fabric.Image.fromURL(reader.result, function (oImg) {
                 if ($('#createPhoto .preview-paid').hasClass('d-none')) {
                     oImg.price = $('.emojis-price').val();
-                    oImg.originalPrice = $('.emojis-price').val();
+                    // oImg.originalPrice = $('.emojis-price').val();
                 } else {
                     oImg.price = $('.preview-paid').val();
-                    oImg.originalPrice = $('.preview-paid').val();
+                    // oImg.originalPrice = $('.preview-paid').val();
                     // $('.sticky-switch').is(':checked') ? oImg.price = -1 : oImg.price = 0;
                 }
 
@@ -790,13 +790,11 @@ function addEventAction(panel, element) {
                 panel.remove(tempImage);
                 panel.remove(text);
                 photoPrice -= element.price;
-                console.log(getPhotoPrice(panel));
                 if ($('#createPhoto').hasClass('show')) {
                     $('#createPhoto .photo-price').text(`$${getPhotoPrice(panel)}`);
                 }
             }
             console.log(element.payersList);
-            console.log(element.payersList.includes(currentUserId));
             if (element.price == -1) tempImage = lockImage;
             else if (element.price == 0 || element.payersList.includes(currentUserId)) tempImage = unlockImage;
             else {
