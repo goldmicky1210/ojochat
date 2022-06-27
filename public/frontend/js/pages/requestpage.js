@@ -884,7 +884,9 @@ function showPhotoContent(id) {
                 selectedEmojis = [];
                 $('.selected-emojis').empty();
                 //add blur price 
-                $('#photo_item .blur-image').attr('price', res.data[0].blur_price);
+                let blurPrice = res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? 0 : res.data[0].blur_price;
+                $('#photo_item .blur-image').attr('price', blurPrice);
+                $('#photo_item .blur-image').attr('payers', res.data[0].blur_payers_list);
                 // add/remove blur to cart
                 let touchtime = 0;
                 $('#photo_item .blur-image').off().on('mouseup', () => {
@@ -905,8 +907,8 @@ function showPhotoContent(id) {
                                 }
 
                                 let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-                                let blur_price = res.data[0].blur_price;
-                                // let blur_price = res.data[0].blur_price < 0 ? 0 : res.data[0].blur_price;
+                                // let blur_price = !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
+                                let blur_price = blurPrice < 0 ? 0 : blurPrice;
                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                 price == 0 ? price = photoPrice : '';
                                 $('#photo_item .modal-content .photo-price').text('$' + price)
@@ -925,9 +927,10 @@ function showPhotoContent(id) {
                 //background
                 new Promise(resolve => {
                     if (res.data[0].back) {
+                        let blur = res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? 0 : res.data[0].blur;
                         fabric.Image.fromURL(res.data[0].back, function (oImg) {
                             let filter = new fabric.Image.filters.Blur({
-                                blur: res.data[0].blur
+                                blur: blur
                             });
                             oImg.filters = [];
                             oImg.filters.push(filter);
@@ -987,7 +990,9 @@ function showPhotoContent(id) {
                                                     $('.selected-emojis').append(img);
                                                 }
                                                 let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-                                                let blur_price = res.data[0].blur_price < 0 ? 0 : res.data[0].blur_price;
+                                                // let blur_price = res.data[0].blur_price > 0 && !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
+                                                let blur_price = blurPrice < 0 ? 0 : blurPrice;
+                                                
                                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                                 price == 0 ? price = photoPrice : '';
                                                 $('#photo_item .modal-content .photo-price').text('$' + price)
@@ -1049,7 +1054,8 @@ function showPhotoContent(id) {
                                                 $('.selected-emojis').append(img);
                                             }
                                             let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-                                            let blur_price = res.data[0].blur_price < 0 ? 0 : res.data[0].blur_price;
+                                            let blur_price = blurPrice < 0 ? 0 : blurPrice;
+
                                             if (selectedEmojis.includes('blur')) price += blur_price;
                                             price == 0 ? price = photoPrice : '';
                                             $('#photo_item .modal-content .photo-price').text('$' + price)
@@ -1074,7 +1080,7 @@ function showPhotoContent(id) {
                                 photoPrice += Number(object.price);
                             }
                         }
-                        let blur_price = res.data[0].blur_price < 0 ? 0 : res.data[0].blur_price;
+                        let blur_price = blurPrice < 0 ? 0 : blurPrice;
                         if (res.data[0].blur_price) photoPrice += blur_price;
                         $('#photo_item .modal-content .photo-price').text('$' + photoPrice);
                     });

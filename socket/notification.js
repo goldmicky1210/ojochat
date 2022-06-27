@@ -157,7 +157,7 @@ exports.sendSMS = (sender, recipient, type) => {
                                 if (spainish) {
                                     message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${user[0].username}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
                                 } else {
-                                    message = `Hey ${row[0].username}, you have a new ${type} message from ${user[0].username || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
+                                    message = `Hey ${row[0].username}, you have a new ${type} from ${user[0].username || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                 }
                                 if (row[0].sms_type == 1) {
                                     // var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${fullPhoneNumber}&message=${message}&devices=%5B%2237%22%2C%2238%22%5D&type=sms&useRandomDevice=1&prioritize=1`;

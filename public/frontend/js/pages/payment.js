@@ -106,6 +106,7 @@ function tempAction() {
 function payPhoto() {
     $('.payBtn').on('click', () => {
         let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+        // let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
         let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
         if (selectedEmojis.includes('blur')) price += blur_price;
         price == 0 ? price = photoPrice : '';
