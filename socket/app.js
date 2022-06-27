@@ -159,13 +159,14 @@ const onConnection = (socket) => {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
                     db.query(`INSERT INTO photo_galleries(photo, back, blur, blur_price, content) SELECT photo, back, blur, blur_price, content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
-                        db.query(`SELECT content FROM photo_galleries WHERE id=${messageContent[0]['content']}`, (error, contents) => {
-                            let contentData = JSON.stringify(JSON.parse(contents[0]['content']).map(content => {
-                                content.price = content.originalPrice;
-                                content.blur = content.originalBlur;
-                                content.paid = 0;
-                                return content;
-                            }));
+                        // db.query(`SELECT content FROM photo_galleries WHERE id=${messageContent[0]['content']}`, (error, contents) => {
+                            // console.log()
+                            // let contentData = JSON.stringify(JSON.parse(contents[0]['content']).map(content => {
+                            //     // content.price = content.originalPrice;
+                            //     // content.blur = content.originalBlur;
+                            //     content.paid = 0;
+                            //     return content;
+                            // }));
                             db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                                 if (groupData.length) {
                                     if (error) throw error;
@@ -173,16 +174,16 @@ const onConnection = (socket) => {
                                     console.log('Foward to:', groupId);
                                     db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
                                         if (error) throw error;
-                                        db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contentData)} WHERE id=${newPhoto.insertId}`, (error, photo) => {
-                                            if (error) throw error;
-                                            Notification.sendSMS(currentUserId, data.recipient, 'photo');
-                                        });
+                                        // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                        //     if (error) throw error;
+                                        // });
+                                        Notification.sendSMS(currentUserId, data.recipient, 'photo');
                                     });
                                 } else {
                                     console.log('There is no connection with him')
                                 }
                             })
-                        });
+                        // });
                     });
                 }
             })

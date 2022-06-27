@@ -453,6 +453,7 @@ function savePhoto() {
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
         data.to = currentContactId;
+        console.log(data);
         socket.emit('edit:photo', data);
     });
 }
