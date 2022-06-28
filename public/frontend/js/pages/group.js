@@ -343,6 +343,7 @@ function addNewGroupItem(target, data) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
+    console.log(data);
     let replyId =  data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {

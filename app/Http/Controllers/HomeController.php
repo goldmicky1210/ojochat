@@ -128,7 +128,12 @@ class HomeController extends Controller
             }
             $temp = PhotoGallery::where('id', $item['content'])->get();
             $item['photoId'] = $temp[0]['id'];
-            $item['content'] = $temp[0]['photo'];
+            $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
+            if ($payBlurState === false) {
+                $item['content'] = $temp[0]['original_thumb'];
+            } else {
+                $item['content'] = $temp[0]['photo'];
+            }
             return $item;
         });
         $groupInfo = Group::where('id', $groupId)->first();

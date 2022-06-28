@@ -469,6 +469,7 @@ function sendBlink() {
         data.sender = currentUserId;
         // data.to = currentContactId;
         data.photo = canvas.toDataURL('image/png');
+        data.original_thumb = canvas.toDataURL('image/png');
         data.back = ori_image || '';
         data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
         data.blurPrice = blurPrice;
@@ -872,7 +873,6 @@ function showPhotoContent(id) {
             $('.selected-emojis').css('left', canvasDimension + 40 + 'px');
             if (res.state == 'true') {
                 let emojis = JSON.parse(res.data[0].content);
-                console.log(emojis)
                 $('#photo_item').modal('show');
                 $('#photo_item .modal-content').attr('key', id);
                 $('#photo_item .modal-content').attr('photoId', res.data[0].id);
@@ -962,7 +962,6 @@ function showPhotoContent(id) {
                                         blur: item.blur || 0
                                     });
                                     oImg.blur = item.blur;
-                                    // oImg.originalBlur = item.originalBlur;
                                     oImg.filters = [];
                                     oImg.filters.push(filter);
                                     oImg.applyFilters();
@@ -1068,7 +1067,7 @@ function showPhotoContent(id) {
                                 });
                                 resolve(textBox);
                             }
-                        })
+                        });
                     })).then(objects => {
                         for (var object of objects) {
                             if (+object.price != 0 && !object.payersList.includes(currentUserId)) {
