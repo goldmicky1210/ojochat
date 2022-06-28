@@ -60,6 +60,7 @@ $(document).ready(function () {
     setContentRate();
     addTextOnPhoto();
     lockResizeEmojis();
+    getBlinkPrice();
 
     document.getElementById("input_btn")
         .addEventListener('click', function () {
@@ -326,6 +327,7 @@ function blurPhoto() {
                 // blurPrice = $('.sticky-switch').is(':checked') ? -1 : 0;
             }
             // blurPrice = blurPrice < 0 ? 0 : blurPrice;
+            $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
             let obj = Object.assign(globalImage);
 
             let filter = new fabric.Image.filters.Blur({
@@ -573,8 +575,10 @@ function getEmojisInfo(obj) {
 
 
 function getPhotoPrice(target) {
+    console.log(blurPrice)
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
-    return target._objects.filter(item => !item.payersList.includes(currentUserId)).map(item => item.price).reduce((total, item) => Number(item) + total, 0);
+    let blur_price  = isNaN(blurPrice) ? 0 : +blurPrice;
+    return target._objects.filter(item => !item.payersList.includes(currentUserId)).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
 }
 
 function getPhotoSrcById(id, target) {
@@ -719,7 +723,6 @@ function addTextOnPhoto() {
             target.centerObject(textBox);
             $(`#${modalId} .text-tool .text`).val('');
             $(`#${modalId} .text-tool`).slideToggle();
-            console.log(getPhotoPrice(target));
             if ($('#createPhoto').hasClass('show')) {
                 $('#createPhoto .photo-price').text(`$${getPhotoPrice(target)}`);
             }
@@ -1113,4 +1116,8 @@ function lockResizeEmojis() {
         }
         myCanvas.renderAll();
     });
+}
+
+function getBlinkPrice(panel) {
+
 }
