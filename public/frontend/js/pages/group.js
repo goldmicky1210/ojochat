@@ -449,7 +449,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
                         let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
                     });
-                    tippy('.gr-profile[data-tippy-content]', { placement: "right" });
+                    tippy('.gr-profile[data-tippy-content]', { placement: "top" });
                     convertListItems();
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);

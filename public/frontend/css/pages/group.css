@@ -3,10 +3,11 @@
 }
 
 .messages .groupuser {
+    width: 100%;
     overflow: auto;
     padding-bottom: 10px;
     z-index: 101;
-    position: relative;
+    position: absolute;
 }
 
 .messages .groupuser .gr-profile {
@@ -14,3 +15,6 @@
     cursor: pointer;
 }
 
+#group_chat .chatappend, #cast_chat .chatappend {
+    padding-top: 80px;
+}
