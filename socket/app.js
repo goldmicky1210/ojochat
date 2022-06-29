@@ -169,7 +169,7 @@ const onConnection = (socket) => {
                                     // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
                                     //     if (error) throw error;
                                     // });
-                                    Notification.sendSMS(currentUserId, data.recipient, 'Blink');
+                                    Notification.sendSMS(currentUserId, data.recipient, 'Blink', groupId);
                                 });
                             } else {
                                 console.log('There is no connection with him')
@@ -424,7 +424,7 @@ const onConnection = (socket) => {
     });
 
     socket.on('send:notification', data => {
-        Notification.sendSMS(data.sender, data.recipient, data.type);
+        Notification.sendSMS(data.sender, data.recipient, data.type, data.groupId);
     });
 
     socket.on('stickyToFree', data => {
