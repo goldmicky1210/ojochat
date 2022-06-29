@@ -5,9 +5,10 @@
 .messages .groupuser {
     width: 100%;
     overflow: auto;
-    padding-bottom: 10px;
+    padding: 10px 0;
     z-index: 101;
     position: absolute;
+    top: 135px;
 }
 
 .messages .groupuser .gr-profile {

@@ -169,7 +169,7 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
                                                 // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
                                                 message = `Hola ${row[0].username}, ${user[0].username} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
                                             } else {
-                                                message = `Hey ${row[0].username}, a new ${type} has been posted by ${user[0].username} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
+                                                message = `Hey ${row[0].username}, a new ${type=='text' ? 'text message' : type} has been posted by ${user[0].username} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                             }
                                         }
                                         if (row[0].sms_type == 1) {
