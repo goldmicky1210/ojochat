@@ -166,9 +166,9 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
                                             }
                                         } else if (groupInfo[0]['type'] == 2) {
                                             if (spainish) {
-                                                message = `Hola ${row[0].username}, se ha publicado un nuevo ${messageType} . en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
+                                                message = `Hola ${row[0].username}, se ha publicado un nuevo mensaje ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
                                             } else {
-                                                message = `Hey ${row[0].username}, new ${type} has been posted in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
+                                                message = `Hey ${row[0].username}, a new ${type} has been posted in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                             }
                                         }
                                         if (row[0].sms_type == 1) {
