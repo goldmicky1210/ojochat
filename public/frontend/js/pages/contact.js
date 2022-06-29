@@ -46,7 +46,7 @@ function addContact(userId) {
                 data.created_at = new Date();
                 let target = '#contact-list .chat-main';
                 addNewUserItem(target, data);
-                if (email) {
+                if (userId) {
                     let username = getCertainUserInfoById(userId).username;
                     alert(`${username} has been added to contacts successfully`);
                 }

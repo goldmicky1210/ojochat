@@ -477,6 +477,7 @@ function sendBlink() {
         data.blurPrice = blurPrice;
         data.blurPayersList = '';
         data.content = getEmojisInfo(canvas._objects);
+        // data.original_content = getEmojisInfo(canvas._objects);
         if ($('#direct_chat').hasClass('active')) {
             globalGroupId = currentDirectId;
         } else if ($('#group_chat').hasClass('active')) {
@@ -571,8 +572,6 @@ function getEmojisInfo(obj) {
             }
     }));
 }
-
-
 
 function getPhotoPrice(target) {
     console.log(blurPrice)

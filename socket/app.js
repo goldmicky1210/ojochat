@@ -158,7 +158,7 @@ const onConnection = (socket) => {
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
-                    db.query(`INSERT INTO photo_galleries(photo, back, blur, blur_price, content) SELECT photo, back, blur, blur_price, content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
+                    db.query(`INSERT INTO photo_galleries(photo, original_thumb, back, blur, blur_price, content, original_content) SELECT original_thumb, original_thumb, back, blur, blur_price, original_content, original_content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
                         db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                             if (groupData.length) {
                                 if (error) throw error;
