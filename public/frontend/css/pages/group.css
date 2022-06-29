@@ -3,12 +3,13 @@
 }
 
 .messages .groupuser {
-    width: 100%;
+    /* width: 100%; */
     overflow: auto;
     padding: 10px 0;
-    z-index: 101;
-    position: absolute;
-    top: 135px;
+    margin-top: 10px;
+    /* z-index: 101; */
+    /* position: absolute; */
+    /* top: 135px; */
 }
 
 .messages .groupuser .gr-profile {

@@ -965,20 +965,24 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="groupuser">
+                                <h4>Group Users</h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="contact-chat">
-                        <div class="groupuser">
+                        <!-- <div class="groupuser">
                             <h4>Group Users</h4>
-                            <!-- <div class="gr-profile dot-btn dot-success grow"><img class="bg-img" src="/chat/images/avtar/3.jpg" alt="Avatar"/></div> -->
-                        </div>
+                        </div> -->
                         <ul class="chatappend">
-                            <li class="groupuser">
+                            <!-- <li class="groupuser">
                                 <h4>Group Users</h4>
                                 <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
                                         src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
                                 <div class="gr-profile dot-btn dot-success"><img class="bg-img"
                                         src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
-                            </li>
+                            </li> -->
 
                         </ul>
                     </div>
@@ -1040,11 +1044,16 @@
                                 </ul>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="groupuser">
+                                <h4>Cast Users</h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="contact-chat">
-                        <div class="groupuser">
+                        <!-- <div class="groupuser">
                             <h4>Cast Users</h4>
-                            </div>
+                        </div> -->
                         <ul class="chatappend">
                         </ul>
                     </div>

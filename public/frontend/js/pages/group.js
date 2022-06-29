@@ -442,7 +442,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     }
 
-                    let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.contact-chat .groupuser');
+                    let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
                     groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
                         let userInfo = getCertainUserInfoById(id);
