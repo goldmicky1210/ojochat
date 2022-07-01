@@ -250,27 +250,14 @@ $(document).ready(function () {
 
     // showProfile in groupusers
     let touchtime = 0;
-    $('.groupuser').on('click','.gr-profile', function() {
+    $('.groupuser').on('click', '.gr-profile', function () {
         if (touchtime == 0) {
             touchtime = new Date().getTime();
         } else {
             if (((new Date().getTime()) - touchtime) < 800) {
                 let userId = $(this).data('userId');
-                console.log(userId);
                 displayProfileContent(userId);
-
-                $('body').toggleClass('menu-active'); //add class
-                $('.app-sidebar').toggleClass('active'); //remove
-                $('.chitchat-main').toggleClass("small-sidebar"); //remove
-                if ($(window).width() <= 1440) {
-                    $('.chitchat-container').toggleClass('sidebar-overlap');
-                    $('.chitchat-main').addClass("small-sidebar"); //remove
-                }
-                if ($('body').hasClass('menu-active')) {
-                    $('body').addClass('sidebar-active main-page');
-                    $('.app-sidebar').removeClass('active');
-                    $('.chitchat-main').removeClass("small-sidebar");
-                }
+                openAndCloseProfile();
                 touchtime = 0;
             } else {
                 // not a double click so set as a new first click
@@ -343,7 +330,7 @@ function addNewGroupItem(target, data) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
-    let replyId =  data.replyId || data.reply_id;
+    let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
         if (replyKind == 0) {
@@ -434,6 +421,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 let { messageData, groupInfo } = res;
                 // chat page setting
                 if (pageSettingFlag == 1) {
+                    let contactId = $('#direct .chat-main li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
+                    displayProfileContent(contactId);
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`)

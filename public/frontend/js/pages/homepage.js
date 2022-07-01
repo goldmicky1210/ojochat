@@ -67,10 +67,10 @@ $(document).ready(() => {
         }
     });
 
-    $('.menu-trigger').on('click', () => {
-        if (currentContactId)
-            displayProfileContent(currentContactId);
-    });
+    // $('.menu-trigger').on('click', () => {
+    //     if (currentContactId)
+    //         displayProfileContent(currentContactId);
+    // });
 
     $('.balance-amount').on('click', () => {
         displayPaymentHistory(currentUserId);
@@ -555,6 +555,21 @@ function displayProfileContent(userId) {
         },
         error: function (response) { }
     });
+}
+
+function openAndCloseProfile() {
+    $('body').toggleClass('menu-active'); //add class
+    $('.app-sidebar').toggleClass('active'); //remove
+    $('.chitchat-main').toggleClass("small-sidebar"); //remove
+    if ($(window).width() <= 1440) {
+        $('.chitchat-container').toggleClass('sidebar-overlap');
+        $('.chitchat-main').addClass("small-sidebar"); //remove
+    }
+    if ($('body').hasClass('menu-active')) {
+        $('body').addClass('sidebar-active main-page');
+        $('.app-sidebar').removeClass('active');
+        $('.chitchat-main').removeClass("small-sidebar");
+    }
 }
 
 function displayRecentChatFriends(recentChatUsers) {
