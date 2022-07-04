@@ -229,7 +229,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Invite');
-        $('#custom_modal').find('.btn_group').append(`<span class="invite_link">https://ojochat.com/groupinvite/?groupid=${groupId}</span>`);
+        // $('#custom_modal').find('.btn_group').append(`<span class="invite_link">https://ojochat.com/groupinvite/?groupid=${groupId}</span>`);
 
         new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
@@ -242,42 +242,44 @@ $(document).ready(function () {
 
     $('#custom_modal').on('click', '.modal-content.invite_group_modal .btn_group .btn', function () {
         let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key')).join(',');
-        socket.emit('invite:groupUsers', { currentGroupId, groupUsers }, (res) => {
+        let groupTitle = $('#group .chat-main>li.active .details>h5').text();
+        socket.emit('invite:groupUsers', { currentGroupId, groupUsers, groupTitle }, (res) => {
             if (res.status == 'OK') {
                 $('#group-tab').click();
             }
         });
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
-        $('#custom_modal').find('.btn_group span').remove();
+        // $('#custom_modal').find('.btn_group span').remove();
         $('#custom_modal').modal('hide');
     });
 
     $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
         e.preventDefault();
         let groupId = $(this).closest('a').text().split('=')[1];
-        console.log(groupId);
-        var form_data = new FormData();
-        form_data.append('groupId', groupId);
-        $.ajax({
-            url: '/group/inviteGroup',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                if (res.state == 'true') {
-                    console.log(res.data);
-                } else {
-    
-                }
-            },
-            error: function (response) { }
-        });
+        // socket.emit('')
+
+        // var form_data = new FormData();
+        // form_data.append('groupId', groupId);
+        // $.ajax({
+        //     url: '/group/inviteGroup',
+        //     headers: {
+        //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     data: form_data,
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     type: 'POST',
+        //     dataType: "json",
+        //     success: function (res) {
+        //         if (res.state == 'true') {
+        //             console.log(res.data);
+        //         } else {
+
+        //         }
+        //     },
+        //     error: function (response) { }
+        // });
     });
 
 
@@ -400,7 +402,7 @@ function addGroupChatItem(target, data, loadFlag) {
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
                 : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
-                    : data.kind == 3 ? '<h5 class="content"> Invite Link: <a class="invite_link">' + data.content + '</a></h5>' : ''}
+                    : data.kind == 3 ? '<h5 class="content invite_link" inviteGroupId="' + data.content + '"> Join Group: ' + data.inviteGroupTitle + '</h5>' : ''}
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>
@@ -453,8 +455,9 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
             if (res.state == 'true') {
                 $(target).empty();
                 getUsersList();
-                let { messageData, groupInfo } = res;
+                let { messageData, groupInfo, userStatus } = res;
                 // chat page setting
+                console.log(userStatus.status);
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     displayProfileContent(contactId);
@@ -485,20 +488,28 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
 
                 // chat history append
                 new Promise(resolve => {
-                    if (messageData.length) {
-                        messageData.reverse().forEach(item => {
-                            if (item.state != 3 && currentUserId != item.sender) {
-                                let message = {
-                                    from: item.sender,
-                                    to: currentUserId,
-                                    content: item.content,
-                                    messageId: item.id,
-                                    state: item.state,
+                    if (userStatus.status == 2) {
+                        if (messageData.length) {
+                            messageData.reverse().forEach(item => {
+                                if (item.state != 3 && currentUserId != item.sender) {
+                                    let message = {
+                                        from: item.sender,
+                                        to: currentUserId,
+                                        content: item.content,
+                                        messageId: item.id,
+                                        state: item.state,
+                                    }
+                                    socket.emit('read:message', message);
                                 }
-                                socket.emit('read:message', message);
-                            }
-                            addGroupChatItem(target, item);
-                        });
+                                addGroupChatItem(target, item);
+                            });
+                        }
+                    } else {
+                        let content = 'Join this Group?'
+                        let joinGroupAction = () => {
+                            console.log('join action');
+                        }
+                        confirmModal('', content, joinGroupAction);
                     }
                     resolve();
                 }).then(() => {

@@ -21,9 +21,16 @@
     padding-top: 80px;
 }
 
-#custom_modal .btn_group span.invite_link {
+#custom_modal .btn_group .invite_link {
     position: absolute;
     padding: 10px 30px;
     margin-top: 20px;
     font-size: 12px;
+}
+
+.messages .chatappend .msg-item.sent .invite_link {
+    color: white;
+}
+.messages .chatappend .msg-item .invite_link {
+    cursor: pointer;
 }

@@ -144,6 +144,14 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('invite:groupUsers', (data, callback) => {
         console.log(data);
         data.sender = currentUserId;
+        data.groupUsers.split(',').forEach(userId => {
+            db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 1)`, (error, item) => {
+                console.log(userId, ': pending group user');
+                // db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.content}", 3)`, (error, item) => {
+                //     console.log('You created new group');
+                // });
+            });
+        });
         // data.groupUsers.split(',').forEach(userId => {
         //     let recipientSocketId = user_socketMap.get(userId.toString());
         //     if (recipientSocketId) {
@@ -155,7 +163,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         //         // Notification.sendSMS(data.sender, item['user_id'], 'text', data.globalGroupId);
         //     }
         // });
-        data.content = `https://ojochat.com/groupinvite/?groupid=${data.currentGroupId}`;
+        // data.content = `Join Group:?groupid=${data.currentGroupId}`;
+        data.content = data.currentGroupId;
 
         data.groupUsers.split(',').forEach(recipientId => {
             db.query(`SELECT group_id

@@ -118,7 +118,7 @@ class HomeController extends Controller
         $groupId = $request->input('currentGroupId');
         $messageData = Message::where("group_id", $groupId)->orderBy('created_at', 'desc')->limit(15)->get();
         $messages = $messageData->map(function($item) {
-            if ($item['kind'] == 0 || $item['kind'] == 3) 
+            if ($item['kind'] == 0) 
                 return $item;
             if ($item['kind'] == 1) {
                 $temp = PhotoRequest::where('id', $item['content'])->get();
@@ -137,10 +137,16 @@ class HomeController extends Controller
                 }
                 return $item;
             }
+            if ($item['kind'] == 3) {
+                $temp = Group::where('id', $item['content'])->get();
+                $item['inviteGroupTitle'] = $temp[0]['title'];
+                return $item;
+            }
         });
         $groupInfo = Group::where('id', $groupId)->first();
+        $userStatus = UsersGroup::where('group_id', $groupId)->where('user_id', $id)->first('status');
         
-        return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo);
+        return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo, 'userStatus'=>$userStatus);
     }
     
     public function getRateData(Request $request) {
