@@ -255,9 +255,10 @@ $(document).ready(function () {
 
     $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
         e.preventDefault();
-        let groupId = $(this).closest('a').text().split('=')[1];
-        // socket.emit('')
+        let groupId = $(this).attr('inviteGroupId');
+        console.log(groupId);
 
+        $()
         // var form_data = new FormData();
         // form_data.append('groupId', groupId);
         // $.ajax({
