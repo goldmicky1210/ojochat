@@ -74,7 +74,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                             });
                         }
                     });
-            })
+            });
         }
     });
 
@@ -143,13 +143,50 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
     socket.on('invite:groupUsers', (data, callback) => {
         console.log(data);
-        // db.query(`UPDATE \`groups\` SET users="${data.groupUsers}" WHERE id=${data.currentGroupId}`, (error, item) => {
-        //     if (error) throw error;
-        //     console.log(item);
-        //     callback({
-        //         status: 'OK'
-        //     })
+        data.sender = currentUserId;
+        // data.groupUsers.split(',').forEach(userId => {
+        //     let recipientSocketId = user_socketMap.get(userId.toString());
+        //     if (recipientSocketId) {
+        //         if (io.sockets.sockets.get(recipientSocketId)) {
+        //             io.sockets.sockets.get(recipientSocketId).emit('invite:group', data);
+        //         }
+        //     } else {
+        //         console.log('Invite SMS sent');
+        //         // Notification.sendSMS(data.sender, item['user_id'], 'text', data.globalGroupId);
+        //     }
         // });
+        data.content = `https://ojochat.com/groupinvite/?groupid=${data.currentGroupId}`;
+
+        data.groupUsers.split(',').forEach(recipientId => {
+            db.query(`SELECT group_id
+                    FROM \`groups\` 
+                    INNER JOIN users_groups 
+                    ON groups.id = users_groups.group_id
+                    WHERE (user_id = ${recipientId} OR user_id = ${data.sender})
+                    AND TYPE=1
+                    GROUP BY group_id
+                    HAVING COUNT(group_id) = 2`,
+
+                (error, result) => {
+                    if (error) throw error;
+                    if (result.length) {
+                        db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}", 3)`, (error, item) => {
+
+                        });
+                    } else {
+                        db.query(`INSERT INTO \`groups\` (title, owner) VALUES ("${data.senderName}", ${data.sender})`, (error, group) => {
+                            if (error) throw error;
+                            let groupId = group.insertId;
+
+                            db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
+                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.content}", 3)`, (error, item) => {
+                                    console.log('You created new group');
+                                });
+                            });
+                        });
+                    }
+                });
+        });
     });
 
 }

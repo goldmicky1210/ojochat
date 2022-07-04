@@ -126,8 +126,15 @@ function getRecentChatUsers(type) {
                 $(itemTarget).empty();
                 res.data.forEach(item => {
                     if (item.lastMessage) {
+                        // console.log(item.lastMessage);s
+                        let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
+                        if (item.lastMessage.sender == currentUserId)
+                            sender = "You";
                         var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 1 ? 'You have received a PhotoRequest' : 'You have received a Blink';
-                        item.lastMessage = content;
+                        item.lastMessageSender = sender;
+                        item.lastMessageContent = content;
+                        item.lastMessageDate = new Date(item.lastMessage.created_at);
+                        // console.log(item.lastMessageDate);
                     }
                     addNewGroupItem(itemTarget, item);
                 });
@@ -428,7 +435,7 @@ function addChatItem(target, senderId, data, loadFlag) {
             <div class="media-body">
                 <div class="contact-name">
                     <h5>${senderInfo.username}</h5>
-                    <h6 class="${State[data.state]}">${displayTimeString(time)}</h6>
+                    <h6 class="${State[data.state]}">${getChatTimeString(time)}</h6>
                     <div class="photoRating">
                         <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                     </div>
@@ -713,7 +720,7 @@ function displayPaymentHistory(userId) {
     });
 }
 
-function displayTimeString(time) {
+function getChatTimeString(time) {
     let dateString = time.toDateString();
     let timeString = time.toLocaleTimeString();
     let nowDateString = new Date().toDateString();
@@ -725,6 +732,21 @@ function displayTimeString(time) {
             return 'Yesterday ' + timeString;
         default:
             return dateString + ' ' + timeString;
+    }
+}
+
+function getThreadTimeString(time) {
+    let dateString = time.toDateString();
+    let timeString = time.toLocaleTimeString();
+    let nowDateString = new Date().toDateString();
+    let timeDiffer = parseInt((new Date(nowDateString) - new Date(dateString)) / (1000 * 60 * 60 * 24), 10);
+    switch (timeDiffer) {
+        case 0:
+            return timeString;
+        case 1:
+            return 'Yesterday';
+        default:
+            return dateString;
     }
 }
 

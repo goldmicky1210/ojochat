@@ -222,13 +222,16 @@ $(document).ready(function () {
     //invite users in group 
     $('#group_chat .chat-frind-content').on('click', '.invite_users_btn', function () {
         let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupId = currentGroupId || $('#group .group-main li.active').attr('groupId');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('invite_group_modal');
         $('#custom_modal').find('.modal-title').text('Invite Users');
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Invite');
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        $('#custom_modal').find('.btn_group').append(`<span class="invite_link">https://ojochat.com/groupinvite/?groupid=${groupId}</span>`);
+
+        new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
@@ -245,8 +248,38 @@ $(document).ready(function () {
             }
         });
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
+        $('#custom_modal').find('.btn_group span').remove();
         $('#custom_modal').modal('hide');
     });
+
+    $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
+        e.preventDefault();
+        let groupId = $(this).closest('a').text().split('=')[1];
+        console.log(groupId);
+        var form_data = new FormData();
+        form_data.append('groupId', groupId);
+        $.ajax({
+            url: '/group/inviteGroup',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state == 'true') {
+                    console.log(res.data);
+                } else {
+    
+                }
+            },
+            error: function (response) { }
+        });
+    });
+
 
     // showProfile in groupusers
     let touchtime = 0;
@@ -316,9 +349,10 @@ function addNewGroupItem(target, data) {
                 </div>
                 <div class="details">
                     <h5>${title}</h5>
-                    <h6 >${data.lastMessage || description}</h6>
+                    <h6>${data.lastMessageSender ? data.lastMessageSender + ': ' : ''}${data.lastMessageContent || description || ''}</h6>
                 </div>
                 <div class="date-status">
+                    <h6 class="last_message_date">${data.lastMessageDate ? getThreadTimeString(data.lastMessageDate) : ''}</h6>
                     <ul class="grop-icon">
                         ${avatarContents}
                         ${countRecipients > 3 ? "<li>+" + (countRecipients - 3) + "</li>" : ""}
@@ -350,7 +384,7 @@ function addGroupChatItem(target, data, loadFlag) {
             <div class="media-body">
                 <div class="contact-name">
                     <h5>${senderInfo.username}</h5>
-                    <h6 class="${State[data.state || 0]}">${displayTimeString(time)}</h6>
+                    <h6 class="${State[data.state || 0]}">${getChatTimeString(time)}</h6>
                     <div class="photoRating">
                         <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                     </div>
@@ -365,7 +399,8 @@ function addGroupChatItem(target, data, loadFlag) {
             </div>' : '<h5 class="content">' + data.content + '</h5>'}`
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
-                : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">` : ''}
+                : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
+                    : data.kind == 3 ? '<h5 class="content"> Invite Link: <a class="invite_link">' + data.content + '</a></h5>' : ''}
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>

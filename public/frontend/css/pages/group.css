@@ -20,3 +20,10 @@
 #group_chat .chatappend, #cast_chat .chatappend {
     padding-top: 80px;
 }
+
+#custom_modal .btn_group span.invite_link {
+    position: absolute;
+    padding: 10px 30px;
+    margin-top: 20px;
+    font-size: 12px;
+}

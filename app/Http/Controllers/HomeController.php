@@ -118,7 +118,7 @@ class HomeController extends Controller
         $groupId = $request->input('currentGroupId');
         $messageData = Message::where("group_id", $groupId)->orderBy('created_at', 'desc')->limit(15)->get();
         $messages = $messageData->map(function($item) {
-            if ($item['kind'] == 0) 
+            if ($item['kind'] == 0 || $item['kind'] == 3) 
                 return $item;
             if ($item['kind'] == 1) {
                 $temp = PhotoRequest::where('id', $item['content'])->get();
@@ -126,15 +126,17 @@ class HomeController extends Controller
                 $item['content'] = $temp[0]['price'];
                 return $item;
             }
-            $temp = PhotoGallery::where('id', $item['content'])->get();
-            $item['photoId'] = $temp[0]['id'];
-            $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
-            if ($payBlurState === false) {
-                $item['content'] = $temp[0]['original_thumb'];
-            } else {
-                $item['content'] = $temp[0]['photo'];
+            if ($item['kind'] == 2) {
+                $temp = PhotoGallery::where('id', $item['content'])->get();
+                $item['photoId'] = $temp[0]['id'];
+                $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
+                if ($payBlurState === false) {
+                    $item['content'] = $temp[0]['original_thumb'];
+                } else {
+                    $item['content'] = $temp[0]['photo'];
+                }
+                return $item;
             }
-            return $item;
         });
         $groupInfo = Group::where('id', $groupId)->first();
         
