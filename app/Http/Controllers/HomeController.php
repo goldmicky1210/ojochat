@@ -75,6 +75,7 @@ class HomeController extends Controller
     
     public function getGroupUsers($groupId) {
         $groupUsers = UsersGroup::where('group_id', $groupId)->orderBy('created_at')->get('user_id');
+        // $groupUsers = UsersGroup::where('group_id', $groupId)->where('status', 2)->orderBy('created_at')->get('user_id');
         $result = $groupUsers->map(function($item) {
             return $item['user_id'];
         });

@@ -111,7 +111,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('leave:group', data => {
-        let currentUserId = socket.handshake.query.currentUserId;
         let { currentGroupId, currentGroupUsers } = data;
         currentGroupUsers = currentGroupUsers.split(',').filter(item => item != currentUserId).join(',');
 
@@ -122,7 +121,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('remove:group', data => {
-        let currentUserId = socket.handshake.query.currentUserId;
         db.query(`UPDATE users_groups SET remove_at=CURRENT_TIMESTAMP WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
             if (error) throw error;
         })
@@ -197,5 +195,16 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 });
         });
     });
+
+    socket.on('join:group', (data, callback) => {
+        console.log(data);
+        db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
+            if (error) throw error;
+            callback({
+                status: 'OK'
+            })
+        })
+        // socket.emit('join:group', { state: true });
+    })
 
 }

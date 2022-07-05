@@ -255,10 +255,27 @@ $(document).ready(function () {
 
     $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
         e.preventDefault();
-        let groupId = $(this).attr('inviteGroupId');
-        console.log(groupId);
-
-        $()
+        
+        // $('#direct-tab').removeClass('active');
+        // $('#group-tab').addClass('active');
+        // $(`#group .chat-main>li`).removeClass('active');
+        // $(`#group .chat-main>li[groupId=${groupId}]`).addClass('active');
+        currentGroupId = $(this).attr('inviteGroupId');
+        
+        $('.messages.custom-scroll').removeClass("active");
+        $('#group_chat').addClass("active");
+        $('#direct-tab').removeClass('active show');
+        $('#group-tab').addClass('active show');
+        $('#direct').removeClass('active show');
+        $('#group').addClass('active show');
+        $(`#group .chat-main>li`).removeClass('active');
+        $(`#group .chat-main>li[groupId=${currentGroupId}]`).addClass('active');
+        let target = '#group_chat .chatappend';
+        currentGroupUsers = $(`#group .chat-main>li[groupId=${currentGroupId}]`).attr('groupUsers');
+        globalGroupId = currentGroupId;
+        globalGroupUsers = currentGroupUsers;
+        showCurrentChatHistory(target, currentGroupId, currentGroupUsers, 2);
+        // showCurrentChatHistory()
         // var form_data = new FormData();
         // form_data.append('groupId', groupId);
         // $.ajax({
@@ -438,6 +455,7 @@ function addGroupChatItem(target, data, loadFlag) {
 }
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
+    
     $('.spining').css('display', 'flex');
     var form_data = new FormData();
     form_data.append('currentGroupId', groupId);
@@ -472,11 +490,16 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
 
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
-                    groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
+                    groupUsers.split(',').forEach(id => {
                         let userInfo = getCertainUserInfoById(id);
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
                         let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
                     });
+                    // groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
+                    //     let userInfo = getCertainUserInfoById(id);
+                    //     let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
+                    //     let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
+                    // });
                     tippy('.gr-profile[data-tippy-content]', { placement: "right" });
                     convertListItems();
                 }
@@ -506,11 +529,20 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                             });
                         }
                     } else {
-                        let content = 'Join this Group?'
-                        let joinGroupAction = () => {
-                            console.log('join action');
+                        if ($('#group_chat').hasClass('active')) {
+                            let content = 'Join this Group?'
+                            let joinGroupAction = () => {
+                                socket.emit('join:group', { currentGroupId, currentGroupUsers}, res => {
+                                    if (res.status == 'OK') {
+                                        console.log('You joined this group')
+                                    }
+                                });
+                            }
+                            let cancelGroupAction = () => {
+                                socket.emit('leave:group', { currentGroupId, currentGroupUsers });
+                            }
+                            confirmModal('', content, joinGroupAction, cancelGroupAction);
                         }
-                        confirmModal('', content, joinGroupAction);
                     }
                     resolve();
                 }).then(() => {
