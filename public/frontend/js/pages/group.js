@@ -255,13 +255,8 @@ $(document).ready(function () {
 
     $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
         e.preventDefault();
-        
-        // $('#direct-tab').removeClass('active');
-        // $('#group-tab').addClass('active');
-        // $(`#group .chat-main>li`).removeClass('active');
-        // $(`#group .chat-main>li[groupId=${groupId}]`).addClass('active');
-        currentGroupId = $(this).attr('inviteGroupId');
-        
+
+
         $('.messages.custom-scroll').removeClass("active");
         $('#group_chat').addClass("active");
         $('#direct-tab').removeClass('active show');
@@ -269,12 +264,23 @@ $(document).ready(function () {
         $('#direct').removeClass('active show');
         $('#group').addClass('active show');
         $(`#group .chat-main>li`).removeClass('active');
-        $(`#group .chat-main>li[groupId=${currentGroupId}]`).addClass('active');
+
         let target = '#group_chat .chatappend';
-        currentGroupUsers = $(`#group .chat-main>li[groupId=${currentGroupId}]`).attr('groupUsers');
-        globalGroupId = currentGroupId;
-        globalGroupUsers = currentGroupUsers;
-        showCurrentChatHistory(target, currentGroupId, currentGroupUsers, 2);
+        currentGroupId = $(this).attr('inviteGroupId');
+        if ($(`#group .chat-main>li[groupId=${currentGroupId}]`).length) {
+            $(`#group .chat-main>li[groupId=${currentGroupId}]`).addClass('active');
+            currentGroupUsers = $(`#group .chat-main>li[groupId=${currentGroupId}]`).attr('groupUsers');
+            globalGroupId = currentGroupId;
+            globalGroupUsers = currentGroupUsers;
+            showCurrentChatHistory(target, currentGroupId, currentGroupUsers, 2);
+        } else {
+            socket.emit('add:pendingGroupUser', { currentGroupId, currentUserId }, res => {
+                if (res.status == 'OK') {
+                    getRecentChatUsers(2);
+                }
+            });
+
+        }
         // showCurrentChatHistory()
         // var form_data = new FormData();
         // form_data.append('groupId', groupId);
@@ -455,7 +461,7 @@ function addGroupChatItem(target, data, loadFlag) {
 }
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
-    
+
     $('.spining').css('display', 'flex');
     var form_data = new FormData();
     form_data.append('currentGroupId', groupId);
@@ -532,7 +538,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         if ($('#group_chat').hasClass('active')) {
                             let content = 'Join this Group?'
                             let joinGroupAction = () => {
-                                socket.emit('join:group', { currentGroupId, currentGroupUsers}, res => {
+                                socket.emit('join:group', { currentGroupId, currentGroupUsers }, res => {
                                     if (res.status == 'OK') {
                                         console.log('You joined this group')
                                     }

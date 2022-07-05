@@ -139,6 +139,25 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
+    socket.on('add:pendingGroupUser', (data, callback) => {
+        // db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId} AND user_id=${data.currentUserId}`, (error, item) => {
+        //     db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1)`, (error, item) => {
+        //         callback({
+        //             status: 'OK'
+        //         });
+        //     });
+        // });
+        console.log(data);
+        db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1) ON DUPLICATE KEY UPDATE user_id=${data.currentUserId}, group_id=${data.currentGroupId}, status=1`, (error, item) => {
+            console.log('--------');
+            console.log(item);
+            console.log('--------');
+            callback({
+                status: 'OK'
+            });
+        });
+    });
+
     socket.on('invite:groupUsers', (data, callback) => {
         console.log(data);
         data.sender = currentUserId;
