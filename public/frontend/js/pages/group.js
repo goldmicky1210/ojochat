@@ -186,6 +186,41 @@ $(document).ready(function () {
         }
     });
 
+    // edit group profile
+    $('#group_chat .chat-frind-content').on('click', '.edit_group_profile_btn', function () {
+        let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+        $('#custom_modal').modal('show');
+        $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
+        $('#custom_modal').find('.modal-title').text('Edit Group Profile');
+        $('#custom_modal').find('.sub_title span').text('Group Title');
+        $('#custom_modal').find('.sub_title input').val(groupTitle);
+        $('#custom_modal').find('.btn_group .btn').text('Save');
+        $('#custom_modal').find('.search_field').hide();
+        $('#custom_modal').find('.chat-main').hide();
+        // new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        //     let target = '#custom_modal .chat-main';
+        //     $(target).empty();
+        //     let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
+        //     contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
+        //     currentGroupUsers.split(',').forEach(userId => {
+        //         $(`#custom_modal ul.chat-main li[key=${userId}] input`).prop('checked', true);
+        //         $(`#custom_modal ul.chat-main li[key=${userId}]`).addClass('active');
+        //     });
+        // });
+    });
+
+    $('#custom_modal').on('click', '.modal-content.edit_group_profile_modal .btn_group .btn', function () {
+        let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key'));
+        groupUsers.push(currentUserId);
+        // socket.emit('edit:groupUsers', { currentGroupId, groupUsers: groupUsers.join(',') }, (res) => {
+        //     if (res.status == 'OK') {
+        //         $('#group-tab').click();
+        //     }
+        // });
+        $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
+        $('#custom_modal').modal('hide');
+    });
+
     // add/remove user in group
     $('#group_chat .chat-frind-content').on('click', '.add_users_btn', function () {
         let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
@@ -255,8 +290,6 @@ $(document).ready(function () {
 
     $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
         e.preventDefault();
-
-
         $('.messages.custom-scroll').removeClass("active");
         $('#group_chat').addClass("active");
         $('#direct-tab').removeClass('active show');

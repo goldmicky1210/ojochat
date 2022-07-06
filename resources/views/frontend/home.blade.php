@@ -939,6 +939,10 @@
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
                                         <div class="chat-frind-content">
                                             <ul>
+                                                <li class="edit_group_profile_btn">
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="edit"></i></a>
+                                                    <h5>edit profile</h5>
+                                                </li>
                                                 <li class="add_users_btn">
                                                     <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>add users</h5>
@@ -3740,6 +3744,7 @@
             </div>
         </div>
     </div>
+
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script src="/frontend/js/constant.js"></script>
