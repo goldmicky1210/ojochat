@@ -1528,7 +1528,9 @@
                         <div>★</div>
                     </div>
                     <div class="details">
-                        <div class="contact-top"><img class="bg-img" src="/chat/images/avtar/2.jpg" alt="" />
+                        <div class="contact-top " id="group_profile_avatar">
+                            <input class="input-file" type="file" id="group_avatar_select">
+                            <img class="bg-img" src="/images/default-avatar.png" alt="" />
                         </div>
                         <div class="name">
                             <h3>John Doe</h3>

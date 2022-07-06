@@ -29,7 +29,17 @@ $(document).ready(() => {
         deleteMessages();
         displayRate();
         getUsersListBySearch();
+        changeGroupProfileImageAjax();
     });
+
+    document.getElementById("group_profile_avatar")
+        .addEventListener('click', function () {
+            let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
+            if (adminList.includes(currentUserId.toString())) {
+                document.getElementById("group_avatar_select").click();
+            }
+
+        }, false);
 
     $('#logoutBtn').on('click', () => {
         socket.emit('logout', {
@@ -60,7 +70,7 @@ $(document).ready(() => {
     });
 
     $('.self_profile_btn').on('click', () => {
-        displayProfileContent(currentUserId);
+        setUserProfileContent(currentUserId);
         $('.chitchat-container').toggleClass("mobile-menu");
         if ($(window).width() <= 768) {
             $('.main-nav').removeClass("on");
@@ -69,7 +79,7 @@ $(document).ready(() => {
 
     // $('.menu-trigger').on('click', () => {
     //     if (currentContactId)
-    //         displayProfileContent(currentContactId);
+    //         setUserProfileContent(currentContactId);
     // });
 
     $('.balance-amount').on('click', () => {
@@ -294,7 +304,7 @@ $('#newChatModal').on('shown.bs.modal', function () {
     new Promise(resolve => {
         getUsersList(resolve)
     }).then(usersList => {
-        usersList.reverse().filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(data => {
+        usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(data => {
             $(target).prepend(`<li data-to="blank" key="${data.id}">
                 <div class="chat-box">
                     <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
@@ -499,7 +509,23 @@ function changeProfileImageAjax() {
     });
 }
 
-function displayProfileContent(userId) {
+function changeGroupProfileImageAjax() {
+    let profileImageBtn = $('#group_avatar_select')
+    let avatarImage = $('.contact-profile .contact-top');
+
+    profileImageBtn.on('change', (e) => {
+        let reader = new FileReader();
+        files = e.target.files;
+        reader.onload = () => {
+            avatarImage.find('img').attr('src', reader.result);
+            avatarImage.css('background-image', `url("${reader.result}")`);
+        }
+        if (files.length)
+            reader.readAsDataURL(files[0]);
+    });
+}
+
+function setUserProfileContent(userId) {
     let userInfo = getCertainUserInfoById(userId)
     if (userInfo.avatar) {
         $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
@@ -558,6 +584,41 @@ function displayProfileContent(userId) {
                 document.querySelector('.content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
                 document.querySelector('.content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
                 document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
+            }
+        },
+        error: function (response) { }
+    });
+}
+
+
+function setGroupProfileContent(groupId) {
+    let form_data = new FormData();
+    form_data.append('groupId', groupId);
+    $.ajax({
+        url: '/group/getGroupInfo',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                console.log(res.data);
+                let { data } = res;
+                // let userInfo = getCertainUserInfoById(userId)
+                if (data.avatar) {
+                    $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
+                } else {
+                    $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
+                }
+                $('.contact-profile .name h3').html(data.title || 'Group Title');
+                $('.contact-profile .name h5').html(data.description || '');
+                $('.contact-profile .name').attr('groupAdmins', data.admins || '');
+                // $('.contact-profile .name h6').html(userInfo.description);
             }
         },
         error: function (response) { }

@@ -315,7 +315,7 @@ $(document).ready(function () {
         } else {
             if (((new Date().getTime()) - touchtime) < 800) {
                 let userId = $(this).data('userId');
-                displayProfileContent(userId);
+                setUserProfileContent(userId);
                 openAndCloseProfile();
                 touchtime = 0;
             } else {
@@ -482,18 +482,17 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 getUsersList();
                 let { messageData, groupInfo, userStatus } = res;
                 // chat page setting
-                console.log(userStatus.status);
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
-                    displayProfileContent(contactId);
+                    setUserProfileContent(contactId);
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`)
                 } else {
+                    setGroupProfileContent(groupId);
                     if (groupInfo.avatar) {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     }
-
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
                     groupUsers.split(',').forEach(id => {
@@ -540,7 +539,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                             let joinGroupAction = () => {
                                 socket.emit('join:group', { currentGroupId, currentGroupUsers }, res => {
                                     if (res.status == 'OK') {
-                                        console.log('You joined this group')
+                                        console.log('You joined this group');
+                                        alert('You joined this group Successfully');
                                     }
                                 });
                             }

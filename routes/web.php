@@ -54,6 +54,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/message/deleteChatThread', 'MessageController@deleteChatThread');
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
     Route::post('/group/inviteGroup', 'GroupController@inviteGroup');
+    Route::post('/group/getGroupInfo', 'GroupController@getGroupInfo');
 });
 
 Route::group(['middleware' => ['admin']], function () {

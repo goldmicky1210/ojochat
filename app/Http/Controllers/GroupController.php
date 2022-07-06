@@ -31,4 +31,14 @@ class GroupController extends Controller
         $lastMessage = Message::where('group_id', $groupId)->orderBy('created_at', 'desc')->first();
         return array('state' => 'true', 'data' => $lastMessage);
     }
+
+    public function getGroupInfo(Request $request) {
+        $groupId = $request->input('groupId');
+        $result = Group::where('id', $groupId)->first();
+        if ($result) {
+            return array('state' => 'true', 'data' => $result);
+        } else {
+            return array('state' => 'false');
+        }
+    }
 }
