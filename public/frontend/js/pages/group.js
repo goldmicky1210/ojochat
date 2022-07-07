@@ -588,6 +588,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         console.log(groupInfo.avatar);
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
                         // $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
+                    } else {
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', '/chat/images/avtar/teq.jpg');
                     }
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();

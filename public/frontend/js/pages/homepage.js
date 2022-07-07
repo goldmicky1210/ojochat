@@ -605,7 +605,7 @@ function setGroupProfileContent(groupId) {
                     // $('.contact-top').css('background-image', `url("${data.avatar}")`);
                     $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${data.avatar}")`);
                 } else {
-                    $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
+                    $('.contact-top').css('background-image', `url("/chat/images/avtar/teq.jpg")`);
                 }
                 $('.contact-profile .name h3').html(data.title || 'Group Title');
                 $('.contact-profile .name h5').html(data.description || '');
