@@ -29,17 +29,9 @@ $(document).ready(() => {
         deleteMessages();
         displayRate();
         getUsersListBySearch();
-        changeGroupProfileImageAjax();
     });
 
-    document.getElementById("group_profile_avatar")
-        .addEventListener('click', function () {
-            let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
-            if (adminList.includes(currentUserId.toString())) {
-                document.getElementById("group_avatar_select").click();
-            }
-
-        }, false);
+    
 
     $('#logoutBtn').on('click', () => {
         socket.emit('logout', {
@@ -511,14 +503,14 @@ function changeProfileImageAjax() {
 
 function changeGroupProfileImageAjax() {
     let profileImageBtn = $('#group_avatar_select')
-    let avatarImage = $('.contact-profile .contact-top');
+    let avatarImage = $('#group_profile_avatar .bg-img');
 
     profileImageBtn.on('change', (e) => {
         let reader = new FileReader();
         files = e.target.files;
         reader.onload = () => {
-            avatarImage.find('img').attr('src', reader.result);
-            avatarImage.css('background-image', `url("${reader.result}")`);
+            avatarImage.attr('src', reader.result);
+            avatarImage.parent().css('background-image', `url("${reader.result}")`);
         }
         if (files.length)
             reader.readAsDataURL(files[0]);
@@ -607,11 +599,11 @@ function setGroupProfileContent(groupId) {
         dataType: "json",
         success: function (res) {
             if (res.state == 'true') {
-                console.log(res.data);
                 let { data } = res;
                 // let userInfo = getCertainUserInfoById(userId)
                 if (data.avatar) {
-                    $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
+                    // $('.contact-top').css('background-image', `url("${data.avatar}")`);
+                    $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${data.avatar}")`);
                 } else {
                     $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
                 }

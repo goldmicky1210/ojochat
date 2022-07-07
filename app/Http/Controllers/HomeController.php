@@ -271,6 +271,15 @@ class HomeController extends Controller
         );
     }
     
+    public function getUploadFileURL(Request $request)
+    {
+        $path = null;
+        if ($request->file('avatar') != null) {
+            $path = $request->file('avatar')->store('upload/avatar');
+        }
+        return array('state' => 'true', 'data' => $path);
+    }
+
     public function getPhotoRequest(Request $request)
     {
         $id = Auth::id();

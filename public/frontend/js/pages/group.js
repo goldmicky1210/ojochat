@@ -189,6 +189,7 @@ $(document).ready(function () {
     // edit group profile
     $('#group_chat .chat-frind-content').on('click', '.edit_group_profile_btn', function () {
         let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupAatarSrc = $('#group_chat .contact-details .media .bg-img').attr('src');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
         $('#custom_modal').find('.modal-title').text('Edit Group Profile');
@@ -197,6 +198,24 @@ $(document).ready(function () {
         $('#custom_modal').find('.btn_group .btn').text('Save');
         $('#custom_modal').find('.search_field').hide();
         $('#custom_modal').find('.chat-main').hide();
+        $('#custom_modal').find('.modal-body .group_avatar').remove();
+        $('#custom_modal').find('.modal-body').append(`
+            <div class="group_avatar profile" id="group_profile_avatar">
+                <img class="bg-img" src=${groupAatarSrc}>
+                <input class="input-file" type="file" id="group_avatar_select">
+            </div>
+        `);
+        convertListItems();
+        changeGroupProfileImageAjax();
+
+        document.getElementById("group_profile_avatar")
+            .addEventListener('click', function () {
+                let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
+                if (adminList.includes(currentUserId.toString())) {
+                    document.getElementById("group_avatar_select").click();
+                }
+
+            }, false);
         // new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
         //     let target = '#custom_modal .chat-main';
         //     $(target).empty();
@@ -210,15 +229,56 @@ $(document).ready(function () {
     });
 
     $('#custom_modal').on('click', '.modal-content.edit_group_profile_modal .btn_group .btn', function () {
-        let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key'));
-        groupUsers.push(currentUserId);
-        // socket.emit('edit:groupUsers', { currentGroupId, groupUsers: groupUsers.join(',') }, (res) => {
+        let groupTitle = $('#custom_modal').find('.sub_title input').val();
+        let groupId = currentGroupId;
+        console.log(groupTitle);
+        let groupAvatar = $('#group_avatar_select')[0].files[0];
+        // socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar }, (res) => {
         //     if (res.status == 'OK') {
-        //         $('#group-tab').click();
+        //         console.log('Group Title and Avatar changed');
         //     }
         // });
+        // $('#custom_modal').find('.search_field').show();
+        // $('#custom_modal').find('.chat-main').show();
+        // $('#custom_modal').find('.modal-body .group_avatar').remove();
+
+        var form_data = new FormData();
+
+        form_data.append('groupId', groupId);
+        form_data.append('groupTitle', groupTitle);
+        form_data.append('avatar', groupAvatar || null);
+        $.ajax({
+            url: '/home/getUploadFileURL',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state == 'true') {
+                    socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar: res.data }, (res) => {
+                        if (res.status == 'OK') {
+                            console.log('Group Title and Avatar changed');
+                        }
+                    });
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
         $('#custom_modal').modal('hide');
+    });
+    $('#custom_modal').on('hidden.bs.modal', function () {
+        $('#custom_modal').find('.search_field').show();
+        $('#custom_modal').find('.chat-main').show();
+        $('#custom_modal').find('.modal-body .group_avatar').remove();
     });
 
     // add/remove user in group
@@ -520,11 +580,14 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     setUserProfileContent(contactId);
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
-                    $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`)
+                    $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
                 } else {
                     setGroupProfileContent(groupId);
+                    console.log(groupInfo);
                     if (groupInfo.avatar) {
-                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
+                        console.log(groupInfo.avatar);
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
+                        // $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     }
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();

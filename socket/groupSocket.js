@@ -139,6 +139,24 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
+    socket.on('edit:groupProfile', (data, callback) => {
+        db.query(`UPDATE \`groups\` SET title="${data.groupTitle}", avatar="${data.groupAvatar}" WHERE id=${data.groupId}`, (error, item) => {
+            if (error) throw error;
+            callback({
+                status: 'OK'
+            })
+        })
+        // db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId}`, (error, item) => {
+        //     data.groupUsers.split(',').forEach(userId => {
+        //         db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 2)`, (error, item) => {
+        //             callback({
+        //                 status: 'OK'
+        //             })
+        //         });
+        //     });
+        // });
+    });
+
     socket.on('add:pendingGroupUser', (data, callback) => {
         // db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId} AND user_id=${data.currentUserId}`, (error, item) => {
         //     db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1)`, (error, item) => {
@@ -222,7 +240,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             callback({
                 status: 'OK'
             })
-        })
+        });
         // socket.emit('join:group', { state: true });
     })
 

@@ -1532,8 +1532,7 @@
                         <div>★</div>
                     </div>
                     <div class="details">
-                        <div class="contact-top " id="group_profile_avatar">
-                            <input class="input-file" type="file" id="group_avatar_select">
+                        <div class="contact-top " id="">
                             <img class="bg-img" src="/images/default-avatar.png" alt="" />
                         </div>
                         <div class="name">
