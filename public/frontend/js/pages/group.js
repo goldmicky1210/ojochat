@@ -476,6 +476,18 @@ function addNewGroupItem(target, data) {
                         ${avatarContents}
                         ${countRecipients > 3 ? "<li>+" + (countRecipients - 3) + "</li>" : ""}
                     </ul>
+                    <div class="thread_info">
+                        <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
+                        <div class="thread_info_content">
+                            <ul>
+                                <li class="delete_thread">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs"
+                                        href="#"><i class="ti-trash"></i></a>
+                                    <h5>Remove</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </li>`
@@ -576,7 +588,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 let { messageData, groupInfo, userStatus } = res;
                 // chat page setting
                 if (pageSettingFlag == 1) {
-                    let contactId = $('#direct .chat-main li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
+                    let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     setUserProfileContent(contactId);
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();

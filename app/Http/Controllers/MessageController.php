@@ -92,4 +92,16 @@ class MessageController extends Controller
         }
     }
 
+    public function deleteThread(Request $request) {
+        $userId = Auth::id();
+        $groupId = $request->input('groupId');
+        $res = Group::where("id", $groupId)->delete();
+        if ($res) {
+            Message::where("group_id", $groupId)->delete();
+            return array('state'=>'true', 'data'=>$res);
+        } else {
+            return array('state' => 'false');
+        }
+    }
+
 }

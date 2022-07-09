@@ -1,5 +1,6 @@
 #group_chat .chat-friend-toggle .chat-frind-content {
     width: 200px;
+    z-index: 1;
 }
 
 .messages .groupuser {

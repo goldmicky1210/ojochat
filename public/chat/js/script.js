@@ -621,6 +621,12 @@
         $('.chat-frind-content').toggle();
     });
 
+    $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '.thread_info', function (e) {
+        console.log('aaa')
+        e.stopPropagation();
+        $(this).find('.thread_info_content').toggle();
+    });
+
     $('.gr-chat-friend-toggle').on('click', function () {
         $('.gr-chat-frind-content').toggle();
     });

@@ -13,9 +13,9 @@ $(document).ready(function () {
     });
 
     // displayChatData();
-    $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', 'li', function () {
-
-        $(`#myTabContent1 .tab-pane.active .chat-main li`).removeClass('active');
+    $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '>li', function (event) {
+        event.stopPropagation();
+        $(`#myTabContent1 .tab-pane.active .chat-main>li`).removeClass('active');
         $(this).addClass('active');
 
         let target = '.messages.active .contact-chat ul.chatappend';
@@ -46,6 +46,41 @@ $(document).ready(function () {
         }
         if (contentwidth <= '575') {
             $('.main-nav').removeClass("on");
+        }
+    });
+
+    $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '.thread_info li.delete_thread', function (e) {
+        e.stopPropagation();
+        let groupId = $(this).closest('.chat-main>li').attr('groupId');
+        // currentGroupId = $('#group .group-main>li.active').next().attr('groupId') || $('#group .group-main>li.active').prev().attr('groupId');
+
+        console.log(groupId);
+        // $(this).find('.thread_info_content').toggle();
+        if (confirm('Delete this Thread?')) {
+            let form_data = new FormData();
+            form_data.append('groupId', groupId);
+            $.ajax({
+                url: '/message/deleteThread',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    if (res.state = 'true') {
+                        $(e.currentTarget).closest('.chat-main>li').remove();
+                        // $(e.currentTarget).closest('.date-status').closest('li').remove();
+                        // $(`#cast li[recipiet=${recipient}]`).remove();
+                    }
+                },
+                error: function (response) {
+
+                }
+            });
         }
     });
 

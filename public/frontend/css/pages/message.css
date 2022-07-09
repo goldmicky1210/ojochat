@@ -33,6 +33,23 @@ ul.chat-main li:hover {
 ul.chat-main li.active {
     background-color: #eff7fe;
 }
+.thread_info {
+
+}
+.thread_info_content {
+    display: none;
+}
+.thread_info .thread_info_content li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    background-color: white;
+    margin-top: 10px;
+
+}
 
 .modal ul.chat-main li .chat-box .date-status .form-check-input {
     font-size: 1.5em;

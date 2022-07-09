@@ -54,6 +54,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/setting/setNotification', 'SettingController@setNotification');
     Route::post('/message/deleteChatThread', 'MessageController@deleteChatThread');
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
+    Route::post('/message/deleteThread', 'MessageController@deleteThread');
     Route::post('/group/inviteGroup', 'GroupController@inviteGroup');
     Route::post('/group/getGroupInfo', 'GroupController@getGroupInfo');
 });
