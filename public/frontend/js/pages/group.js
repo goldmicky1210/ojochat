@@ -112,7 +112,7 @@ $(document).ready(function () {
 
         // SMS notification
         if (currentUserId != data.sender) {
-            let type = data.kind == 2 ? 'Blink' :
+            let msgType = data.kind == 2 ? 'Blink' :
                 data.kind == 1 ? 'request' :
                     data.kind == 0 ? 'text' : "new";
             //arrived message
@@ -128,7 +128,8 @@ $(document).ready(function () {
                     recipient: currentUserId,
                     groupId: data.globalGroupId,
                     senderName: data.senderName,
-                    type
+                    type: msgType,
+                    groupType: data.groupType,
                 });
             }
         }

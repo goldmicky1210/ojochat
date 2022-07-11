@@ -2,7 +2,6 @@ const db = require("./config.js");
 const SpanishCountries = require("./constant").SpanishCountries;
 const KindConstant = require("./constant").KindConstant;
 const axios = require('axios');
-const { received } = require("laravel-mix/src/Log.js");
 
 exports.sendPaySMS = (sender, recipient, amount) => {
     db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {
@@ -77,51 +76,10 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
     });
 }
 
-// exports.sendForwardSMS = (sender, recipient, kindIndex) => {
-//     db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {
-//         if (row.length) {
-//             if (row[0].notification) {
-//                 // var val = Math.floor(100000 + Math.random() * 900000);
-//                 let phoneNumber = row[0].phone_number.replace(/[^0-9]/g, '');
-//                 let isoCode2 = row[0].national.toUpperCase();
-//                 db.query(`SELECT * FROM countries where iso_code2 = '${isoCode2}'`, (error, country) => {
-//                     db.query(`SELECT * FROM country_phone_codes where country_id = ${country[0].id}`, (error, phoneInfo) => {
-//                         let phone_code = phoneInfo[0].phone_code;
-//                         let fullPhoneNumber = '';
-//                         if (phone_code != 1) {
-//                             fullPhoneNumber = '011' + phoneNumber;
-//                         } else {
-//                             fullPhoneNumber = phoneNumber;
-//                         }
-//                         db.query(`SELECT * FROM users where id=${sender}`, (error, user) => {
-//                             let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
-//                             let countStar = '';
-//                             for (let i = 0; i < rate; i++) {
-//                                 countStar += '*';
-//                                 // countStar += '\u2B50';
-//                                 // countStar += '⭐️⭐️⭐️⭐️⭐️';
-//                             }
-//                             let type = KindConstant[kindIndex];
-//                             let messageType = type == 'text' ? 'un mensaje de texto' : type == 'photo' ? 'una foto' : 'solicitar';
-//                             if (spainish) {
-//                                 var message = `Hola ${row[0].username}, ${user[0].username} acaba de darte ${countStar} en ${messageType} en OJO.`;
-//                             } else {
-//                                 var message = `Hey ${row[0].username}, ${user[0].username} just rated you ${countStar} on a ${type} message at OJO.`;
-//                             }
-//                             this.sendSMSFinal(fullPhoneNumber, message, row[0].sms_type);
-//                         });
-//                     });
-//                 });
-//             }
-//         }
-//     });
-// }
 
 exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     if (smsType == 1) {
-        var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=ojo&h=8626eda4876ce9a63a564b8b28418abd&op=pv&to=${phoneNumber}&msg=${message}`
-
-        // var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=%5B%2237%22%2C%2238%22%5D&type=sms&useRandomDevice=1&prioritize=1`;
+        var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=ojo&h=8626eda4876ce9a63a564b8b28418abd&op=pv&to=${phoneNumber}&msg=${message}`;
     } else {
         var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=58&type=sms&prioritize=1`;
     }
@@ -201,4 +159,12 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
             }
         });
     }
+}
+
+exports.sendSMSMessage = (sender, recipient, groupType, msgType, extra) => {
+    console.log('----------------');
+    console.log(sender, ":", recipient);
+    console.log(groupType, "--", msgType);
+    console.log(extra);
+    console.log('----------------');
 }

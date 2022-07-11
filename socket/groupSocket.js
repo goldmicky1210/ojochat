@@ -25,25 +25,27 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         console.log('GroupType: ', data);
         if (data.globalGroupId) {
             db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${data.content}", ${data.replyId || 0}, ${data.replyKind || 0})`, (error, item) => {
-                data.id = item.insertId
+                data.id = item.insertId;
                 data.kind = 0;
-                db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
-                    row.forEach(item => {
-                        let recipientSocketId = user_socketMap.get(item['user_id'].toString());
-                        if (recipientSocketId) {
-                            if (io.sockets.sockets.get(recipientSocketId)) {
-                                io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
-                            }
-                        } else {
-                            console.log('Send Message SMS');
-                            Notification.sendSMS(data.sender, item['user_id'], 'text', data.globalGroupId);
-                        }
-                    })
-                });
+                console.log("Notification Sent");
+                Notification.sendSMSMessage(currentUserId, data.globalGroupId, data.groupType, 1);
+                // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
+                //     row.forEach(item => {
+                //         let recipientSocketId = user_socketMap.get(item['user_id'].toString());
+                //         if (recipientSocketId) {
+                //             if (io.sockets.sockets.get(recipientSocketId)) {
+                //                 io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
+                //             }
+                //         } else {
+                //             console.log('Send Message SMS');
+                //             Notification.sendSMS(data.sender, item['user_id'], 'text', data.globalGroupId);
+                //         }
+                //     });
+                // });
             });
         }
 
-        if (data.castFlag) {
+        if (data.groupType == 3) {
             let groupUsers = data.globalGroupUsers ? data.globalGroupUsers.split(',') : []
             groupUsers.filter(id => id != currentUserId).forEach(recipientId => {
                 db.query(`SELECT group_id
@@ -83,6 +85,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             sender: data.sender,
             globalGroupId: data.globalGroupId,
             content: data.photo,
+            groupType: data.groupType,
             kind: 2
         }
 
@@ -97,7 +100,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                         if (recipientSocketId) {
                             if (io.sockets.sockets.get(recipientSocketId)) {
                                 io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', message);
-                                io.sockets.sockets.get(recipientSocketId).emit('receive:photo', data);
                             }
                         } else {
                             console.log('Send Photo SMS');
@@ -242,6 +244,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             })
         });
         // socket.emit('join:group', { state: true });
-    })
+    });
 
 }

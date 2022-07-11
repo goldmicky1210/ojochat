@@ -372,7 +372,7 @@ function newMessage() {
         var castFlag = true;
         var groupType = 3;
     }
-    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, castFlag, groupType });
+    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, groupType });
     return;
 };
 
