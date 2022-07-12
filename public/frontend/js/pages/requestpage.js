@@ -469,6 +469,7 @@ function sendBlink() {
         canvas._objects.filter(item => item.kind == 'temp').forEach(item => canvas.remove(item));
         let data = {};
         data.sender = currentUserId;
+        data.senderName = getCertainUserInfoById(currentUserId).username;
         // data.to = currentContactId;
         data.photo = canvas.toDataURL('image/png');
         data.original_thumb = canvas.toDataURL('image/png');
@@ -480,13 +481,15 @@ function sendBlink() {
         // data.original_content = getEmojisInfo(canvas._objects);
         if ($('#direct_chat').hasClass('active')) {
             globalGroupId = currentDirectId;
+            data.groupType = 1;
         } else if ($('#group_chat').hasClass('active')) {
             globalGroupId = currentGroupId;
+            data.groupType = 2;
         } else if ($('#cast_chat').hasClass('active')) {
             globalGroupId = currentCastId;
+            data.groupType = 3;
         }
-        console.log(globalGroupId);
-        console.log(currentGroupUsers);
+
         if (globalGroupId) {
             data.globalGroupId = globalGroupId;
             socket.emit('send:groupBlink', data);

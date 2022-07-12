@@ -104,7 +104,6 @@ $(document).ready(function () {
             var target = '#cast_chat .contact-chat ul.chatappend';
         }
         else if (!$(`#group > ul.chat-main li[groupId=${Number(data.globalGroupId)}]`).length) {
-            console.log(data);
             console.log('This is first contact');
         }
         addGroupChatItem(target, data);
@@ -123,14 +122,16 @@ $(document).ready(function () {
                     socket.emit('read:message', data);
                 }
             } else {
-                socket.emit('send:notification', {
-                    sender: data.sender,
-                    recipient: currentUserId,
-                    groupId: data.globalGroupId,
-                    senderName: data.senderName,
-                    type: msgType,
-                    groupType: data.groupType,
-                });
+                data.recipient = currentUserId;
+                socket.emit('send:notification', data);
+                // socket.emit('send:notification', {
+                //     sender: data.sender,
+                //     recipient: currentUserId,
+                //     groupId: data.globalGroupId,
+                //     senderName: data.senderName,
+                //     type: msgType,
+                //     groupType: data.groupType,
+                // });
             }
         }
     });

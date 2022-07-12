@@ -22,13 +22,12 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
     socket.on('send:groupMessage', data => {
         data.sender = currentUserId;
-        console.log('GroupType: ', data);
         if (data.globalGroupId) {
             db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${data.content}", ${data.replyId || 0}, ${data.replyKind || 0})`, (error, item) => {
                 data.id = item.insertId;
                 data.kind = 0;
-                console.log("Notification Sent");
-                Notification.sendSMSMessage(currentUserId, data.globalGroupId, data.groupType, 1);
+                data.msgType = 0;
+                Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
                 // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
                 //     row.forEach(item => {
                 //         let recipientSocketId = user_socketMap.get(item['user_id'].toString());
@@ -81,33 +80,32 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('send:groupBlink', data => {
-        let message = {
-            sender: data.sender,
-            globalGroupId: data.globalGroupId,
-            content: data.photo,
-            groupType: data.groupType,
-            kind: 2
-        }
 
         db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)})`, (error, item) => {
             data.id = item.insertId;
-            message.photoId = item.insertId;
+            data.photoId = item.insertId;
+            data.content = data.photo;
+            data.msgType = 2;
+            data.kind = 2;
             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${data.globalGroupId}", "${data.id}", 2)`, (error, messageItem) => {
-                message.messageId = messageItem.insertId;
-                db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
-                    row.forEach(item => {
-                        let recipientSocketId = user_socketMap.get(item['user_id'].toString());
-                        if (recipientSocketId) {
-                            if (io.sockets.sockets.get(recipientSocketId)) {
-                                io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', message);
-                            }
-                        } else {
-                            console.log('Send Photo SMS');
-                            console.log(recipientSocketId);
-                            Notification.sendSMS(data.sender, item['user_id'], 'Blink', data.globalGroupId);
-                        }
-                    })
-                })
+                data.messageId = messageItem.insertId;
+                
+                Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
+
+                // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
+                //     row.forEach(item => {
+                //         let recipientSocketId = user_socketMap.get(item['user_id'].toString());
+                //         if (recipientSocketId) {
+                //             if (io.sockets.sockets.get(recipientSocketId)) {
+                //                 io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', message);
+                //             }
+                //         } else {
+                //             console.log('Send Photo SMS');
+                //             console.log(recipientSocketId);
+                //             Notification.sendSMS(data.sender, item['user_id'], 'Blink', data.globalGroupId);
+                //         }
+                //     })
+                // })
             });
         });
     });

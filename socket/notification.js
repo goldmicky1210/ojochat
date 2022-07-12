@@ -78,19 +78,27 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
 
 
 exports.sendSMSFinal = (phoneNumber, message, smsType) => {
+    console.log(phoneNumber);
+    console.log(message);
+    console.log(smsType);
     if (smsType == 1) {
         var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=ojo&h=8626eda4876ce9a63a564b8b28418abd&op=pv&to=${phoneNumber}&msg=${message}`;
     } else {
         var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=58&type=sms&prioritize=1`;
     }
     axios.get(smsUrl).then(res => {
-        console.log("Status: ", res.data.success);
+        console.log("Status: ", res.data);
     }).catch(error => {
         console.log(error);
     });
 }
 
-exports.sendSMS = (sender, recipient, type, groupId) => {
+exports.sendSMS = (sender, recipient, data) => {
+    console.log('-------------------------------')
+    console.log(sender)
+    console.log(recipient)
+    console.log(data)
+    console.log('-------------------------------')
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -99,7 +107,6 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
                     let phoneNumber = row[0].phone_number.replace(/[^0-9]/g, '');
                     let isoCode2 = row[0].national.toUpperCase();
                     db.query(`SELECT * FROM countries where iso_code2 = '${isoCode2}'`, (error, country) => {
-    
                         db.query(`SELECT * FROM country_phone_codes where country_id = ${country[0].id}`, (error, phoneInfo) => {
                             let phone_code = phoneInfo[0].phone_code
                             let fullPhoneNumber = '';
@@ -108,51 +115,34 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
                             } else {
                                 fullPhoneNumber = phoneNumber;
                             }
-                            db.query(`SELECT * FROM users where id=${sender}`, (error, user) => {
-                                let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
-                                let message = '';
+                            let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
+                            let message = '';
+
+                            db.query(`SELECT title, type FROM \`groups\` WHERE id=${data.globalGroupId}`, (error, groupInfo) => {
+                                if (groupInfo.length) {
+                                    let groupType = data.groupType;
                                 
-                                db.query(`SELECT title, type FROM \`groups\` WHERE id=${groupId}`, (error, groupInfo) => {
-                                    console.log("sms type: ", groupInfo[0]['type']);
-                                    if (groupInfo.length) {
-                                        let messageType = type == 'text' ? 'de texto' : type == 'Blink' ? 'Blink' : 'solicitar';
-                                        if (groupInfo[0]['type'] == 1) {
-                                            if (spainish) {
-                                                message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${user[0].username}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
-                                            } else {
-                                                message = `Hey ${row[0].username}, you have a new ${type} from ${user[0].username || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
-                                            }
-                                        } else if (groupInfo[0]['type'] == 2) {
-                                            if (spainish) {
-                                                // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
-                                                message = `Hola ${row[0].username}, ${user[0].username} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
-                                            } else {
-                                                message = `Hey ${row[0].username}, a new ${type=='text' ? 'text message' : type} has been posted by ${user[0].username} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
-                                            }
-                                        }
-                                        if (row[0].sms_type == 1) {
-                                            // var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${fullPhoneNumber}&message=${message}&devices=%5B%2237%22%2C%2238%22%5D&type=sms&useRandomDevice=1&prioritize=1`;
-                                            var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=ojo&h=8626eda4876ce9a63a564b8b28418abd&op=pv&to=${fullPhoneNumber}&msg=${message}`
+                                    let messageType = data.msgType == 0 ? 'de texto' : data.msgType == 2 ? 'Blink' : 'solicitar';
+                                    if (groupType == 1 || groupType == 3) {
+                                        if (spainish) {
+                                            message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${data.senderName}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
                                         } else {
-                                            var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${fullPhoneNumber}&message=${message}&devices=58&type=sms&prioritize=1`;
+                                            message = `Hey ${row[0].username}, you have a new ${data.msgType == 0 ? 'text message' : 'Blink'} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                         }
-                                        if (fullPhoneNumber) {
-                                            axios.get(smsUrl).then(res => {
-                                                // console.log("Recipient: ", recipient)
-                                                console.log('SMS sent to: ', fullPhoneNumber);
-                                                // console.log('Status: ', res.status);
-                                            }).catch(error => {
-                                                console.log('-------------------------------');
-                                                console.log(error);
-                                                console.log('------------------------------');
-                                            });
+                                    } else if (groupType == 2) {
+                                        if (spainish) {
+                                            // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
+                                            message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
                                         } else {
-                                            console.log('There are ')
+                                            message = `Hey ${row[0].username}, a new ${data.msgType == 0 ? 'text message' : 'Blink'} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                         }
                                     }
-                                });
-                                
+                                    if (fullPhoneNumber && message) {
+                                        this.sendSMSFinal(fullPhoneNumber, message, row[0]['sms_type']);
+                                    }
+                                }
                             });
+
                         });
                     });
                 }
@@ -161,10 +151,22 @@ exports.sendSMS = (sender, recipient, type, groupId) => {
     }
 }
 
-exports.sendSMSMessage = (sender, recipient, groupType, msgType, extra) => {
+exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
     console.log('----------------');
-    console.log(sender, ":", recipient);
-    console.log(groupType, "--", msgType);
-    console.log(extra);
+    console.log(sender, ":", groupId);
+    console.log(data);
     console.log('----------------');
+    db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
+        row.forEach(item => {
+            let recipientSocketId = user_socketMap.get(item['user_id'].toString());
+            if (recipientSocketId) {
+                if (io.sockets.sockets.get(recipientSocketId)) {
+                    io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
+                }
+            } else {
+                console.log('No socket SMS')
+                this.sendSMS(data.sender, item['user_id'], data);
+            }
+        })
+    })
 }
