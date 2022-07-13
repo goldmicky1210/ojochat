@@ -1026,6 +1026,10 @@
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
                                         <div class="chat-frind-content">
                                             <ul>
+                                                <li class="edit_group_profile_btn">
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="edit"></i></a>
+                                                    <h5>edit profile</h5>
+                                                </li>
                                                 <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
                                                         href="#"><i data-feather="user"></i></a>
                                                     <h5>profile</h5>

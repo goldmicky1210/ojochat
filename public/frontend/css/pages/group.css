@@ -1,4 +1,5 @@
-#group_chat .chat-friend-toggle .chat-frind-content {
+#group_chat .chat-friend-toggle .chat-frind-content,
+#cast_chat .chat-friend-toggle .chat-frind-content {
     width: 200px;
     z-index: 1;
 }

@@ -189,9 +189,10 @@ $(document).ready(function () {
     });
 
     // edit group profile
-    $('#group_chat .chat-frind-content').on('click', '.edit_group_profile_btn', function () {
-        let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
-        let groupAatarSrc = $('#group_chat .contact-details .media .bg-img').attr('src');
+    $('.chat-frind-content').on('click', '.edit_group_profile_btn', function () {
+        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
+        // let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
         $('#custom_modal').find('.modal-title').text('Edit Group Profile');
@@ -218,61 +219,44 @@ $(document).ready(function () {
                 }
 
             }, false);
-        // new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
-        //     let target = '#custom_modal .chat-main';
-        //     $(target).empty();
-        //     let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
-        //     contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
-        //     currentGroupUsers.split(',').forEach(userId => {
-        //         $(`#custom_modal ul.chat-main li[key=${userId}] input`).prop('checked', true);
-        //         $(`#custom_modal ul.chat-main li[key=${userId}]`).addClass('active');
-        //     });
-        // });
     });
 
     $('#custom_modal').on('click', '.modal-content.edit_group_profile_modal .btn_group .btn', function () {
         let groupTitle = $('#custom_modal').find('.sub_title input').val();
-        let groupId = currentGroupId;
-        console.log(groupTitle);
+        // let groupId = currentGroupId;
+        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
+
         let groupAvatar = $('#group_avatar_select')[0].files[0];
-        // socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar }, (res) => {
-        //     if (res.status == 'OK') {
-        //         console.log('Group Title and Avatar changed');
-        //     }
-        // });
-        // $('#custom_modal').find('.search_field').show();
-        // $('#custom_modal').find('.chat-main').show();
-        // $('#custom_modal').find('.modal-body .group_avatar').remove();
-
-        var form_data = new FormData();
-
-        form_data.append('groupId', groupId);
-        form_data.append('groupTitle', groupTitle);
-        form_data.append('avatar', groupAvatar || null);
-        $.ajax({
-            url: '/home/getUploadFileURL',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                if (res.state == 'true') {
-                    socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar: res.data }, (res) => {
-                        if (res.status == 'OK') {
-                            console.log('Group Title and Avatar changed');
-                        }
-                    });
+        if (groupId && groupTitle) {
+            var form_data = new FormData();
+            form_data.append('groupId', groupId);
+            form_data.append('groupTitle', groupTitle);
+            form_data.append('avatar', groupAvatar || null);
+            $.ajax({
+                url: '/home/getUploadFileURL',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    if (res.state == 'true') {
+                        socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar: res.data }, (res) => {
+                            if (res.status == 'OK') {
+                                console.log('Group Title and Avatar changed');
+                            }
+                        });
+                    }
+                },
+                error: function (response) {
+    
                 }
-            },
-            error: function (response) {
-
-            }
-        });
+            });
+        }
 
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
         $('#custom_modal').modal('hide');
