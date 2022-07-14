@@ -15,8 +15,8 @@ class AddDescriptionAndFeeTypeGroup extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->string('description')->default('')->after('state');
-            $table->integer('fee_type')->default(1)->after('description');
-
+            $table->integer('fee_type')->default(0)->after('description');
+            $table->integer('fee_value')->default(0)->after('fee_type');
         });
     }
 
@@ -30,6 +30,7 @@ class AddDescriptionAndFeeTypeGroup extends Migration
         Schema::table('groups', function (Blueprint $table) {
             $table->dropColumn('description');
             $table->dropColumn('fee_type');
+            $table->dropColumn('fee_value');
         });
     }
 }

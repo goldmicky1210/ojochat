@@ -19,7 +19,8 @@
     cursor: pointer;
 }
 
-#group_chat .chatappend, #cast_chat .chatappend {
+#group_chat .chatappend,
+#cast_chat .chatappend {
     padding-top: 80px;
 }
 
@@ -31,17 +32,28 @@
 }
 
 #custom_modal .group_avatar {
+    margin: auto;
     margin-bottom: 10px;
+    cursor: pointer;
 }
+
 #custom_modal .group_description {
     margin-bottom: 10px;
 }
+
 #custom_modal .group_fee_type {
-    width: 120px;
+    display: flex;
+    gap: 20px;
 }
+
+#custom_modal .group_fee_type>div {
+    width: 130px;
+}
+
 .messages .chatappend .msg-item.sent .invite_link {
     color: white;
 }
+
 .messages .chatappend .msg-item .invite_link {
     cursor: pointer;
 }

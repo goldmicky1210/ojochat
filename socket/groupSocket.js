@@ -89,23 +89,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             data.kind = 2;
             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${data.globalGroupId}", "${data.id}", 2)`, (error, messageItem) => {
                 data.messageId = messageItem.insertId;
-
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
-
-                // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
-                //     row.forEach(item => {
-                //         let recipientSocketId = user_socketMap.get(item['user_id'].toString());
-                //         if (recipientSocketId) {
-                //             if (io.sockets.sockets.get(recipientSocketId)) {
-                //                 io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', message);
-                //             }
-                //         } else {
-                //             console.log('Send Photo SMS');
-                //             console.log(recipientSocketId);
-                //             Notification.sendSMS(data.sender, item['user_id'], 'Blink', data.globalGroupId);
-                //         }
-                //     })
-                // })
             });
         });
     });
@@ -141,22 +125,13 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
     socket.on('edit:groupProfile', (data, callback) => {
         console.log(data);
-        let { groupId, groupTitle, groupDescription, groupFeeType, groupAvatar } = data;
-        db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}", fee_type=${groupFeeType} ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
+        let { groupId, groupTitle, groupDescription, groupFeeType, groupFeeValue, groupAvatar } = data;
+        db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}" ${groupFeeType? ', fee_type=' + groupFeeType : ''} ${groupFeeValue? ', fee_value=' + groupFeeValue : ''}  ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
             if (error) throw error;
             callback({
                 status: 'OK'
-            })
-        })
-        // db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId}`, (error, item) => {
-        //     data.groupUsers.split(',').forEach(userId => {
-        //         db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 2)`, (error, item) => {
-        //             callback({
-        //                 status: 'OK'
-        //             })
-        //         });
-        //     });
-        // });
+            });
+        });
     });
 
     socket.on('add:pendingGroupUser', (data, callback) => {
