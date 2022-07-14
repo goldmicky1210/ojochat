@@ -202,12 +202,31 @@ $(document).ready(function () {
         $('#custom_modal').find('.search_field').hide();
         $('#custom_modal').find('.chat-main').hide();
         $('#custom_modal').find('.modal-body .group_avatar').remove();
-        $('#custom_modal').find('.modal-body').append(`
+        $('#custom_modal').find('.modal-body').prepend(`
             <div class="group_avatar profile" id="group_profile_avatar">
                 <img class="bg-img" src=${groupAatarSrc}>
                 <input class="input-file" type="file" id="group_avatar_select">
             </div>
         `);
+        $('#custom_modal').find('.modal-body .sub_title').after(`
+            <div class="form-group group_description">
+                <label for="exampleFormControlTextarea1">Group Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        `);
+        if ($('.messages.active').attr('id') == 'group_chat') {
+            $('#custom_modal').find('.modal-body .group_description').after(`
+                <div class="form-group group_fee_type">
+                    <label>Group Fee Type</label>
+                    <select class="form-select form-select-sm" aria-label="Default select example">
+                        <option value=0 selected>Free</option>
+                        <option value=1>Monthly</option>
+                        <option value=2>Anually</option>
+                        <option value=3>Lifetime</option>
+                    </select>
+                </div>
+            `);
+        }
         convertListItems();
         changeGroupProfileImageAjax();
 
@@ -222,15 +241,17 @@ $(document).ready(function () {
     });
 
     $('#custom_modal').on('click', '.modal-content.edit_group_profile_modal .btn_group .btn', function () {
-        let groupTitle = $('#custom_modal').find('.sub_title input').val();
-        // let groupId = currentGroupId;
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-
+        let groupTitle = $('#custom_modal').find('.sub_title input').val();
+        let groupDescription = $('#custom_modal').find('.group_description textarea').val();
+        let groupFeeType = $('#custom_modal').find('.group_fee_type select').val();
         let groupAvatar = $('#group_avatar_select')[0].files[0];
         if (groupId && groupTitle) {
             var form_data = new FormData();
-            form_data.append('groupId', groupId);
-            form_data.append('groupTitle', groupTitle);
+            // form_data.append('groupId', groupId);
+            // form_data.append('groupTitle', groupTitle);
+            // form_data.append('groupDescription', groupDescription);
+            // form_data.append('groupFeeType', groupFeeType);
             form_data.append('avatar', groupAvatar || null);
             $.ajax({
                 url: '/home/getUploadFileURL',
@@ -245,15 +266,17 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     if (res.state == 'true') {
-                        socket.emit('edit:groupProfile', { groupId, groupTitle, groupAvatar: res.data }, (res) => {
+                        console.log(groupDescription);
+                        console.log(groupFeeType);
+                        socket.emit('edit:groupProfile', { groupId, groupTitle, groupDescription, groupFeeType, groupAvatar: res.data }, (res) => {
                             if (res.status == 'OK') {
-                                console.log('Group Title and Avatar changed');
+                                console.log('Group Profile changed');
                             }
                         });
                     }
                 },
                 error: function (response) {
-    
+
                 }
             });
         }
@@ -265,6 +288,8 @@ $(document).ready(function () {
         $('#custom_modal').find('.search_field').show();
         $('#custom_modal').find('.chat-main').show();
         $('#custom_modal').find('.modal-body .group_avatar').remove();
+        $('#custom_modal').find('.modal-body .group_description').remove();
+        $('#custom_modal').find('.modal-body .group_fee_type').remove();
     });
 
     // add/remove user in group

@@ -89,7 +89,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             data.kind = 2;
             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${data.globalGroupId}", "${data.id}", 2)`, (error, messageItem) => {
                 data.messageId = messageItem.insertId;
-                
+
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
 
                 // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
@@ -140,7 +140,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('edit:groupProfile', (data, callback) => {
-        db.query(`UPDATE \`groups\` SET title="${data.groupTitle}", avatar="${data.groupAvatar}" WHERE id=${data.groupId}`, (error, item) => {
+        console.log(data);
+        let { groupId, groupTitle, groupDescription, groupFeeType, groupAvatar } = data;
+        db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}", fee_type=${groupFeeType} ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
             if (error) throw error;
             callback({
                 status: 'OK'

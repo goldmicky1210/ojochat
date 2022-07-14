@@ -609,6 +609,7 @@ function setGroupProfileContent(groupId) {
                 }
                 $('.contact-profile .name h3').html(data.title || 'Group Title');
                 $('.contact-profile .name h5').html(data.description || '');
+                $('.contact-profile .name h6').html('');
                 $('.contact-profile .name').attr('groupAdmins', data.admins || '');
                 // $('.contact-profile .name h6').html(userInfo.description);
             }

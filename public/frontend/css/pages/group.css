@@ -30,6 +30,15 @@
     font-size: 12px;
 }
 
+#custom_modal .group_avatar {
+    margin-bottom: 10px;
+}
+#custom_modal .group_description {
+    margin-bottom: 10px;
+}
+#custom_modal .group_fee_type {
+    width: 120px;
+}
 .messages .chatappend .msg-item.sent .invite_link {
     color: white;
 }
