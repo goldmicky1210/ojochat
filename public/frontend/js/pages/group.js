@@ -1,5 +1,5 @@
 
-
+let groupFeeTypeConstant = ['Free', "Monthly", "Anually", "Lifetime"];
 $(document).ready(function () {
     // create newGroup start
     $('.create_new_group_btn').on('click', function (e) {
@@ -376,7 +376,7 @@ $(document).ready(function () {
         $('#custom_modal').modal('hide');
     });
 
-    $('.messages .chatappend').on('click', '.msg-setting-main .invite_link', function (e) {
+    $('.messages .chatappend').on('click', '.msg-item.sent .msg-setting-main .invite_link', function (e) {
         e.preventDefault();
         $('.messages.custom-scroll').removeClass("active");
         $('#group_chat').addClass("active");
@@ -402,29 +402,6 @@ $(document).ready(function () {
             });
 
         }
-        // showCurrentChatHistory()
-        // var form_data = new FormData();
-        // form_data.append('groupId', groupId);
-        // $.ajax({
-        //     url: '/group/inviteGroup',
-        //     headers: {
-        //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        //     },
-        //     data: form_data,
-        //     cache: false,
-        //     contentType: false,
-        //     processData: false,
-        //     type: 'POST',
-        //     dataType: "json",
-        //     success: function (res) {
-        //         if (res.state == 'true') {
-        //             console.log(res.data);
-        //         } else {
-
-        //         }
-        //     },
-        //     error: function (response) { }
-        // });
     });
 
 
@@ -536,6 +513,16 @@ function addGroupChatItem(target, data, loadFlag) {
     let senderInfo = getCertainUserInfoById(data.sender);
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
+    
+    if (data.kind == 3) {
+        console.log(data);
+        var inviteContent = `
+        <div class="content invite_link" inviteGroupId=${data.content}>
+            <p class="invite_group_title">Join Group: ${data.inviteGroupTitle}</p>
+            <p class="invite_group_fee">${data.inviteGroupFeeType ? "Price " + groupFeeTypeConstant[data.inviteGroupFeeType] + ": $" + data.inviteGroupFeeValue : "Free"}</p>
+            <button class="btn btn-sm btn-success">Pay</button>
+         </div>`;
+    }
     let item = `<li class="${type} msg-item" key="${data.id || data.messageId}" kind="${data.kind || 0}">
         <div class="media">
             <div class="profile me-4 bg-size" style="background-image: url(${senderInfo.avatar ? 'v1/api/downloadFile?path=' + senderInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center;">
@@ -559,7 +546,7 @@ function addGroupChatItem(target, data, loadFlag) {
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
                 : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
-                    : data.kind == 3 ? '<h5 class="content invite_link" inviteGroupId="' + data.content + '"> Join Group: ' + data.inviteGroupTitle + '</h5>' : ''}
+                    : data.kind == 3 ? inviteContent : ''}
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>
