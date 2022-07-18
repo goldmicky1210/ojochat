@@ -143,7 +143,7 @@ exports.sendSMS = (sender, recipient, data) => {
                                         if (spainish) {
                                             message = `Hey ${row[0].username}, Has sido invitado por ${data.senderName} en el grupo ${groupInfo[0]['title']}. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} in the group ${groupInfo[0]['title']}. ${val}`;
+                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} to the group ${groupInfo[0]['title']}. ${val}`;
                                         }
                                     }
                                     if (fullPhoneNumber && message) {

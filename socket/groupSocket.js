@@ -206,11 +206,11 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
             if (user.length) {
                 db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
-                    if (user[0].balance < group[0].fee_value) {
+                    if (user[0].balances < group[0].fee_value) {
                         callback({ status: 'No enough balance' });
                     } else {
-                        let balance = user[0].balance - group[0].fee_value;
-                        db.query(`UPDATE users SET balance=${balance} WHERE id=${currentUserId}`, (error, item) => {
+                        let balance = user[0].balances - group[0].fee_value;
+                        db.query(`UPDATE users SET balances=${balance} WHERE id=${currentUserId}`, (error, item) => {
                             if (error) throw error;
                             db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
                                 if (error) throw error;
