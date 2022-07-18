@@ -450,8 +450,7 @@ function addUsersListItem(target, data, statusItem) {
 }
 
 function addNewGroupItem(target, data) {
-
-    let { id, title, avatar, type, users } = data;
+    let { id, title, avatar, type, users, owner, admins } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
         let userInfo = getCertainUserInfoById(directId);
@@ -468,7 +467,7 @@ function addNewGroupItem(target, data) {
     // let displayNames = groupUsers.length > 24 ? groupUsers.slice(0, 24) + '...' : groupUsers;
     let countRecipients = users.length;
     $(target).prepend(
-        `<li class="" data-to="group_chat" groupId=${id} groupUsers=${users.join(',')}>
+        `<li class="" data-to="group_chat" groupId=${id} groupUsers=${users.join(',')} owner=${owner} admins=${admins}>
             <div class="group-box">
                 <div class="profile">
                     <img class="bg-img" src=${avatar ? 'v1/api/downloadFile?path=' + avatar : '/images/default-avatar.png'} alt="Avatar"/>
@@ -517,7 +516,6 @@ function addGroupChatItem(target, data, loadFlag) {
     let time = data.created_at ? new Date(data.created_at) : new Date();
     
     if (data.kind == 3) {
-        console.log(data);
         var inviteContent = `
         <div class="content invite_link" inviteGroupId=${data.content}>
             <p class="invite_group_title">Join Group: ${data.inviteGroupTitle}</p>
@@ -612,7 +610,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
                 } else {
                     setGroupProfileContent(groupId);
-                    console.log(groupInfo);
                     if (groupInfo.avatar) {
                         console.log(groupInfo.avatar);
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
@@ -627,11 +624,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
                         let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
                     });
-                    // groupUsers.split(',').filter(id => id != currentUserId).forEach(id => {
-                    //     let userInfo = getCertainUserInfoById(id);
-                    //     let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
-                    //     let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
-                    // });
                     tippy('.gr-profile[data-tippy-content]', { placement: "right" });
                     convertListItems();
                 }

@@ -4,6 +4,11 @@
     z-index: 1;
 }
 
+.chat-friend-toggle .chat-frind-content ul li.hidden {
+    display: none !important;
+}
+
+
 .messages .groupuser {
     /* width: 100%; */
     overflow: auto;

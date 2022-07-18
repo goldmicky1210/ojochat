@@ -88,24 +88,24 @@
     /*=====================
       02. Background Image js
       ==========================*/
-      $(".bg-top").parent().addClass('b-top');
-      $(".bg-bottom").parent().addClass('b-bottom');
-      $(".bg-center").parent().addClass('b-center');
-      $(".bg_size_content").parent().addClass('b_size_content');
-      $(".bg-img").parent().addClass('bg-size');
-      $('.bg-img').each(function () {
-          var el = $(this),
-              src = el.attr('src'),
-              parent = el.parent();
-          parent.css({
-              'background-image': 'url(' + src + ')',
-              'background-size': 'cover',
-              'background-position': 'center',
-              'display': 'block'
-          });
-          el.hide();
-      });
-    
+    $(".bg-top").parent().addClass('b-top');
+    $(".bg-bottom").parent().addClass('b-bottom');
+    $(".bg-center").parent().addClass('b-center');
+    $(".bg_size_content").parent().addClass('b_size_content');
+    $(".bg-img").parent().addClass('bg-size');
+    $('.bg-img').each(function () {
+        var el = $(this),
+            src = el.attr('src'),
+            parent = el.parent();
+        parent.css({
+            'background-image': 'url(' + src + ')',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'display': 'block'
+        });
+        el.hide();
+    });
+
 
     /*=====================
       03. OwlCarousel js
@@ -619,10 +619,21 @@
 
     $('.chat-friend-toggle').on('click', function () {
         $('.chat-frind-content').toggle();
+        let owner = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('owner');
+        let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
+        if (currentUserId == owner) {
+            $('.chat-frind-content').find('.edit_group_profile_btn').removeClass('hidden');
+        } else {
+            $('.chat-frind-content').find('.edit_group_profile_btn').addClass('hidden');
+        }
+        if (admins.split(',').includes(currentUserId.toString())) {
+            $('.chat-frind-content').find('.add_users_btn').removeClass('hidden');
+        } else {
+            $('.chat-frind-content').find('.add_users_btn').addClass('hidden');
+        }
     });
 
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '.thread_info', function (e) {
-        console.log('aaa')
         e.stopPropagation();
         $(this).find('.thread_info_content').toggle();
     });
@@ -642,7 +653,7 @@
     $('.chatappend').on('click', '.msg-dropdown li', function (event) {
         $(this).closest('.msg-dropdown').hide();
     });
-    
+
     $(".favourite").on('click', function () {
         $(this).toggleClass("btn-outline-primary").toggleClass("btn-primary");
     });

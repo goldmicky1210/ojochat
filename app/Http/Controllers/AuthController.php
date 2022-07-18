@@ -51,15 +51,17 @@ class AuthController extends Controller
             return view('frontend.auth.register',['page_title' => 'Register']);
         
         $this->validate($request, [
-            'username' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users|max:50',
+            'email' => 'required|email|unique:users|max:50',
             'password' => 'required'
         ], [
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username already exists.',
+            'username.max' => 'The username length should be less than 50',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email format is incorrect.',
             'email.unique' => ' The email already exists.',
+            'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
         ]);
 
