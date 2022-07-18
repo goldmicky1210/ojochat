@@ -124,17 +124,26 @@ exports.sendSMS = (sender, recipient, data) => {
                                 
                                     let messageType = data.msgType == 0 ? 'de texto' : data.msgType == 2 ? 'Blink' : 'solicitar';
                                     if (groupType == 1 || groupType == 3) {
+                                        // Direct and Cast Message
                                         if (spainish) {
                                             message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${data.senderName}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, you have a new ${data.msgType == 0 ? 'text message' : 'Blink'} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                         }
                                     } else if (groupType == 2 && data.msgType != 0) {
+                                        // Group Message
                                         if (spainish) {
                                             // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
                                             message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, a new ${data.msgType == 0 ? 'text message' : 'Blink'} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
+                                        }
+                                    } else if (data.msgType == 3) {
+                                        // Invite Message
+                                        if (spainish) {
+                                            message = `Hey ${row[0].username}, Has sido invitado por ${data.senderName} en el grupo ${groupInfo[0]['title']}. ${val}`;
+                                        } else {
+                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} in the group ${groupInfo[0]['title']}. ${val}`;
                                         }
                                     }
                                     if (fullPhoneNumber && message) {

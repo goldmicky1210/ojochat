@@ -126,7 +126,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('edit:groupProfile', (data, callback) => {
         console.log(data);
         let { groupId, groupTitle, groupDescription, groupFeeType, groupFeeValue, groupAvatar } = data;
-        db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}" ${groupFeeType? ', fee_type=' + groupFeeType : ''} ${groupFeeValue? ', fee_value=' + groupFeeValue : ''}  ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
+        db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}" ${groupFeeType ? ', fee_type=' + groupFeeType : ''} ${groupFeeValue ? ', fee_value=' + groupFeeValue : ''}  ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
             if (error) throw error;
             callback({
                 status: 'OK'
@@ -156,12 +156,18 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('invite:groupUsers', (data, callback) => {
         console.log(data);
         data.sender = currentUserId;
-        // data.groupUsers.split(',').forEach(userId => {
-        //     db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 1)`, (error, item) => {
-        //         console.log(userId, ': pending group user');
-        //     });
-        // });
-        data.content = data.currentGroupId;
+        let messageData = {
+            globalGroupId: data.currentGroupId,
+            msgType: 3,
+            senderName: data.senderName
+        }
+        data.groupUsers.split(',').forEach(userId => {
+            Notification.sendSMS(currentUserId, userId, messageData);
+            // db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 1)`, (error, item) => {
+            //     console.log(userId, ': pending group user');
+            // });
+        });
+        data.content = data.currentGroupId; 
 
         data.groupUsers.split(',').forEach(recipientId => {
             db.query(`SELECT group_id
@@ -197,13 +203,26 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
     socket.on('join:group', (data, callback) => {
         console.log(data);
-        db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
-            if (error) throw error;
-            callback({
-                status: 'OK'
-            })
-        });
-        // socket.emit('join:group', { state: true });
+        db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
+            if (user.length) {
+                db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
+                    if (user[0].balance < group[0].fee_value) {
+                        callback({ status: 'No enough balance' });
+                    } else {
+                        let balance = user[0].balance - group[0].fee_value;
+                        db.query(`UPDATE users SET balance=${balance} WHERE id=${currentUserId}`, (error, item) => {
+                            if (error) throw error;
+                            db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
+                                if (error) throw error;
+                                callback({
+                                    status: 'OK'
+                                })
+                            });
+                        });
+                    }
+                });
+            }
+        })
     });
 
 }

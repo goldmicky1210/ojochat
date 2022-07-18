@@ -196,7 +196,6 @@ $(document).ready(function () {
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
         $('#custom_modal').find('.modal-title').text('Edit Group Profile');
-        $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Save');
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.search_field').hide();
@@ -216,6 +215,8 @@ $(document).ready(function () {
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         `);
+        $('#custom_modal').find('.group_title input').val(groupTitle);
+
         if ($('.messages.active').attr('id') == 'group_chat') {
             $('#custom_modal').find('.modal-body .group_description').after(`
                 <div class="group_fee_type">
@@ -366,7 +367,8 @@ $(document).ready(function () {
     $('#custom_modal').on('click', '.modal-content.invite_group_modal .btn_group .btn', function () {
         let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key')).join(',');
         let groupTitle = $('#group .chat-main>li.active .details>h5').text();
-        socket.emit('invite:groupUsers', { currentGroupId, groupUsers, groupTitle }, (res) => {
+        let senderName = getCertainUserInfoById(currentUserId).username || 'Someone';
+        socket.emit('invite:groupUsers', { currentGroupId, groupUsers, groupTitle, senderName }, (res) => {
             if (res.status == 'OK') {
                 $('#group-tab').click();
             }
