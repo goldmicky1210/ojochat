@@ -143,12 +143,12 @@ exports.sendSMS = (sender, recipient, data) => {
                                         if (spainish) {
                                             message = `Hola ${row[0].username}, Has sido invitado por ${data.senderName} en el grupo ${groupInfo[0]['title']}. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} to the group ${groupInfo[0]['title']}. ${val}`;
+                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} to the group ${groupInfo[0]['title']}. Log onto Ojochat to accept. ${val}`;
                                         }
                                     } else if (data.msgType == 4) {
                                         // Add admin user Message
                                         if (spainish) {
-                                            message = `Hola ${row[0].username}, te has convertido en administrador del grupo ${groupInfo[0]['title']} de ${data.senderName}.  ${val}`;
+                                            message = `Hola ${row[0].username}, ${data.senderName} te ha invitado al grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para aceptar. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, You have become an admin of the group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
                                         }
