@@ -1549,8 +1549,15 @@
                             </li>
                             <li><a class="icon-btn btn-primary button-effect" href="#"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a class="icon-btn btn-facebook button-effect" href="#"><i
-                                        class="fa fa-facebook-f"></i></a>
+                            <li><a class="icon-btn btn-facebook button-effect" href="#"><i class="fa fa-facebook-f"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="group_operation">
+                            <li class="make_admin_btn">
+                                <span>Make Group Admin</span>
+                            </li>
+                            <li class="remove_groupuser_btn">
+                                <span>Remove From Group</span>
                             </li>
                         </ul>
                     </div>

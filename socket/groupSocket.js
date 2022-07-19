@@ -147,9 +147,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             console.log('--------');
             console.log(item);
             console.log('--------');
-            callback({
-                status: 'OK'
-            });
+            callback({ status: 'OK' });
         });
     });
 
@@ -167,7 +165,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             //     console.log(userId, ': pending group user');
             // });
         });
-        data.content = data.currentGroupId; 
+        data.content = data.currentGroupId;
 
         data.groupUsers.split(',').forEach(recipientId => {
             db.query(`SELECT group_id
@@ -214,15 +212,41 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                             if (error) throw error;
                             db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
                                 if (error) throw error;
-                                callback({
-                                    status: 'OK'
-                                })
+                                callback({ status: 'OK' });
                             });
                         });
                     }
                 });
             }
         })
+    });
+
+    socket.on('add:groupAdmin', (data, callback) => {
+        console.log(data);
+        db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {
+            if (error) throw error;
+            data.msgType = 4;
+            Notification.sendSMS(currentUserId, data.addId, data);
+            callback({ status: 'OK' });
+        });
+        // db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
+        //     if (user.length) {
+        //         db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
+        //             if (user[0].balances < group[0].fee_value) {
+        //                 callback({ status: 'No enough balance' });
+        //             } else {
+        //                 let balance = user[0].balances - group[0].fee_value;
+        //                 db.query(`UPDATE users SET balances=${balance} WHERE id=${currentUserId}`, (error, item) => {
+        //                     if (error) throw error;
+        //                     db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
+        //                         if (error) throw error;
+        //                         callback({ status: 'OK' });
+        //                     });
+        //                 });
+        //             }
+        //         });
+        //     }
+        // })
     });
 
 }

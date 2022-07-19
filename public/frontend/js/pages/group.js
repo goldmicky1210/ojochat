@@ -235,7 +235,7 @@ $(document).ready(function () {
                 let groupFeeType = $(this).val();
                 if (+groupFeeType) {
                     console.log(groupFeeType, ": ok");
-                    if(!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
+                    if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
                         $('#custom_modal').find('.modal-body .group_fee_type').append(`
                             <div class="form-group fee_value">
                                 <label>Group Fee Value ($)</label>
@@ -416,18 +416,64 @@ $(document).ready(function () {
             if (((new Date().getTime()) - touchtime) < 800) {
                 let userId = $(this).data('userId');
                 setUserProfileContent(userId);
-                openAndCloseProfile();
+                // openAndCloseProfile();
                 touchtime = 0;
+
+                $('body').addClass('menu-active'); //add class
+                $('.app-sidebar').addClass('active'); //remove
+                $('.chitchat-main').addClass("small-sidebar"); //remove
+                if ($(window).width() <= 1440) {
+                    $('.chitchat-container').addClass('sidebar-overlap');
+                    $('.chitchat-main').removeClass("small-sidebar"); //remove
+                }
+                if ($('body').hasClass('menu-active')) {
+                    $('body').addClass('sidebar-active main-page');
+                    $('.app-sidebar').removeClass('active');
+                    $('.chitchat-main').removeClass("small-sidebar");
+                }
+                $('.chitchat-right-sidebar .contact-profile .medialogo').hide();
+                let owner = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('owner');
+                let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
+                if (admins.split(',').includes(currentUserId.toString())) {
+                    $('.chitchat-right-sidebar .contact-profile .group_operation').show();
+                    $('.chitchat-right-sidebar .contact-profile .group_operation').attr('profileId', userId);
+                } else {
+                    $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
+                    $('.chitchat-right-sidebar .contact-profile .group_operation').removeAttr('profileId');
+                }
             } else {
                 // not a double click so set as a new first click
                 touchtime = new Date().getTime();
             }
         }
     });
+    
+    $('.chitchat-right-sidebar .contact-profile .group_operation').on('click', 'li.make_admin_btn', function () {
+        let globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupId');
+        let groupTitle = $('#myTabContent1 .tab-pane.active .chat-main>li.active .details h5').text();
+        let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
+        let addId = $('.chitchat-right-sidebar .contact-profile .group_operation').attr('profileId');
+        if (admins.split(',').includes(addId.toString())) {
+            alert('This user is already Admin of this group ' + groupTitle);
+        } else {
+            admins = admins + ',' + addId;
+            let senderName = getCertainUserInfoById(currentUserId).username;
+            socket.emit('add:groupAdmin', {globalGroupId, admins, addId, groupTitle, senderName}, res => {
+                if (res.status == 'OK') {
+                    let addName = getCertainUserInfoById(addId).username;
+                    let currentUsername = getCertainUserInfoById(addId).username;
+                    console.log(`${addName} has been become as admin of group ${groupTitle} by ${currentUsername}`);
+                }
+            });
+        }
+    });
+    
+    $('.chitchat-right-sidebar .contact-profile .group_operation').on('click', 'li.remove_groupuser_btn', function () {
+        let groupId = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupId');
 
-    // $('.groupuser').on('click', '.gr-profile', function () {
+    });
 
-    // });
+
 });
 
 function addUsersListItem(target, data, statusItem) {
@@ -514,7 +560,7 @@ function addGroupChatItem(target, data, loadFlag) {
     let senderInfo = getCertainUserInfoById(data.sender);
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
-    
+
     if (data.kind == 3) {
         var inviteContent = `
         <div class="content invite_link" inviteGroupId=${data.content}>
@@ -611,9 +657,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 } else {
                     setGroupProfileContent(groupId);
                     if (groupInfo.avatar) {
-                        console.log(groupInfo.avatar);
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
-                        // $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url("v1/api/downloadFile?path=${groupInfo.avatar}")`);
                     } else {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', '/chat/images/avtar/teq.jpg');
                     }

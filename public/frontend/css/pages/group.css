@@ -9,6 +9,7 @@
 }
 
 
+
 .messages .groupuser {
     /* width: 100%; */
     overflow: auto;
@@ -24,6 +25,24 @@
     cursor: pointer;
 }
 
+.chitchat-right-sidebar .contact-profile .group_operation {
+    display: none;
+}
+
+.chitchat-right-sidebar .contact-profile .details .group_operation li {
+    display: block;
+    transition: all 0.3s;
+}
+
+.chitchat-right-sidebar .contact-profile .details .group_operation li:hover {
+    transform: scale(1.2);
+}
+
+.chitchat-right-sidebar .contact-profile .details .group_operation li+li {
+    margin: 5px 0;
+}
+
+
 #group_chat .chatappend,
 #cast_chat .chatappend {
     padding-top: 80px;
@@ -36,6 +55,7 @@
     text-align: center;
     color: black;
 }
+
 .messages .chatappend .msg-item.sent .invite_link {
     border-radius: 0 25px 25px 30px;
     background-color: #1c9dea;
