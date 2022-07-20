@@ -95,7 +95,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('leave:group', data => {
-        let { currentGroupId, currentGroupUsers } = data;
+        let { currentGroupId, currentGroupUsers, currentUserId } = data;
         currentGroupUsers = currentGroupUsers.split(',').filter(item => item != currentUserId).join(',');
 
         db.query(`DELETE from users_groups WHERE user_id=${currentUserId} AND group_id=${currentGroupId}`, (error, item) => {
@@ -229,24 +229,19 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             Notification.sendSMS(currentUserId, data.addId, data);
             callback({ status: 'OK' });
         });
-        // db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
-        //     if (user.length) {
-        //         db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
-        //             if (user[0].balances < group[0].fee_value) {
-        //                 callback({ status: 'No enough balance' });
-        //             } else {
-        //                 let balance = user[0].balances - group[0].fee_value;
-        //                 db.query(`UPDATE users SET balances=${balance} WHERE id=${currentUserId}`, (error, item) => {
-        //                     if (error) throw error;
-        //                     db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
-        //                         if (error) throw error;
-        //                         callback({ status: 'OK' });
-        //                     });
-        //                 });
-        //             }
-        //         });
-        //     }
-        // })
+    });
+
+    socket.on('remove:groupUser', (data, callback) => {
+        console.log(data);
+        db.query(`DELETE from users_groups WHERE user_id=${data.removeId} AND group_id=${data.globalGroupId}`, (error, item) => {
+            if (error) throw error;
+            db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {
+                if (error) throw error;
+            });
+            data.msgType = 5;
+            Notification.sendSMS(currentUserId, data.removeId, data);
+            callback({ status: 'OK' });
+        });
     });
 
 }

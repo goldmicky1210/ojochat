@@ -139,7 +139,7 @@ $(document).ready(function () {
     $('#group_chat').on('click', '.leave_group_btn', function () {
         if (confirm("You will leave this Group")) {
             if (currentGroupId) {
-                socket.emit('leave:group', { currentGroupId, currentGroupUsers });
+                socket.emit('leave:group', { currentGroupId, currentGroupUsers, currentUserId });
             }
         }
     });
@@ -441,39 +441,62 @@ $(document).ready(function () {
                     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
                     $('.chitchat-right-sidebar .contact-profile .group_operation').removeAttr('profileId');
                 }
+                if (admins.split(',').includes(userId.toString())) {
+                    let name = $('.chitchat-right-sidebar .contact-profile .details .name h3').text();
+                    $('.chitchat-right-sidebar .contact-profile .details .name h3').text(`${name} (admin)`);
+                }
             } else {
                 // not a double click so set as a new first click
                 touchtime = new Date().getTime();
             }
         }
     });
-    
+
     $('.chitchat-right-sidebar .contact-profile .group_operation').on('click', 'li.make_admin_btn', function () {
         let globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupId');
         let groupTitle = $('#myTabContent1 .tab-pane.active .chat-main>li.active .details h5').text();
         let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
         let addId = $('.chitchat-right-sidebar .contact-profile .group_operation').attr('profileId');
+
         if (admins.split(',').includes(addId.toString())) {
             alert('This user is already Admin of this group ' + groupTitle);
         } else {
             admins = admins + ',' + addId;
             let senderName = getCertainUserInfoById(currentUserId).username;
-            socket.emit('add:groupAdmin', {globalGroupId, admins, addId, groupTitle, senderName}, res => {
+            socket.emit('add:groupAdmin', { globalGroupId, admins, addId, groupTitle, senderName }, res => {
                 if (res.status == 'OK') {
                     let addName = getCertainUserInfoById(addId).username;
                     let currentUsername = getCertainUserInfoById(addId).username;
-                    console.log(`${addName} has been become as admin of group ${groupTitle} by ${currentUsername}`);
+                    console.log(`${addName} has become as admin of group ${groupTitle} by ${currentUsername}`);
                 }
             });
         }
     });
-    
+
     $('.chitchat-right-sidebar .contact-profile .group_operation').on('click', 'li.remove_groupuser_btn', function () {
-        let groupId = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupId');
-
+        let globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupId');
+        let groupTitle = $('#myTabContent1 .tab-pane.active .chat-main>li.active .details h5').text();
+        let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
+        let removeId = $('.chitchat-right-sidebar .contact-profile .group_operation').attr('profileId');
+        let senderName = getCertainUserInfoById(currentUserId).username;
+        if (currentUserId != removeId) {
+            if (admins.split(',').includes(removeId.toString())) {
+                admins = admins.split(',').filter(id => id != removeId).join(',');
+            }
+            socket.emit('remove:groupUser', { globalGroupId, admins, removeId, groupTitle, senderName }, res => {
+                if (res.status == 'OK') {
+                    $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins', admins);
+                    let groupUsers = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupUsers');
+                    groupUsers = groupUsers.split(',').filter(id => id != removeId).join(',');
+                    $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupUsers', groupUsers);
+                    $('.messages.active .groupuser').find(`.gr-profile[data-user-id=${removeId}]`).remove();
+                    let removeName = getCertainUserInfoById(removeId).username;
+                    let currentUsername = getCertainUserInfoById(currentUserId).username;
+                    console.log(`${removeName} has been removed from group ${groupTitle} by ${currentUsername}`);
+                }
+            });
+        }
     });
-
-
 });
 
 function addUsersListItem(target, data, statusItem) {
@@ -506,9 +529,10 @@ function addNewGroupItem(target, data) {
     }
     let groupUsersAvatar = users.filter((item, index) => index < 3).map(item => {
         let avatar = getCertainUserInfoById(item).avatar;
-        return avatar ? `v1/api/downloadFile?path=${avatar}` : '/images/default-avatar.png';
+        avatar = avatar ? `v1/api/downloadFile?path=${avatar}` : '/images/default-avatar.png';
+        return { id: item, avatar: avatar };
     });
-    let avatarContents = groupUsersAvatar.reduce((content, item) => content + `<li><a class="group-tp" href="#" data-tippy-content="John Doe"> <img src="${item}" alt="group-icon-img"/></a></li>\n`, '');
+    let avatarContents = groupUsersAvatar.reduce((content, item) => content + `<li userId=${item.id}><a class="group-tp" href="#" data-tippy-content="John Doe"> <img src="${item.avatar}" alt="group-icon-img"/></a></li>\n`, '');
     avatarContents = type == 1 ? '' : avatarContents;
     // let displayNames = groupUsers.length > 24 ? groupUsers.slice(0, 24) + '...' : groupUsers;
     let countRecipients = users.length;
@@ -708,7 +732,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                                 });
                             }
                             let cancelGroupAction = () => {
-                                socket.emit('leave:group', { currentGroupId, currentGroupUsers });
+                                socket.emit('leave:group', { currentGroupId, currentGroupUsers, currentUserId });
                             }
                             confirmModal('', content, joinGroupAction, cancelGroupAction);
                         }

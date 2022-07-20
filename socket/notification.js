@@ -152,6 +152,13 @@ exports.sendSMS = (sender, recipient, data) => {
                                         } else {
                                             message = `Hey ${row[0].username}, You have become an admin of the group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
                                         }
+                                    } else if (data.msgType == 5) {
+                                        // Remove use from group
+                                        if (spainish) {
+                                            message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
+                                        } else {
+                                            message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
+                                        }
                                     }
                                     if (fullPhoneNumber && message) {
                                         this.sendSMSFinal(fullPhoneNumber, message, row[0]['sms_type']);
