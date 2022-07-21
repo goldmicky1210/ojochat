@@ -211,7 +211,6 @@ $(document).ready(function () {
         }
     });
 
-
     //reply message
     $('.messages').on('click', '.replyBtn', function (e) {
         let replyKind = $(this).closest('li.msg-item').attr('kind');

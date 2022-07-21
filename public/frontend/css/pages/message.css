@@ -33,12 +33,11 @@ ul.chat-main li:hover {
 ul.chat-main li.active {
     background-color: #eff7fe;
 }
-.thread_info {
 
-}
 .thread_info_content {
     display: none;
 }
+
 .thread_info .thread_info_content li {
     display: flex;
     align-items: center;

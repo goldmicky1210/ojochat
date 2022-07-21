@@ -46,9 +46,6 @@ var fonts = ["Arial", "monospace", "cursive", "fantasy", "emoji", "math",
 
 $(document).ready(function () {
 
-    // let elem = document.querySelector('.sticky-switch');
-    // let init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
-
     addFont();
     getRequestList();
     selectBackPhoto();
@@ -60,8 +57,7 @@ $(document).ready(function () {
     setContentRate();
     addTextOnPhoto();
     lockResizeEmojis();
-    getBlinkPrice();
-
+    setPriceOfElement();
     document.getElementById("input_btn")
         .addEventListener('click', function () {
             document.getElementById("input_file").click();
@@ -86,13 +82,14 @@ $(document).ready(function () {
     socket.on('get:rate', data => {
         let target = $('.chatappend').find(`.replies .msg-item[key=${data.messageId}]`);
         getContentRate(target, data.rate);
-    })
+    });
+
     socket.on('stickyToFree', data => {
         let id = $('#photo_item .modal-content').attr('key');
         if (id) {
             showPhotoContent(id);
         }
-    })
+    });
 
     $('ul.chat-main.request-list').on('click', 'li', (e) => {
         $('#detailRequestModal').find('.btn-success').css('display', 'block');
@@ -321,7 +318,7 @@ function blurPhoto() {
             target.renderAll();
         } else if (globalImage && modalId == 'createPhoto') {
             if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-                blurPrice = $('.emojis-price').val();
+                blurPrice = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
             } else {
                 blurPrice = $('.preview-paid').val();
                 // blurPrice = $('.sticky-switch').is(':checked') ? -1 : 0;
@@ -345,7 +342,8 @@ function blurPhoto() {
 function addEmojisOnPhoto() {
     EmojiButton(document.getElementById('create_emoji_button'), function (emoji) {
         if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-            var price = $('.emojis-price').val();
+            console.log()
+            var price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             var price = $('.preview-paid').val();
             // var price = $('.sticky-switch').is(':checked') ? -1 : 0;
@@ -376,7 +374,7 @@ function addEmojisOnPhoto() {
     });
     EmojiButton(document.querySelector('#edit_emoji_button'), function (emoji) {
         if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-            var price = $('.emojis-price').val();
+            var price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             var price = $('.preview-paid').val();
             // var price = $('.sticky-switch').is(':checked') ? -1 : 0;
@@ -413,8 +411,8 @@ function addEmojisOnPhoto() {
         reader.onload = () => {
             fabric.Image.fromURL(reader.result, function (oImg) {
                 if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-                    oImg.price = $('.emojis-price').val();
-                    // oImg.originalPrice = $('.emojis-price').val();
+                    oImg.price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
+                    // oImg.originalPrice = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
                 } else {
                     oImg.price = $('.preview-paid').val();
                     // oImg.originalPrice = $('.preview-paid').val();
@@ -579,7 +577,7 @@ function getEmojisInfo(obj) {
 function getPhotoPrice(target) {
     console.log(blurPrice)
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
-    let blur_price  = isNaN(blurPrice) ? 0 : +blurPrice;
+    let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
     return target._objects.filter(item => !item.payersList.includes(currentUserId)).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
 }
 
@@ -700,7 +698,7 @@ function addTextOnPhoto() {
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
         let price = 0;
         if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-            price = $('.emojis-price').val();
+            price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             price = $('.preview-paid').val();
             // var price = $('.sticky-switch').is(':checked') ? -1 : 0;
@@ -732,6 +730,7 @@ function addTextOnPhoto() {
         }
 
     });
+
     $('.font_select').on('change', function (e) {
         let modalId = $(e.target).closest('.modal').attr('id');
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
@@ -740,6 +739,7 @@ function addTextOnPhoto() {
             target.requestRenderAll();
         }
     });
+
     $('.backColorPicker').colorpicker().on('changeColor', function (e) {
         let modalId = $(e.target).closest('.modal').attr('id');
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
@@ -751,6 +751,7 @@ function addTextOnPhoto() {
             target.requestRenderAll();
         }
     });
+
     $('.fontColorPicker').colorpicker().on('changeColor', function (e) {
         let modalId = $(e.target).closest('.modal').attr('id');
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
@@ -996,7 +997,7 @@ function showPhotoContent(id) {
                                                 let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
                                                 // let blur_price = res.data[0].blur_price > 0 && !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
                                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
-                                                
+
                                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                                 price == 0 ? price = photoPrice : '';
                                                 $('#photo_item .modal-content .photo-price').text('$' + price)
@@ -1120,6 +1121,22 @@ function lockResizeEmojis() {
     });
 }
 
-function getBlinkPrice(panel) {
+function setPriceOfElement() {
+    $('.emojis-price').on('change', function () {
+        let priceType = $(this).val();
+        console.log(priceType)
+        if (+priceType > 0) {
+            $('.paid_value').show();
+        } else {
+            $('.paid_value').hide();
+        }
 
+        $('.price_type .paid_value input').blur(function () {
+            if ($(this).val() > 25) {
+                $(this).val(25);
+            } else if ($(this).val() < 0) {
+                $(this).val(0);
+            }
+        })
+    });
 }

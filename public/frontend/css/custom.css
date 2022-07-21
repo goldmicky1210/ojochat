@@ -286,12 +286,21 @@ ul.chatappend .msg-box .camera-icon {
     align-items: center;
 }
 
+.emojis-price.form-select:focus {
+    box-shadow: none;
+}
+
+.price_type .paid_value {
+    display: none;
+}
+
 .emojis-price {
     width: 75px;
     border: 1px solid black;
     border-radius: 10px;
-    padding: 8px;
-    padding-left: 10px;
+    padding: 3px 10px;
+    /* padding: 8px;
+    padding-left: 10px; */
 }
 
 .emoji-picker {
@@ -640,6 +649,7 @@ h6.read {
     line-height: 1.5;
     cursor: pointer;
 }
+
 #custom_modal .btn_group .btn {
     float: right;
     margin-top: 20px;
@@ -658,6 +668,7 @@ h6.read {
 }
 
 @media (max-width: 1024px) {
+
     .chitchat-main .messages .contact-details .media-body h5,
     .chitchat-main .messages .contact-details .media-body .h5 {
         display: block;
@@ -671,26 +682,33 @@ h6.read {
 }
 
 @media (max-width: 650px) {
+
     #createPhoto .modal-dialog,
     #photo_item .modal-dialog {
         max-width: 500px;
     }
+
     .modal-body {
         padding: 8px;
     }
+
     .canvas-container {
         min-width: 350px !important;
         min-height: 350px !important;
     }
+
     .text-tool .text {
         width: 120px;
     }
+
     .text-tool .font-style span.italic {
         width: 10px;
     }
+
     .text-tool .btn {
         padding: 0 10px;
     }
+
     .lock-tool .icon-btn,
     #create_emoji_button svg,
     #edit_emoji_button svg,
@@ -700,9 +718,11 @@ h6.read {
         width: 20px;
         height: 20px;
     }
+
     .emojis-tool {
         gap: 5px;
     }
+
     .emojis-price {
         padding-top: 5px;
         padding-bottom: 5px;
@@ -710,26 +730,32 @@ h6.read {
 }
 
 @media (max-width: 510px) {
+
     #createPhoto .modal-dialog,
     #photo_item .modal-dialog {
         max-width: 500px;
     }
+
     #createPhoto .modal-body {
         padding: 5px;
     }
+
     .canvas-container {
         min-width: 300px !important;
         min-height: 300px !important;
         margin-top: 10px;
         border-radius: 5px;
     }
+
     #createPhoto .price-mode,
     #createPhoto .text-input {
         top: 36px;
     }
+
     .text-tool .text {
         width: 110px;
     }
+
     .text-tool .font_select {
         width: 90px;
     }
@@ -740,9 +766,11 @@ h6.read {
         min-width: 280px !important;
         min-height: 280px !important;
     }
+
     .emojis-tool {
         padding-left: 5px;
     }
+
     .emojis-tool .btn {
         padding: 5px 7px;
         width: 60px;

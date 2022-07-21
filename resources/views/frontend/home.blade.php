@@ -17,7 +17,6 @@
             transform: translate(-50%, 92px);
             display: none;
         }
-
     </style>
     <script>
         var currentUserId = {{ Auth::id() }};
@@ -52,18 +51,22 @@
                     </li>
                     <!-- <li><a class="icon-btn btn-light button-effect" href="favourite" data-tippy-content="Favourite"><i class="fa fa-star"></i></a></li> -->
                     <li class="contact_list_btn">
-                        <a class="icon-btn btn-light button-effect" href="contact-list" data-tippy-content="Contact List"><i class="fa fa-users"> </i></a>
+                        <a class="icon-btn btn-light button-effect" href="contact-list" data-tippy-content="Contact List"><i
+                                class="fa fa-users"> </i></a>
                     </li>
                     <li class="notification_list_btn">
-                        <div class="dot-danger grow"><a class="icon-btn btn-light button-effect" href="notification" data-tippy-content="Notification"> <i class="fa fa-bell"></i></a></div>
+                        <div class="dot-danger grow"><a class="icon-btn btn-light button-effect" href="notification"
+                                data-tippy-content="Notification"> <i class="fa fa-bell"></i></a></div>
                     </li>
                     <li class="photo_request_list_btn">
                         <div class="dot-danger grow photo_request_icon">
-                            <a class="icon-btn btn-light button-effect" href="request" data-tippy-content="PhotoRequest"> <i class="fa fa-image"></i></a>
+                            <a class="icon-btn btn-light button-effect" href="request" data-tippy-content="PhotoRequest"> <i
+                                    class="fa fa-image"></i></a>
                         </div>
                     </li>
                     <li class="setting_btn">
-                        <a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting"> <i class="fa fa-cog"></i></a>
+                        <a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting"> <i
+                                class="fa fa-cog"></i></a>
                     </li>
                 </ul>
                 <ul class="sidebar-bottom">
@@ -84,8 +87,8 @@
                                 <h4>Chat from your friends &#128536;</h4>
                             </div>
                             <div class="media-body"><a
-                                    class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#"><i
-                                        class="ti-angle-right"></i></a><a
+                                    class="icon-btn btn-outline-light button-effect pull-right mobile-back"
+                                    href="#"><i class="ti-angle-right"></i></a><a
                                     class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#"><i
                                         class="ti-layout-grid2"></i></a>
                             </div>
@@ -145,14 +148,16 @@
                     <ul class="chat-cont-setting call">
                         <li>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#msgcallModal"><span>new call</span>
-                                <div class="icon-btn btn-outline-success button-effect btn-sm"><i data-feather="phone"></i>
+                                <div class="icon-btn btn-outline-success button-effect btn-sm"><i
+                                        data-feather="phone"></i>
                                 </div>
                             </a>
                         </li>
                     </ul>
                     <ul class="chat-cont-setting contact">
                         <li>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><span>new Contact</span>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><span>new
+                                    Contact</span>
                                 <div class="icon-btn btn-outline-danger button-effect btn-sm"><i data-feather="user"></i>
                                 </div>
                             </a>
@@ -182,23 +187,26 @@
                     <div class="theme-tab tab-sm chat-tabs">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" data-to="chat-content"><a class="nav-link button-effect active"
-                                    id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab" aria-controls="chat"
-                                    aria-selected="true"><i data-feather="message-square">
+                                    id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab"
+                                    aria-controls="chat" aria-selected="true"><i data-feather="message-square">
                                     </i>Chat</a></li>
-                            <li class="nav-item" data-to="call-content"><a class="nav-link button-effect"
-                                    id="call-tab" data-bs-toggle="tab" href="#call" role="tab" aria-controls="call"
+                            <li class="nav-item" data-to="call-content"><a class="nav-link button-effect" id="call-tab"
+                                    data-bs-toggle="tab" href="#call" role="tab" aria-controls="call"
                                     aria-selected="false"><i data-feather="phone"> </i>Call</a></li>
                             <li class="nav-item" data-to="contact-content"><a class="nav-link button-effect"
-                                    id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                                    aria-selected="false"> <i data-feather="users"> </i>Contact</a></li>
+                                    id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab"
+                                    aria-controls="contact" aria-selected="false"> <i data-feather="users">
+                                    </i>Contact</a></li>
                         </ul>
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                            <div class="tab-pane fade show active" id="chat" role="tabpanel"
+                                aria-labelledby="chat-tab">
                                 <div class="theme-tab">
                                     <ul class="nav nav-tabs" id="myTab1" role="tablist">
                                         <li class="nav-item"><a class="nav-link button-effect active" id="direct-tab"
-                                                data-bs-toggle="tab" href="#direct" role="tab" aria-controls="direct"
-                                                aria-selected="false" data-to="direct_chat">Direct</a></li>
+                                                data-bs-toggle="tab" href="#direct" role="tab"
+                                                aria-controls="direct" aria-selected="false"
+                                                data-to="direct_chat">Direct</a></li>
                                         <li class="nav-item"><a class="nav-link button-effect" id="group-tab"
                                                 data-bs-toggle="tab" href="#group" role="tab" aria-controls="group"
                                                 aria-selected="true" data-to="group_chat">Group</a></li>
@@ -213,7 +221,8 @@
 
                                             </ul>
                                         </div>
-                                        <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+                                        <div class="tab-pane fade" id="group" role="tabpanel"
+                                            aria-labelledby="group-tab">
                                             {{-- <div class="search2">
                                                 <div>
                                                     <div class="input-group">
@@ -228,7 +237,8 @@
 
                                             </ul>
                                         </div>
-                                        <div class="tab-pane fade" id="cast" role="tabpanel" aria-labelledby="cast-tab">
+                                        <div class="tab-pane fade" id="cast" role="tabpanel"
+                                            aria-labelledby="cast-tab">
                                             <ul class="group-main chat-main">
 
                                             </ul>
@@ -243,14 +253,14 @@
                                                 data-bs-toggle="tab" href="#con1" role="tab" aria-controls="con1"
                                                 aria-selected="true">All</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" id="con3-tab"
-                                                data-bs-toggle="tab" href="#con3" role="tab" aria-controls="con3"
+                                        <li class="nav-item"><a class="nav-link" id="con3-tab" data-bs-toggle="tab"
+                                                href="#con3" role="tab" aria-controls="con3"
                                                 aria-selected="false"> <i data-feather="phone-incoming"></i></a></li>
-                                        <li class="nav-item"><a class="nav-link" id="con4-tab"
-                                                data-bs-toggle="tab" href="#con4" role="tab" aria-controls="con4"
+                                        <li class="nav-item"><a class="nav-link" id="con4-tab" data-bs-toggle="tab"
+                                                href="#con4" role="tab" aria-controls="con4"
                                                 aria-selected="false"> <i data-feather="phone-outgoing"></i></a></li>
-                                        <li class="nav-item"><a class="nav-link" id="con2-tab"
-                                                data-bs-toggle="tab" href="#con2" role="tab" aria-controls="con2"
+                                        <li class="nav-item"><a class="nav-link" id="con2-tab" data-bs-toggle="tab"
+                                                href="#con2" role="tab" aria-controls="con2"
                                                 aria-selected="false"> <i data-feather="phone-missed"></i></a></li>
                                     </ul>
                                     <div class="tab-content" id="contactTabContent">
@@ -260,17 +270,20 @@
 
                                             </ul>
                                         </div>
-                                        <div class="tab-pane fade" id="con2" role="tabpanel" aria-labelledby="con2-tab">
+                                        <div class="tab-pane fade" id="con2" role="tabpanel"
+                                            aria-labelledby="con2-tab">
                                             <ul class="call-log-main">
 
                                             </ul>
                                         </div>
-                                        <div class="tab-pane fade" id="con3" role="tabpanel" aria-labelledby="con3-tab">
+                                        <div class="tab-pane fade" id="con3" role="tabpanel"
+                                            aria-labelledby="con3-tab">
                                             <ul class="call-log-main">
 
                                             </ul>
                                         </div>
-                                        <div class="tab-pane fade" id="con4" role="tabpanel" aria-labelledby="con4-tab">
+                                        <div class="tab-pane fade" id="con4" role="tabpanel"
+                                            aria-labelledby="con4-tab">
                                             <ul class="call-log-main">
 
                                             </ul>
@@ -302,7 +315,8 @@
                                 </div>
                             </form>
 
-                            <a class="icon-btn btn-outline-light btn-sm close-panel" href="#"><i data-feather="x"></i></a>
+                            <a class="icon-btn btn-outline-light btn-sm close-panel" href="#"><i
+                                    data-feather="x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -347,9 +361,10 @@
                                     <input class="form-control-plaintext" type="search" placeholder="Search.." />
                                     <div class="icon-close close-search"> </div>
                                 </div>
-                            </form><a class="icon-btn btn-outline-light btn-sm m-r-15" href="#" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalCenter"><i data-feather="plus"> </i></a><a
-                                class="icon-btn btn-outline-light btn-sm close-panel" href="#"><i data-feather="x"></i></a>
+                            </form><a class="icon-btn btn-outline-light btn-sm m-r-15" href="#"
+                                data-bs-toggle="modal" data-bs-target="#exampleModalCenter"><i data-feather="plus">
+                                </i></a><a class="icon-btn btn-outline-light btn-sm close-panel" href="#"><i
+                                    data-feather="x"></i></a>
                         </div>
                     </div>
                 </div>
@@ -411,8 +426,7 @@
                                             value="{{ Auth::user()->location }}" placeholder="Alabma, USA" />
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control description" placeholder="Description" style="font-size: 12px;"
-                                            row="5">{{ Auth::user()->description }}</textarea>
+                                        <textarea class="form-control description" placeholder="Description" style="font-size: 12px;" row="5">{{ Auth::user()->description }}</textarea>
                                     </div>
                                 </form>
                             </div>
@@ -692,14 +706,13 @@
                         <ul class="integratin">
                             <li>
                                 <div class="media">
-                                    <div class="media-left"> <a class="fb"
-                                            href="https://www.facebook.com/login" target="_blank"><i
-                                                class="fa fa-facebook"></i>
+                                    <div class="media-left"> <a class="fb" href="https://www.facebook.com/login"
+                                            target="_blank"><i class="fa fa-facebook"></i>
                                             <h5>Facebook </h5>
                                         </a></div>
                                     <div class="media-right">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/chat/images/contact/1.jpg" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/chat/images/contact/1.jpg"
+                                                alt="Avatar" /></div>
                                     </div>
                                 </div>
                             </li>
@@ -711,20 +724,20 @@
                                             <h5>instagram</h5>
                                         </a></div>
                                     <div class="media-right">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/images/default-avatar.png" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
+                                                alt="Avatar" /></div>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="media">
-                                    <div class="media-left"> <a class="twi"
-                                            href="https://twitter.com/login" target="_blank"><i class="fa fa-twitter"></i>
+                                    <div class="media-left"> <a class="twi" href="https://twitter.com/login"
+                                            target="_blank"><i class="fa fa-twitter"></i>
                                             <h5>twitter </h5>
                                         </a></div>
                                     <div class="media-right">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/images/default-avatar.png" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
+                                                alt="Avatar" /></div>
                                     </div>
                                 </div>
                             </li>
@@ -736,8 +749,8 @@
                                             <h5>google </h5>
                                         </a></div>
                                     <div class="media-right">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/images/default-avatar.png" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
+                                                alt="Avatar" /></div>
                                     </div>
                                 </div>
                             </li>
@@ -748,8 +761,8 @@
                                             <h5>Slack </h5>
                                         </a></div>
                                     <div class="media-right">
-                                        <div class="profile"><a href="https://slack.com/get-started#/"
-                                                target="_blank"><i data-feather="plus-circle"></i></a></div>
+                                        <div class="profile"><a href="https://slack.com/get-started#/" target="_blank"><i
+                                                    data-feather="plus-circle"></i></a></div>
                                     </div>
                                 </div>
                             </li>
@@ -824,7 +837,8 @@
                                 <div class="media left">
                                     <div class="media-left me-3">
                                         <div class="profile online menu-trigger">
-                                            <img class="bg-img" src="/images/default-avatar.png" alt="Avatar" /></div>
+                                            <img class="bg-img" src="/images/default-avatar.png" alt="Avatar" />
+                                        </div>
                                     </div>
                                     <div class="media-body">
                                         <h5 class="group_title">John Doe</h5>
@@ -836,8 +850,8 @@
                                                         class="fa fa-volume-up"></i></a></li>
                                             <li><a class="icon-btn btn-light search-right" href="#"><i
                                                         data-feather="search"></i></a></li>
-                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><i
-                                                        data-feather="chevron-left"></i></a></li>
+                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar"
+                                                    href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -868,13 +882,13 @@
                                                     <h5>Show Profile</h5>
                                                 </li>
                                                 <li>
-                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm" href="#"><i
-                                                            data-feather="trash-2"></i></a>
+                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm"
+                                                        href="#"><i data-feather="trash-2"></i></a>
                                                     <h5>Delete Conversation</h5>
                                                 </li>
                                                 <li>
-                                                    <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i
-                                                            data-feather="slash"></i></a>
+                                                    <a class="icon-btn btn-outline-light button-effect btn-sm"
+                                                        href="#"><i data-feather="slash"></i></a>
                                                     <h5>Block</h5>
                                                 </li>
                                             </ul>
@@ -919,7 +933,8 @@
                                                     </div>
                                                 </form>
                                             </li>
-                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><i data-feather="chevron-left"></i></a></li>
+                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar"
+                                                    href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -927,11 +942,11 @@
                             <div class="col">
                                 <ul class="calls text-end">
                                     <!-- <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Start Audio Conference" data-bs-toggle="modal"
-                                            data-bs-target="#confercall"><i data-feather="phone"></i></a></li>
-                                    <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Start Video Conference" data-bs-toggle="modal"
-                                            data-bs-target="#confvideocl"><i data-feather="video"></i></a></li> -->
+                                                                    data-tippy-content="Start Audio Conference" data-bs-toggle="modal"
+                                                                    data-bs-target="#confercall"><i data-feather="phone"></i></a></li>
+                                                            <li><a class="icon-btn btn-light button-effect" href="#"
+                                                                    data-tippy-content="Start Video Conference" data-bs-toggle="modal"
+                                                                    data-bs-target="#confvideocl"><i data-feather="video"></i></a></li> -->
                                     <li><a class="icon-btn btn-light button-effect apps-toggle" href="#"
                                             data-tippy-content="All Apps"><i class="ti-layout-grid2"></i></a></li>
                                     <li class="chat-friend-toggle"><a
@@ -940,29 +955,34 @@
                                         <div class="chat-frind-content">
                                             <ul>
                                                 <li class="edit_group_profile_btn">
-                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="edit"></i></a>
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                        href="#"><i data-feather="edit"></i></a>
                                                     <h5>edit profile</h5>
                                                 </li>
                                                 <li class="add_users_btn">
-                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="plus-circle"></i></a>
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                        href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>add users</h5>
                                                 </li>
                                                 <li class="invite_users_btn">
-                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="users"></i></a>
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                        href="#"><i data-feather="users"></i></a>
                                                     <h5>invite users</h5>
                                                 </li>
                                                 <li class="leave_group_btn">
-                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm" href="#"><i data-feather="trash"></i></a>
+                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm"
+                                                        href="#"><i data-feather="trash"></i></a>
                                                     <h5>leave</h5>
                                                 </li>
                                                 <li class="remove_group_btn">
-                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm" href="#"><i data-feather="trash-2"></i></a>
+                                                    <a class="icon-btn btn-outline-danger button-effect btn-sm"
+                                                        href="#"><i data-feather="trash-2"></i></a>
                                                     <h5>remove</h5>
                                                 </li>
                                                 <!-- <li class="block_group_btn">
-                                                    <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
-                                                    <h5>block</h5>
-                                                </li> -->
+                                                                            <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
+                                                                            <h5>block</h5>
+                                                                        </li> -->
                                             </ul>
                                         </div>
                                     </li>
@@ -977,16 +997,16 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                            <h4>Group Users</h4>
-                        </div> -->
+                                                    <h4>Group Users</h4>
+                                                </div> -->
                         <ul class="chatappend">
                             <!-- <li class="groupuser">
-                                <h4>Group Users</h4>
-                                <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
-                                        src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
-                                <div class="gr-profile dot-btn dot-success"><img class="bg-img"
-                                        src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
-                            </li> -->
+                                                        <h4>Group Users</h4>
+                                                        <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
+                                                                src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
+                                                        <div class="gr-profile dot-btn dot-success"><img class="bg-img"
+                                                                src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
+                                                    </li> -->
 
                         </ul>
                     </div>
@@ -1010,8 +1030,8 @@
                                                         class="fa fa-volume-up"></i></a></li>
                                             <li><a class="icon-btn btn-light search-right" href="#"><i
                                                         data-feather="search"></i></a></li>
-                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><i
-                                                        data-feather="chevron-left"></i></a></li>
+                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar"
+                                                    href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1027,7 +1047,8 @@
                                         <div class="chat-frind-content">
                                             <ul>
                                                 <li class="edit_group_profile_btn">
-                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm" href="#"><i data-feather="edit"></i></a>
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                        href="#"><i data-feather="edit"></i></a>
                                                     <h5>edit profile</h5>
                                                 </li>
                                                 <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
@@ -1038,12 +1059,12 @@
                                                         href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>archive</h5>
                                                 </li>
-                                                <li><a class="icon-btn btn-outline-danger button-effect btn-sm" href="#"><i
-                                                            data-feather="trash-2"></i></a>
+                                                <li><a class="icon-btn btn-outline-danger button-effect btn-sm"
+                                                        href="#"><i data-feather="trash-2"></i></a>
                                                     <h5>delete</h5>
                                                 </li>
-                                                <li><a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i
-                                                            data-feather="slash"></i></a>
+                                                <li><a class="icon-btn btn-outline-light button-effect btn-sm"
+                                                        href="#"><i data-feather="slash"></i></a>
                                                     <h5>block</h5>
                                                 </li>
                                             </ul>
@@ -1060,8 +1081,8 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                            <h4>Cast Users</h4>
-                        </div> -->
+                                                    <h4>Cast Users</h4>
+                                                </div> -->
                         <ul class="chatappend">
                         </ul>
                     </div>
@@ -1093,8 +1114,8 @@
                                                     </div>
                                                 </form>
                                             </li>
-                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><i
-                                                        data-feather="chevron-left"></i></a></li>
+                                            <li><a class="icon-btn btn-light button-effect mobile-sidebar"
+                                                    href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1122,12 +1143,12 @@
                                                         href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>archive</h5>
                                                 </li>
-                                                <li><a class="icon-btn btn-outline-danger button-effect btn-sm" href="#"><i
-                                                            data-feather="trash-2"></i></a>
+                                                <li><a class="icon-btn btn-outline-danger button-effect btn-sm"
+                                                        href="#"><i data-feather="trash-2"></i></a>
                                                     <h5>delete</h5>
                                                 </li>
-                                                <li><a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i
-                                                            data-feather="slash"></i></a>
+                                                <li><a class="icon-btn btn-outline-light button-effect btn-sm"
+                                                        href="#"><i data-feather="slash"></i></a>
                                                     <h5>block</h5>
                                                 </li>
                                             </ul>
@@ -1173,8 +1194,8 @@
 
                     </span>
                     <span class="closeIcon">
-                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#CCCCCC"
-                            gradientcolor1="#CCCCCC" gradientcolor2="#CCCCCC">
+                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="#CCCCCC" gradientcolor1="#CCCCCC" gradientcolor2="#CCCCCC">
                             <path
                                 d="M4.397 4.554l.073-.084a.75.75 0 01.976-.073l.084.073L12 10.939l6.47-6.47a.75.75 0 111.06 1.061L13.061 12l6.47 6.47a.75.75 0 01.072.976l-.073.084a.75.75 0 01-.976.073l-.084-.073L12 13.061l-6.47 6.47a.75.75 0 01-1.06-1.061L10.939 12l-6.47-6.47a.75.75 0 01-.072-.976l.073-.084-.073.084z">
                             </path>
@@ -1465,9 +1486,10 @@
         </div>
 
         <section class="section-py-space chitchat-main light-bg">
-            <a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left">
+            <a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="feather feather-chevron-left">
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg></a>
             <div class="container-fluid">
@@ -1508,10 +1530,11 @@
                     </div>
                 </div>
             </div>
-            <div class="chitchat-back-block"><img class="img-fluid chit-chat1" src="/chat/images/landing/chitchat/2.png"
-                    alt="chit-chat-back-img" /><img class="img-fluid chit-chat2" src="/chat/images/landing/chitchat/1.png"
-                    alt="chit-chat-back-img" /><img class="img-fluid chit-chat3" src="/chat/images/landing/chitchat/3.png"
-                    alt="chit-chat-back-img" /></div>
+            <div class="chitchat-back-block"><img class="img-fluid chit-chat1"
+                    src="/chat/images/landing/chitchat/2.png" alt="chit-chat-back-img" /><img
+                    class="img-fluid chit-chat2" src="/chat/images/landing/chitchat/1.png"
+                    alt="chit-chat-back-img" /><img class="img-fluid chit-chat3"
+                    src="/chat/images/landing/chitchat/3.png" alt="chit-chat-back-img" /></div>
         </section>
 
         <aside class="chitchat-right-sidebar" id="slide-menu">
@@ -1545,11 +1568,14 @@
                             <h6>add description</h6>
                         </div>
                         <ul class="medialogo">
-                            <li><a class="icon-btn btn-danger button-effect" href="#"><i class="fa fa-google"></i></a>
+                            <li><a class="icon-btn btn-danger button-effect" href="#"><i
+                                        class="fa fa-google"></i></a>
                             </li>
-                            <li><a class="icon-btn btn-primary button-effect" href="#"><i class="fa fa-twitter"></i></a>
+                            <li><a class="icon-btn btn-primary button-effect" href="#"><i
+                                        class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a class="icon-btn btn-facebook button-effect" href="#"><i class="fa fa-facebook-f"></i></a>
+                            <li><a class="icon-btn btn-facebook button-effect" href="#"><i
+                                        class="fa fa-facebook-f"></i></a>
                             </li>
                         </ul>
                         <ul class="group_operation">
@@ -1588,7 +1614,8 @@
                                             <div>★</div>
                                         </div>
                                     </li>
-                                    <li class="video-rating"><i class="ti-video-clapper font-primary" title="video"></i>
+                                    <li class="video-rating"><i class="ti-video-clapper font-primary"
+                                            title="video"></i>
                                         <div class="photoRating">
                                             <div>★</div>
                                             <div>★</div>
@@ -1788,8 +1815,8 @@
                             <ul class="group-main">
                                 <li>
                                     <div class="group-box">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/chat/images/avtar/teq.jpg" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/chat/images/avtar/teq.jpg"
+                                                alt="Avatar" /></div>
                                         <div class="details">
                                             <h5>Tech Ninjas</h5>
                                             <h6>johan, deo, Sufiya Elija, Pabelo & you</h6>
@@ -1798,8 +1825,8 @@
                                 </li>
                                 <li>
                                     <div class="group-box">
-                                        <div class="profile"><img class="bg-img"
-                                                src="/chat/images/avtar/family.jpg" alt="Avatar" /></div>
+                                        <div class="profile"><img class="bg-img" src="/chat/images/avtar/family.jpg"
+                                                alt="Avatar" /></div>
                                         <div class="details">
                                             <h5>Family Ties</h5>
                                             <h6>Mukrani, deo & you</h6>
@@ -1821,7 +1848,8 @@
                                         data-feather="crosshair"></i>https://pixelstrap</a></h5>
                         </li>
                         <li>
-                            <h5><a href="#"> <i data-feather="map-pin"></i>1766 Fidler Drive Texas, 78238.</a></h5>
+                            <h5><a href="#"> <i data-feather="map-pin"></i>1766 Fidler Drive Texas, 78238.</a>
+                            </h5>
                         </li>
                     </ul>
                 </div>
@@ -1923,8 +1951,9 @@
                                                                 <li><a href="#">Jhon john</a></li>
                                                             </ul>
                                                         </div>
-                                                        <input class="datepicker-here form-control digits" type="url"
-                                                            data-language="en" placeholder="Due date" />
+                                                        <input class="datepicker-here form-control digits"
+                                                            type="url" data-language="en"
+                                                            placeholder="Due date" />
                                                     </div>
                                                 </div>
                                                 <div class="todo-list">
@@ -1953,8 +1982,9 @@
                                                                 <li><a href="#">Jhon john</a></li>
                                                             </ul>
                                                         </div>
-                                                        <input class="datepicker-here form-control digits" type="url"
-                                                            data-language="en" placeholder="Due date" />
+                                                        <input class="datepicker-here form-control digits"
+                                                            type="url" data-language="en"
+                                                            placeholder="Due date" />
                                                     </div>
                                                 </div>
                                                 <div class="todo-list">
@@ -1983,8 +2013,9 @@
                                                                 <li><a href="#">Jhon john</a></li>
                                                             </ul>
                                                         </div>
-                                                        <input class="datepicker-here form-control digits" type="url"
-                                                            data-language="en" placeholder="Due date" />
+                                                        <input class="datepicker-here form-control digits"
+                                                            type="url" data-language="en"
+                                                            placeholder="Due date" />
                                                     </div>
                                                 </div>
                                                 <div class="todo-list">
@@ -2013,7 +2044,8 @@
                                     <h4>Shared Media</h4>
                                 </div>
                                 <div class="media-body media-body text-end"><a
-                                        class="icon-btn btn-sm btn-outline-light close-apps" href="#"><i data-feather="x">
+                                        class="icon-btn btn-sm btn-outline-light close-apps" href="#"><i
+                                            data-feather="x">
                                         </i></a></div>
                             </div>
                         </div>
@@ -2043,9 +2075,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/1.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/1.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2058,9 +2089,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2071,9 +2101,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2086,9 +2115,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2099,9 +2127,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/5.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/5.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2121,9 +2148,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/1.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/1.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2136,9 +2162,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2149,9 +2174,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2164,9 +2188,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2177,9 +2200,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/5.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/5.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2199,9 +2221,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/1.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/1.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2214,9 +2235,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2227,9 +2247,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2242,9 +2261,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2255,9 +2273,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/5.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/5.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2270,9 +2287,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2285,9 +2301,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2300,9 +2315,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2322,9 +2336,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/1.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/1.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2337,9 +2350,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2350,9 +2362,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2365,9 +2376,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2378,9 +2388,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/5.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/5.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2393,9 +2402,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/2.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/2.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2408,9 +2416,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/3.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/3.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2423,9 +2430,8 @@
                                                                 <div class="border-portfolio"><a
                                                                         href="/chat/images/gallery/4.jpg">
                                                                         <div class="overlay-background"><i
-                                                                                class="ti-plus"
-                                                                                aria-hidden="true"></i></div><img
-                                                                            class="img-fluid bg-img"
+                                                                                class="ti-plus" aria-hidden="true"></i>
+                                                                        </div><img class="img-fluid bg-img"
                                                                             src="/chat/images/gallery/4.jpg"
                                                                             alt="portfolio-image" />
                                                                     </a></div>
@@ -2462,8 +2468,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/multikart-responsive-vuejs-ecommerce-template/25174665">https://themeforest.net/item/multikart-responsive-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/3.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/3.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Multipurpose Vuejs.</h5>
                                                 <h6 class="mt-0">Template is a multi-use Vue template.</h6>
@@ -2478,8 +2484,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/unice-angular-multipurpose-template/24776272">https://themeforest.net/item/unice-angular-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/8.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/8.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Angular Template.</h5>
                                                 <h6 class="mt-0">Unice is a Perfect Respon.</h6>
@@ -2510,8 +2516,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/bigdeal-ecommerce-htms-template/24809149">https://themeforest.net/item/bigdeal-ecommerce-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/9.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/9.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>HTML Template.</h5>
                                                 <h6 class="mt-0">eCommerce HTML Template.</h6>
@@ -2526,8 +2532,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773">https://themeforest.net/item/multikart-responsive-react-ecommerce</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/3.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/3.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Multipurp eComme.</h5>
                                                 <h6 class="mt-0">Well with multi-purpose websites.</h6>
@@ -2558,8 +2564,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358">https://themeforest.net/item/multikart-responsive-angular</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/3.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/3.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Responsive Ang.</h5>
                                                 <h6 class="mt-0">Multikart – Multipurpose.</h6>
@@ -2592,8 +2598,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/bigboost-ecommerce-htms-template/24168053">https://themeforest.net/item/bigboost-ecommerce-htms-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/7.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/7.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Fully Responsive.</h5>
                                                 <h6 class="mt-0">Multiple Header Varations.</h6>
@@ -2608,8 +2614,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/unice-app-landing-corporate-and-portfolio-multipurpose-template/24581311">https://themeforest.net/item/unice-app-landing-corporate-and-portfolio-multipurpose-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/4.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/4.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Multi-Purpos theme.</h5>
                                                 <h6 class="mt-0">Unice is a Perfect Responsive.</h6>
@@ -2624,8 +2630,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/reno-multipurpose-htms-template/24141678">https://themeforest.net/item/reno-multipurpose-htms-template</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/6.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/6.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Reno Template is a busines.</h5>
                                                 <h6 class="mt-0">Android Mobile or tablets.</h6>
@@ -2640,8 +2646,8 @@
                                             </div>
                                         </div><a
                                             href="https://themeforest.net/item/shopmart-multipurpose-shopify-theme/24040917?s_rank=12">https://themeforest.net/item/shopmart-multipurpose-shopify-theme</a>
-                                        <div class="media"><img class="img-fluid"
-                                                src="/chat/images/file_icons/5.png" alt="media-img" />
+                                        <div class="media"><img class="img-fluid" src="/chat/images/file_icons/5.png"
+                                                alt="media-img" />
                                             <div class="media-body">
                                                 <h5>Shop Mart Landing Page.</h5>
                                                 <h6 class="mt-0">This is App Landing Template.</h6>
@@ -2787,15 +2793,16 @@
                             </form>
                             <div class="notes-list">
                                 <h6 class="mb-2 text-muted">Joshephin Water.10 Jan</h6>
-                                <div class="media"><img class="img-fluid me-3"
-                                        src="/chat/images/file_icons/5.png" alt="media-img" />
+                                <div class="media"><img class="img-fluid me-3" src="/chat/images/file_icons/5.png"
+                                        alt="media-img" />
                                     <div class="media-body">
                                         <h5 class="mt-0">Joshephin Water</h5>
                                     </div>
                                 </div>
                                 <h5 class="mb-2">Imporatnt project link</h5>
                                 <h6 class="mb-2">Please start testing task of your projects.</h6>
-                                <div class="forward-main"><a class="line fa fa-mail-forward" href="#">Forward </a>
+                                <div class="forward-main"><a class="line fa fa-mail-forward" href="#">Forward
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -2822,11 +2829,12 @@
                                 <h5>Themeforest Discusssion</h5>
                                 <h6>Project Discussion</h6><span>11:22 PM | 15 FAB</span>
                                 <ul class="reminder-disp">
-                                    <li class="reminder-list-toggle"><a class="icon-btn bg-transparent" href="#"><i
-                                                data-feather="more-vertical"></i></a>
+                                    <li class="reminder-list-toggle"><a class="icon-btn bg-transparent"
+                                            href="#"><i data-feather="more-vertical"></i></a>
                                         <div class="reminder-contentlist-toggle">
                                             <ul>
-                                                <li><a class="icon-btn btn-sm" href="#"><i data-feather="trash"></i></a>
+                                                <li><a class="icon-btn btn-sm" href="#"><i
+                                                            data-feather="trash"></i></a>
                                                     <h5>Delete</h5>
                                                 </li>
                                             </ul>
@@ -2843,7 +2851,8 @@
                                     <h6>05:22 PM | 1 JAN</h6>
                                     <ul class="reminder-disp">
                                         <li class="reminder-toggle"><a class="icon-btn bg-transparent" href="#"
-                                                data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
+                                                data-tippy-content="Quick action"><i
+                                                    data-feather="more-vertical"></i></a>
                                             <div class="reminder-content-toggle">
                                                 <ul>
                                                     <li><a class="icon-btn btn-sm" href="#"><i
@@ -2909,7 +2918,8 @@
                     <form class="default-form" id="addContactForm">
                         <div class="form-group">
                             <h5>Email or Username</h5>
-                            <input class="form-control" id="exampleInputEmail1" type="text" placeholder="John Doe" />
+                            <input class="form-control" id="exampleInputEmail1" type="text"
+                                placeholder="John Doe" />
                             <span class="text-danger addContactError"></span>
                         </div>
                     </form>
@@ -2940,8 +2950,8 @@
                         </div>
                         <div class="form-group">
                             <input class="form-control" type="text" placeholder="option 1" />
-                            <input class="form-control" type="text" placeholder="option 2" /><a class="add-option"
-                                href="#">add an option</a>
+                            <input class="form-control" type="text" placeholder="option 2" /><a
+                                class="add-option" href="#">add an option</a>
                         </div>
                         <div class="form-group">
                             <div class="post-poll">
@@ -2967,7 +2977,8 @@
             </div>
         </div>
     </div>
-    <div class="modal notes-modal-main add-popup" id="notesModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal notes-modal-main add-popup" id="notesModal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -2981,9 +2992,9 @@
                             <h5>Inline Editor</h5>
                         </div>
                         <div class="card-body">
-                            <div class="cke_editable cke_editable_inline cke_contents_ltr cke_show_borders" id="area1"
-                                contenteditable="true" tabindex="0" spellcheck="false" role="textbox"
-                                aria-label="Rich Text Editor, area1" title="Rich Text Editor, area1">
+                            <div class="cke_editable cke_editable_inline cke_contents_ltr cke_show_borders"
+                                id="area1" contenteditable="true" tabindex="0" spellcheck="false"
+                                role="textbox" aria-label="Rich Text Editor, area1" title="Rich Text Editor, area1">
                                 <h1>Your title</h1>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at vulputate urna, sed
                                     dignissim arcu. Aliquam at ligula imperdiet, faucibus ante a, interdum enim. Sed in
@@ -3003,7 +3014,8 @@
             </div>
         </div>
     </div>
-    <div class="modal reminder-modal-main add-popup" id="setReminder" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal reminder-modal-main add-popup" id="setReminder" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3070,7 +3082,8 @@
             </div>
         </div>
     </div>
-    <div class="modal photo-modal-main add-popup" id="photoRequestModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal photo-modal-main add-popup" id="photoRequestModal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3094,8 +3107,8 @@
                         </div>
                         <div class="form-group mb-0">
                             <div class="btn-snipate">
-                                <a class="btn btn-danger button-effect btn-sm me-3" href="#" data-bs-dismiss="modal"
-                                    aria-label="Close">Cancel</a>
+                                <a class="btn btn-danger button-effect btn-sm me-3" href="#"
+                                    data-bs-dismiss="modal" aria-label="Close">Cancel</a>
                                 <a class="btn btn-primary button-effect btn-sm" href="#" data-bs-dismiss="modal"
                                     aria-label="Close" onclick="sendPhotoRequest();">Send Request</a>
                             </div>
@@ -3108,8 +3121,8 @@
     <div class="modal fade" id="audiocall" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-body">
-                <div class="audiocall1 call-modal"><img class="bg-img"
-                        src="/chat/images/avtar/big/audiocall.jpg" alt="Avatar" />
+                <div class="audiocall1 call-modal"><img class="bg-img" src="/chat/images/avtar/big/audiocall.jpg"
+                        alt="Avatar" />
                     <div class="center-con text-center">
                         <div class="title2">John Doe</div>
                         <h6>log angelina california</h6>
@@ -3117,8 +3130,8 @@
                             <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"
                                     data-bs-toggle="modal" data-bs-target="#audiorcvcall" data-bs-dismiss="modal"> <i
                                         data-feather="phone"></i></a></li>
-                            <li> <a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"
-                                    data-bs-dismiss="modal"> <i data-feather="phone"></i></a></li>
+                            <li> <a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall"
+                                    href="#" data-bs-dismiss="modal"> <i data-feather="phone"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -3128,8 +3141,8 @@
     <div class="viddiolog modal fade" id="videocall" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-body">
-                <div class="videocall call-modal"><img class="bg-img"
-                        src="/chat/images/avtar/big/videocall_bg.jpg" alt="Avatar" />
+                <div class="videocall call-modal"><img class="bg-img" src="/chat/images/avtar/big/videocall_bg.jpg"
+                        alt="Avatar" />
                     <div class="small-image"><img class="bg-img" src="/chat/images/avtar/big/videocall.jpg"
                             alt="Avatar" />
                     </div>
@@ -3151,13 +3164,14 @@
                     </div>
                     <div class="center-con text-center">
                         <ul>
-                            <li><a class="icon-btn btn-light button-effect pause" href="#" data-tippy-content="Hold"><i
-                                        class="ti-control-pause"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect pause" href="#"
+                                    data-tippy-content="Hold"><i class="ti-control-pause"></i></a></li>
                             <li><a class="icon-btn btn-danger button-effect btn-xl is-animating" href="#"
-                                    data-bs-dismiss="modal" data-tippy-content="Hangup"> <i data-feather="phone"></i></a>
+                                    data-bs-dismiss="modal" data-tippy-content="Hangup"> <i
+                                        data-feather="phone"></i></a>
                             </li>
-                            <li><a class="icon-btn btn-light button-effect mic" href="#" data-tippy-content="Mute"><i
-                                        class="fa fa-microphone"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect mic" href="#"
+                                    data-tippy-content="Mute"><i class="fa fa-microphone"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -3167,8 +3181,8 @@
     <div class="modal fade" id="confercall" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-body">
-                <div class="conferencecall call-modal"><img class="bg-img"
-                        src="/chat/images/avtar/big/audiocall.jpg" alt="Avatar" />
+                <div class="conferencecall call-modal"><img class="bg-img" src="/chat/images/avtar/big/audiocall.jpg"
+                        alt="Avatar" />
                     <div class="center-con text-center">
                         <div class="usersprof">
                             <div class="profile"><img class="bg-img" src="/chat/images/avtar/2.jpg"
@@ -3177,14 +3191,14 @@
                                     alt="Avatar" /></div>
                             <div class="profile"><img class="bg-img" src="/chat/images/avtar/5.jpg"
                                     alt="Avatar" /></div>
-                            <div class="profile"><img class="bg-img"
-                                    src="/chat/images/avtar/big/videocall_bg.jpg" alt="Avatar" /></div>
+                            <div class="profile"><img class="bg-img" src="/chat/images/avtar/big/videocall_bg.jpg"
+                                    alt="Avatar" /></div>
                         </div>
                         <p>Incoming Call</p>
                         <h3>Conference Call</h3>
                         <ul>
-                            <li> <a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall" href="#"
-                                    data-bs-dismiss="modal"> <i data-feather="phone"></i></a></li>
+                            <li> <a class="icon-btn btn-danger button-effect btn-xl is-animating cancelcall"
+                                    href="#" data-bs-dismiss="modal"> <i data-feather="phone"></i></a></li>
                             <li><a class="icon-btn btn-success button-effect btn-xl is-animating" href="#"> <i
                                         data-feather="video"></i></a></li>
                         </ul>
@@ -3199,20 +3213,20 @@
                 <div class="modal-body">
                     <div class="row confimg">
                         <div class="col-6">
-                            <div class="vclimg"><img class="bg-img"
-                                    src="/chat/images/avtar/big/videocall_bg.jpg" alt="Avatar" /></div>
-                        </div>
-                        <div class="col-6">
-                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/5.jpg"
+                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/big/videocall_bg.jpg"
                                     alt="Avatar" /></div>
                         </div>
                         <div class="col-6">
-                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/2.jpg"
-                                    alt="Avatar" /></div>
+                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/5.jpg" alt="Avatar" />
+                            </div>
                         </div>
                         <div class="col-6">
-                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/3.jpg"
-                                    alt="Avatar" /></div>
+                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/2.jpg" alt="Avatar" />
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="vclimg"><img class="bg-img" src="/chat/images/avtar/3.jpg" alt="Avatar" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3223,14 +3237,15 @@
                                     data-feather="volume-2"></i></a></li>
                         <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Camera"><i
                                     data-feather="camera-off"></i></a></li>
-                        <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Add Call"><i
-                                    data-feather="user-plus"></i></a></li>
+                        <li><a class="icon-btn btn-light button-effect" href="#"
+                                data-tippy-content="Add Call"><i data-feather="user-plus"></i></a></li>
                         <li><a class="icon-btn btn-danger button-effect btn-sm is-animating" href="#"
-                                data-bs-dismiss="modal" data-tippy-content="Hangup"><i data-feather="phone"></i></a></li>
-                        <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Disable Video"><i
-                                    data-feather="video-off"></i></a></li>
-                        <li><a class="icon-btn btn-light button-effect mic" href="#" data-tippy-content="Mute"><i
-                                    data-feather="mic-off"></i></a></li>
+                                data-bs-dismiss="modal" data-tippy-content="Hangup"><i data-feather="phone"></i></a>
+                        </li>
+                        <li><a class="icon-btn btn-light button-effect" href="#"
+                                data-tippy-content="Disable Video"><i data-feather="video-off"></i></a></li>
+                        <li><a class="icon-btn btn-light button-effect mic" href="#"
+                                data-tippy-content="Mute"><i data-feather="mic-off"></i></a></li>
                         <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Hold"><i
                                     data-feather="pause"></i></a></li>
                     </ul>
@@ -3241,31 +3256,33 @@
     <div class="modal fade audiorcvcall" id="audiorcvcall" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-body">
-                <div class="audiocall2 call-modal"><img class="bg-img"
-                        src="/chat/images/avtar/big/audiocall.jpg" alt="Avatar" />
+                <div class="audiocall2 call-modal"><img class="bg-img" src="/chat/images/avtar/big/audiocall.jpg"
+                        alt="Avatar" />
                     <div class="center-con text-center">
                         <div id="basicUsage2">00:00:00</div>
                         <div class="title2">John Doe</div>
                         <h6>log angelina california</h6>
                         <ul>
-                            <li><a class="icon-btn btn-light button-effect mute" href="#" data-tippy-content="Mute"><i
-                                        class="fa fa-microphone"></i></a></li>
-                            <li><a class="icon-btn btn-light button-effect mute" href="#" data-tippy-content="Speaker"><i
-                                        class="fa fa-volume-up"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect mute" href="#"
+                                    data-tippy-content="Mute"><i class="fa fa-microphone"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect mute" href="#"
+                                    data-tippy-content="Speaker"><i class="fa fa-volume-up"></i></a></li>
                             <li><a class="icon-btn btn-danger button-effect btn-xl is-animating" href="#"
-                                    data-tippy-content="Hangup" data-bs-dismiss="modal"> <i data-feather="phone"></i></a>
+                                    data-tippy-content="Hangup" data-bs-dismiss="modal"> <i
+                                        data-feather="phone"></i></a>
                             </li>
-                            <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Add Call"><i
-                                        data-feather="user-plus"></i></a></li>
-                            <li><a class="icon-btn btn-light button-effect" href="#" data-tippy-content="Pause"><i
-                                        data-feather="pause"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect" href="#"
+                                    data-tippy-content="Add Call"><i data-feather="user-plus"></i></a></li>
+                            <li><a class="icon-btn btn-light button-effect" href="#"
+                                    data-tippy-content="Pause"><i data-feather="pause"></i></a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade fev-addcall-main add-popup" id="addcallmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade fev-addcall-main add-popup" id="addcallmodal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3278,12 +3295,13 @@
                     <form class="default-form">
                         <div class="form-group">
                             <h5>Email or Username</h5>
-                            <input class="form-control" id="exampleInputEmail12" type="text" placeholder="John Doe" />
+                            <input class="form-control" id="exampleInputEmail12" type="text"
+                                placeholder="John Doe" />
                         </div>
                         <!-- <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h5>Contact number</h5>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h5>Contact number</h5>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -3294,7 +3312,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup todo-main-modal" id="todoModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup todo-main-modal" id="todoModal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3328,8 +3347,8 @@
                                             <li>Jhon john</li>
                                         </ul>
                                     </div>
-                                    <input class="datepicker-here form-control digits" type="url" data-language="en"
-                                        placeholder="Due date" />
+                                    <input class="datepicker-here form-control digits" type="url"
+                                        data-language="en" placeholder="Due date" />
                                 </div>
                             </div>
                         </div>
@@ -3378,8 +3397,8 @@
                                             <li>Jhon john</li>
                                         </ul>
                                     </div>
-                                    <input class="datepicker-here form-control digits" type="url" data-language="en"
-                                        placeholder="Due date" />
+                                    <input class="datepicker-here form-control digits" type="url"
+                                        data-language="en" placeholder="Due date" />
                                 </div>
                             </div>
                         </div>
@@ -3417,7 +3436,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup msg-chat-modal" id="newChatModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup msg-chat-modal" id="newChatModal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3456,7 +3476,8 @@
         </div>
     </div>
 
-    <div class="modal fade add-popup msg-chat-modal" id="msgcallModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup msg-chat-modal" id="msgcallModal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3477,8 +3498,8 @@
                     <ul class="call-log-main custom-scroll">
                         <li class="active">
                             <div class="call-box">
-                                <div class="profile offline"><img class="bg-img"
-                                        src="/images/default-avatar.png" alt="Avatar" /></div>
+                                <div class="profile offline"><img class="bg-img" src="/images/default-avatar.png"
+                                        alt="Avatar" /></div>
                                 <div class="details">
                                     <h5>Jony Lynetin</h5>
                                     <h6> <i data-feather="arrow-down-left"></i>3:30 pm</h6>
@@ -3531,7 +3552,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup request-modal" id="createPhoto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup request-modal" id="createPhoto" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3549,7 +3571,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup request-modal" id="mediaPhoto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup request-modal" id="mediaPhoto" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3566,7 +3589,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup request-modal" id="photo_item" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup request-modal" id="photo_item" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="">
@@ -3589,7 +3613,8 @@
                     <div class="blur-tool">
                         <div>
                             <img src="/images/blur.png" alt="">
-                            <input type="range" class="form-range blurRange" min="0" max="1.5" step="0.1" value="0">
+                            <input type="range" class="form-range blurRange" min="0" max="1.5"
+                                step="0.1" value="0">
                         </div>
                     </div>
                 </div>
@@ -3621,12 +3646,14 @@
                     </div>
                     <div class="btn-group open_btn_group">
                         <div class="photo-price"></div>
-                        <div class="btn previewBtn d-none payWholePriceBtn" title="Preview"><img src="/images/preview.png"
-                                alt="Pay"> </div>
+                        <div class="btn previewBtn d-none payWholePriceBtn" title="Preview"><img
+                                src="/images/preview.png" alt="Pay"> </div>
                         <div class="btn payBtn" title="Pay"><img src="/images/pay.png" alt="Pay"> </div>
-                        <div class="btn sharePhotoBtn disabled" title="Share"><img src="/images/share.png" alt="Share">
+                        <div class="btn sharePhotoBtn disabled" title="Share"><img src="/images/share.png"
+                                alt="Share">
                         </div>
-                        <div class="btn restoreBtn" title="Restore"><img src="/images/restore.png" alt="Restore"> </div>
+                        <div class="btn restoreBtn" title="Restore"><img src="/images/restore.png" alt="Restore">
+                        </div>
                         {{-- <div class="btn emoji_btn">
                             <div id="edit_emoji_button" class="emoji-button"></div>
                         </div>
@@ -3649,7 +3676,8 @@
                         <div class="btn emoji_btn">
                             <div id="edit_emoji_button" class="emoji-button"></div>
                         </div>
-                        <div class="btn savePhotoBtn" title="Save"><img src="/images/save.png" alt="Save"> </div>
+                        <div class="btn savePhotoBtn" title="Save"><img src="/images/save.png" alt="Save">
+                        </div>
                         {{-- <div class="btn " href="#" data-bs-dismiss="modal" title="Cancel"><img src="/images/cancel.png" alt="Cancel"></div> --}}
                     </div>
                     <div class="selected-emojis"></div>
@@ -3657,7 +3685,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3666,13 +3695,13 @@
                 </div>
                 <div class="modal-body">
                     <!-- <div>
-                        <span class="">To: </span>
-                        <span class="recipientName"></span>
-                    </div>
-                    <div>
-                        <span class="">Mail:</span>
-                        <span class="recipientMail"></span>
-                    </div> -->
+                                                <span class="">To: </span>
+                                                <span class="recipientName"></span>
+                                            </div>
+                                            <div>
+                                                <span class="">Mail:</span>
+                                                <span class="recipientMail"></span>
+                                            </div> -->
                     <div class="product-payment">
                         <div class="product-list">
                             <hr>
@@ -3695,13 +3724,14 @@
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
-                                                                                                                                                                                                                    <button type="button" class="btn btn-primary payWholePriceBtn" data-bs-dismiss="modal">OK</button>
-                                                                                                                                                                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                            <button type="button" class="btn btn-primary payWholePriceBtn" data-bs-dismiss="modal">OK</button>
+                                                                                                                                                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                                                                                                                                                                                        </div> -->
             </div>
         </div>
     </div>
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3712,14 +3742,16 @@
                     <h3>Continue with payment?</h3>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary payWholePriceBtn" data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary payWholePriceBtn"
+                        data-bs-dismiss="modal">OK</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade add-popup msg-chat-modal" id="custom_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade add-popup msg-chat-modal" id="custom_modal" tabindex="-1" role="dialog"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -3740,8 +3772,10 @@
                     <div class="search_field">
                         <!-- <span style="font-size: 16px;">Add Users</span> -->
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search Users" aria-label="Recipient's username" aria-describedby="basic-addon20" />
-                            <div class="input-group-append"><span class="input-group-text" id="basic-addon20"><i class="fa fa-search" aria-hidden="true"></i></span>
+                            <input class="form-control" type="text" placeholder="Search Users"
+                                aria-label="Recipient's username" aria-describedby="basic-addon20" />
+                            <div class="input-group-append"><span class="input-group-text" id="basic-addon20"><i
+                                        class="fa fa-search" aria-hidden="true"></i></span>
                             </div>
                         </div>
                     </div>
