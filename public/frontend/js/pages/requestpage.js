@@ -578,7 +578,7 @@ function getPhotoPrice(target) {
     console.log(blurPrice)
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
     let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
-    return target._objects.filter(item => !item.payersList.includes(currentUserId)).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
+    return target._objects.filter(item => !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
 }
 
 function getPhotoSrcById(id, target) {
@@ -912,7 +912,9 @@ function showPhotoContent(id) {
                                     $('.selected-emojis').append(img);
                                 }
 
-                                let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item>0).reduce((total, item) => item + total, 0);
+
                                 // let blur_price = !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
                                 if (selectedEmojis.includes('blur')) price += blur_price;
@@ -994,7 +996,9 @@ function showPhotoContent(id) {
                                                     $(img).attr('key', oImg.id);
                                                     $('.selected-emojis').append(img);
                                                 }
-                                                let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                                // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item>0).reduce((total, item) => item + total, 0);
+
                                                 // let blur_price = res.data[0].blur_price > 0 && !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
                                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
 
@@ -1058,7 +1062,9 @@ function showPhotoContent(id) {
                                                 }
                                                 $('.selected-emojis').append(img);
                                             }
-                                            let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                            // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
+                                            let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item>0).reduce((total, item) => item + total, 0);
+
                                             let blur_price = blurPrice < 0 ? 0 : blurPrice;
 
                                             if (selectedEmojis.includes('blur')) price += blur_price;
@@ -1081,7 +1087,7 @@ function showPhotoContent(id) {
                             }
                             photo_canvas.add(object);
                             addEventAction(photo_canvas, object);
-                            if (!object.payersList.includes(currentUserId)) {
+                            if (!object.payersList.includes(currentUserId) && +object.price > 0) {
                                 photoPrice += Number(object.price);
                             }
                         }

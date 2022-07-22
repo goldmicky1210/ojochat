@@ -104,7 +104,7 @@ function tempAction() {
 }
 function payPhoto() {
     $('.payBtn').on('click', () => {
-        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price > 0)).reduce((total, item) => item + total, 0);
+        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item>0).reduce((total, item) => item + total, 0);
 
         // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
         // let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
