@@ -319,8 +319,9 @@ class HomeController extends Controller
                 $photoData[0]['messageId'] = $messageData[0]['id'];
                 return array('state'=>'true', 'data'=>$photoData);
             }
+            return array('state'=>'false', 'message'=>'no blink');
         }
-        return array('state'=>'false');
+        return array('state'=>'false', 'message'=>'no message');
 
     }
     public function setContentRate(Request $request)

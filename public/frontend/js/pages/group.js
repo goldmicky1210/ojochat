@@ -593,7 +593,7 @@ function addGroupChatItem(target, data, loadFlag) {
             <button class="btn btn-sm btn-success">Pay</button>
          </div>`;
     }
-    let item = `<li class="${type} msg-item" key="${data.id || data.messageId}" kind="${data.kind || 0}">
+    let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">
         <div class="media">
             <div class="profile me-4 bg-size" style="background-image: url(${senderInfo.avatar ? 'v1/api/downloadFile?path=' + senderInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center;">
             </div>

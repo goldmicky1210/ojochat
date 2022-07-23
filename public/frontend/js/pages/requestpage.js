@@ -876,6 +876,7 @@ function showPhotoContent(id) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
+            console.log(res);
             $('.selected-emojis').css('left', canvasDimension + 40 + 'px');
             if (res.state == 'true') {
                 let emojis = JSON.parse(res.data[0].content);

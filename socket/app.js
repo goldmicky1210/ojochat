@@ -424,9 +424,6 @@ const onConnection = (socket) => {
     });
 
     socket.on('send:notification', data => {
-        console.log('=====================');
-        console.log(data);
-        console.log('=====================');
         Notification.sendSMS(data.sender, data.recipient, data);
     });
 

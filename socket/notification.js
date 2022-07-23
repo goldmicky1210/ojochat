@@ -94,11 +94,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 }
 
 exports.sendSMS = (sender, recipient, data) => {
-    console.log('-------------------------------')
-    console.log(sender)
-    console.log(recipient)
-    console.log(data)
-    console.log('-------------------------------')
+    
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -175,10 +171,6 @@ exports.sendSMS = (sender, recipient, data) => {
 }
 
 exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
-    console.log('----------------');
-    console.log(sender, ":", groupId);
-    console.log(data);
-    console.log('----------------');
     db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
         row.forEach(item => {
             let recipientSocketId = user_socketMap.get(item['user_id'].toString());
