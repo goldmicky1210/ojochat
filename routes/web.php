@@ -25,13 +25,11 @@ Route::group(['middleware' => ['login']], function () {
     Route::get('/', 'HomeController@index');
     Route::get('/home', 'HomeController@index')->name('home');
     Route::post('/home/getRecentChatUsers', 'HomeController@getRecentChatUsers');
-    Route::post('/home/getCurrentChatContent', 'HomeController@getCurrentChatContent');
     Route::post('/home/getCurrentGroupChatContent', 'HomeController@getCurrentGroupChatContent');
     Route::post('/home/getUsersList', 'HomeController@getUsersList');
     Route::post('/home/getUsersListByGroupId', 'HomeController@getUsersListByGroupId');
     Route::post('/home/addContactItem', 'HomeController@addContactItem');
     Route::post('/home/getContactList', 'HomeController@getContactList');
-    Route::post('/home/getChatData', 'HomeController@getChatData');
     Route::post('/home/sendMessage', 'HomeController@sendMessage');
     Route::post('/home/saveProfileInfo', 'HomeController@saveProfileInfo');
     Route::post('/home/getUploadFileURL', 'HomeController@getUploadFileURL');

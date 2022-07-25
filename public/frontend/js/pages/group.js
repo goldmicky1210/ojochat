@@ -645,9 +645,8 @@ function addGroupChatItem(target, data, loadFlag) {
     // $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
 
     if (data.rate) {
-        getContentRate(`li.msg-item[key="${data.id}"]`, data.rate)
+        getContentRate(`li.msg-item[key="${data.id}"]`, Math.round(data.rate))
     }
-
 }
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
@@ -667,6 +666,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
+            console.log(res);
             if (res.state == 'true') {
                 $(target).empty();
                 getUsersList();

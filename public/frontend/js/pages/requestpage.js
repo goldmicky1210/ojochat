@@ -80,7 +80,8 @@ $(document).ready(function () {
     });
 
     socket.on('get:rate', data => {
-        let target = $('.chatappend').find(`.replies .msg-item[key=${data.messageId}]`);
+        console.log(data);
+        let target = $('.chatappend').find(`li.msg-item[key=${data.messageId}]`);
         getContentRate(target, data.rate);
     });
 
@@ -675,7 +676,6 @@ function setContentRate() {
             socket.emit('give:rate', {
                 messageId,
                 rate,
-                currentContactId,
                 kind
             });
         }
@@ -928,7 +928,7 @@ function showPhotoContent(id) {
                     }
                 });
                 //5 star rating
-                getContentRate('#photo_item', res.data[0].rate);
+                getContentRate('#photo_item', Math.round(res.data[0].rate));
                 //background
                 new Promise(resolve => {
                     if (res.data[0].back) {

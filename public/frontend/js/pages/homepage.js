@@ -403,81 +403,6 @@ function typingMessage(senderId) {
     }, 1500);
 }
 
-function addChatItem(target, senderId, data, loadFlag) {
-    if (data.reply_id) {
-        if (data.reply_kind == 0) {
-            var replyContent = $('.chatappend').find(`li.msg-item[key="${data.reply_id}"]`).find('.msg-setting-main .content').text();
-        } else if (data.reply_kind == 2) {
-            let imageSrc = $('.chatappend').find(`li.msg-item[key="${data.reply_id}"]`).find('.receive_photo').attr('src');
-            var replyContent = `<img src="${imageSrc}" width="50">`;
-        }
-    }
-    // else if (data.forward_id) {
-    //     if (data.forward_kind == 0) {
-    //         var replyContent = $('.chatappend').find(`li.msg-item[key="${data.forward_id}"]`).find('.msg-setting-main .content').text();
-    //     } else if (data.forward_kind == 2) {
-    //         let imageSrc = $('.chatappend').find(`li.msg-item[key="${data.forward_id}"]`).find('.receive_photo').attr('src');
-    //         var replyContent = `<img src="${imageSrc}" width="50">`;
-    //     }
-    // }
-    let senderInfo = getCertainUserInfoById(senderId);
-    let type = senderInfo.id == currentUserId ? "replies" : "sent";
-    let time = data.created_at ? new Date(data.created_at) : new Date();
-    let item = `<li class="${type} msg-item" key="${data.messageId}" kind="${data.kind}">
-        <div class="media">
-            <div class="profile me-4 bg-size" style="background-image: url(${senderInfo.avatar ? 'v1/api/downloadFile?path=' + senderInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center;">
-            </div>
-            <div class="media-body">
-                <div class="contact-name">
-                    <h5>${senderInfo.username}</h5>
-                    <h6 class="${State[data.state]}">${getChatTimeString(time)}</h6>
-                    <div class="photoRating">
-                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                    </div>
-                    <ul class="msg-box">
-                        <li class="msg-setting-main">
-                            ${data.kind == 0 ?
-            `${data.reply_id ? '<div class="replyMessage">\
-                <span class="replyIcon"><i class="fa fa-reply"></i></span>\
-                <span class="replyContent">' + replyContent + '</span>\
-                <hr style="color: black">\
-                <span class="content">' + data.content + '</span>\
-            </div>' : '<h5 class="content">' + data.content + '</h5>'}`
-            : data.kind == 1 ?
-                `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
-                : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">` : ''}
-                            <div class="msg-dropdown-main">
-                                <div class="msg-open-btn"><span>Open</span></div>
-                                <div class="msg-setting"><i class="ti-more-alt"></i></div>
-                                <div class="msg-dropdown"> 
-                                    <ul>
-                                        <li class="replyBtn"><a href="#"><i class="fa fa-reply"></i>reply</a></li>
-                                        <li class="forwardBtn"><a href="#"><i class="fa fa-share"></i>forward</a></li>
-                                        ${data.kind == 2 ? '<li class="replyEditBtn"><a href="#"><i class="fa fa-edit"></i> edit</a></li>' : ''}
-                                        <li class="rateBtn"><a href="#"><i class="fa fa-star-o"></i>rating</a></li>
-                                        <li class="deleteMessageBtn"><a href="#"><i class="ti-trash"></i>delete</a></li>
-                                    </ul>
-                                </div>
-                        </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </li>`;
-    if (loadFlag) {
-        $(target).prepend(item);
-    } else {
-        $(target).append(item);
-    }
-    // $(".messages").animate({ scrollTop: $('#direct_chat .contact-chat').height() }, 'fast');
-
-    if (data.rate) {
-        getContentRate(`li.msg-item[key="${data.messageId}"]`, data.rate)
-    }
-
-}
-
 function changeProfileImageAjax() {
     let profileImageBtn = $('#profileImageUploadBtn')
     let avatarImage = $('#profileImage');
@@ -521,58 +446,58 @@ function setUserProfileContent(userId) {
     $('.contact-profile .name h5').html(userInfo.location);
     $('.contact-profile .name h6').html(userInfo.description);
 
-    var form_data = new FormData();
-    form_data.append('userId', userId);
-    $.ajax({
-        url: '/home/getRateData',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            if (res.state == 'true') {
-                let [data] = res.rateData;
-                if (res.rateData.length) {
-                    var textRate = (data.text_rate / data.text_count) || 0;
-                    var photoRate = (data.photo_rate / data.photo_count) || 0;
-                    var videoRate = (data.video_rate / data.video_count) || 0;
-                    var audioRate = (data.audio_rate / data.audio_count) || 0;
-                    var videoCallRate = (data.video_call_rate / data.video_call_count) || 0;
-                    var voiceCallRate = (data.voice_call_rate / data.voice_call_count) || 0;
-                    var averageRate = ((data.text_rate + data.photo_rate) / (data.text_count + data.photo_count)) || 0;
-                } else {
-                    var textRate = 0;
-                    var photoRate = 0;
-                    var videoRate = 0;
-                    var audioRate = 0;
-                    var videoCallRate = 0;
-                    var voiceCallRate = 0;
-                    var averageRate = 0;
-                }
-                getContentRate('.contact-profile', Math.round(averageRate));
-                document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+    // var form_data = new FormData();
+    // form_data.append('userId', userId);
+    // $.ajax({
+    //     url: '/home/getRateData',
+    //     headers: {
+    //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     data: form_data,
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     type: 'POST',
+    //     dataType: "json",
+    //     success: function (res) {
+    //         if (res.state == 'true') {
+    //             let [data] = res.rateData;
+    //             if (res.rateData.length) {
+    //                 var textRate = (data.text_rate / data.text_count) || 0;
+    //                 var photoRate = (data.photo_rate / data.photo_count) || 0;
+    //                 var videoRate = (data.video_rate / data.video_count) || 0;
+    //                 var audioRate = (data.audio_rate / data.audio_count) || 0;
+    //                 var videoCallRate = (data.video_call_rate / data.video_call_count) || 0;
+    //                 var voiceCallRate = (data.voice_call_rate / data.voice_call_count) || 0;
+    //                 var averageRate = ((data.text_rate + data.photo_rate) / (data.text_count + data.photo_count)) || 0;
+    //             } else {
+    //                 var textRate = 0;
+    //                 var photoRate = 0;
+    //                 var videoRate = 0;
+    //                 var audioRate = 0;
+    //                 var videoCallRate = 0;
+    //                 var voiceCallRate = 0;
+    //                 var averageRate = 0;
+    //             }
+    //             getContentRate('.contact-profile', Math.round(averageRate));
+    //             document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 
-                getContentRate('.content-rating-list .text-rating', Math.round(textRate));
-                getContentRate('.content-rating-list .photo-rating', Math.round(photoRate));
-                getContentRate('.content-rating-list .video-rating', Math.round(videoRate));
-                getContentRate('.content-rating-list .audio-rating', Math.round(audioRate));
-                getContentRate('.content-rating-list .video-call-rating', Math.round(videoCallRate));
-                getContentRate('.content-rating-list .voice-call-rating', Math.round(voiceCallRate));
-                document.querySelector('.content-rating-list .text-rating')._tippy.setContent(textRate.toFixed(2))
-                document.querySelector('.content-rating-list .photo-rating')._tippy.setContent(photoRate.toFixed(2))
-                document.querySelector('.content-rating-list .video-rating')._tippy.setContent(videoRate.toFixed(2))
-                document.querySelector('.content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
-                document.querySelector('.content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
-                document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
-            }
-        },
-        error: function (response) { }
-    });
+    //             getContentRate('.content-rating-list .text-rating', Math.round(textRate));
+    //             getContentRate('.content-rating-list .photo-rating', Math.round(photoRate));
+    //             getContentRate('.content-rating-list .video-rating', Math.round(videoRate));
+    //             getContentRate('.content-rating-list .audio-rating', Math.round(audioRate));
+    //             getContentRate('.content-rating-list .video-call-rating', Math.round(videoCallRate));
+    //             getContentRate('.content-rating-list .voice-call-rating', Math.round(voiceCallRate));
+    //             document.querySelector('.content-rating-list .text-rating')._tippy.setContent(textRate.toFixed(2))
+    //             document.querySelector('.content-rating-list .photo-rating')._tippy.setContent(photoRate.toFixed(2))
+    //             document.querySelector('.content-rating-list .video-rating')._tippy.setContent(videoRate.toFixed(2))
+    //             document.querySelector('.content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
+    //             document.querySelector('.content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
+    //             document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
+    //         }
+    //     },
+    //     error: function (response) { }
+    // });
 }
 
 
@@ -593,9 +518,7 @@ function setGroupProfileContent(groupId) {
         success: function (res) {
             if (res.state == 'true') {
                 let { data } = res;
-                // let userInfo = getCertainUserInfoById(userId)
                 if (data.avatar) {
-                    // $('.contact-top').css('background-image', `url("${data.avatar}")`);
                     $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${data.avatar}")`);
                 } else {
                     $('.contact-top').css('background-image', `url("/chat/images/avtar/teq.jpg")`);
@@ -604,7 +527,6 @@ function setGroupProfileContent(groupId) {
                 $('.contact-profile .name h5').html(data.description || '');
                 $('.contact-profile .name h6').html('');
                 $('.contact-profile .name').attr('groupAdmins', data.admins || '');
-                // $('.contact-profile .name h6').html(userInfo.description);
             }
         },
         error: function (response) { }

@@ -17,6 +17,7 @@ use App\Models\Contact;
 use App\Models\PhotoRequest;
 use App\Models\PhotoGallery;
 use App\Models\Rating;
+use App\Models\Rate;
 use App\Models\PaymentHistory;
 use App\Events\NewMessage;
 use Illuminate\Support\Facades\Log;
@@ -91,34 +92,13 @@ class HomeController extends Controller
         return array('state' => 'true', 'data' => $result);;
     }
 
-    public function getCurrentChatContent(Request $request) {
-        $id = Auth::id();
-        $contactorId = $request->input('currentContactorId');
-        $messageData = Message::whereRaw("sender = ".$id." AND recipient = ".$contactorId)
-            ->orWhereRaw("sender = ".$contactorId." AND recipient = ".$id)->orderBy('created_at', 'desc')->limit(20)->get();
-        $messages = $messageData->map(function($item) {
-            if ($item['kind'] == 0) 
-                return $item;
-            if ($item['kind'] == 1) {
-                $temp = PhotoRequest::where('id', $item['content'])->get();
-                $item['requestId'] = $temp[0]['id'];
-                $item['content'] = $temp[0]['price'];
-                return $item;
-            }
-            $temp = PhotoGallery::where('id', $item['content'])->get();
-            $item['photoId'] = $temp[0]['id'];
-            $item['content'] = $temp[0]['photo'];
-            return $item;
-        });
-        
-        return array('state'=>'true','messageData'=>$messages);
-    }
-
     public function getCurrentGroupChatContent(Request $request) {
         $id = Auth::id();
         $groupId = $request->input('currentGroupId');
         $messageData = Message::where("group_id", $groupId)->orderBy('created_at', 'desc')->limit(15)->get();
         $messages = $messageData->map(function($item) {
+            $rate = Rate::where('message_id', $item['id'])->avg('rate');
+            $item['rate'] = $rate;
             if ($item['kind'] == 0) 
                 return $item;
             if ($item['kind'] == 1) {
@@ -215,23 +195,6 @@ class HomeController extends Controller
         // return $contactIds;
     }
     
-    public function getChatData(Request $request)
-    {
-        $id = Auth::id();
-        $contactIds = $request->input('currentContactId');
-        $contactIds = $contactIds == 'undefined' ? Contact::where('user_id', $id)->get('contact_id') : array(array('contact_id' => $contactIds));
-        // $contactIds = array(array('contact_id' => $contactIds));
-        $result = array();
-        foreach ($contactIds as $contactId) {
-            $msg = Message::whereRaw("sender = ".$id." AND recipient = ".$contactId['contact_id'])
-            ->orWhereRaw("sender = ".$contactId['contact_id']." AND recipient = ".$id);
-            $message = $msg->count() ? $msg->orderBy('created_at')->get() : '';
-            $contactor = User::where('id', $contactId['contact_id'])->get()[0];  
-            $data = array('message' => $message, 'contactor' => $contactor);
-            array_push($result, $data);
-        }
-        return count($result) ? $result[0] : array('message' =>'no data');
-    }
     public function sendMessage(Request $request)
     {
         //$id = Auth::id();
@@ -315,7 +278,7 @@ class HomeController extends Controller
         if (count($messageData)) {
             $photoData = PhotoGallery::where('id', $messageData[0]['content'])->get();
             if (count($photoData)) {
-                $photoData[0]['rate'] = $messageData[0]['rate'];
+                $photoData[0]['rate'] = Rate::where('message_id', $item['id'])->avg('rate');
                 $photoData[0]['messageId'] = $messageData[0]['id'];
                 return array('state'=>'true', 'data'=>$photoData);
             }

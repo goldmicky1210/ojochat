@@ -280,35 +280,34 @@ const onConnection = (socket) => {
     });
 
     socket.on('give:rate', data => {
-        if (data.kind != 1) {
-            db.query(`SELECT sender, rate FROM messages where id = ${data.messageId}`, (error, row) => {
-                let sender = row[0].sender;
-                let rate = data.rate - row[0].rate;
-                let count = row[0].rate ? 0 : 1;
-                db.query(`INSERT INTO ratings (user_id, ${KindConstant[data.kind]}_count, ${KindConstant[data.kind]}_rate) VALUES (${sender}, 1, ${rate}) ON DUPLICATE KEY UPDATE user_id=${sender}, ${KindConstant[data.kind]}_count=${KindConstant[data.kind]}_count+${count}, ${KindConstant[data.kind]}_rate=${KindConstant[data.kind]}_rate+${rate}`, (error, item) => {
-
-                    // let recipientSocketId = user_socketMap.get(data.currentContactId.toString());
-                    // if (recipientSocketId) {
-                    //     if (io.sockets.sockets.get(recipientSocketId)) {
-                    //         io.sockets.sockets.get(recipientSocketId).emit('profile:rate', item);
-                    //     }
-                    // }
+        console.log(data);
+        db.query(`SELECT * FROM messages WHERE id=${data.messageId}`, (err, messageInfo) => {
+            if (err) throw err;
+            if (messageInfo.length) {
+                db.query(`SELECT * FROM rates WHERE user_id=${currentUserId} AND message_id=${data.messageId}`, (err, row) => {
+                    if (err) throw err;
+                    if (row.length) {
+                        db.query(`UPDATE rates SET rate = ${data.rate} WHERE user_id=${currentUserId} AND message_id=${data.messageId}`, (error, item) => {
+                            console.log('Update Rate');
+                        });
+                    } else {
+                        db.query(`INSERT INTO rates (user_id, message_id, rate) VALUES (${currentUserId}, ${data.messageId}, ${data.rate})`, (error, item) => {
+                            console.log('Insert Rate');
+                        });
+                    }
                 });
-            });
-        }
-        db.query(`SELECT sender FROM messages WHERE id=${data.messageId}`, (error, row) => {
-            let sender = row[0].sender;
-            db.query(`UPDATE messages SET rate = ${data.rate} WHERE id=${data.messageId}`, (error, item) => {
-                if (error) throw error;
+                let sender = messageInfo[0].sender;
                 let recipientSocketId = user_socketMap.get(sender.toString());
                 if (recipientSocketId) {
                     if (io.sockets.sockets.get(recipientSocketId)) {
                         io.sockets.sockets.get(recipientSocketId).emit('get:rate', data);
                     }
                 }
-            });
-            Notification.sendRateSMS(currentUserId, sender, data.rate, data.kind);
-        })
+                Notification.sendRateSMS(currentUserId, sender, data.rate, data.kind);
+            } else {
+                console.log('There is no message. ', data);
+            }
+        });
     })
 
     socket.on('typing', data => {
