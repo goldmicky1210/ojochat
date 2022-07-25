@@ -448,7 +448,6 @@ function savePhoto() {
         photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
         let data = {};
         data.from = currentUserId;
-        // data.to = currentContactId;
         data.content = getEmojisInfo(photo_canvas._objects);
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
@@ -468,7 +467,6 @@ function sendBlink() {
         let data = {};
         data.sender = currentUserId;
         data.senderName = getCertainUserInfoById(currentUserId).username;
-        // data.to = currentContactId;
         data.photo = canvas.toDataURL('image/png');
         data.original_thumb = canvas.toDataURL('image/png');
         data.back = ori_image || '';
@@ -500,11 +498,9 @@ function sendBlink() {
     //     photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
     //     let data = {};
     //     data.from = currentUserId;
-    //     // data.to = currentContactId;
     //     data.content = getEmojisInfo(photo_canvas._objects);
     //     data.photo = photo_canvas.toDataURL('image/png');
     //     data.photoId = $(this).closest('.modal-content').attr('photoId');
-    //     data.to = currentContactId;
     //     socket.emit('edit:photo', data);
     // });
 }

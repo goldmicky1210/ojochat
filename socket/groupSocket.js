@@ -124,7 +124,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('edit:groupProfile', (data, callback) => {
-        console.log(data);
         let { groupId, groupTitle, groupDescription, groupFeeType, groupFeeValue, groupAvatar } = data;
         db.query(`UPDATE \`groups\` SET title="${groupTitle}", description="${groupDescription}" ${groupFeeType ? ', fee_type=' + groupFeeType : ''} ${groupFeeValue ? ', fee_value=' + groupFeeValue : ''}  ${groupAvatar ? ', avatar="' + groupAvatar + '"' : ""} WHERE id=${groupId}`, (error, item) => {
             if (error) throw error;
@@ -134,25 +133,13 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
-    socket.on('add:pendingGroupUser', (data, callback) => {
-        // db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId} AND user_id=${data.currentUserId}`, (error, item) => {
-        //     db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1)`, (error, item) => {
-        //         callback({
-        //             status: 'OK'
-        //         });
-        //     });
-        // });
-        console.log(data);
+    socket.on('add:pendingGroupUser', (data, callback) => {        
         db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1) ON DUPLICATE KEY UPDATE user_id=${data.currentUserId}, group_id=${data.currentGroupId}, status=1`, (error, item) => {
-            console.log('--------');
-            console.log(item);
-            console.log('--------');
             callback({ status: 'OK' });
         });
     });
 
     socket.on('invite:groupUsers', (data, callback) => {
-        console.log(data);
         data.sender = currentUserId;
         let messageData = {
             globalGroupId: data.currentGroupId,
@@ -200,7 +187,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('join:group', (data, callback) => {
-        console.log(data);
         db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
             if (user.length) {
                 db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
@@ -222,7 +208,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('add:groupAdmin', (data, callback) => {
-        console.log(data);
         db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {
             if (error) throw error;
             data.msgType = 4;
@@ -232,7 +217,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('remove:groupUser', (data, callback) => {
-        console.log(data);
         db.query(`DELETE from users_groups WHERE user_id=${data.removeId} AND group_id=${data.globalGroupId}`, (error, item) => {
             if (error) throw error;
             db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {

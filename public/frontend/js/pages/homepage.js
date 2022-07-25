@@ -69,11 +69,6 @@ $(document).ready(() => {
         }
     });
 
-    // $('.menu-trigger').on('click', () => {
-    //     if (currentContactId)
-    //         setUserProfileContent(currentContactId);
-    // });
-
     $('.balance-amount').on('click', () => {
         displayPaymentHistory(currentUserId);
     });
@@ -406,8 +401,6 @@ function typingMessage(senderId) {
         $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
         typingTime = undefined;
     }, 1500);
-
-
 }
 
 function addChatItem(target, senderId, data, loadFlag) {

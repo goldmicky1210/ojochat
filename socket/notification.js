@@ -78,9 +78,6 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
 
 
 exports.sendSMSFinal = (phoneNumber, message, smsType) => {
-    console.log(phoneNumber);
-    console.log(message);
-    console.log(smsType);
     if (smsType == 1) {
         var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=ojo&h=8626eda4876ce9a63a564b8b28418abd&op=pv&to=${phoneNumber}&msg=${message}`;
     } else {
