@@ -278,7 +278,7 @@ class HomeController extends Controller
         if (count($messageData)) {
             $photoData = PhotoGallery::where('id', $messageData[0]['content'])->get();
             if (count($photoData)) {
-                $photoData[0]['rate'] = Rate::where('message_id', $item['id'])->avg('rate');
+                $photoData[0]['rate'] = Rate::where('message_id', $messageId)->avg('rate');
                 $photoData[0]['messageId'] = $messageData[0]['id'];
                 return array('state'=>'true', 'data'=>$photoData);
             }

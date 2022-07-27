@@ -446,58 +446,58 @@ function setUserProfileContent(userId) {
     $('.contact-profile .name h5').html(userInfo.location);
     $('.contact-profile .name h6').html(userInfo.description);
 
-    // var form_data = new FormData();
-    // form_data.append('userId', userId);
-    // $.ajax({
-    //     url: '/home/getRateData',
-    //     headers: {
-    //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     data: form_data,
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false,
-    //     type: 'POST',
-    //     dataType: "json",
-    //     success: function (res) {
-    //         if (res.state == 'true') {
-    //             let [data] = res.rateData;
-    //             if (res.rateData.length) {
-    //                 var textRate = (data.text_rate / data.text_count) || 0;
-    //                 var photoRate = (data.photo_rate / data.photo_count) || 0;
-    //                 var videoRate = (data.video_rate / data.video_count) || 0;
-    //                 var audioRate = (data.audio_rate / data.audio_count) || 0;
-    //                 var videoCallRate = (data.video_call_rate / data.video_call_count) || 0;
-    //                 var voiceCallRate = (data.voice_call_rate / data.voice_call_count) || 0;
-    //                 var averageRate = ((data.text_rate + data.photo_rate) / (data.text_count + data.photo_count)) || 0;
-    //             } else {
-    //                 var textRate = 0;
-    //                 var photoRate = 0;
-    //                 var videoRate = 0;
-    //                 var audioRate = 0;
-    //                 var videoCallRate = 0;
-    //                 var voiceCallRate = 0;
-    //                 var averageRate = 0;
-    //             }
-    //             getContentRate('.contact-profile', Math.round(averageRate));
-    //             document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+    var form_data = new FormData();
+    form_data.append('userId', userId);
+    $.ajax({
+        url: '/home/getRateData',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                let [data] = res.rateData;
+                if (res.rateData.length) {
+                    var textRate = (data.text_rate / data.text_count) || 0;
+                    var photoRate = (data.photo_rate / data.photo_count) || 0;
+                    var videoRate = (data.video_rate / data.video_count) || 0;
+                    var audioRate = (data.audio_rate / data.audio_count) || 0;
+                    var videoCallRate = (data.video_call_rate / data.video_call_count) || 0;
+                    var voiceCallRate = (data.voice_call_rate / data.voice_call_count) || 0;
+                    var averageRate = ((data.text_rate + data.photo_rate) / (data.text_count + data.photo_count)) || 0;
+                } else {
+                    var textRate = 0;
+                    var photoRate = 0;
+                    var videoRate = 0;
+                    var audioRate = 0;
+                    var videoCallRate = 0;
+                    var voiceCallRate = 0;
+                    var averageRate = 0;
+                }
+                getContentRate('.contact-profile', Math.round(averageRate));
+                document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 
-    //             getContentRate('.content-rating-list .text-rating', Math.round(textRate));
-    //             getContentRate('.content-rating-list .photo-rating', Math.round(photoRate));
-    //             getContentRate('.content-rating-list .video-rating', Math.round(videoRate));
-    //             getContentRate('.content-rating-list .audio-rating', Math.round(audioRate));
-    //             getContentRate('.content-rating-list .video-call-rating', Math.round(videoCallRate));
-    //             getContentRate('.content-rating-list .voice-call-rating', Math.round(voiceCallRate));
-    //             document.querySelector('.content-rating-list .text-rating')._tippy.setContent(textRate.toFixed(2))
-    //             document.querySelector('.content-rating-list .photo-rating')._tippy.setContent(photoRate.toFixed(2))
-    //             document.querySelector('.content-rating-list .video-rating')._tippy.setContent(videoRate.toFixed(2))
-    //             document.querySelector('.content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
-    //             document.querySelector('.content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
-    //             document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
-    //         }
-    //     },
-    //     error: function (response) { }
-    // });
+                getContentRate('.content-rating-list .text-rating', Math.round(textRate));
+                getContentRate('.content-rating-list .photo-rating', Math.round(photoRate));
+                getContentRate('.content-rating-list .video-rating', Math.round(videoRate));
+                getContentRate('.content-rating-list .audio-rating', Math.round(audioRate));
+                getContentRate('.content-rating-list .video-call-rating', Math.round(videoCallRate));
+                getContentRate('.content-rating-list .voice-call-rating', Math.round(voiceCallRate));
+                document.querySelector('.content-rating-list .text-rating')._tippy.setContent(textRate.toFixed(2))
+                document.querySelector('.content-rating-list .photo-rating')._tippy.setContent(photoRate.toFixed(2))
+                document.querySelector('.content-rating-list .video-rating')._tippy.setContent(videoRate.toFixed(2))
+                document.querySelector('.content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
+                document.querySelector('.content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
+                document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
+            }
+        },
+        error: function (response) { }
+    });
 }
 
 
@@ -599,7 +599,7 @@ function displayRecentChatFriends(recentChatUsers) {
                 margin: 30,
             },
         }
-    })
+    });
 }
 
 function deleteMessages() {
