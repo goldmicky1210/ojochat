@@ -42,9 +42,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="buttons"><a class="btn btn-primary button-effect" href="#"
-                                                onclick="$('.form1').submit();">Login</a><a
-                                                class="btn button-effect btn-signup" href="/register">SignUp</a></div>
+                                        <div class="buttons">
+                                            <a class="btn btn-primary button-effect" href="#" onclick="$('.form1').submit();">Login</a>
+                                            <a class="btn button-effect btn-signup" href="/register">SignUp</a>
+                                        </div>
                                     </div>
                                 </form>
                                 <div class="line">
