@@ -11,7 +11,7 @@
     <meta name="author" content="DongLong Cui">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Ojochat') }}</title>
 
     <link rel="icon" href="/chat/images/favicon/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="/chat/images/favicon/favicon.png" type="image/x-icon">

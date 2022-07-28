@@ -73,7 +73,7 @@ class AuthController extends Controller
             'username' => $request->input('username'),
             'email' => $email,
             'password' => $cryptpass,
-            // 'remember_token'=>$token
+            'remember_token'=>$token
         ]);
         return redirect('/login');
     }
