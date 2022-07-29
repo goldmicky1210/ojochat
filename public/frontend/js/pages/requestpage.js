@@ -80,7 +80,6 @@ $(document).ready(function () {
     });
 
     socket.on('get:rate', data => {
-        console.log(data);
         let target = $('.chatappend').find(`li.msg-item[key=${data.messageId}]`);
         getContentRate(target, data.rate);
     });
@@ -343,7 +342,6 @@ function blurPhoto() {
 function addEmojisOnPhoto() {
     EmojiButton(document.getElementById('create_emoji_button'), function (emoji) {
         if ($('#createPhoto .preview-paid').hasClass('d-none')) {
-            console.log()
             var price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             var price = $('.preview-paid').val();
@@ -453,7 +451,6 @@ function savePhoto() {
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
         data.to = currentContactId;
-        console.log(data);
         socket.emit('edit:photo', data);
     });
 }
@@ -572,7 +569,6 @@ function getEmojisInfo(obj) {
 }
 
 function getPhotoPrice(target) {
-    console.log(blurPrice)
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
     let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
     return target._objects.filter(item => !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
@@ -797,7 +793,6 @@ function addEventAction(panel, element) {
                     $('#createPhoto .photo-price').text(`$${getPhotoPrice(panel)}`);
                 }
             }
-            console.log(element.payersList);
             if (element.price == -1) tempImage = lockImage;
             else if (element.price == 0 || element.payersList.includes(currentUserId)) tempImage = unlockImage;
             else {
@@ -836,7 +831,6 @@ function addEventAction(panel, element) {
             }
             temp.off().on({
                 'mouseup': () => {
-                    console.log('aaa');
                     let photoId = $('#photo_item .modal-content').attr('photoId');
                     let emojiId = element.id
                     socket.emit('stickyToFree', { photoId, emojiId });
@@ -872,7 +866,6 @@ function showPhotoContent(id) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res);
             $('.selected-emojis').css('left', canvasDimension + 40 + 'px');
             if (res.state == 'true') {
                 let emojis = JSON.parse(res.data[0].content);
@@ -972,7 +965,6 @@ function showPhotoContent(id) {
                                     oImg.applyFilters();
                                     let touchtime = 0;
                                     oImg.on("mouseup", e => {
-                                        console.log('aaa');
                                         if (touchtime == 0) {
                                             touchtime = new Date().getTime();
                                         } else {
@@ -1079,7 +1071,11 @@ function showPhotoContent(id) {
                         });
                     })).then(objects => {
                         for (var object of objects) {
-                            if (+object.price != 0 && !object.payersList.includes(currentUserId)) {
+                            console.log(object.price)
+                            console.log(object.payersList)
+                            console.log(object.payersList.includes(currentUserId))
+                            if ((+object.price != 0 && !object.payersList.includes(currentUserId)) || +object.price < 0) {
+                                console.log('aaa');
                                 object.selectable = false;
                             }
                             photo_canvas.add(object);
@@ -1127,7 +1123,6 @@ function lockResizeEmojis() {
 function setPriceOfElement() {
     $('.emojis-price').on('change', function () {
         let priceType = $(this).val();
-        console.log(priceType)
         if (+priceType > 0) {
             $('.paid_value').show();
         } else {
