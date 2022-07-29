@@ -6,7 +6,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     let currentUserId = socket.handshake.query.currentUserId;
 
     socket.on('create:group', data => {
-        db.query(`INSERT INTO \`groups\` (title, type, owner, admins, avatar) VALUES ("${data.title}", ${data.type}, ${currentUserId}, ${currentUserId}, ${JSON.stringify(data.avatar) || null})`, (error, item) => {
+        db.query(`INSERT INTO \`groups\` (title, type, owner, description, fee_type, fee_value, admins, avatar) VALUES ("${data.title}", ${data.type}, ${currentUserId}, "${data.description || ''}", ${data.feeType || 0}, ${data.feeValue || 0}, ${currentUserId}, ${JSON.stringify(data.avatar) || null})`, (error, item) => {
             if (error) throw error;
             data.id = item.insertId;
             data.users.forEach(userId => {

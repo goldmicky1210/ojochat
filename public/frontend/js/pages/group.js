@@ -2,41 +2,174 @@
 let groupFeeTypeConstant = ['Free', "Monthly", "Anually", "Lifetime"];
 $(document).ready(function () {
     // create newGroup start
-    $('.create_new_group_btn').on('click', function (e) {
+
+    $('.create_new_group_btn').on('click', function () {
+        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
+        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('create_new_group_modal');
         $('#custom_modal').find('.modal-title').text('Create New Group');
-        $('#custom_modal').find('.sub_title span').text('Group Title');
-        $('#custom_modal').find('.sub_title input').val('');
         $('#custom_modal').find('.btn_group .btn').text('Create');
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.group_title input').val('');
+        // $('#custom_modal').find('.search_field').hide();
+        // $('#custom_modal').find('.chat-main').hide();
+        $('#custom_modal').find('.modal-body .group_avatar').remove();
+        $('#custom_modal').find('.modal-body').prepend(`
+            <div class="group_avatar profile" id="group_profile_avatar">
+                <img class="bg-img" src=${groupAatarSrc}>
+                <input class="input-file" type="file" id="group_avatar_select">
+            </div>
+            <div class="form-group group_title">
+                <label>Group Title</label>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="form-group group_description">
+                <label>Group Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+        `);
         new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
             contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
-    });
 
+        $('#custom_modal').find('.modal-body .group_description').after(`
+                <div class="group_fee_type">
+                    <div class="form-group fee_type" style="margin-bottom: 10px">
+                        <label>Group Fee Type</label>
+                        <select class="form-select form-select-sm" aria-label="Default select example">
+                            <option value=0 selected>Free</option>
+                            <option value=1>Monthly</option>
+                            <option value=2>Anually</option>
+                            <option value=3>Lifetime</option>
+                        </select>
+                    </div>
+                </div>
+            `);
+        $('#custom_modal .modal-body').on('change', '.group_fee_type select', function () {
+            let groupFeeType = $(this).val();
+            if (+groupFeeType) {
+                console.log(groupFeeType, ": ok");
+                if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
+                    $('#custom_modal').find('.modal-body .group_fee_type').append(`
+                            <div class="form-group fee_value">
+                                <label>Group Fee Value ($)</label>
+                                <input type="number" class="form-control form-control-sm" />
+                            </div>
+                        `);
+                }
+            } else {
+                console.log(groupFeeType, ": delete");
+                $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
+            }
+        });
+        convertListItems();
+        changeGroupProfileImageAjax();
+
+        document.getElementById("group_profile_avatar")
+            .addEventListener('click', function () {
+                let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
+                if (adminList.includes(currentUserId.toString())) {
+                    document.getElementById("group_avatar_select").click();
+                }
+            }, false);
+    });
     $('#custom_modal').on('click', '.modal-content.create_new_group_modal .btn_group .btn', function () {
-        let title = $('#custom_modal').find('.sub_title input').val();
+
+        // setTimeout(() => {
+        //     $(`#group-tab`).click();
+        // }, 100);
+
+        let title = $('#custom_modal').find('.group_title input').val();
+        console.log(title);
         if (!title) {
-            $('#custom_modal .sub_title input').addClass('is-invalid');
+            $('#custom_modal .group_title input').addClass('is-invalid');
             setTimeout(() => {
-                $('#custom_modal .sub_title input').removeClass('is-invalid');
+                $('#custom_modal .group_title input').removeClass('is-invalid');
             }, 2000);
             return;
         }
+        let description = $('#custom_modal').find('.group_description textarea').val();
+        let feeType = $('#custom_modal').find('.group_fee_type select').val();
+        let feeValue = $('#custom_modal').find('.group_fee_type .fee_value input').val();
+        let avatar = $('#group_avatar_select')[0].files[0];
         let users = Array.from($('#custom_modal .chat-main li.active')).map(item => $(item).attr('key'));
         users.push(currentUserId);
-        socket.emit('create:group', { title, users, type: 2 });
+        var form_data = new FormData();
+        form_data.append('avatar', avatar || null);
+        $.ajax({
+            url: '/home/getUploadFileURL',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state == 'true') {
+                    socket.emit('create:group', { title, description, feeType, feeValue, avatar: res.data, users, type: 2 });
+
+                    // socket.emit('edit:groupProfile', { groupId, groupTitle, groupDescription, groupFeeType, groupFeeValue, groupAvatar: res.data }, (res) => {
+                    //     if (res.status == 'OK') {
+                    //         console.log('Group Profile changed');
+                    //     }
+                    // });
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+
         $('#custom_modal').modal('hide');
-        $(`.chat-cont-setting`).removeClass('open');
         $('#custom_modal .modal-content').removeClass('create_new_group_modal');
-        setTimeout(() => {
-            $(`#group-tab`).click();
-        }, 100);
+        $(`.chat-cont-setting`).removeClass('open');
 
     });
+
+    // $('.create_new_group_btn').on('click', function (e) {
+    //     $('#custom_modal').modal('show');
+    //     $('#custom_modal .modal-content').addClass('create_new_group_modal');
+    //     $('#custom_modal').find('.modal-title').text('Create New Group');
+    //     $('#custom_modal').find('.sub_title span').text('Group Title');
+    //     $('#custom_modal').find('.sub_title input').val('');
+    //     $('#custom_modal').find('.btn_group .btn').text('Next');
+    //     new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+    //         let target = '#custom_modal .chat-main';
+    //         $(target).empty();
+    //         let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
+    //         contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
+    //     });
+    // });
+
+    // $('#custom_modal').on('click', '.modal-content.create_new_group_modal .btn_group .btn', function () {
+    //     let title = $('#custom_modal').find('.sub_title input').val();
+    //     if (!title) {
+    //         $('#custom_modal .sub_title input').addClass('is-invalid');
+    //         setTimeout(() => {
+    //             $('#custom_modal .sub_title input').removeClass('is-invalid');
+    //         }, 2000);
+    //         return;
+    //     }
+    //     let users = Array.from($('#custom_modal .chat-main li.active')).map(item => $(item).attr('key'));
+    //     users.push(currentUserId);
+    //     $('#custom_modal').modal('hide');
+    //     $(`.chat-cont-setting`).removeClass('open');
+    //     $('#custom_modal .modal-content').removeClass('create_new_group_modal');
+    //     socket.emit('create:group', { title, users, type: 2 });
+
+    //     setTimeout(() => {
+    //         $(`#group-tab`).click();
+    //     }, 100);
+
+    // });
     // create new group end
 
     // create new cast start
