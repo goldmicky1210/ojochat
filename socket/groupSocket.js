@@ -198,6 +198,13 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                             if (error) throw error;
                             db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
                                 if (error) throw error;
+                                if (group[0].fee_value > 0) {
+                                    db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${currentUserId}, ${group[0].owner}, ${group[0].fee_value})`, (error, historyItem) => {
+                                        if (error) throw error;
+                                        console.log('You paid successfully');
+                                    });
+                                    Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value);
+                                }
                                 callback({ status: 'OK' });
                             });
                         });

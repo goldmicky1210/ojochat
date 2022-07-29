@@ -436,6 +436,8 @@ function changeGroupProfileImageAjax() {
 }
 
 function setUserProfileContent(userId) {
+    $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
+
     let userInfo = getCertainUserInfoById(userId)
     if (userInfo.avatar) {
         $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
@@ -502,6 +504,8 @@ function setUserProfileContent(userId) {
 
 
 function setGroupProfileContent(groupId) {
+    $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
+
     let form_data = new FormData();
     form_data.append('groupId', groupId);
     $.ajax({
