@@ -123,7 +123,7 @@ exports.sendSMS = (sender, recipient, data) => {
                                         } else {
                                             message = `Hey ${row[0].username}, you have a new ${data.msgType == 0 ? 'text message' : 'Blink'} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                         }
-                                    } else if (groupType == 2 && data.msgType != 0) {
+                                    } else if (groupType == 2) {
                                         // Group Message
                                         if (spainish) {
                                             // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
