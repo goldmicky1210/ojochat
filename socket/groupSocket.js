@@ -203,7 +203,10 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                         if (error) throw error;
                                         console.log('You paid successfully');
                                     });
-                                    Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value);
+                                    db.query(`UPDATE users SET balances=balances+${group[0].fee_value * 0.7} WHERE id=${group[0].owner}`, (error, item) => {
+                                        console.log(item);
+                                    });
+                                    Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value * 0.7);
                                 }
                                 callback({ status: 'OK' });
                             });
