@@ -536,7 +536,7 @@ ul.chatappend .msg-box .camera-icon {
     padding: 5px 60px;
     grid-gap: 10px;
     margin-left: 10px;
-    align-content: start;
+    align-content: center;
 }
 
 #checkoutModal .product-list img {

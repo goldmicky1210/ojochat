@@ -3712,14 +3712,14 @@
                             </div>
                         </div>
                         <div class="payment-options">
-                            <button type="button" class="btn btn-primary payWithBalanceBtn">Balance</button>
-                            <div class="content">
+                            <button type="button" class="btn btn-primary payWithBalanceBtn">Pay</button>
+                            <!-- <div class="content">
                                 <div class="links">
                                     <div id="paypal-button"></div>
                                 </div>
                             </div>
-                            {{-- <button type="button" class="btn btn-primary">Stripe</button>
-                            <button type="button" class="btn btn-primary">Crypto</button> --}}
+                            <button type="button" class="btn btn-primary">Stripe</button>
+                            <button type="button" class="btn btn-primary">Crypto</button> -->
                         </div>
                     </div>
                 </div>

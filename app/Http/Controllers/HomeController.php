@@ -134,7 +134,18 @@ class HomeController extends Controller
     
     public function getRateData(Request $request) {
         $userId = $request->input('userId');
-        $rateData = Rating::where('user_id', $userId)->get();
+        $groupId = $request->input('groupId');
+        if ($userId) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $userId)->get(['rate', 'kind']);
+        } else if($groupId) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.group_id', $groupId)->get(['rate', 'kind']);
+        }
+        return array('state'=>'true', 'rateData'=>$rateData);
+    }
+
+    public function getGroupRateData(Request $request) {
+        $userId = $request->input('groupId');
+        $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.group_id', $groupId)->get(['rate', 'kind']);
         return array('state'=>'true', 'rateData'=>$rateData);
     }
 
