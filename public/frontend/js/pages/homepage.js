@@ -364,7 +364,6 @@ function newMessage() {
         var groupType = 2;
     } else if ($('#cast_chat').hasClass('active')) {
         globalGroupId = currentCastId;
-        var castFlag = true;
         var groupType = 3;
     }
     socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, groupType });
