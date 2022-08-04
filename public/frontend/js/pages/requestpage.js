@@ -481,11 +481,13 @@ function sendBlink() {
             data.groupType = 2;
         } else if ($('#cast_chat').hasClass('active')) {
             globalGroupId = currentCastId;
+            globalGroupUsers = currentCastUsers;
             data.groupType = 3;
         }
 
         if (globalGroupId) {
             data.globalGroupId = globalGroupId;
+            data.globalGroupUsers = globalGroupUsers;
             socket.emit('send:groupBlink', data);
         }
         $('#createPhoto .photo-price').text('');

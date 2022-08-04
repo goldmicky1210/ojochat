@@ -82,15 +82,13 @@
         <div class="btn">
             <button class="submit icon-btn btn-primary" data-bs-dismiss="modal" id="save-photo">
                 <!-- <i data-feather="save"></i> -->
-            <img src="/images/save.png" alt="Blur">
-
+                <img src="/images/save.png" alt="Save">
             </button>
         </div>
         <div class="btn">
             <button class="submit icon-btn btn-primary" data-bs-dismiss="modal" id="send-photo">
                 <!-- <i data-feather="send"></i> -->
-            <img src="/images/send.png" alt="Blur">
-
+                <img src="/images/send.png" alt="Send">
             </button>
         </div>
     </div>

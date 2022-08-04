@@ -79,9 +79,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         }
     });
 
-    socket.on('send:groupBlink', data => {
-
-        db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)})`, (error, item) => {
+    socket.on('send:groupBlink', async (data) => {
+        await db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)})`, async (error, item) => {
             data.id = item.insertId;
             data.photoId = item.insertId;
             data.content = data.photo;
@@ -92,6 +91,40 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
             });
         });
+
+        if (data.groupType == 3) {
+            let groupUsers = data.globalGroupUsers ? data.globalGroupUsers.split(',') : []
+            groupUsers.filter(id => id != currentUserId).forEach(recipientId => {
+                db.query(`SELECT group_id
+                    FROM \`groups\` 
+                    INNER JOIN users_groups 
+                    ON groups.id = users_groups.group_id
+                    WHERE (user_id = ${recipientId} OR user_id = ${data.sender})
+                    AND TYPE=1
+                    GROUP BY group_id
+                    HAVING COUNT(group_id) = 2`,
+
+                    (error, result) => {
+                        if (error) throw error;
+                        if (result.length) {
+                            db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.id}", 2)`, (error, item) => {
+
+                            });
+                        } else {
+                            db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
+                                if (error) throw error;
+                                let groupId = group.insertId;
+
+                                db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
+                                    db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.id}", 2)`, (error, item) => {
+                                        console.log('You created new group');
+                                    });
+                                });
+                            });
+                        }
+                    });
+            });
+        }
     });
 
     socket.on('leave:group', data => {
