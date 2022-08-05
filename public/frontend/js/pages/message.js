@@ -19,23 +19,20 @@ $(document).ready(function () {
         $(this).addClass('active');
 
         let target = '.messages.active .contact-chat ul.chatappend';
+        globalGroupId = Number($(this).attr('groupId'))
+        globalGroupUsers = $(this).attr('groupUsers');
         if ($('#direct').hasClass('active')) {
-            currentDirectId = Number($(this).attr('groupId'));
-            currentDirectUsers = $(this).attr('groupUsers');
-            globalGroupId = currentDirectId;
-            globalGroupUsers = currentDirectUsers;
+            currentDirectId = globalGroupId;
+            currentDirectUsers = globalGroupUsers;
             var pageSettingFlag = 1;
         } else if ($('#group').hasClass('active')) {
-            currentGroupId = Number($(this).attr('groupId'));
-            currentGroupUsers = $(this).attr('groupUsers');
-            globalGroupId = currentGroupId;
-            globalGroupUsers = currentGroupUsers;
+            currentGroupId = globalGroupId;
+            currentGroupUsers = globalGroupUsers;
             var pageSettingFlag = 2;
+            checkExpireStatus(currentUserId, currentGroupId);
         } else if ($('#cast').hasClass('active')) {
-            currentCastId = Number($(this).attr('groupId'));
-            currentCastUsers = $(this).attr('groupUsers');
-            globalGroupId = currentCastId;
-            globalGroupUsers = currentCastUsers;
+            currentCastId = globalGroupId;
+            currentCastUsers = globalGroupUsers;
             var pageSettingFlag = 3;
         }
         showCurrentChatHistory(target, globalGroupId, globalGroupUsers, pageSettingFlag);
@@ -401,5 +398,11 @@ function convertListItems() {
             'display': 'block'
         });
         el.hide();
+    });
+}
+
+function checkExpireStatus(userId, groupId) {
+    socket.emit('check:expireDate', {userId, groupId}, res => {
+        console.log(res);
     });
 }

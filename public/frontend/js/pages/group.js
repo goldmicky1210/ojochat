@@ -441,6 +441,13 @@ $(document).ready(function () {
         $('#custom_modal').find('.modal-body .group_title').remove();
         $('#custom_modal').find('.modal-body .group_description').remove();
         $('#custom_modal').find('.modal-body .group_fee_type').remove();
+
+        $('#custom_modal .modal-content').removeClass('create_new_group_modal');
+        $('#custom_modal .modal-content').removeClass('create_new_cast_modal');
+        $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
+        $('#custom_modal .modal-content').removeClass('edit_group_modal');
+        $('#custom_modal .modal-content').removeClass('invite_group_modal');
+
     });
 
     // add/remove user in group
@@ -799,7 +806,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res);
             if (res.state == 'true') {
                 $(target).empty();
                 getUsersList();

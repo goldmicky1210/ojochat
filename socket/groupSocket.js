@@ -28,19 +28,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 data.kind = 0;
                 data.msgType = 0;
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
-                // db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
-                //     row.forEach(item => {
-                //         let recipientSocketId = user_socketMap.get(item['user_id'].toString());
-                //         if (recipientSocketId) {
-                //             if (io.sockets.sockets.get(recipientSocketId)) {
-                //                 io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
-                //             }
-                //         } else {
-                //             console.log('Send Message SMS');
-                //             Notification.sendSMS(data.sender, item['user_id'], 'text', data.globalGroupId);
-                //         }
-                //     });
-                // });
             });
         }
 
@@ -166,7 +153,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
-    socket.on('add:pendingGroupUser', (data, callback) => {        
+    socket.on('add:pendingGroupUser', (data, callback) => {
         db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.currentUserId}, ${data.currentGroupId}, 1) ON DUPLICATE KEY UPDATE user_id=${data.currentUserId}, group_id=${data.currentGroupId}, status=1`, (error, item) => {
             callback({ status: 'OK' });
         });
@@ -220,6 +207,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('join:group', (data, callback) => {
+        console.log(data);
         db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
             if (user.length) {
                 db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {
@@ -239,6 +227,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                     db.query(`UPDATE users SET balances=balances+${group[0].fee_value * 0.7} WHERE id=${group[0].owner}`, (error, item) => {
                                         console.log(item);
                                     });
+                                    setExpireDate(currentUserId, data.currentGroupId);
                                     Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value * 0.7);
                                 }
                                 callback({ status: 'OK' });
@@ -247,7 +236,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                     }
                 });
             }
-        })
+        });
     });
 
     socket.on('add:groupAdmin', (data, callback) => {
@@ -271,4 +260,36 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
+    socket.on('check:expireDate', (data, callback) => {
+        console.log(data);
+        db.query(`SELECT * from users_groups WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (err, result) => {
+            if (err) throw err;
+            console.log(result[0].expire_date);
+            if (result[0].expire_date && result[0].expire_date < new Date()) {
+                console.log('You expired from this group');
+                db.query(`UPDATE users_groups SET status=1 WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (err, result) => {
+                    if (err) throw err;
+                    callback({ status: 'expired' });
+                });
+            } else {
+                callback({ status: 'not expired' });
+            }
+        })
+    })
+
+    function setExpireDate(userId, groupId) {
+        db.query(`SELECT * FROM \`groups\` WHERE id=${groupId}`, (err, group) => {
+            var expireDate = new Date();
+            if (group[0].fee_type == 1) {
+                expireDate = expireDate.setMonth(expireDate.getMonth() + 1);
+            } else if (group[0].fee_type == 2) {
+                expireDate = expireDate.setFullYear(expireDate.getFullYear() + 1);
+            }
+            console.log(new Date(expireDate).toISOString().slice(0, 10));
+            db.query(`UPDATE users_groups SET expire_date="${new Date(expireDate).toISOString().slice(0, 10)}" WHERE user_id = ${userId} AND group_id = ${groupId}`, (err, result) => {
+                if (err) throw err;
+                console.log(result);
+            })
+        });
+    }
 }
