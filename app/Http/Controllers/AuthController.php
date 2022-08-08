@@ -31,14 +31,14 @@ class AuthController extends Controller
     protected function selectAuthType(Request $request)
     {
         $login = $request->input('email');
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'login_name';
         $request->merge([$fieldType => $login]);
         switch ($fieldType)
         {
             case 'email':
                 return true;
                 break;
-            case 'username':
+            case 'login_name':
                 return false;
                 break;
         }
@@ -70,6 +70,7 @@ class AuthController extends Controller
         $email=$request->input('email');
         $token=Crypt::encryptString($email.'###'.$password);
         $user = User::create([
+            'login_name' => $request->input('username'),
             'username' => $request->input('username'),
             'email' => $email,
             'password' => $cryptpass,
@@ -97,7 +98,7 @@ class AuthController extends Controller
             ])
             :
             $request->validate([
-                'username'  => 'required',
+                'login_name'  => 'required',
                 'password'  => 'required'
             ])
         ;
@@ -129,7 +130,7 @@ class AuthController extends Controller
             return array(
                 'message'=> 'success',
                 'loggedin'=> true,
-                'currentUsername' => User::where('id', $row->userId)->get('username')
+                'currentUsername' => User::where('id', $row->userId)->get('login_name')
             );
         }
         else
@@ -162,7 +163,7 @@ class AuthController extends Controller
         $email = $request->input('email');
         if($email==null)return view('frontend.auth.forgot',['page_title' => 'Forgot']);
         $_user = User::where('email', $email)
-            ->select('id as userId', 'email as userEmail', 'username as userName', 'firstName', 'lastName')
+            ->select('id as userId', 'email as userEmail', 'login_name as userName', 'firstName', 'lastName')
             ->get();
         if($_user && count($_user) === 1)
         {

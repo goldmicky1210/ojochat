@@ -232,7 +232,7 @@ class HomeController extends Controller
         $location = $request->input('location');
         $description = $request->input('description');
         $user = User::find($id);
-        $user->firstName = $username;
+        $user->username = $username;
         $user->location = $location;
         $user->description = $description;
         if ($request->file('avatar') != null) {

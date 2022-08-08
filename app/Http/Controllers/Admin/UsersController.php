@@ -28,7 +28,7 @@ class UsersController extends Controller
         $params['sort']['sort']=$request->input('sort.sort');
         if(
             count($rows)&&isset($params['sort']['field'])&&isset($params['sort']['sort'])&&(
-                $params['sort']['field']=='username'||
+                $params['sort']['field']=='login_name'||
                 $params['sort']['field']=='email'||
                 $params['sort']['field']=='created_at'))
         {

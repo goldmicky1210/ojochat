@@ -410,7 +410,7 @@
                             </div>
                             <div class="details">
                                 <h5 class="setting__profile--name">
-                                    {{ Auth::user()->firstName ? Auth::user()->firstName : Auth::user()->username }}</h5>
+                                    {{ Auth::user()->username }}</h5>
                                 <h6 class="setting__profile--location">{{ Auth::user()->location }}</h6>
                                 <h6 class="setting__profile--description">{{ Auth::user()->description }}</h6>
                             </div>
@@ -418,7 +418,7 @@
                                 <form class="form-radious form-sm">
                                     <div class="form-group mb-2">
                                         <input class="form-control username" type="text" name="username"
-                                            value="{{ Auth::user()->firstName ? Auth::user()->firstName : Auth::user()->username }}"
+                                            value="{{ Auth::user()->username }}"
                                             placeholder="John Doe" />
                                     </div>
                                     <div class="form-group mb-2">

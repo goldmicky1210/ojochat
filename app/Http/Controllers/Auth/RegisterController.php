@@ -68,7 +68,7 @@ class RegisterController extends Controller
         return User::create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'username' => $data['username'],
+            'login_name' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -76,7 +76,7 @@ class RegisterController extends Controller
 
     public function register(Request $request){
         //$this->validator($request->all())->validate();
-        if(count(User::select()->where('username',$request->input('username'))->get()))return view('frontend.auth.login', ['page_title' => 'Register','error'=>'double_username']);
+        if(count(User::select()->where('login_name',$request->input('username'))->get()))return view('frontend.auth.login', ['page_title' => 'Register','error'=>'double_username']);
         if(count(User::select()->where('email',$request->input('email'))->get()))return view('frontend.auth.login', ['page_title' => 'Register','error'=>'double_email']);
         $user = $this->create($request->all());
         $this->guard()->login($user);
