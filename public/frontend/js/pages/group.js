@@ -867,6 +867,9 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                                     if (res.status == 'OK') {
                                         console.log('You joined this group');
                                         alert('You joined this group Successfully');
+                                    } else {
+                                        console.log(res.status);
+                                        alert("You haven't enough balance.");
                                     }
                                 });
                             }

@@ -404,5 +404,8 @@ function convertListItems() {
 function checkExpireStatus(userId, groupId) {
     socket.emit('check:expireDate', {userId, groupId}, res => {
         console.log(res);
+        if (res.status = 'expired') {
+            alert('You have not enough balance for join this group. Please deposit balance');
+        }
     });
 }

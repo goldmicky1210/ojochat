@@ -266,16 +266,41 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             if (err) throw err;
             console.log(result[0].expire_date);
             if (result[0].expire_date && result[0].expire_date < new Date()) {
-                console.log('You expired from this group');
-                db.query(`UPDATE users_groups SET status=1 WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (err, result) => {
-                    if (err) throw err;
-                    callback({ status: 'expired' });
+                db.query(`SELECT * from users WHERE id=${data.userId}`, (err, user) => {
+                    db.query(`SELECT * from \`groups\` WHERE id=${data.groupId}`, (error, group) => {
+                        if (user[0].balances < group[0].fee_value) {
+                            console.log('You expired from this group');
+                            db.query(`UPDATE users_groups SET status=1 WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (err, result) => {
+                                if (err) throw err;
+                                callback({ status: 'expired' });
+                            });
+                        } else {
+                            let balance = user[0].balances - group[0].fee_value;
+                            db.query(`UPDATE users SET balances=${balance} WHERE id=${data.userId}`, (error, item) => {
+                                if (error) throw error;
+                                db.query(`UPDATE users_groups SET status=2 WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (error, item) => {
+                                    if (error) throw error;
+                                    if (group[0].fee_value > 0) {
+                                        db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${data.userId}, ${group[0].owner}, ${group[0].fee_value})`, (error, historyItem) => {
+                                            if (error) throw error;
+                                            console.log('You paid successfully');
+                                        });
+                                        db.query(`UPDATE users SET balances=balances+${group[0].fee_value * 0.7} WHERE id=${group[0].owner}`, (error, item) => {
+                                            console.log(item);
+                                        });
+                                        setExpireDate(data.userId, data.groupId);
+                                        Notification.sendPaySMS(data.userId, group[0].owner, group[0].fee_value * 0.7);
+                                    }
+                                });
+                            }); 
+                        }
+                    });
                 });
             } else {
                 callback({ status: 'not expired' });
             }
         })
-    })
+    });
 
     function setExpireDate(userId, groupId) {
         db.query(`SELECT * FROM \`groups\` WHERE id=${groupId}`, (err, group) => {
