@@ -41,5 +41,4 @@ $(document).ready(() => {
     //     // Hide it AFTER the action was triggered
     //     $(".custom-menu").hide(100);
     // });
-
 });

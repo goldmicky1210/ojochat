@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://www.jquery-az.com/boots/css/bootstrap-colorpicker/bootstrap-colorpicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.16/css/intlTelInput.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/css/dropzone.css"> -->
 
     <link rel="stylesheet" type="text/css" href="/chat/css/date-picker.css">
     <link rel="stylesheet" type="text/css" href="/chat/css/magnific-popup.css">
@@ -39,6 +40,9 @@
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/message.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/group.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/contextmenu.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/dropzone.basic.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/dropzone.css">
+
 </head>
 
 <body class="sidebar-active">
@@ -55,8 +59,11 @@
 
     <script src="/frontend/js/pages/fabric.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"
-        integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/frontend/js/dropzone.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.min.js"></script> -->
     
         @yield('content')
     

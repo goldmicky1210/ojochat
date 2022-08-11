@@ -3803,4 +3803,5 @@
     <script src="/frontend/js/pages/contact.js"></script>
     <script src="/frontend/js/pages/group.js"></script>
     <script src="/frontend/js/pages/contextmenu.js"></script>
+    <script src="/frontend/js/pages/media.js"></script>
 @endsection
