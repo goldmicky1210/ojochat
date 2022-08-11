@@ -54,7 +54,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
     Route::post('/message/deleteThread', 'MessageController@deleteThread');
     Route::post('/group/inviteGroup', 'GroupController@inviteGroup');
-    Route::post('/group/getGroupInfo', 'GroupController@getGroupInfo');
+    Route::post('/group/getGroupInfo', 'GroupController@getGroupInfo'); 
 });
 
 Route::group(['middleware' => ['admin']], function () {
@@ -65,3 +65,4 @@ Route::post('/developer', 'Util\\DbUtil@developer');
 
 Route::post('/v1/api/uploadFile', 'Util\\FileUtil@uploadFile');
 Route::get('/v1/api/downloadFile', 'Util\\FileUtil@downloadFile');
+Route::post('/v1/api/attachFile', 'Util\\FileUtil@attachFile');

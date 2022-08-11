@@ -16,8 +16,9 @@ class FileUtil extends Controller{
             $path=$request->file('file')->store($path);
             $res="ok";
         }
-        $res=array('msg'=>$res,'location'=>'/v1/api/downloadFile?path='.$path);
-		exit(json_encode($res));
+        $res = array('msg'=>$res,'location'=>'/v1/api/downloadFile?path='.$path);
+        return $res;
+		// exit(json_encode($res));
     }
     public function downloadFile(Request $request){
         $path = substr($_SERVER['REQUEST_URI'], 26);

@@ -4,10 +4,10 @@ Dropzone.autoDiscover = false;
 $(document).ready(() => {
     annDropzone = null;
     annDropzone = new Dropzone("div#dropzoneForm", {
-        url: "/v1/api/attachFile",
+        url: "/v1/api/uploadFile",
         paramName: "file",
         maxFilesize: 200, // MB
-        addRemoveLinks: false,
+        addRemoveLinks: true,
         thumbnailWidth: 294,
         thumbnailHeight: 294,
         autoProcessQueue: true,
@@ -31,21 +31,7 @@ $(document).ready(() => {
                 formData.append('id', jQuery('#edit_id').val());
             });
             this.on("success", function (file, res) {
-                res = JSON.parse(res);
-                var radio = document.createElement('input');
-                radio.setAttribute('type', 'radio');
-                radio.setAttribute('name', 'discovery_file');
-                radio.setAttribute('class', 'discovery-file');
-                radio.setAttribute('data-id', res.id);
-                radio.setAttribute('onchange', 'selectDiscoverImage(' + res.id + ');');
-                file.previewTemplate.appendChild(radio);
-                var div = document.createElement('div');
-                div.setAttribute('class', 'portada');
-                div.setAttribute('id', res.id);
-                if (!res.flag) div.setAttribute('style', 'display:none;');
-                div.innerHTML = 'Portada';
-                file.previewTemplate.appendChild(div);
-                if (res.flag) radio.setAttribute('checked', true);
+                console.log(res);
             });
             this.on("complete", function (file) {
                 if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
@@ -56,7 +42,7 @@ $(document).ready(() => {
 
             });
             this.on('removedfile', function (file) {
-
+                console.log(file);
             });
         }
     });
