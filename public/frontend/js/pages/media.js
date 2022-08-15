@@ -11,7 +11,8 @@ $(document).ready(() => {
         thumbnailWidth: 294,
         thumbnailHeight: 294,
         autoProcessQueue: true,
-        dictDefaultMessage: '<strong>Drop attach files here or click to upload. </strong></br> (File will be safe.)',
+        // dictDefaultMessage: '<strong>Drop attach files here or click to upload. </strong></br> (File will be safe.)',
+        dictDefaultMessage: '<img class="dropzone_back_img" src="/images/upload.png" width=100%>',
         init: function () {
             this.on("processing", function (file) {
 
@@ -47,3 +48,4 @@ $(document).ready(() => {
         }
     });
 });
+ 
