@@ -47,5 +47,8 @@ $(document).ready(() => {
             });
         }
     });
+
+    $('#mediaPhoto .send_attact_btn').on('click', function () {
+        $('#mediaPhoto').modal('hide');
+    });
 });
- 
