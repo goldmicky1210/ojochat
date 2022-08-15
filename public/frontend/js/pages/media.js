@@ -8,8 +8,9 @@ $(document).ready(() => {
         paramName: "file",
         maxFilesize: 200, // MB
         addRemoveLinks: true,
-        thumbnailWidth: 294,
-        thumbnailHeight: 294,
+        thumbnailWidth: 120,
+        thumbnailHeight: 120,
+        // thumbnailMethod: "contain",
         autoProcessQueue: true,
         // dictDefaultMessage: '<strong>Drop attach files here or click to upload. </strong></br> (File will be safe.)',
         dictDefaultMessage: '<img class="dropzone_back_img" src="/images/upload.png" width=100%>',
@@ -49,6 +50,7 @@ $(document).ready(() => {
     });
 
     $('#mediaPhoto .send_attach_btn').on('click', function () {
+
         $('#mediaPhoto').modal('hide');
     });
 });
