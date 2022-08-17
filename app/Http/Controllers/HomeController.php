@@ -19,6 +19,7 @@ use App\Models\PhotoGallery;
 use App\Models\Rating;
 use App\Models\Rate;
 use App\Models\PaymentHistory;
+use App\Models\AttachFile;
 use App\Events\NewMessage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -123,6 +124,13 @@ class HomeController extends Controller
                 $item['inviteGroupTitle'] = $temp[0]['title'];
                 $item['inviteGroupFeeType'] = $temp[0]['fee_type'];
                 $item['inviteGroupFeeValue'] = $temp[0]['fee_value'];
+                return $item;
+            }
+            if ($item['kind'] == 4) {
+                $temp = AttachFile::where('id', $item['content'])->get();
+                $item['fileName'] = $temp[0]['file_name'];
+                $item['fileType'] = $temp[0]['file_type'];
+                $item['path'] = $temp[0]['path'];
                 return $item;
             }
         });

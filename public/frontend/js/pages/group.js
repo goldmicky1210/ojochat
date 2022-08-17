@@ -17,8 +17,8 @@ $(document).ready(function () {
         // $('#custom_modal').find('.chat-main').hide();
         $('#custom_modal').find('.modal-body .group_avatar').remove();
         $('#custom_modal').find('.modal-body').prepend(`
-            <div class="group_avatar profile" id="group_profile_avatar">
-                <img class="bg-img" src=${groupAatarSrc}>
+            <div class="group_avatar profile" id="group_profile_avatar_create">
+                <img class="bg-img" src="/images/default-avatar.png">
                 <input class="input-file" type="file" id="group_avatar_select">
             </div>
             <div class="form-group group_title">
@@ -50,27 +50,11 @@ $(document).ready(function () {
                     </div>
                 </div>
             `);
-        $('#custom_modal .modal-body').on('change', '.group_fee_type select', function () {
-            let groupFeeType = $(this).val();
-            if (+groupFeeType) {
-                console.log(groupFeeType, ": ok");
-                if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
-                    $('#custom_modal').find('.modal-body .group_fee_type').append(`
-                            <div class="form-group fee_value">
-                                <label>Group Fee Value ($)</label>
-                                <input type="number" class="form-control form-control-sm" />
-                            </div>
-                        `);
-                }
-            } else {
-                console.log(groupFeeType, ": delete");
-                $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
-            }
-        });
+        
         convertListItems();
         changeGroupProfileImageAjax();
 
-        document.getElementById("group_profile_avatar")
+        document.getElementById("group_profile_avatar_create")
             .addEventListener('click', function () {
                 let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
                 if (adminList.includes(currentUserId.toString())) {
@@ -133,7 +117,23 @@ $(document).ready(function () {
         $(`.chat-cont-setting`).removeClass('open');
 
     });
-
+    $('#custom_modal .modal-body').on('change', '.group_fee_type select', function () {
+        let groupFeeType = $(this).val();
+        if (+groupFeeType) {
+            console.log(groupFeeType, ": ok");
+            if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
+                $('#custom_modal').find('.modal-body .group_fee_type').append(`
+                        <div class="form-group fee_value">
+                            <label>Group Fee Value ($)</label>
+                            <input type="number" class="form-control form-control-sm" />
+                        </div>
+                    `);
+            }
+        } else {
+            console.log(groupFeeType, ": delete");
+            $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
+        }
+    });
     // $('.create_new_group_btn').on('click', function (e) {
     //     $('#custom_modal').modal('show');
     //     $('#custom_modal .modal-content').addClass('create_new_group_modal');
@@ -364,23 +364,6 @@ $(document).ready(function () {
                     </div>
                 </div>
             `);
-            $('#custom_modal .modal-body').on('change', '.group_fee_type select', function () {
-                let groupFeeType = $(this).val();
-                if (+groupFeeType) {
-                    console.log(groupFeeType, ": ok");
-                    if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
-                        $('#custom_modal').find('.modal-body .group_fee_type').append(`
-                            <div class="form-group fee_value">
-                                <label>Group Fee Value ($)</label>
-                                <input type="number" class="form-control form-control-sm" />
-                            </div>
-                        `);
-                    }
-                } else {
-                    console.log(groupFeeType, ": delete");
-                    $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
-                }
-            });
         }
         convertListItems();
         changeGroupProfileImageAjax();
@@ -725,6 +708,7 @@ function addGroupChatItem(target, data, loadFlag) {
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
 
+    console.log(data);
     if (data.kind == 3) {
         var inviteContent = `
         <div class="content invite_link" inviteGroupId=${data.content}>
@@ -732,6 +716,8 @@ function addGroupChatItem(target, data, loadFlag) {
             <p class="invite_group_fee">${data.inviteGroupFeeType ? "Price " + groupFeeTypeConstant[data.inviteGroupFeeType] + ": $" + data.inviteGroupFeeValue : "Free"}</p>
             <button class="btn btn-sm btn-success">Pay</button>
          </div>`;
+    } else if (data.kind == 4) {
+        var fileContent = getFileContent(data);
     }
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">
         <div class="media">
@@ -746,7 +732,7 @@ function addGroupChatItem(target, data, loadFlag) {
                     </div>
                     <ul class="msg-box">
                         <li class="msg-setting-main">
-                            ${data.kind == 0 ?
+                            ${data.kind == 0 || data.kind == null ?
             `${replyId ? '<div class="replyMessage">\
                 <span class="replyIcon"><i class="fa fa-reply"></i></span>\
                 <span class="replyContent">' + replyContent + '</span>\
@@ -756,7 +742,8 @@ function addGroupChatItem(target, data, loadFlag) {
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
                 : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
-                    : data.kind == 3 ? inviteContent : ''}
+                    : data.kind == 3 ? inviteContent 
+                        : data.kind == 4 ? fileContent : ''}
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>
@@ -787,6 +774,42 @@ function addGroupChatItem(target, data, loadFlag) {
     if (data.rate) {
         getContentRate(`li.msg-item[key="${data.id}"]`, Math.round(data.rate))
     }
+}
+
+function getFileContent(data) {
+    let fileContent = '';
+    switch(data.fileType) {
+        case 'jpeg':
+            fileContent = `<img class="file_photo" messageId="${data.id}" src="v1/api/downloadFile?path=${data.path}">`
+            break;
+        case 'mp4':
+            fileContent = `<video width="130" controls>
+                <source src="v1/api/downloadFile?path=${data.path}" type="video/mp4">
+            </video>`
+            break;
+        case "mp3":
+        case "wav":
+        case "oga":
+            fileContent = `<audio controls>
+                <source src="v1/api/downloadFile?path=${data.path}" type="audio/mpeg">
+            </audio>`
+            break;
+        default:
+            fileContent = `
+                <div class="document">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M365.3 93.38l-74.63-74.64C278.6 6.742 262.3 0 245.4 0L64-.0001c-35.35 0-64 28.65-64 64l.0065 384c0 35.34 28.65 64 64 64H320c35.2 0 64-28.8 64-64V138.6C384 121.7 377.3 105.4 365.3 93.38zM336 448c0 8.836-7.164 16-16 16H64.02c-8.838 0-16-7.164-16-16L48 64.13c0-8.836 7.164-16 16-16h160L224 128c0 17.67 14.33 32 32 32h79.1V448zM96 280C96 293.3 106.8 304 120 304h144C277.3 304 288 293.3 288 280S277.3 256 264 256h-144C106.8 256 96 266.8 96 280zM264 352h-144C106.8 352 96 362.8 96 376s10.75 24 24 24h144c13.25 0 24-10.75 24-24S277.3 352 264 352z"/></svg>
+                    <div class="details">
+                        <h5>${data.fileName}</h5>
+                        <h6>Seprate file</h6>
+                    </div>
+                    <div class="icon-btns">
+                        <a class="icon-btn btn-outline-light" href="v1/api/downloadFile?path=${data.path}" target="_blank"><i class="fa fa-download"></i></a>
+                    </div>
+                </div>
+            `
+
+    }
+    return fileContent;
 }
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {

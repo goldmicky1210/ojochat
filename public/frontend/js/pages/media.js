@@ -2,8 +2,8 @@ var copiedContent = '';
 var pasteTarget;
 Dropzone.autoDiscover = false;
 $(document).ready(() => {
-    annDropzone = null;
-    annDropzone = new Dropzone("div#dropzoneForm", {
+    mediaDropzone = null;
+    mediaDropzone = new Dropzone("div#dropzoneForm", {
         url: "/v1/api/uploadFile",
         paramName: "file",
         maxFilesize: 200, // MB
@@ -22,15 +22,11 @@ $(document).ready(() => {
 
             });
             this.on("thumbnail", function (file, dataUrl) {
-
             });
             this.on("success", function (file) {
 
             });
             this.on("sending", function (file, xhr, formData) {
-                formData.append("_token", jQuery('meta[name="csrf-token"]').attr('content'));
-                formData.append('kind', 0);
-                formData.append('id', jQuery('#edit_id').val());
             });
             this.on("success", function (file, res) {
                 console.log(res);
@@ -52,5 +48,31 @@ $(document).ready(() => {
     $('#mediaPhoto .send_attach_btn').on('click', function () {
 
         $('#mediaPhoto').modal('hide');
+        console.log(mediaDropzone.files);
+        var form_data = new FormData();
+        form_data.append('senderId', currentUserId);
+        form_data.append('groupId', globalGroupId);
+        mediaDropzone.files.forEach((item, index) => {
+            form_data.append('files[]', item);
+        });
+        console.log(form_data);
+        $.ajax({
+            url: '/v1/api/attachFiles',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (response) {
+
+            }
+        });
     });
 });

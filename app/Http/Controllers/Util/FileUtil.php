@@ -5,16 +5,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\AttachFile;
 use Illuminate\Support\Facades\File;
+use App\Models\AttachFile;
+use App\Models\Message;
 class FileUtil extends Controller{
     public function uploadFile(Request $request){
-        $res="error";
+        $res = "error";
         if($request->hasfile('file')){
-            $path='upload/tinymce';
-            //@mkdir($path, 0777, true);
-            $path=$request->file('file')->store($path);
-            $res="ok";
+            $path = 'upload/attach';
+            // dd($request->file('file'));
+            // //@mkdir($path, 0777, true);
+            // $path=$request->file('file')->store($path);
+            $res = "success";
         }
         $res = array('msg'=>$res,'location'=>'/v1/api/downloadFile?path='.$path);
         return $res;
@@ -26,6 +28,40 @@ class FileUtil extends Controller{
         // return response()->download(storage_path("app/".$request->input('path')));
     }
     
+    public static function attachFiles(Request $request){
+        
+        //@mkdir($path, 0777, true);
+        $senderId = $request->input('senderId');
+        $groupId = $request->input('groupId');
+        $result = array();
+        foreach($request->file('files') as $file) {
+            $path='upload/attach_files';
+            $path = $file->store($path);
+            $pathInfo = pathinfo($path);
+            // $basename = $pathInfo['basename'];
+            // $extension = $pathInfo['extension'];
+            // $filename = $pathInfo['filename'];
+            
+            $message = new Message;
+            $message->sender = $senderId;
+            $message->group_id = $groupId;
+            
+            $row=new AttachFile;
+            $row->file_name = $file->getClientOriginalName();
+            // $row->file_type = $file->getClientOriginalExtension();
+            $row->file_type = $pathInfo['extension'];
+            $row->path = $path;
+            $row->save();
+
+            $message->content = $row->id;
+            $message->kind = 4;
+            $message->save();
+
+            array_push($result, array('messageId'=>$message->id));
+        }
+        return array('state'=>'success','data'=>$result);
+    }
+
     public function arrayToJson(Request $request){
         $curl = curl_init();
 

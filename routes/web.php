@@ -65,4 +65,4 @@ Route::post('/developer', 'Util\\DbUtil@developer');
 
 Route::post('/v1/api/uploadFile', 'Util\\FileUtil@uploadFile');
 Route::get('/v1/api/downloadFile', 'Util\\FileUtil@downloadFile');
-Route::post('/v1/api/attachFile', 'Util\\FileUtil@attachFile');
+Route::post('/v1/api/attachFiles', 'Util\\FileUtil@attachFiles');

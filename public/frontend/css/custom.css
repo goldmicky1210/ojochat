@@ -493,7 +493,7 @@ ul.chatappend .msg-box .camera-icon {
     z-index: 2500;
 }
 
-.msg-box>li h5,
+/* .msg-box>li h5,
 .msg-box>li .h5,
 .msg-box>li .document,
 .msg-box>li .auto-gallery {
@@ -503,7 +503,7 @@ ul.chatappend .msg-box .camera-icon {
     color: #fff;
     border-radius: 0 25px 25px 0;
     font-weight: 600;
-}
+} */
 
 .chitchat-container .chitchat-left-sidebar .recent-default .recent .recent-slider .recent-box .recent-profile {
     overflow: hidden;

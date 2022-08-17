@@ -1,4 +1,3 @@
-const { received } = require("laravel-mix/src/Log");
 const db = require("./config");
 const Notification = require("./notification.js");
 
@@ -26,7 +25,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${data.content}", ${data.replyId || 0}, ${data.replyKind || 0})`, (error, item) => {
                 data.id = item.insertId;
                 data.kind = 0;
-                data.msgType = 0;
+                data.msgType = 'text';
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
             });
         }
@@ -71,8 +70,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             data.id = item.insertId;
             data.photoId = item.insertId;
             data.content = data.photo;
-            data.msgType = 2;
             data.kind = 2;
+            data.msgType = 'blink';
             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${data.globalGroupId}", "${data.id}", 2)`, (error, messageItem) => {
                 data.messageId = messageItem.insertId;
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
@@ -163,7 +162,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         data.sender = currentUserId;
         let messageData = {
             globalGroupId: data.currentGroupId,
-            msgType: 3,
+            msgType: 'inviteGroupUser',
             senderName: data.senderName
         }
         data.groupUsers.split(',').forEach(userId => {
@@ -242,7 +241,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('add:groupAdmin', (data, callback) => {
         db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {
             if (error) throw error;
-            data.msgType = 4;
+            data.msgType = 'addGroupAdmin';
             Notification.sendSMS(currentUserId, data.addId, data);
             callback({ status: 'OK' });
         });
@@ -254,7 +253,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             db.query(`UPDATE \`groups\` SET admins="${data.admins}" WHERE id=${data.globalGroupId}`, (error, item) => {
                 if (error) throw error;
             });
-            data.msgType = 5;
+            data.msgType = 'removeGroupUser';
             Notification.sendSMS(currentUserId, data.removeId, data);
             callback({ status: 'OK' });
         });
