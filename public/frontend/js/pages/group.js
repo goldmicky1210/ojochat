@@ -780,6 +780,7 @@ function getFileContent(data) {
     let fileContent = '';
     switch(data.fileType) {
         case 'jpeg':
+        case 'png':
             fileContent = `<img class="file_photo" messageId="${data.id}" src="v1/api/downloadFile?path=${data.path}">`
             break;
         case 'mp4':

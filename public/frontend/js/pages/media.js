@@ -69,6 +69,23 @@ $(document).ready(() => {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                let messageData = res.messageData;
+                let target = '.messages.active .contact-chat ul.chatappend';
+                if (messageData.length) {
+                    messageData.reverse().forEach(item => {
+                        if (item.state != 3 && currentUserId != item.sender) {
+                            let message = {
+                                from: item.sender,
+                                to: currentUserId,
+                                content: item.content,
+                                messageId: item.id,
+                                state: item.state,
+                            }
+                            socket.emit('read:message', message);
+                        }
+                        addGroupChatItem(target, item);
+                    });
+                }
             },
             error: function (response) {
 

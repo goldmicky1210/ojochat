@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\AttachFile;
 use App\Models\Message;
+use App\Models\Rate;
+use App\Models\PhotoRequest;
+use App\Models\PhotoGallery;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\UsersGroup;
 class FileUtil extends Controller{
     public function uploadFile(Request $request){
         $res = "error";
@@ -28,7 +34,7 @@ class FileUtil extends Controller{
         // return response()->download(storage_path("app/".$request->input('path')));
     }
     
-    public static function attachFiles(Request $request){
+    public function attachFiles(Request $request){
         
         //@mkdir($path, 0777, true);
         $senderId = $request->input('senderId');
@@ -57,9 +63,57 @@ class FileUtil extends Controller{
             $message->kind = 4;
             $message->save();
 
-            array_push($result, array('messageId'=>$message->id));
+            array_push($result, $message->id);
         }
+        return $this->getMessageData($result);
         return array('state'=>'success','data'=>$result);
+    }
+
+    public function getMessageData($messageId) {
+        $id = Auth::id();
+        $messageData = Message::whereIn("id", $messageId)->orderBy('created_at', 'desc')->get();
+        $messages = $messageData->map(function($item) {
+            $rate = Rate::where('message_id', $item['id'])->avg('rate');
+            $item['rate'] = $rate;
+            if ($item['kind'] == 0) 
+                return $item;
+            if ($item['kind'] == 1) {
+                $temp = PhotoRequest::where('id', $item['content'])->get();
+                $item['requestId'] = $temp[0]['id'];
+                $item['content'] = $temp[0]['price'];
+                return $item;
+            }
+            if ($item['kind'] == 2) {
+                $temp = PhotoGallery::where('id', $item['content'])->get();
+                $item['photoId'] = $temp[0]['id'];
+                $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
+                if ($payBlurState === false) {
+                    $item['content'] = $temp[0]['original_thumb'];
+                } else {
+                    $item['content'] = $temp[0]['photo'];
+                }
+                return $item;
+            }
+            if ($item['kind'] == 3) {
+                $temp = Group::where('id', $item['content'])->get();
+                $item['inviteGroupTitle'] = $temp[0]['title'];
+                $item['inviteGroupFeeType'] = $temp[0]['fee_type'];
+                $item['inviteGroupFeeValue'] = $temp[0]['fee_value'];
+                return $item;
+            }
+            if ($item['kind'] == 4) {
+                $temp = AttachFile::where('id', $item['content'])->get();
+                $item['fileName'] = $temp[0]['file_name'];
+                $item['fileType'] = $temp[0]['file_type'];
+                $item['path'] = $temp[0]['path'];
+                return $item;
+            }
+        });
+        // $groupInfo = Group::where('id', $groupId)->first();
+        // $userStatus = UsersGroup::where('group_id', $groupId)->where('user_id', $id)->first('status');
+        
+        // return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo, 'userStatus'=>$userStatus);
+        return array('state'=>'true','messageData'=>$messages);
     }
 
     public function arrayToJson(Request $request){
