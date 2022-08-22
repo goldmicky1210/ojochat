@@ -439,10 +439,9 @@ const onConnection = (socket) => {
                     if (io.sockets.sockets.get(recipientSocketId)) {
                         data.msgType = 'media';
                         io.sockets.sockets.get(recipientSocketId).emit('get:mediaMessage', data);
-                        Notification.sendSMS(data.sender, item['user_id'], data);
                     }
                 } else {
-                    console.log('No socket SMS')
+                    Notification.sendSMS(data.sender, item['user_id'], data);
                 }
             })
         });
