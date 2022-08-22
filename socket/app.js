@@ -430,6 +430,7 @@ const onConnection = (socket) => {
 
     socket.on('send:mediaNotification', data => {
         db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.group_id}"`, (error, row) => {
+            console.log('groupUsers:', row);
             row.filter(item => item['user_id'] != data.sender).forEach(item => {
                 let recipientSocketId = user_socketMap.get(item['user_id'].toString());
                 if (recipientSocketId) {
