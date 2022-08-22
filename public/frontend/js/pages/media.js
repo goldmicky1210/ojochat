@@ -6,7 +6,7 @@ $(document).ready(() => {
     mediaDropzone = new Dropzone("div#dropzoneForm", {
         url: "/v1/api/uploadFile",
         paramName: "file",
-        maxFilesize: 2000, // MB
+        maxFilesize: 200000, // MB
         addRemoveLinks: true,
         thumbnailWidth: 120,
         thumbnailHeight: 120,
