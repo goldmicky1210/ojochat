@@ -777,12 +777,16 @@ function addGroupChatItem(target, data, loadFlag) {
 
 function getFileContent(data) {
     let fileContent = '';
-    switch(data.fileType) {
+    switch(data.fileType.toLowerCase()) {
         case 'jpeg':
         case 'png':
             fileContent = `<img class="file_photo" messageId="${data.id}" src="v1/api/downloadFile?path=${data.path}">`
             break;
         case 'mp4':
+        case 'mkv':
+        case 'avi':
+        case 'mov':
+        case '3gp':
             fileContent = `<video width="130" controls>
                 <source src="v1/api/downloadFile?path=${data.path}" type="video/mp4">
             </video>`
