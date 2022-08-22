@@ -428,6 +428,24 @@ const onConnection = (socket) => {
         Notification.sendSMS(data.sender, data.recipient, data);
     });
 
+    socket.on('send:mediaNotification', data => {
+        console.log(data);
+        db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.group_id}"`, (error, row) => {
+            row.filter(item => item['user_id'] != data.sender).forEach(item => {
+                let recipientSocketId = user_socketMap.get(item['user_id'].toString());
+                if (recipientSocketId) {
+                    if (io.sockets.sockets.get(recipientSocketId)) {
+                        data.msgType = 'media';
+                        io.sockets.sockets.get(recipientSocketId).emit('get:mediaMessage', data);
+                        Notification.sendSMS(data.sender, item['user_id'], data);
+                    }
+                } else {
+                    console.log('No socket SMS')
+                }
+            })
+        });
+    });
+
     socket.on('stickyToFree', data => {
         db.query(`SELECT * FROM messages WHERE content=${data.photoId} AND kind=2`, (err, message) => {
             if (message[0].sender == currentUserId) {

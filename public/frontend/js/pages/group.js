@@ -708,7 +708,6 @@ function addGroupChatItem(target, data, loadFlag) {
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
 
-    console.log(data);
     if (data.kind == 3) {
         var inviteContent = `
         <div class="content invite_link" inviteGroupId=${data.content}>

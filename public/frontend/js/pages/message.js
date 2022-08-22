@@ -183,7 +183,6 @@ $(document).ready(function () {
                             let target = '.messages.active .contact-chat ul.chatappend';
                             res.messageData.forEach(item => {
                                 item.messageId = item.id;
-                                // addChatItem(target, item.sender, item, true);
                                 addGroupChatItem(target, item, true);
 
                             });

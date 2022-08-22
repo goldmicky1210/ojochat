@@ -48,14 +48,12 @@ $(document).ready(() => {
     $('#mediaPhoto .send_attach_btn').on('click', function () {
 
         $('#mediaPhoto').modal('hide');
-        console.log(mediaDropzone.files);
         var form_data = new FormData();
         form_data.append('senderId', currentUserId);
         form_data.append('groupId', globalGroupId);
         mediaDropzone.files.forEach((item, index) => {
             form_data.append('files[]', item);
         });
-        console.log(form_data);
         $.ajax({
             url: '/v1/api/attachFiles',
             headers: {
@@ -68,7 +66,7 @@ $(document).ready(() => {
             type: 'POST',
             dataType: "json",
             success: function (res) {
-                console.log(res);
+                console.log(res.messageData);
                 let messageData = res.messageData;
                 let target = '.messages.active .contact-chat ul.chatappend';
                 if (messageData.length) {
@@ -84,6 +82,9 @@ $(document).ready(() => {
                             socket.emit('read:message', message);
                         }
                         addGroupChatItem(target, item);
+                        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+                        item.senderName = getCertainUserInfoById(currentUserId).username;
+                        socket.emit('send:mediaNotification', item);
                     });
                 }
             },
