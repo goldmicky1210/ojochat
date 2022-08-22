@@ -432,6 +432,8 @@ const onConnection = (socket) => {
         db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.group_id}"`, (error, row) => {
             console.log('groupUsers:', row);
             row.filter(item => item['user_id'] != data.sender).forEach(item => {
+                console.log(user_socketMap)
+                console.log(item['user_id'])
                 let recipientSocketId = user_socketMap.get(item['user_id'].toString());
                 if (recipientSocketId) {
                     if (io.sockets.sockets.get(recipientSocketId)) {
