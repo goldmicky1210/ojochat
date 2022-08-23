@@ -188,6 +188,28 @@ const onConnection = (socket) => {
                     });
                 });
             });
+        } else if (data.forwardKind == 4) {
+            db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
+                if (messageContent.length) {
+                    db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
+                        if (groupData.length) {
+                            if (error) throw error;
+                            let groupId = groupData[0]['group_id'];
+                            console.log('Foward to:', groupId);
+                            db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${messageContent[0]['content']}", 4)`, (error, item) => {
+                                if (error) throw error;
+                                // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
+                                //     if (error) throw error;
+                                // });
+                                // Notification.sendSMS(currentUserId, data.recipient, 'Blink', groupId);
+                            });
+                        } else {
+                            console.log('There is no connection with him')
+                        }
+                    });
+
+                }
+            })
         }
     });
 
