@@ -111,6 +111,7 @@ exports.sendSMS = (sender, recipient, data) => {
                             let message = '';
 
                             db.query(`SELECT title, type FROM \`groups\` WHERE id=${data.globalGroupId || data.group_id}`, (error, groupInfo) => {
+                                console.log(groupInfo)
                                 if (groupInfo && groupInfo.length) {
                                     let groupType = data.groupType;
 
@@ -159,14 +160,9 @@ exports.sendSMS = (sender, recipient, data) => {
                                     } else {
                                         message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
                                     }
-                                } else if (data.msgType == 'forward') {
-                                    if (spainish) {
-                                        message = `Hola ${row[0].username}, tienes un nuevo delantero multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
-                                    } else {
-                                        message = `Hey ${row[0].username}, You have a new forward message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
-                                    }
-                                }
+                                } 
                                 console.log('message=', message);
+                                console.log(fullPhoneNumber);
                                 if (fullPhoneNumber && message) {
                                     this.sendSMSFinal(fullPhoneNumber, message, row[0]['sms_type']);
                                 }

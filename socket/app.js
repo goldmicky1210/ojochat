@@ -60,8 +60,8 @@ const onConnection = (socket) => {
 
     socket.on('forward:message', data => {
         console.log(data);
-        // data.groupType = 1;
-        data.msgType = 'forward'; 
+        data.groupType = 1;
+        data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text'; 
         Notification.sendSMS(currentUserId, data.recipient, data);
 
         if (data.forwardKind == 2) {
