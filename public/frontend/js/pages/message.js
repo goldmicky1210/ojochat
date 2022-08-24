@@ -287,7 +287,8 @@ $(document).ready(function () {
             let forwardId = $('#custom_modal').attr('forwardId');
             let forwardKind = $('#custom_modal').attr('forwardKind');
             let recipient = $(this).closest('li').attr('key');
-            socket.emit('forward:message', { recipient, forwardId, forwardKind });
+            let senderName = getCertainUserInfoById(currentUserId).username;
+            socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName });
         }
     });
 

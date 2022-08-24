@@ -111,7 +111,7 @@ exports.sendSMS = (sender, recipient, data) => {
                             let message = '';
 
                             db.query(`SELECT title, type FROM \`groups\` WHERE id=${data.globalGroupId || data.group_id}`, (error, groupInfo) => {
-                                if (groupInfo.length) {
+                                if (groupInfo && groupInfo.length) {
                                     let groupType = data.groupType;
 
                                     let messageType = data.msgType == 'text' ? 'de texto' : data.msgType == 'blink' ? 'Blink' : 'solicitar';
@@ -130,44 +130,45 @@ exports.sendSMS = (sender, recipient, data) => {
                                         } else {
                                             message = `Hey ${row[0].username}, a new ${data.msgType == 'text' ? 'text message' : 'Blink'} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                         }
-                                    } else if (data.msgType == 'inviteGroupUser') {
-                                        // Invite Message
-                                        if (spainish) {
-                                            message = `Hola ${row[0].username}, Has sido invitado por ${data.senderName} en el grupo ${groupInfo[0]['title']}. ${val}`;
-                                        } else {
-                                            message = `Hey ${row[0].username}, You have been invited by ${data.senderName} to the group ${groupInfo[0]['title']}. Log onto Ojochat to accept. ${val}`;
-                                        }
-                                    } else if (data.msgType == 'addGroupAdmin') {
-                                        // Add admin user Message
-                                        if (spainish) {
-                                            message = `Hola ${row[0].username}, ${data.senderName} te ha invitado al grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para aceptar. ${val}`;
-                                        } else {
-                                            message = `Hey ${row[0].username}, You have become an admin of the group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
-                                        }
-                                    } else if (data.msgType == 'removeGroupUser') {
-                                        // Remove use from group
-                                        if (spainish) {
-                                            message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
-                                        } else {
-                                            message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
-                                        }
-                                    } else if (data.msgType == 'media') {
-                                        if (spainish) {
-                                            message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
-                                        } else {
-                                            message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
-                                        }
-                                    } else if (data.msgType == 'forward') {
-                                        if (spainish) {
-                                            message = `Hola ${row[0].username}, tienes un nuevo delantero multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
-                                        } else {
-                                            message = `Hey ${row[0].username}, You have a new forward message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
-                                        }
                                     }
-                                    console.log('message=', message);
-                                    if (fullPhoneNumber && message) {
-                                        this.sendSMSFinal(fullPhoneNumber, message, row[0]['sms_type']);
+                                }
+                                if (data.msgType == 'inviteGroupUser') {
+                                    // Invite Message
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, Has sido invitado por ${data.senderName} en el grupo ${groupInfo[0]['title']}. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, You have been invited by ${data.senderName} to the group ${groupInfo[0]['title']}. Log onto Ojochat to accept. ${val}`;
                                     }
+                                } else if (data.msgType == 'addGroupAdmin') {
+                                    // Add admin user Message
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, ${data.senderName} te ha invitado al grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para aceptar. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, You have become an admin of the group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
+                                    }
+                                } else if (data.msgType == 'removeGroupUser') {
+                                    // Remove use from group
+                                    if (spainish) {
+                                        message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
+                                    }
+                                } else if (data.msgType == 'media') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
+                                    }
+                                } else if (data.msgType == 'forward') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, tienes un nuevo delantero multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, You have a new forward message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
+                                    }
+                                }
+                                console.log('message=', message);
+                                if (fullPhoneNumber && message) {
+                                    this.sendSMSFinal(fullPhoneNumber, message, row[0]['sms_type']);
                                 }
                             });
                         });
