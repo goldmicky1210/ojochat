@@ -62,7 +62,7 @@ const onConnection = (socket) => {
         console.log(data);
         // data.groupType = 1;
         data.msgType = 'forward'; 
-        // Notification.sendSMS(currentUserId, data.recipient, data);
+        Notification.sendSMS(currentUserId, data.recipient, data);
 
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
