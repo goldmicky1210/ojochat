@@ -253,21 +253,6 @@ $(document).ready(function () {
     $('.messages').on('click', '.forwardBtn', function (e) {
         let forwardId = $(this).closest('li.msg-item').attr('key');
         let forwardKind = $(this).closest('li.msg-item').attr('kind');
-        // console.log('replyKind:', forwardKind);
-        // let messageContent = forwardKind == 0 ? $(this).closest('li.msg-setting-main').find('.content').text() : '';
-        // if (forwardKind == 2) {
-        //     let imageSrc = $(this).closest('.msg-setting-main').find('.receive_photo').attr('src');
-        //     let photoId = $(this).closest('.msg-setting-main').find('.receive_photo').attr('photoId');
-        //     console.log(photoId)
-        //     messageContent = `<img src="${imageSrc}" width="50">`;
-        // }
-        // $('#content .chat-content>.replyMessage .replyContent').html(messageContent);
-        // $('#content .chat-content>.replyMessage').attr('forwardId', forwardId);
-        // $('#content .chat-content>.replyMessage').attr('forwardKind', forwardKind);
-        // $('#content .chat-content>.replyMessage').show();
-        // $('#forwardUsersListModal').modal('show');
-        // $('#forwardUsersListModal').attr('forwardId', forwardId);
-        // $('#forwardUsersListModal').attr('forwardKind', forwardKind);
 
         $('#custom_modal').modal('show');
         $('#custom_modal').attr('forwardId', forwardId);

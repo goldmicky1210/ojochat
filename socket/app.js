@@ -4,6 +4,7 @@ const axios = require('axios');
 
 const db = require("./config.js");
 const Notification = require("./notification.js");
+const MsgType = require("./constant").MsgType;
 
 const SpanishCountries = ['Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Dominican Republic', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'Mexico', 'Nicaragua', 'Panama', 'Paraguay', 'Peru', 'Puerto Rico', 'Uruguay', 'Venezuela', 'Spain'];
 const KindConstant = ['text', 'request', 'photo', 'video', 'audio', 'video_call', 'voice_call'];
@@ -57,104 +58,12 @@ const onConnection = (socket) => {
 
     console.log(user_socketMap);
 
-    socket.on('message', data => {
-        data.currentContactIdArr.forEach((currentContactId, index) => {
-            let message = {
-                from: currentUserId,
-                to: currentContactId,
-                content: data.message,
-                state: 1,
-                kind: 0,
-                reply_id: data.replyId || 0,
-                reply_kind: data.replyKind || 0,
-            }
-
-            db.query(`INSERT INTO messages (sender, recipient, content, reply_id, reply_kind) VALUES ("${message.from}", "${message.to}", "${message.content}", ${message.reply_id}, ${message.reply_kind})`, (error, item) => {
-                message.messageId = item.insertId;
-
-                db.query(`SELECT * FROM users WHERE id=${currentUserId}`, function (err, result, fields) {
-                    // if any error while executing above query, throw error
-                    if (err) throw err;
-                    // if there is no error, you have the result
-                    // iterate for all the rows in result
-                    Object.keys(result).forEach(function (key) {
-                        var row = result[key];
-                        //console.log("From all DB", row.username)
-
-                        var axios = require('axios');
-                        var data = JSON.stringify({
-                            "channel": "laravel_database_App.User." + currentContactId,
-                            "name": "App\\Events\\NewMessage",
-                            "data": {
-                                "message": {
-                                    "content": message.content,
-                                    "id": item.insertId,
-                                    "recipient": currentContactId,
-                                    "sender": currentUserId,
-                                    "state": 1
-                                },
-                                "recipient": currentContactId,
-                                "senderProfile": {
-                                    "id": row.id,
-                                    "username": row.username,
-                                    "avatar": row.avatar
-                                }
-                            },
-                            "socket_id": currentUserId
-                        });
-
-                        var config = {
-                            method: 'post',
-                            url: 'https://ws.ojochat.com/apps/mongs/events',
-                            headers: {
-                                'Authorization': 'Bearer b9312da459fb8b2a0039ae1040e9c04f',
-                                'Content-Type': 'application/json',
-                            },
-                            data: data
-                        };
-
-                        axios(config)
-                            .then(function (response) {
-                                console.log(JSON.stringify(response.data));
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    });
-                });
-                if (currentContactId) {
-                    let recipientSocketId = user_socketMap.get(currentContactId.toString());
-                    let senderSocketId = user_socketMap.get(currentUserId.toString());
-                    if (index == 0) {
-                        io.sockets.sockets.get(senderSocketId).emit('message', message);
-                    }
-                    if (recipientSocketId) {
-                        if (io.sockets.sockets.get(recipientSocketId))
-                            io.sockets.sockets.get(recipientSocketId).emit('message', message);
-                    } else {
-                        console.log('Send text SMS');
-                        // sendSMS(currentUserId, currentContactId, 'text');
-                    }
-                }
-            });
-        })
-    });
-
-    socket.on('send:castMessage', data => {
-        let recipients = data.currentContactIdArr.join(', ');
-        let senderSocketId = user_socketMap.get(currentUserId.toString());
-        if (recipients && data.castTitle) {
-            db.query(`INSERT INTO casts (sender, recipients, cast_title, content) VALUES ("${currentUserId}", "${recipients}", "${data.castTitle}", "${data.message}")`, (error, item) => {
-                if (senderSocketId && data.newCast) {
-                    if (io.sockets.sockets.get(senderSocketId)) {
-                        io.sockets.sockets.get(senderSocketId).emit('add:newCast', data);
-                    }
-                }
-            });
-        }
-    });
-
     socket.on('forward:message', data => {
+        console.log(data);
+        // data.groupType = 1;
+        data.msgType = 'forward'; 
+        // Notification.sendSMS(currentUserId, data.recipient, data);
+
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {

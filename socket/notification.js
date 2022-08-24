@@ -153,10 +153,15 @@ exports.sendSMS = (sender, recipient, data) => {
                                         }
                                     } else if (data.msgType == 'media') {
                                         if (spainish) {
-                                            message = `Hey ${row[0].username}, You have removed from group ${groupInfo[0]['title']} by ${data.senderName}. ${val}`;
                                             message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
+                                        }
+                                    } else if (data.msgType == 'forward') {
+                                        if (spainish) {
+                                            message = `Hola ${row[0].username}, tienes un nuevo delantero multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                        } else {
+                                            message = `Hey ${row[0].username}, You have a new forward message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
                                         }
                                     }
                                     console.log('message=', message);
