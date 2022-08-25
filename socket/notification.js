@@ -61,7 +61,7 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
                                 // countStar += '⭐️⭐️⭐️⭐️⭐️';
                             }
                             let type = KindConstant[kindIndex];
-                            let messageType = type == 'text' ? 'un mensaje de texto' : type == 'photo' ? 'una foto' : 'solicitar';
+                            let messageType = type == 'text' ? 'un mensaje de texto' : type == 'blink' ? 'blink' : type == 'media' ? 'media' : 'solicitar';
                             if (spainish) {
                                 var message = `Hola ${row[0].username}, ${user[0].username} acaba de darte ${countStar} en ${messageType} en OJO.`;
                             } else {
