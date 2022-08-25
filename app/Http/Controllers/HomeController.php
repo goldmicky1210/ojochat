@@ -345,11 +345,28 @@ class HomeController extends Controller
                 $item['requestId'] = $temp[0]['id'];
                 $item['content'] = $temp[0]['price'];
                 return $item;
+            } 
+            if ($item['kind'] == 2) {
+                $temp = PhotoGallery::where('id', $item['content'])->get();
+                $item['photoId'] = $temp[0]['id'];
+                $item['content'] = $temp[0]['photo'];
+                return $item;
+            } 
+            if ($item['kind'] == 3) {
+                $temp = Group::where('id', $item['content'])->get();
+                $item['inviteGroupTitle'] = $temp[0]['title'];
+                $item['inviteGroupFeeType'] = $temp[0]['fee_type'];
+                $item['inviteGroupFeeValue'] = $temp[0]['fee_value'];
+                return $item;
             }
-            $temp = PhotoGallery::where('id', $item['content'])->get();
-            $item['photoId'] = $temp[0]['id'];
-            $item['content'] = $temp[0]['photo'];
-            return $item;
+            if ($item['kind'] == 4) {
+                $temp = AttachFile::where('id', $item['content'])->get();
+                $item['fileName'] = $temp[0]['file_name'];
+                $item['fileType'] = $temp[0]['file_type'];
+                $item['path'] = $temp[0]['path'];
+                return $item;
+            }
+            
         });
         
         return array('state'=>'true','messageData'=>$messages);

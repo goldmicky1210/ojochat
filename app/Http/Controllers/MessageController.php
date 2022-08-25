@@ -41,33 +41,6 @@ class MessageController extends Controller
         }
     }
 
-    public function displayCastChatData(Request $request) {
-        $userId = Auth::id();
-        $recipients = $request->input('recipients');
-        $castTitle = $request->input('castTitle');
-        // $castData = Cast::where('sender', $userId)->where('recipients', $recipients)->orderBy('created_at', 'desc')->get();
-        $castData = Cast::where('sender', $userId)->where('cast_title', $castTitle)->orderBy('created_at', 'desc')->get();
-        $messages = $castData->map(function($item) {
-            if ($item['kind'] == 0) 
-                return $item;
-            if ($item['kind'] == 1) {
-                $temp = PhotoRequest::where('id', $item['content'])->get();
-                $item['requestId'] = $temp[0]['id'];
-                $item['content'] = $temp[0]['price'];
-                return $item;
-            }
-            $temp = PhotoGallery::where('id', $item['content'])->get();
-            $item['castId'] = $item['id'];
-            $item['photoId'] = $temp[0]['id'];
-            $item['content'] = $temp[0]['photo'];
-            return $item;
-        });
-        if (count($messages)) {
-            return array('state'=>'true', 'data'=>$messages);
-        } else {
-            return array('state' => 'false');
-        }
-    }
 
     public function deleteChatThread(Request $request) {
         $userId = Auth::id();
