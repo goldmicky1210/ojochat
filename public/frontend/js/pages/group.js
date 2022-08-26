@@ -702,6 +702,9 @@ function addGroupChatItem(target, data, loadFlag) {
         } else if (replyKind == 2) {
             let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.receive_photo').attr('src');
             var replyContent = `<img src="${imageSrc}" width="50">`;
+        } else if (replyKind == 4) {
+            let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.file_photo').attr('src');
+            var replyContent = `<img src="${imageSrc}" width="50">`;
         }
     }
     let senderInfo = getCertainUserInfoById(data.sender);

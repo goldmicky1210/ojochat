@@ -212,8 +212,13 @@ $(document).ready(function () {
         let messageContent = replyKind == 0 ? $(this).closest('li.msg-setting-main').find('.content').text() : '';
         if (replyKind == 2) {
             let imageSrc = $(this).closest('.msg-setting-main').find('.receive_photo').attr('src');
-            let photoId = $(this).closest('.msg-setting-main').find('.receive_photo').attr('photoId');
-            console.log(photoId)
+            // let photoId = $(this).closest('.msg-setting-main').find('.receive_photo').attr('photoId');
+            // console.log(photoId)
+            messageContent = `<img src="${imageSrc}" width="50">`;
+        } else if (replyKind == 4) {
+            let imageSrc = $(this).closest('.msg-setting-main').find('.file_photo').attr('src');
+            // let messageId = $(this).closest('.msg-setting-main').find('.file_photo').attr('messageId');
+            // console.log(messageId)
             messageContent = `<img src="${imageSrc}" width="50">`;
         }
         let replyId = $(this).closest('li.msg-item').attr('key');
