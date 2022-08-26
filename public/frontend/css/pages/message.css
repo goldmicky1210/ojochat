@@ -181,3 +181,8 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 .contact-chat>ul>li.sent .document i, .contact-chat>ul>li.replies .document i {
     font-size: 25px;
 }
+
+#photo_modal .media_photo_src {
+    width: 100%;
+    height: 100%
+}

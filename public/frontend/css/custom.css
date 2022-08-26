@@ -401,6 +401,12 @@ ul.chatappend .msg-box .camera-icon {
     border-radius: 15px;
 }
 
+.receive_photo,
+.file_photo {
+    cursor: pointer;
+    /* border-radius: 15px; */
+}
+
 #photo_item .modal-content>div:nth-child(1) {
     padding: 10px;
 }
@@ -632,7 +638,8 @@ h6.read {
     margin-left: 10px;
 }
 
-.msg-setting-main:hover .receive_photo~.msg-dropdown-main .msg-open-btn {
+.msg-setting-main:hover .receive_photo~.msg-dropdown-main .msg-open-btn,
+.msg-setting-main:hover .file_photo~.msg-dropdown-main .msg-open-btn {
     display: flex;
 }
 

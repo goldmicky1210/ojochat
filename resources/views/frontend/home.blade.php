@@ -3789,6 +3789,17 @@
         </div>
     </div>
 
+    <div class="modal fade add-popup" id="photo_modal" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img class="media_photo_src" src="" alt="photo">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script src="/frontend/js/constant.js"></script>
