@@ -156,8 +156,7 @@ $(document).ready(function () {
             });
         }
     });
-
-    $('.messages.active').scroll(() => {
+    $('.messages').scroll(() => {
         if ($('.messages.active').scrollTop() == 0) {
             // $('.chatappend').prepend(loader);
 
