@@ -1051,10 +1051,15 @@
                                                         href="#"><i data-feather="edit"></i></a>
                                                     <h5>edit profile</h5>
                                                 </li>
-                                                <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                <li class="add_users_btn">
+                                                    <a class="icon-btn btn-outline-primary button-effect btn-sm"
+                                                        href="#"><i data-feather="plus-circle"></i></a>
+                                                    <h5>add users</h5>
+                                                </li>
+                                                <!-- <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
                                                         href="#"><i data-feather="user"></i></a>
                                                     <h5>profile</h5>
-                                                </li>
+                                                </li> -->
                                                 <li><a class="icon-btn btn-outline-success button-effect btn-sm"
                                                         href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>archive</h5>

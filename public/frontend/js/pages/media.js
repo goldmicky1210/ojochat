@@ -46,7 +46,7 @@ $(document).ready(() => {
     });
 
     $('#mediaPhoto .send_attach_btn').on('click', function () {
-
+        $('.spining').css('display', 'flex');
         $('#mediaPhoto').modal('hide');
         var form_data = new FormData();
         form_data.append('senderId', currentUserId);
@@ -66,6 +66,7 @@ $(document).ready(() => {
             type: 'POST',
             dataType: "json",
             success: function (res) {
+                $('.spining').css('display', 'none');
                 console.log(res.messageData);
                 let messageData = res.messageData;
                 let target = '.messages.active .contact-chat ul.chatappend';

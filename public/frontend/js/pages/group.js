@@ -434,8 +434,9 @@ $(document).ready(function () {
     });
 
     // add/remove user in group
-    $('#group_chat .chat-frind-content').on('click', '.add_users_btn', function () {
-        let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+    $('.chat-frind-content').on('click', '.add_users_btn', function () {
+        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
+        // let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_modal');
         $('#custom_modal').find('.modal-title').text('Add/Remove Group Users');
@@ -447,7 +448,7 @@ $(document).ready(function () {
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
             contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
-            currentGroupUsers.split(',').forEach(userId => {
+            globalGroupUsers.split(',').forEach(userId => {
                 $(`#custom_modal ul.chat-main li[key=${userId}] input`).prop('checked', true);
                 $(`#custom_modal ul.chat-main li[key=${userId}]`).addClass('active');
             });
