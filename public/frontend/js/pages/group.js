@@ -240,7 +240,10 @@ $(document).ready(function () {
             console.log('This is first contact');
         }
         addGroupChatItem(target, data);
-        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        let lastMsgItem = '.messages.active .chatappend .msg-item:last-child';
+        if ($(lastMsgItem).isInViewport()) {
+            $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        }
 
         // SMS notification
         if (currentUserId != data.sender) {
@@ -326,9 +329,11 @@ $(document).ready(function () {
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
         let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
         let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
+        let type = $('#myTabContent1 .tab-pane.active').attr('id');
+
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
-        $('#custom_modal').find('.modal-title').text('Edit Group Profile');
+        $('#custom_modal').find('.modal-title').text(`Edit ${type} Profile`);
         $('#custom_modal').find('.btn_group .btn').text('Save');
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.search_field').hide();
@@ -436,10 +441,10 @@ $(document).ready(function () {
     // add/remove user in group
     $('.chat-frind-content').on('click', '.add_users_btn', function () {
         let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
-        // let groupTitle = $('#group .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let type = $('#myTabContent1 .tab-pane.active').attr('id');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_modal');
-        $('#custom_modal').find('.modal-title').text('Add/Remove Group Users');
+        $('#custom_modal').find('.modal-title').text(`Add/Remove ${type} Users`);
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Save');
@@ -772,7 +777,6 @@ function addGroupChatItem(target, data, loadFlag) {
     } else {
         $(target).append(item);
     }
-    // $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
 
     if (data.rate) {
         getContentRate(`li.msg-item[key="${data.id}"]`, Math.round(data.rate))

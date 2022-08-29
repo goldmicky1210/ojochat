@@ -80,6 +80,10 @@
     font-size: 1rem;
 }
 
+#custom_modal .modal_title {
+    text-transform: capitalize;
+}
+
 #custom_modal .btn_group .invite_link {
     position: absolute;
     padding: 10px 30px;

@@ -388,8 +388,10 @@ function typingMessage(senderId) {
     if (!$('.typing-m').length) {
         let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: url(${contactorInfo.avatar ? 'v1/api/downloadFile?path=' + contactorInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
-        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
-
+        let lastMsgItem = '.messages.active .chatappend .msg-item:last-child';
+        if ($(lastMsgItem).isInViewport()) {
+            $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        }
     }
     if (delta < 1500) {
         typingTime = new Date();
@@ -397,7 +399,10 @@ function typingMessage(senderId) {
     }
     timerId = setTimeout(() => {
         $('.typing-m').remove();
-        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        let lastMsgItem = '.messages.active .chatappend .msg-item:last-child';
+        if ($(lastMsgItem).isInViewport()) {
+            $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        }
         typingTime = undefined;
     }, 1500);
 }
@@ -498,7 +503,7 @@ function setGroupProfileContent(groupId) {
                 $('.contact-profile .name h5').html(data.description || '');
                 $('.contact-profile .name h6').html('');
                 $('.contact-profile .name').attr('groupAdmins', data.admins || '');
-                
+
                 $.ajax({
                     url: '/home/getRateData',
                     headers: {
@@ -759,4 +764,21 @@ function confirmModal(title, content, okAction, cancelAction) {
             }
         }
     });
+}
+
+$.fn.isInViewport = function () {
+    var elementTop = $(this).offset().top;
+    var elementBottom = elementTop + $(this).outerHeight();
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+    return elementBottom > viewportTop && elementTop < viewportBottom;
+};
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
 }
