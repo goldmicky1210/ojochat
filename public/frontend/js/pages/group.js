@@ -123,11 +123,11 @@ $(document).ready(function () {
             console.log(groupFeeType, ": ok");
             if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
                 $('#custom_modal').find('.modal-body .group_fee_type').append(`
-                        <div class="form-group fee_value">
-                            <label>Group Fee Value ($)</label>
-                            <input type="number" class="form-control form-control-sm" />
-                        </div>
-                    `);
+                    <div class="form-group fee_value">
+                        <label>Group Fee Value ($)</label>
+                        <input type="number" class="form-control form-control-sm" />
+                    </div>
+                `);
             }
         } else {
             console.log(groupFeeType, ": delete");
@@ -327,9 +327,10 @@ $(document).ready(function () {
     // edit group profile
     $('.chat-frind-content').on('click', '.edit_group_profile_btn', function () {
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
-        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
-        let type = $('#myTabContent1 .tab-pane.active').attr('id');
+        let groupInfo = getCertainGroupInfo(groupId);
+        let groupAatarSrc = groupInfo.avatar ? 'v1/api/downloadFile?path=' + groupInfo.avatar : "/chat/images/avtar/teq.jpg";
+
+        let type = $('#myTabContent1 .tab-pane.active').attr('id'); //Cast or Group
 
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('edit_group_profile_modal');
@@ -353,7 +354,8 @@ $(document).ready(function () {
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         `);
-        $('#custom_modal').find('.group_title input').val(groupTitle);
+        $('#custom_modal').find('.group_title input').val(groupInfo.title);
+        $('#custom_modal').find('.group_description textarea').val(groupInfo.description);
 
         if ($('.messages.active').attr('id') == 'group_chat') {
             $('#custom_modal').find('.modal-body .group_description').after(`
@@ -369,6 +371,16 @@ $(document).ready(function () {
                     </div>
                 </div>
             `);
+            $('#custom_modal').find('.modal-body .group_fee_type .fee_type select').val(groupInfo.fee_type);
+            if (groupInfo.fee_type > 0) {
+                $('#custom_modal').find('.modal-body .group_fee_type').append(`
+                    <div class="form-group fee_value">
+                        <label>Group Fee Value ($)</label>
+                        <input type="number" class="form-control form-control-sm" />
+                    </div>
+                `);
+                $('#custom_modal').find('.modal-body .group_fee_type .fee_value input').val(groupInfo.fee_value);
+            }
         }
         convertListItems();
         changeGroupProfileImageAjax();
@@ -384,7 +396,7 @@ $(document).ready(function () {
 
     $('#custom_modal').on('click', '.modal-content.edit_group_profile_modal .btn_group .btn', function () {
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-        let groupTitle = $('#custom_modal').find('.sub_title input').val();
+        let groupTitle = $('#custom_modal').find('.group_title input').val();
         let groupDescription = $('#custom_modal').find('.group_description textarea').val();
         let groupFeeType = $('#custom_modal').find('.group_fee_type select').val();
         let groupFeeValue = $('#custom_modal').find('.group_fee_type .fee_value input').val();
@@ -461,11 +473,14 @@ $(document).ready(function () {
     });
 
     $('#custom_modal').on('click', '.modal-content.edit_group_modal .btn_group .btn', function () {
+        let groupId = globalGroupId;
         let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key'));
         groupUsers.push(currentUserId);
-        socket.emit('edit:groupUsers', { currentGroupId, groupUsers: groupUsers.join(',') }, (res) => {
+        groupUsers = groupUsers.join(',');
+        socket.emit('edit:groupUsers', { groupId, groupUsers }, (res) => {
             if (res.status == 'OK') {
-                $('#group-tab').click();
+                // $('#group-tab').click();
+                // $('#myTab1 .nav-item .nav-link.active').click();
             }
         });
         $('#custom_modal .modal-content').removeClass('edit_group_modal');
@@ -955,4 +970,32 @@ function getUsersListByGroupId(groupId, resolve) {
         },
         error: function (response) { }
     });
+}
+
+function getCertainGroupInfo(groupId) {
+    var form_data = new FormData();
+    form_data.append('groupId', groupId);
+    var result;
+    $.ajax({
+        url: '/group/getCertainGroupInfo',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                result =  res.data;
+            } else {
+
+            }
+        },
+        error: function (response) { }
+    });
+    return result;
 }

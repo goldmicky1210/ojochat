@@ -131,9 +131,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('edit:groupUsers', (data, callback) => {
-        db.query(`DELETE FROM users_groups WHERE group_id=${data.currentGroupId}`, (error, item) => {
+        db.query(`DELETE FROM users_groups WHERE group_id=${data.groupId}`, (error, item) => {
             data.groupUsers.split(',').forEach(userId => {
-                db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 2)`, (error, item) => {
+                db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.groupId}, 2)`, (error, item) => {
                     callback({
                         status: 'OK'
                     })
