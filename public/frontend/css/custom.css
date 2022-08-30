@@ -661,6 +661,9 @@ h6.read {
     float: right;
     margin-top: 20px;
 }
+.hidden {
+    display: none;
+}
 
 @media (max-width: 1366px) {
     .sidebar-active .chitchat-container .chitchat-main.section-py-space {

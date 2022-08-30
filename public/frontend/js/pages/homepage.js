@@ -24,11 +24,10 @@ $(document).ready(() => {
         getRecentChatUsers(3);
         getRecentChatUsers(2);
         getRecentChatUsers(1);
-        searchAndAddRecentChatList();
         typingAction();
         deleteMessages();
         displayRate();
-        getUsersListBySearch();
+        searchList()
     });
 
 
@@ -204,121 +203,6 @@ function getUsersList(resolve) {
         }
     });
 }
-
-function searchAndAddRecentChatList() {
-    let keyuptimer;
-    let target = $('.recent-default .recent-chat-list');
-    $('.new-chat-search').bind('keyup', function () {
-        if ($('#direct-tab').hasClass('active')) {
-            clearTimeout(keyuptimer);
-            keyuptimer = setTimeout(function () {
-                let value = $('.new-chat-search').val();
-                let users = Array.from($('.recent-chat-list .details h5')).map(item => item.innerText);
-                if (value) {
-                    target.empty();
-                    usersList.reverse().filter(item => item.id != currentUserId && item.username.toLowerCase().includes(value.toLowerCase())).forEach(item => {
-                        addNewUserListItem(target, item);
-                    });
-                    $(`ul.chat-main li[key=${currentContactId}]`).addClass('active');
-                } else {
-                    getRecentChatUsers();
-                }
-            }, 100);
-        }
-        if ($('#newChatModal').hasClass('show')) {
-            let target = $('#newChatModal .chat-main');
-            target.empty();
-            usersList.reverse().forEach(item => addNewUserListItem(target, item));
-        }
-    });
-    // $('.recent-default.dynemic-sidebar.active .text-end .close-search').on('click', () => {
-    //     // if ($('#direct-tab').hasClass('active')) {
-    //     $('.new-chat-search').val('');
-    //     getRecentChatUsers();
-    //     // }
-    // });
-}
-
-function getUsersListBySearch() {
-    let target = $('#newChatModal .chat-main');
-    let keyuptimer;
-
-    $('.search_user').bind('keyup', function () {
-        clearTimeout(keyuptimer);
-        keyuptimer = setTimeout(function () {
-            let value = $('.search_user').val();
-            if (value) {
-                target.empty();
-
-                usersList.reverse().filter(item => item.id != currentUserId && item.username.toLowerCase().includes(value.toLowerCase())).forEach(data => {
-                    $(target).prepend(`<li data-to="blank" key="${data.id}">
-                        <div class="chat-box">
-                            <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                                
-                            </div>
-                            <div class="details">
-                                <h5>${data.username}</h5>
-                                <h6>${data.description || 'Hello'}</h6>
-                            </div>
-                        
-                        </div>
-                    </li>`);
-                });
-            } else {
-                target.empty();
-                usersList.reverse().filter(item => item.id != currentUserId).forEach(data => {
-                    $(target).prepend(`<li data-to="blank" key="${data.id}">
-                        <div class="chat-box">
-                            <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                                
-                            </div>
-                            <div class="details">
-                                <h5>${data.username}</h5>
-                                <h6>${data.description || 'Hello'}</h6>
-                            </div>
-                        </div>
-                    </li>`);
-                });
-            }
-        }, 100);
-    });
-}
-
-$('#newChatModal').on('shown.bs.modal', function () {
-    let target = '#newChatModal .chat-main';
-    $(target).empty();
-    let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
-    new Promise(resolve => {
-        getUsersList(resolve)
-    }).then(usersList => {
-        usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(data => {
-            $(target).prepend(`<li data-to="blank" key="${data.id}">
-                <div class="chat-box">
-                    <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                        
-                    </div>
-                    <div class="details">
-                        <h5>${data.username}</h5>
-                        <h6>${data.description || 'Hello'}</h6>
-                    </div>
-                </div>
-            </li>`);
-        });
-        $('.chat-cont-setting').removeClass('open');
-    });
-});
-
-$('#newChatModal .chat-main').on('click', 'li', function () {
-    let userId = $(this).attr('key');
-    new Promise(resolve => getUsersList(resolve)).then(usersList => {
-        let item = usersList.find(item => item.id == userId);
-        users = [userId, currentUserId];
-        socket.emit('create:group', { title: item.username, users, type: 1 });
-        $('#newChatModal').modal('hide');
-    });
-    // addNewUserListItem($('#direct .chat-main'), item);
-    // $(`#direct .chat-main li[userId="${userId}"]`).click();
-});
 
 function newMessage() {
     let replyId = $('#content .chat-content>.replyMessage').attr('replyId');
@@ -781,4 +665,32 @@ function isInViewport(element) {
         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
+}
+
+function searchList() {
+    let keyuptimer;
+    $('.search_list').bind('keyup', function () {
+        let target = '#myTabContent1 .tab-pane.active';
+        if ($('#custom_modal').hasClass('show')) {
+            target = '#custom_modal'
+        }
+        clearTimeout(keyuptimer);
+        keyuptimer = setTimeout(() => {
+            let value = $(this).val();
+            if (value) {
+                $(target).find('.chat-main>li').each(function () {
+                    let title = $(this).find('.details h5').text().toLowerCase();
+                    if (title.includes(value.toLowerCase())) {
+                        $(this).removeClass('hidden');
+                    } else {
+                        $(this).addClass('hidden');
+                    }
+                });
+            } else {
+                $(target).find('.chat-main>li').each(function (item) {
+                    $(this).removeClass('hidden');
+                });
+            }
+        }, 100);
+    });
 }

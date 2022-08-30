@@ -127,7 +127,7 @@
                 <div class="chat custom-scroll">
                     <ul class="chat-cont-setting chat">
                         <li class="create_new_chat_btn">
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#newChatModal"><span>new chat</span>
+                            <a href="#"><span>new chat</span>
                                 <div class="icon-btn btn-outline-primary button-effect btn-sm"><i
                                         data-feather="message-square"></i></div>
                             </a>
@@ -174,7 +174,7 @@
                                         data-feather="search"></i></a>
                                 <form class="form-inline search-form">
                                     <div class="form-group">
-                                        <input class="form-control-plaintext new-chat-search" type="search"
+                                        <input class="form-control-plaintext search_list" type="search"
                                             placeholder="Search.." />
                                         <div class="icon-close close-search"> </div>
                                     </div>
@@ -3417,30 +3417,6 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup msg-chat-modal" id="forwardUsersListModal" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title">
-                        Forward to:</h2>
-                    <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body">
-                    {{-- <div class="cast_title">
-                        <div class="input-group">
-                            <input class="form-control cast_title" type="text" placeholder="Cast Title"
-                                aria-label="Recipient's username" aria-describedby="basic-addon21" />
-                        </div>
-                    </div> --}}
-                    <ul class="chat-main custom-scroll">
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="modal fade add-popup msg-chat-modal" id="newChatModal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -3777,7 +3753,7 @@
                     <div class="search_field">
                         <!-- <span style="font-size: 16px;">Add Users</span> -->
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="Search Users"
+                            <input class="form-control search_list" type="text" placeholder="Search Users"
                                 aria-label="Recipient's username" aria-describedby="basic-addon20" />
                             <div class="input-group-append"><span class="input-group-text" id="basic-addon20"><i
                                         class="fa fa-search" aria-hidden="true"></i></span>

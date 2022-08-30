@@ -1,8 +1,45 @@
 
 let groupFeeTypeConstant = ['Free', "Monthly", "Anually", "Lifetime"];
 $(document).ready(function () {
-    // create newGroup start
+    // create new Chat start
+    $('.create_new_chat_btn').on('click', function () {
+        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
+        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
+        $('#custom_modal').modal('show');
+        $('#custom_modal .modal-content').addClass('create_new_chat_modal');
+        $('#custom_modal').find('.modal-title').text('Create New Chat');
+        $('#custom_modal').find('.btn_group .btn').hide();
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.group_title input').val('');
+        // $('#custom_modal').find('.search_field').hide();
+        // $('#custom_modal').find('.chat-main').hide();
+        let target = '#custom_modal .chat-main';
+        $(target).empty();
+        let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
+        
+        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+            usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
+                let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
+                statusItem = '';
+                addUsersListItem(target, item, statusItem)
+            });
+            $('.chat-cont-setting').removeClass('open');
 
+        });
+    });
+    $('#custom_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
+        let userId = $(this).attr('key');
+        new Promise(resolve => getUsersList(resolve)).then(usersList => {
+            let item = usersList.find(item => item.id == userId);
+            users = [userId, currentUserId];
+            socket.emit('create:group', { title: item.username, users, type: 1 });
+            $('#custom_modal').modal('hide');
+        });
+    });
+    // create new Chat end 
+
+    // create newGroup start
     $('.create_new_group_btn').on('click', function () {
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
         let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
@@ -134,42 +171,6 @@ $(document).ready(function () {
             $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
         }
     });
-    // $('.create_new_group_btn').on('click', function (e) {
-    //     $('#custom_modal').modal('show');
-    //     $('#custom_modal .modal-content').addClass('create_new_group_modal');
-    //     $('#custom_modal').find('.modal-title').text('Create New Group');
-    //     $('#custom_modal').find('.sub_title span').text('Group Title');
-    //     $('#custom_modal').find('.sub_title input').val('');
-    //     $('#custom_modal').find('.btn_group .btn').text('Next');
-    //     new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
-    //         let target = '#custom_modal .chat-main';
-    //         $(target).empty();
-    //         let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
-    //         contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
-    //     });
-    // });
-
-    // $('#custom_modal').on('click', '.modal-content.create_new_group_modal .btn_group .btn', function () {
-    //     let title = $('#custom_modal').find('.sub_title input').val();
-    //     if (!title) {
-    //         $('#custom_modal .sub_title input').addClass('is-invalid');
-    //         setTimeout(() => {
-    //             $('#custom_modal .sub_title input').removeClass('is-invalid');
-    //         }, 2000);
-    //         return;
-    //     }
-    //     let users = Array.from($('#custom_modal .chat-main li.active')).map(item => $(item).attr('key'));
-    //     users.push(currentUserId);
-    //     $('#custom_modal').modal('hide');
-    //     $(`.chat-cont-setting`).removeClass('open');
-    //     $('#custom_modal .modal-content').removeClass('create_new_group_modal');
-    //     socket.emit('create:group', { title, users, type: 2 });
-
-    //     setTimeout(() => {
-    //         $(`#group-tab`).click();
-    //     }, 100);
-
-    // });
     // create new group end
 
     // create new cast start
@@ -442,6 +443,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.modal-body .group_description').remove();
         $('#custom_modal').find('.modal-body .group_fee_type').remove();
 
+        $('#custom_modal .modal-content').removeClass('create_new_chat_modal');
         $('#custom_modal .modal-content').removeClass('create_new_group_modal');
         $('#custom_modal .modal-content').removeClass('create_new_cast_modal');
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
