@@ -41,17 +41,12 @@ $(document).ready(function () {
 
     // create newGroup start
     $('.create_new_group_btn').on('click', function () {
-        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
-        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('create_new_group_modal');
         $('#custom_modal').find('.modal-title').text('Create New Group');
         $('#custom_modal').find('.btn_group .btn').text('Create');
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.group_title input').val('');
-        // $('#custom_modal').find('.search_field').hide();
-        // $('#custom_modal').find('.chat-main').hide();
         $('#custom_modal').find('.modal-body .group_avatar').remove();
         $('#custom_modal').find('.modal-body').prepend(`
             <div class="group_avatar profile" id="group_profile_avatar_create">
