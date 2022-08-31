@@ -126,7 +126,7 @@ function getRecentChatUsers(type) {
                         let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
                             sender = "You";
-                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 1 ? 'You have received a PhotoRequest' : 'You have received a Blink';
+                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 1 ? 'Sent a PhotoRequest' : 'Sent a Blink';
                         item.lastMessageSender = sender;
                         item.lastMessageContent = content;
                         item.lastMessageDate = new Date(item.lastMessage.created_at);

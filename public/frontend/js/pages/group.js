@@ -433,6 +433,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.search_field').show();
         $('#custom_modal').find('.sub_title').show();
         $('#custom_modal').find('.chat-main').show();
+        
         $('#custom_modal').find('.modal-body .group_avatar').remove();
         $('#custom_modal').find('.modal-body .group_title').remove();
         $('#custom_modal').find('.modal-body .group_description').remove();
