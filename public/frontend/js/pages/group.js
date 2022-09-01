@@ -854,6 +854,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
+            console.log(res);
             if (res.state == 'true') {
                 $(target).empty();
                 getUsersList();

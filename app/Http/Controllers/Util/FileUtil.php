@@ -14,6 +14,7 @@ use App\Models\PhotoGallery;
 use App\Models\User;
 use App\Models\Group;
 use App\Models\UsersGroup;
+
 class FileUtil extends Controller{
     public function uploadFile(Request $request){
         $res = "error";
@@ -35,10 +36,10 @@ class FileUtil extends Controller{
     }
     
     public function attachFiles(Request $request){
-        
         //@mkdir($path, 0777, true);
         $senderId = $request->input('senderId');
         $groupId = $request->input('groupId');
+        $groupType = $request->input('groupType');
         $result = array();
         foreach($request->file('files') as $file) {
             $path='upload/attach_files';
@@ -62,11 +63,42 @@ class FileUtil extends Controller{
             $message->content = $row->id;
             $message->kind = 4;
             $message->save();
+            if ($groupType == 3) {
+                
+                $groupUsers = UsersGroup::where('group_id', $groupId)->where('user_id', '!=', $senderId)->get();
+                $groupUsers = $groupUsers->map(function($item) {
+                    return $item['user_id'];
+                });
+                foreach($groupUsers as $user) {
+                    $tmpMessage = new Message;
+                    $tmpMessage->sender = $senderId;
+                    $tmpMessage->content = $row->id;
+                    $tmpMessage->kind = 4;
+
+                    $directGroupId = Group::join('users_groups', 'groups.id', '=', 'users_groups.group_id')
+                        ->whereRaw('user_id='.$senderId.' OR user_id='.$user)
+                        ->where('type', 1)
+                        ->groupBy('group_id')
+                        ->havingRaw('count(group_id) = ?', [2])
+                        ->get();
+                    if (count($directGroupId)) {
+                        $tmpMessage->group_id = $directGroupId[0]['group_id'];
+                    } else {
+                        $group = new Group;
+                        $group->title = $senderName = User::where('id', $senderId)->first('username')['username'];
+                        $group->owner = $senderId;
+                        $group->admins = $senderId;
+                        $group->save();
+
+                        $tmpMessage->group_id = $group->id;
+                    }
+                    $tmpMessage->save();
+                }
+            }
 
             array_push($result, $message->id);
         }
         return $this->getMessageData($result);
-        return array('state'=>'success','data'=>$result);
     }
 
     public function getMessageData($messageId) {
@@ -109,10 +141,7 @@ class FileUtil extends Controller{
                 return $item;
             }
         });
-        // $groupInfo = Group::where('id', $groupId)->first();
-        // $userStatus = UsersGroup::where('group_id', $groupId)->where('user_id', $id)->first('status');
         
-        // return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo, 'userStatus'=>$userStatus);
         return array('state'=>'true','messageData'=>$messages);
     }
 

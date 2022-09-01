@@ -49,7 +49,6 @@ $(document).ready(() => {
 
     $('#mediaBtn').on('click', () => {
         $('#mediaPhoto').modal('show');
-
     });
 
     $('#acceptPhotoRequestBtn').on('click', () => {

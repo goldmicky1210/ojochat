@@ -46,11 +46,23 @@ $(document).ready(() => {
     });
 
     $('#mediaPhoto .send_attach_btn').on('click', function () {
+        if ($('#direct_chat').hasClass('active')) {
+            globalGroupId = currentDirectId;
+            var groupType = 1;
+        } else if ($('#group_chat').hasClass('active')) {
+            globalGroupId = currentGroupId;
+            var groupType = 2;
+        } else if ($('#cast_chat').hasClass('active')) {
+            globalGroupId = currentCastId;
+            var groupType = 3;
+        }
+
         $('.spining').css('display', 'flex');
         $('#mediaPhoto').modal('hide');
         var form_data = new FormData();
         form_data.append('senderId', currentUserId);
         form_data.append('groupId', globalGroupId);
+        form_data.append('groupType', groupType);
         mediaDropzone.files.forEach((item, index) => {
             form_data.append('files[]', item);
         });
@@ -77,7 +89,7 @@ $(document).ready(() => {
                                 from: item.sender,
                                 to: currentUserId,
                                 content: item.content,
-                                messageId: item.id,
+                                messageId: item.id, 
                                 state: item.state,
                             }
                             socket.emit('read:message', message);
