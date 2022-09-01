@@ -261,9 +261,9 @@ const onConnection = (socket) => {
                     io.sockets.sockets.get(senderSocketId).emit('delete:message', { id: data.messageId, state: false });
                 } else {
                     var paid_status = false;
-                    db.query(`DELETE FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {
-                        if (!error) console.log(data.photoId, ': photo deleted')
-                    });
+                    // db.query(`DELETE FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {
+                    //     if (!error) console.log(data.photoId, ': photo deleted')
+                    // });
                     db.query(`DELETE FROM messages WHERE id=${data.messageId}`, (error, item) => {
                         if (!error) {
                             db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
@@ -281,10 +281,6 @@ const onConnection = (socket) => {
         } else {
             db.query(`DELETE FROM messages WHERE id=${data.messageId}`, (error, item) => {
                 if (!error) {
-                    // io.sockets.sockets.get(senderSocketId).emit('delete:message', { id: data.messageId, state: true });
-                    // if (io.sockets.sockets.get(recipientSocketId)) {
-                    //     io.sockets.sockets.get(recipientSocketId).emit('delete:message', { id: data.messageId, state: true });
-                    // }
                     db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
                         row.forEach(item => {
                             let recipientSocketId = user_socketMap.get(item['user_id'].toString());
