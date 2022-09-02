@@ -99,7 +99,9 @@ $(document).ready(function () {
 
     socket.on('receive:typing', data => {
         if ((data.sender != currentUserId) && (data.globalGroupId == globalGroupId)) {
-            typingMessage(data.sender);
+            let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
+
+            typingMessage(data.sender, $(lastMsgItem));
         }
     });
 
@@ -156,7 +158,16 @@ $(document).ready(function () {
             });
         }
     });
+
     $('.messages').scroll(() => {
+        let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
+        if ($(lastMsgItem).length && $(lastMsgItem).isInViewport()) {
+            $('.chat-content .scroll-bottom-btn').addClass('hidden');
+            $('.chat-content .unread_msg_count').addClass('hidden');
+            $('.chat-content .unread_msg_count').text('0');
+        } else {
+            $('.chat-content .scroll-bottom-btn').removeClass('hidden');
+        }
         if ($('.messages.active').scrollTop() == 0) {
             // $('.chatappend').prepend(loader);
 
@@ -195,6 +206,13 @@ $(document).ready(function () {
                 });
             }
         }
+    });
+
+    $('.chat-content .scroll-bottom-btn').on('click', function() {
+        $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        $('.chat-content .unread_msg_count').addClass('hidden');
+        $('.chat-content .unread_msg_count').text('0');
+
     });
 
     $('#custom_modal ul.chat-main').on('click', 'li', function (e) {

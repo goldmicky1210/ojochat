@@ -186,3 +186,25 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     width: 100%;
     height: 100%
 }
+
+.chat-content .scroll-bottom-btn {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+}
+.chat-content .unread_msg_count {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 5px;
+    bottom: 33px;
+    background-color: #1c9dea;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-size: 12px;
+}

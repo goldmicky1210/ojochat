@@ -236,9 +236,13 @@ $(document).ready(function () {
             console.log('This is first contact');
         }
         addGroupChatItem(target, data);
-        let lastMsgItem = '.messages.active .chatappend .msg-item:last-child';
+        let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
         if ($(lastMsgItem).isInViewport()) {
             $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
+        } else {
+            $('.chat-content .unread_msg_count').removeClass('hidden');
+            let count = $('.chat-content .unread_msg_count').text();
+            $('.chat-content .unread_msg_count').text(+count + 1);
         }
 
         // SMS notification
@@ -256,14 +260,6 @@ $(document).ready(function () {
             } else {
                 data.recipient = currentUserId;
                 socket.emit('send:notification', data);
-                // socket.emit('send:notification', {
-                //     sender: data.sender,
-                //     recipient: currentUserId,
-                //     groupId: data.globalGroupId,
-                //     senderName: data.senderName,
-                //     type: msgType,
-                //     groupType: data.groupType,
-                // });
             }
         }
     });
