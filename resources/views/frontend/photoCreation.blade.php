@@ -50,7 +50,7 @@
             </div>
             <div class="form-group paid_value">
                 <label>Price ($)</label>
-                <input type="number" min=1 max=25 class="form-control form-control-sm" />
+                <input type="number" min=1 max=100 class="form-control form-control-sm" />
             </div>
         </div>
         <div class="btn background_btn">
