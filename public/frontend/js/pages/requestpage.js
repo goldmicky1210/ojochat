@@ -1136,8 +1136,8 @@ function setPriceOfElement() {
         }
 
         $('.price_type .paid_value input').blur(function () {
-            if ($(this).val() > 25) {
-                $(this).val(25);
+            if ($(this).val() > 100) {
+                $(this).val(100);
             } else if ($(this).val() < 0) {
                 $(this).val(0);
             }
