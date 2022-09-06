@@ -419,8 +419,8 @@ function addEmojisOnPhoto() {
                 }
 
                 let ratio = oImg.width / oImg.height;
-                oImg.scaleX = 50 / oImg.width;
-                oImg.scaleY = 50 / ratio / oImg.height;
+                oImg.scaleX = 100 / oImg.width;
+                oImg.scaleY = 100 / ratio / oImg.height;
                 oImg.id = Date.now();
                 oImg.payersList = [];
                 addEventAction(target, oImg);
