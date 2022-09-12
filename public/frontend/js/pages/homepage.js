@@ -332,6 +332,7 @@ function setUserProfileContent(userId) {
     } else {
         $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
     }
+    $('.contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
     $('.contact-profile .name h3').html(userInfo.firstName || userInfo.username);
     $('.contact-profile .name h5').html(userInfo.location);
     $('.contact-profile .name h6').html(userInfo.description);
@@ -383,6 +384,8 @@ function setGroupProfileContent(groupId) {
                 } else {
                     $('.contact-top').css('background-image', `url("/chat/images/avtar/teq.jpg")`);
                 }
+                
+                $('.contact-profile .theme-title .media h2').html('Group Profile');
                 $('.contact-profile .name h3').html(data.title || 'Group Title');
                 $('.contact-profile .name h5').html(data.description || '');
                 $('.contact-profile .name h6').html('');

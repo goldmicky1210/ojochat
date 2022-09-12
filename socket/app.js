@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const axios = require('axios');
 
 const db = require("./config.js");
@@ -10,7 +10,7 @@ const SpanishCountries = ['Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Ri
 const KindConstant = ['text', 'request', 'photo', 'video', 'audio', 'video_call', 'voice_call'];
 
 
-const server = require('http').createServer(app)
+const server = require('http').createServer(app);
 // const port = process.env.PORT || 4000
 const port = 4000;
 const io = require('socket.io')(server, {
@@ -33,7 +33,6 @@ let user_socketMap = new Map();
 let socket_userMap = new Map();
 
 const cors = require('cors');
-const { message } = require('laravel-mix/src/Log.js');
 
 app.use(cors({
     origin: '*'
