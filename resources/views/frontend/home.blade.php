@@ -1600,7 +1600,7 @@
                 <div class="document">
                     <div class="filter-block">
                         <div class="collapse-block open">
-                            <h5 class="block-title">Content Ratings
+                            <h5 class="block-title profile_rating_list">Content Ratings
                                 <label class="badge badge-success sm ms-2">3</label>
                             </h5>
                             <div class="block-content">

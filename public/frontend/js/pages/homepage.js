@@ -433,6 +433,8 @@ function setProfileRate(data) {
         var voiceCallRate = 0;
         var averageRate = 0;
     }
+    let count = data.length || '';
+    $('.profile_rating_list .badge').text(count);
     getContentRate('.contact-profile', Math.round(averageRate));
     document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 
