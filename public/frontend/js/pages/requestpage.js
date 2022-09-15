@@ -430,7 +430,6 @@ function addEmojisOnPhoto() {
                     $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
                 }
 
-
             });
 
         }
@@ -580,7 +579,7 @@ function getEmojisInfo(obj) {
 function getPhotoPrice(target) {
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
     let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
-    return target._objects.filter(item => !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
+    return target._objects.filter(item => item.payersList && !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
 }
 
 function getPhotoSrcById(id, target) {
@@ -797,11 +796,10 @@ function addEventAction(panel, element) {
                 if (((new Date().getTime()) - touchtime) < 800) {
                     if ($('#createPhoto').hasClass('show')) {
                         let origin = canvas.getActiveObject();
-                        console.log(origin);
-                        canvas.getActiveObject().clone(function(cloned) {
-                            _clipboard = cloned;
-                        });
-                        _clipboard.clone(function(clonedObj) {
+                        canvas.getActiveObject().clone(function (clonedObj) {
+                            //     _clipboard = cloned;
+                            // });
+                            // _clipboard.clone(function(clonedObj) {
                             canvas.discardActiveObject();
                             clonedObj.set({
                                 left: clonedObj.left + 10,
@@ -809,24 +807,23 @@ function addEventAction(panel, element) {
                                 evented: true,
                                 editable: false,
                                 price: origin.price,
-                                payersList: origin.payersList
+                                payersList: []
                             });
-                            if (clonedObj.type === 'activeSelection') {
-                                // active selection needs a reference to the canvas.
-                                clonedObj.canvas = canvas;
-                                clonedObj.forEachObject(function(obj) {
-                                    canvas.add(obj);
-                                });
-                                // this should solve the unselectability
-                                clonedObj.setCoords();
-                            } else {
-                                canvas.add(clonedObj);
-                            }
-                            _clipboard.top += 10;
-                            _clipboard.left += 10;
+
+                            clonedObj.id = Date.now();
+                            clonedObj.payersList = [];
+                            clonedObj.price = origin.price;
+                            canvas.add(clonedObj);
+                            clonedObj.top += 10;
+                            clonedObj.left += 10;
                             canvas.setActiveObject(clonedObj);
                             addEventAction(canvas, clonedObj);
                             canvas.requestRenderAll();
+                            setTimeout(() => {
+                                if (clonedObj.payersList) {
+                                    $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+                                }
+                            }, 500)
                         });
                     }
                     touchtime = 0;

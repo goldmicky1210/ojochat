@@ -314,8 +314,6 @@ const onConnection = (socket) => {
                     }
                     item[0].content = JSON.stringify(content);
                 }
-                console.log('-----item[0].blur_payers_list-----');
-                console.log(item[0].blur_payers_list);
             });
             db.query(`UPDATE photo_galleries SET blur_payers_list=${JSON.stringify(item[0].blur_payers_list || '')}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
                 if (error) throw error;
