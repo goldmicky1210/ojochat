@@ -394,7 +394,6 @@ function addEmojisOnPhoto() {
                 canvas.add(textBox).setActiveObject(textBox);
                 canvas.centerObject(textBox);
                 $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
-
             } else if ($('#photo_item').hasClass('show')) {
                 addEventAction(photo_canvas, textBox);
                 photo_canvas.add(textBox).setActiveObject(textBox);
@@ -789,8 +788,24 @@ function addTextOnPhoto() {
 }
 
 function addEventAction(panel, element) {
+    let touchtime = 0;
     element.on({
         'mouseup': () => {
+            if (touchtime == 0) {
+                touchtime = new Date().getTime();
+            } else {
+                if (((new Date().getTime()) - touchtime) < 800) {
+                    if ($('#createPhoto').hasClass('show')) {
+                        var obj = canvas.getActiveObject();
+                        var clone = fabric.util.object.clone(obj);
+                        canvas.add(clone); 
+                        canvas.centerObject(clone);
+                    }
+                    touchtime = 0;
+                } else {
+                    touchtime = new Date().getTime();
+                }
+            }
             if (tempImage) panel.remove(tempImage);
             if (text) panel.remove(text);
             let timeout = 2000;
