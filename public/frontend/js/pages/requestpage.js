@@ -796,10 +796,38 @@ function addEventAction(panel, element) {
             } else {
                 if (((new Date().getTime()) - touchtime) < 800) {
                     if ($('#createPhoto').hasClass('show')) {
-                        var obj = canvas.getActiveObject();
-                        var clone = fabric.util.object.clone(obj);
-                        canvas.add(clone); 
-                        canvas.centerObject(clone);
+                        let origin = canvas.getActiveObject();
+                        console.log(origin);
+                        canvas.getActiveObject().clone(function(cloned) {
+                            _clipboard = cloned;
+                        });
+                        _clipboard.clone(function(clonedObj) {
+                            canvas.discardActiveObject();
+                            clonedObj.set({
+                                left: clonedObj.left + 10,
+                                top: clonedObj.top + 10,
+                                evented: true,
+                                editable: false,
+                                price: origin.price,
+                                payersList: origin.payersList
+                            });
+                            if (clonedObj.type === 'activeSelection') {
+                                // active selection needs a reference to the canvas.
+                                clonedObj.canvas = canvas;
+                                clonedObj.forEachObject(function(obj) {
+                                    canvas.add(obj);
+                                });
+                                // this should solve the unselectability
+                                clonedObj.setCoords();
+                            } else {
+                                canvas.add(clonedObj);
+                            }
+                            _clipboard.top += 10;
+                            _clipboard.left += 10;
+                            canvas.setActiveObject(clonedObj);
+                            addEventAction(canvas, clonedObj);
+                            canvas.requestRenderAll();
+                        });
                     }
                     touchtime = 0;
                 } else {
