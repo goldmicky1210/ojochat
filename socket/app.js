@@ -188,10 +188,13 @@ const onConnection = (socket) => {
         // console.log(data);
     });
 
-    socket.on('edit:photo', data => {
+    socket.on('edit:photo', (data, callback) => {
         db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)} WHERE id=${data.photoId}`, (error, item) => {
             // if (error) throw error;
             console.log(item);
+            callback({
+                status: 'OK'
+            });
         });
     });
 

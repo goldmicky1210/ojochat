@@ -448,8 +448,16 @@ function savePhoto() {
         data.content = getEmojisInfo(photo_canvas._objects);
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
+        data.messageId = $(this).closest('.modal-content').attr('key');
         data.to = currentContactId;
-        socket.emit('edit:photo', data);
+        socket.emit('edit:photo', data, res => {
+            if (res.status == 'OK') {
+                $(`.messages.active .chatappend .msg-item[key=${data.messageId}]`).find('.msg-setting-main .receive_photo').attr('src', data.photo);
+            } else {
+                console.log('edit photo error');
+            }
+            $('#photo_item').modal('hide');
+        });
     });
 }
 
@@ -794,13 +802,12 @@ function addEventAction(panel, element) {
                 touchtime = new Date().getTime();
             } else {
                 if (((new Date().getTime()) - touchtime) < 800) {
-                    if ($('#createPhoto').hasClass('show')) {
-                        let origin = canvas.getActiveObject();
-                        canvas.getActiveObject().clone(function (clonedObj) {
-                            //     _clipboard = cloned;
-                            // });
-                            // _clipboard.clone(function(clonedObj) {
-                            canvas.discardActiveObject();
+                    if ($('#createPhoto').hasClass('show') || $('#photo_item').attr('edit')) {
+                        
+                        let panel = $('#createPhoto').hasClass('show') ? canvas : photo_canvas;
+                        let origin = panel.getActiveObject();
+                        panel.getActiveObject().clone(function (clonedObj) {
+                            panel.discardActiveObject();
                             clonedObj.set({
                                 left: clonedObj.left + 10,
                                 top: clonedObj.top + 10,
@@ -813,12 +820,12 @@ function addEventAction(panel, element) {
                             clonedObj.id = Date.now();
                             clonedObj.payersList = [];
                             clonedObj.price = origin.price;
-                            canvas.add(clonedObj);
+                            panel.add(clonedObj);
                             clonedObj.top += 10;
                             clonedObj.left += 10;
-                            canvas.setActiveObject(clonedObj);
-                            addEventAction(canvas, clonedObj);
-                            canvas.requestRenderAll();
+                            panel.setActiveObject(clonedObj);
+                            addEventAction(panel, clonedObj);
+                            panel.requestRenderAll();
                             setTimeout(() => {
                                 if (clonedObj.payersList) {
                                     $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
