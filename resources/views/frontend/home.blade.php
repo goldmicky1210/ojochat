@@ -1,6 +1,7 @@
 @extends('frontend.layouts.dashboard')
 @inject('dateFormat', 'App\Services\DateService')
 @include('frontend.photoCreation')
+@include('frontend.tracking')
 @include('checkout')
 @section('content')
     <style>
@@ -3675,18 +3676,10 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="checkoutModalLabel">Photo Payment</h5>
+                    <h5 class="modal-title" id="checkoutModalLabel">Blink Payment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <!-- <div>
-                                                <span class="">To: </span>
-                                                <span class="recipientName"></span>
-                                            </div>
-                                            <div>
-                                                <span class="">Mail:</span>
-                                                <span class="recipientMail"></span>
-                                            </div> -->
                     <div class="product-payment">
                         <div class="product-list">
                             <hr>
@@ -3698,20 +3691,9 @@
                         </div>
                         <div class="payment-options">
                             <button type="button" class="btn btn-primary payWithBalanceBtn">Pay</button>
-                            <!-- <div class="content">
-                                <div class="links">
-                                    <div id="paypal-button"></div>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-primary">Stripe</button>
-                            <button type="button" class="btn btn-primary">Crypto</button> -->
                         </div>
                     </div>
                 </div>
-                <!-- <div class="modal-footer">
-                                                                                                                                                                                                                                            <button type="button" class="btn btn-primary payWholePriceBtn" data-bs-dismiss="modal">OK</button>
-                                                                                                                                                                                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                                                                                                                                                                                                        </div> -->
             </div>
         </div>
     </div>

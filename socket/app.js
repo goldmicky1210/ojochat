@@ -60,7 +60,7 @@ const onConnection = (socket) => {
     socket.on('forward:message', data => {
         console.log(data);
         data.groupType = 1;
-        data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text'; 
+        data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text';
         Notification.sendSMS(currentUserId, data.recipient, data);
 
         if (data.forwardKind == 2) {
@@ -190,11 +190,18 @@ const onConnection = (socket) => {
 
     socket.on('edit:photo', (data, callback) => {
         db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)} WHERE id=${data.photoId}`, (error, item) => {
-            // if (error) throw error;
-            console.log(item);
-            callback({
-                status: 'OK'
-            });
+            if (error) throw error;
+            db.query(`SELECT group_id FROM messages WHERE id=${data.messageId}`, (error, groupInfo) => {
+                if (error) throw error;
+                if (groupInfo.length) {
+                    let groupId = groupInfo[0]['group_id'];
+                    data.msgType = 'editBlink';
+                    Notification.sendGroupSMS(data.sender, groupId, data, user_socketMap, io);
+                }
+                callback({
+                    status: 'OK'
+                });
+            })
         });
     });
 

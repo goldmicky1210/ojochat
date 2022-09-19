@@ -111,7 +111,6 @@ exports.sendSMS = (sender, recipient, data) => {
                             let message = '';
 
                             db.query(`SELECT title, type FROM \`groups\` WHERE id=${data.globalGroupId || data.group_id}`, (error, groupInfo) => {
-                                console.log(groupInfo)
                                 if (groupInfo && groupInfo.length) {
                                     let groupType = data.groupType;
 
@@ -160,7 +159,13 @@ exports.sendSMS = (sender, recipient, data) => {
                                     } else {
                                         message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
                                     }
-                                } 
+                                } else if (data.msgType == 'editBlink') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, ${data.senderName} ha editado un Blink. Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
+                                    }
+                                }
                                 console.log('message=', message);
                                 console.log(fullPhoneNumber);
                                 if (fullPhoneNumber && message) {
@@ -188,5 +193,14 @@ exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
                 this.sendSMS(data.sender, item['user_id'], data);
             }
         })
-    })
+    });
+}
+
+exports.sendGroupSMS = (sender, groupId, data, user_socketMap, io) => {
+    data.globalGroupId = groupId;
+    db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
+        row.forEach(item => {
+            this.sendSMS(sender, item['user_id'], data);
+        })
+    });
 }

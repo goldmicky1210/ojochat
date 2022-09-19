@@ -1,0 +1,35 @@
+#checkoutModal .product-payment {
+    display: grid;
+    grid-template-columns: 150px auto;
+}
+
+#checkoutModal .product-item,
+#checkoutModal .total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#checkoutModal span {
+    font-size: 15px;
+}
+
+#checkoutModal .payment-options {
+    display: grid;
+    grid-template-columns: auto;
+    padding: 5px 60px;
+    grid-gap: 10px;
+    margin-left: 10px;
+    align-content:flex-end;
+}
+
+#checkoutModal .product-list img {
+    width: 30px;
+    height: 30px;
+    /* border-radius: 50%; */
+}
+#checkoutModal>div>div>div.modal-body>div.product-payment>div.payment-options>button {
+    line-height: 25px;
+    border-radius: 20px;
+    padding: 5px;
+}

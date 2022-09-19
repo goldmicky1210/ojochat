@@ -91,6 +91,11 @@ $(document).ready(function () {
         }
     });
 
+    socket.on('edi:photo', data => {
+        
+    })
+
+
     $('ul.chat-main.request-list').on('click', 'li', (e) => {
         $('#detailRequestModal').find('.btn-success').css('display', 'block');
 
@@ -444,12 +449,12 @@ function savePhoto() {
     $('.savePhotoBtn').on('click', function (e) {
         photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
         let data = {};
-        data.from = currentUserId;
+        data.sender = currentUserId;
+        data.senderName = getCertainUserInfoById(currentUserId).username;
         data.content = getEmojisInfo(photo_canvas._objects);
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
         data.messageId = $(this).closest('.modal-content').attr('key');
-        data.to = currentContactId;
         socket.emit('edit:photo', data, res => {
             if (res.status == 'OK') {
                 $(`.messages.active .chatappend .msg-item[key=${data.messageId}]`).find('.msg-setting-main .receive_photo').attr('src', data.photo);
