@@ -9,6 +9,13 @@
     align-items: center;
 }
 
+#checkoutModal .product-item .ellipsis_text {
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 #checkoutModal span {
     font-size: 15px;
 }

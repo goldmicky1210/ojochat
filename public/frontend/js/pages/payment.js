@@ -17,9 +17,9 @@ $(document).ready(function () {
         photo_canvas._objects.filter(oImg => selectedEmojis.includes(oImg.id) && oImg.price > 0).forEach(item => {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
-                    <img src="${item.type == 'image' ? item.getSrc() : '/images/text.png'}" />
+                    ${item.type == 'image' ? `<img src=${item.getSrc()}` : `<span class="ellipsis_text">${item.text}</span>`}
                     <span>$${item.price}</span>
-                </div>`);
+                </div>`)
             totalPrice += Number(item.price);
         });
         if (Number(blurPrice) && selectedEmojis.includes('blur')) {
@@ -52,7 +52,7 @@ function tempAction() {
     let messageId = $('#photo_item .modal-content').attr('key');
     let photoId = $('#photo_item .modal-content').attr('photoId');
     let addBalance = totalPrice * 0.7.toFixed(2);
-    socket.emit('pay:blink', { photoId, selectedEmojis, addBalance, totalPrice}, (res) => {
+    socket.emit('pay:blink', { photoId, selectedEmojis, addBalance, totalPrice }, (res) => {
         if (res.status == 'OK') {
             $('#checkoutModal').modal('hide');
             alert('You paid Successfully');
@@ -67,7 +67,7 @@ function tempAction() {
 }
 function payPhoto() {
     $('.payBtn').on('click', () => {
-        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item>0).reduce((total, item) => item + total, 0);
+        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
 
         // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
         // let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
