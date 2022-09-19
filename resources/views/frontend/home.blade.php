@@ -1,7 +1,6 @@
 @extends('frontend.layouts.dashboard')
 @inject('dateFormat', 'App\Services\DateService')
 @include('frontend.photoCreation')
-@include('frontend.tracking')
 @include('checkout')
 @section('content')
     <style>
