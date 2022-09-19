@@ -3690,7 +3690,7 @@
                             </div>
                         </div>
                         <div class="payment-options">
-                            <button type="button" class="btn btn-primary payWithBalanceBtn">Pay</button>
+                            <button type="button" class="btn btn-primary payWithBalanceBtn">P a y</button>
                         </div>
                     </div>
                 </div>

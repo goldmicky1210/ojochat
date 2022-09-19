@@ -1,5 +1,5 @@
 #checkoutModal .product-payment {
-    padding: 30px;
+    padding: 20px;
 }
 
 #checkoutModal .product-item,
@@ -26,5 +26,6 @@
 #checkoutModal>div>div>div.modal-body>div.product-payment>div.payment-options>button {
     line-height: 25px;
     border-radius: 20px;
-    padding: 5px 50px;
+    padding: 5px 70px;
+    letter-spacing: 5px;
 }
