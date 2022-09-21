@@ -35,6 +35,10 @@ $(document).ready(function () {
         }
         $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
     });
+    $('#checkoutModal .product-list').on('click', '.btn-close', function() {
+        console.log($(this).closest('.product-item'));
+        $(this).closest('.product-item').remove();
+    });
 
     $('.payWithBalanceBtn').on('click', () => {
         let userInfo = getCertainUserInfoById(currentUserId);
@@ -48,6 +52,7 @@ $(document).ready(function () {
             alert('You have no enough balance. Please pay via Paypal or Card');
         }
     });
+
 
 });
 
