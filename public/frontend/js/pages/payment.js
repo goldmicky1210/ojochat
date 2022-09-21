@@ -17,8 +17,11 @@ $(document).ready(function () {
         photo_canvas._objects.filter(oImg => selectedEmojis.includes(oImg.id) && oImg.price > 0).forEach(item => {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
-                    ${item.type == 'image' ? `<img src=${item.getSrc()}` : `<span class="ellipsis_text">${item.text}</span>`}
-                    <span>$${item.price}</span>
+                    ${item.type == 'image' ? `<img src=${item.getSrc()} />` : `<span class="ellipsis_text">${item.text}</span>`}
+                    <div class="d-flex align-items-center">
+                        <span>$${item.price}</span>
+                        <button type="button" class="btn-close" aria-label="Close"></button>        
+                    </div>
                 </div>`)
             totalPrice += Number(item.price);
         });
