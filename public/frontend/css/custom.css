@@ -414,7 +414,12 @@ ul.chatappend .msg-box .camera-icon {
     width: 25px !important;
     position: absolute;
     top: 0;
+}
+.sent .edited_img {
     left: 105px;
+}
+.replies .edited_img {
+    right: 0;
 }
 
 #photo_item .modal-content>div:nth-child(1) {
