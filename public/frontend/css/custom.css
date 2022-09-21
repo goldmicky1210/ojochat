@@ -403,8 +403,18 @@ ul.chatappend .msg-box .camera-icon {
 
 .receive_photo,
 .file_photo {
-    cursor: pointer;
+    border: 1px solid gray;
     /* border-radius: 15px; */
+}
+
+.msg-setting-main {
+    position: relative;
+}
+.edited_img {
+    width: 25px !important;
+    position: absolute;
+    top: 0;
+    left: 105px;
 }
 
 #photo_item .modal-content>div:nth-child(1) {

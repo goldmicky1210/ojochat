@@ -709,6 +709,7 @@ function addNewGroupItem(target, data) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
+    console.log(data);
     let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
@@ -758,7 +759,7 @@ function addGroupChatItem(target, data, loadFlag) {
             </div>' : '<h5 class="content">' + data.content + '</h5>'}`
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
-                : data.kind == 2 ? `<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
+                : data.kind == 2 ? `${data.edited ? `<img class="edited_img" src="/images/edited.png">`: ''}<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
                     : data.kind == 3 ? inviteContent 
                         : data.kind == 4 ? fileContent : ''}
                             <div class="msg-dropdown-main">

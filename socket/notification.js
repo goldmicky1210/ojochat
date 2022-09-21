@@ -201,6 +201,6 @@ exports.sendGroupSMS = (sender, groupId, data, user_socketMap, io) => {
     db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
         row.forEach(item => {
             this.sendSMS(sender, item['user_id'], data);
-        })
+        });
     });
 }

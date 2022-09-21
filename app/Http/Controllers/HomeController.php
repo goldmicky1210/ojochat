@@ -111,6 +111,7 @@ class HomeController extends Controller
             if ($item['kind'] == 2) {
                 $temp = PhotoGallery::where('id', $item['content'])->get();
                 $item['photoId'] = $temp[0]['id'];
+                $item['edited'] = $temp[0]['edited'];
                 $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
                 if ($payBlurState === false) {
                     $item['content'] = $temp[0]['original_thumb'];
@@ -202,7 +203,7 @@ class HomeController extends Controller
     {
         $id = Auth::id();
         $contactIds = Contact::where('user_id', $id)->get('contact_id');
-        $contactList = User::whereIn('id', $contactIds)->orderBy('username')->get();
+        $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'desc')->get();
         return $contactList;
 
         // for ($i = 0; $i < count($contacts); $i++) {

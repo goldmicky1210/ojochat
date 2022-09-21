@@ -189,7 +189,7 @@ const onConnection = (socket) => {
     });
 
     socket.on('edit:photo', (data, callback) => {
-        db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)} WHERE id=${data.photoId}`, (error, item) => {
+        db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)}, edited=1 WHERE id=${data.photoId}`, (error, item) => {
             if (error) throw error;
             db.query(`SELECT group_id FROM messages WHERE id=${data.messageId}`, (error, groupInfo) => {
                 if (error) throw error;
