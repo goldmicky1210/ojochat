@@ -5,9 +5,6 @@ $(document).ready(function () {
 
     $('#checkoutModal').on('shown.bs.modal', function (e) {
         totalPrice = 0;
-        // let userInfo = getCertainUserInfoById(currentContactId);
-        // $('#checkoutModal .recipientName').text(userInfo.username);
-        // $('#checkoutModal .recipientMail').text(userInfo.email);
         $('#checkoutModal .product-list .product-item').remove();
         if (!selectedEmojis.length) {
             photo_canvas._objects.filter(item => item.kind != 'temp').forEach(item => selectedEmojis.push(item.id));
@@ -17,9 +14,9 @@ $(document).ready(function () {
         photo_canvas._objects.filter(oImg => selectedEmojis.includes(oImg.id) && oImg.price > 0).forEach(item => {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
-                    ${item.type == 'image' ? `<img src=${item.getSrc()} />` : `<span class="ellipsis_text">${item.text}</span>`}
+                    ${item.type == 'image' ? `<img class="item" key=${item.id} src=${item.getSrc()} />` : `<span key=${item.id} class="item ellipsis_text">${item.text}</span>`}
                     <div class="d-flex align-items-center">
-                        <span>$${item.price}</span>
+                        <span class='item_price'>$${item.price}</span>
                         <button type="button" class="btn-close" aria-label="Close"></button>        
                     </div>
                 </div>`)
@@ -28,15 +25,33 @@ $(document).ready(function () {
         if (Number(blurPrice) && selectedEmojis.includes('blur')) {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
-                    <img src="/images/blur.png" style="border-radius: 50%;"/>
-                    <span>$${blurPrice}</span>
+                    <img class="item" key="blur" src="/images/blur.png" style="border-radius: 50%;"/>
+                    <div class="d-flex align-items-center">
+                        <span class='item_price'>$${blurPrice}</span>
+                        <button type="button" class="btn-close" aria-label="Close"></button>        
+                    </div>
                 </div>`);
             totalPrice += Number(blurPrice);
         }
         $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
     });
+    $('#checkoutModal').on('hidden.bs.modal', function (e) {
+        // selectedEmojis = [];
+        // totalPrice = 0;
+        let id = $('#photo_item .modal-content').attr('key');
+        if (id) {
+            showPhotoContent(id);
+        }
+        // console.log('aaa');
+        // $('#createPhoto .photo-price').text(`$${getPhotoPrice(photo_canvas)}`);
+    });
     $('#checkoutModal .product-list').on('click', '.btn-close', function() {
-        console.log($(this).closest('.product-item'));
+        let item = $(this).closest('.product-item');
+        let key = $(item).find('.item').attr('key');
+        let price = $(item).find('.item_price').text().slice(1);
+        totalPrice -= Number(price);
+        selectedEmojis = selectedEmojis.filter(item =>item != key);
+        $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
         $(this).closest('.product-item').remove();
     });
 
