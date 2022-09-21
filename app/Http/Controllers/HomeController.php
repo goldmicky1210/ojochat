@@ -114,7 +114,9 @@ class HomeController extends Controller
                 $item['edited'] = $temp[0]['edited'];
                 $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
                 if ($payBlurState === false) {
-                    $item['content'] = $temp[0]['original_thumb'];
+                    // $item['content'] = $temp[0]['original_thumb'];
+                    $item['payBlurState'] = false;
+                    $item['content'] = $temp[0]['photo'];
                 } else {
                     $item['content'] = $temp[0]['photo'];
                 }
