@@ -22,6 +22,8 @@ use App\Models\PaymentHistory;
 use App\Models\Cast;
 use App\Models\Group;
 use App\Models\UsersGroup;
+use App\Models\AttachFile;
+
 
 class MessageController extends Controller
 {
@@ -81,8 +83,15 @@ class MessageController extends Controller
         $messageId = $request->input('messageId');
         $messageKind = $request->input('messageKind');
         $messageContent = Message::where('id', $messageId)->first()['content'];
-        if ($messageKind == 2 || $messageKind == 4) {
+        if ($messageKind == 2) {
             $messageContent = PhotoGallery::where('id', $messageContent)->first()['photo'];
+        } else if($messageKind == 4) {
+            $messageType = AttachFile::where('id', $messageContent)->first()['file_type'];
+            if ($messageType == 'jpeg' || $messageType == 'png') {
+                $messageContent = 'v1/api/downloadFile?path='.AttachFile::where('id', $messageContent)->first()['path'];                
+            } else {
+                $messageContent = '/images/file.jpg';   
+            }
         }
         if ($messageContent) {
             return array('state'=>'true', 'data'=>$messageContent);
