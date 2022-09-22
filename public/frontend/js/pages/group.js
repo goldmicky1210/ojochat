@@ -741,7 +741,6 @@ function addGroupChatItem(target, data, loadFlag) {
     let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
-        console.log(($('.chatappend').find(`li.msg-item[key="${replyId}"]`).length))
         if ($('.chatappend').find(`li.msg-item[key="${replyId}"]`).length) {
             if (replyKind == 0) {
                 var replyContent = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.msg-setting-main .content').text();
@@ -754,11 +753,12 @@ function addGroupChatItem(target, data, loadFlag) {
             }
         } else {
             let messageContent = getMessgageContentById(replyId, replyKind);
+            console.log(messageContent.slice());
             if (replyKind == 0) {
                 var replyContent = messageContent;
             } else if (replyKind == 2 || replyKind == 4) {
                 var replyContent = `<img src="${messageContent}" width="50">`;
-            } 
+            }
         }
     }
     let senderInfo = getCertainUserInfoById(data.sender);
