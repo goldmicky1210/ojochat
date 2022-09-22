@@ -17,7 +17,7 @@ $(document).ready(function () {
         let target = '#custom_modal .chat-main';
         $(target).empty();
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
-        
+
         new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
             usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
@@ -82,7 +82,7 @@ $(document).ready(function () {
                     </div>
                 </div>
             `);
-        
+
         convertListItems();
         changeGroupProfileImageAjax();
 
@@ -429,7 +429,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.search_field').show();
         $('#custom_modal').find('.sub_title').show();
         $('#custom_modal').find('.chat-main').show();
-        
+
         $('#custom_modal').find('.modal-body .group_avatar').remove();
         $('#custom_modal').find('.modal-body .group_title').remove();
         $('#custom_modal').find('.modal-body .group_description').remove();
@@ -708,18 +708,57 @@ function addNewGroupItem(target, data) {
     );
 }
 
+function getMessgageContentById(messageId, messageKind) {
+    var form_data = new FormData();
+    form_data.append('messageId', messageId);
+    form_data.append('messageKind', messageKind);
+    var result;
+    $.ajax({
+        url: '/message/getMessgageContentById',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                result = res.data;
+            } else {
+
+            }
+        },
+        error: function (response) { }
+    });
+    return result;
+}
+
 function addGroupChatItem(target, data, loadFlag) {
     let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
-        if (replyKind == 0) {
-            var replyContent = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.msg-setting-main .content').text();
-        } else if (replyKind == 2) {
-            let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.receive_photo').attr('src');
-            var replyContent = `<img src="${imageSrc}" width="50">`;
-        } else if (replyKind == 4) {
-            let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.file_photo').attr('src');
-            var replyContent = `<img src="${imageSrc}" width="50">`;
+        console.log(($('.chatappend').find(`li.msg-item[key="${replyId}"]`).length))
+        if ($('.chatappend').find(`li.msg-item[key="${replyId}"]`).length) {
+            if (replyKind == 0) {
+                var replyContent = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.msg-setting-main .content').text();
+            } else if (replyKind == 2) {
+                let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.receive_photo').attr('src');
+                var replyContent = `<img src="${imageSrc}" width="50">`;
+            } else if (replyKind == 4) {
+                let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.file_photo').attr('src');
+                var replyContent = `<img src="${imageSrc}" width="50">`;
+            }
+        } else {
+            let messageContent = getMessgageContentById(replyId, replyKind);
+            if (replyKind == 0) {
+                var replyContent = messageContent;
+            } else if (replyKind == 2 || replyKind == 4) {
+                var replyContent = `<img src="${messageContent}" width="50">`;
+            } 
         }
     }
     let senderInfo = getCertainUserInfoById(data.sender);
@@ -758,8 +797,8 @@ function addGroupChatItem(target, data, loadFlag) {
             </div>' : '<h5 class="content">' + data.content + '</h5>'}`
             : data.kind == 1 ?
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
-                : data.kind == 2 ? `${data.edited ? `<img class="edited_img" src="/images/edited.png">`: ''}<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
-                    : data.kind == 3 ? inviteContent 
+                : data.kind == 2 ? `${data.edited ? `<img class="edited_img" src="/images/edited.png">` : ''}<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
+                    : data.kind == 3 ? inviteContent
                         : data.kind == 4 ? fileContent : ''}
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
@@ -794,7 +833,7 @@ function addGroupChatItem(target, data, loadFlag) {
 
 function getFileContent(data) {
     let fileContent = '';
-    switch(data.fileType.toLowerCase()) {
+    switch (data.fileType.toLowerCase()) {
         case 'jpeg':
         case 'png':
             fileContent = `<img class="file_photo" messageId="${data.id}" src="v1/api/downloadFile?path=${data.path}">`
@@ -985,7 +1024,7 @@ function getCertainGroupInfo(groupId) {
         dataType: "json",
         success: function (res) {
             if (res.state == 'true') {
-                result =  res.data;
+                result = res.data;
             } else {
 
             }

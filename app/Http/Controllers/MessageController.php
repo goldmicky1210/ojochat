@@ -77,4 +77,18 @@ class MessageController extends Controller
         }
     }
 
+    public function getMessgageContentById(Request $request) {
+        $messageId = $request->input('messageId');
+        $messageKind = $request->input('messageKind');
+        $messageContent = Message::where('id', $messageId)->first()['content'];
+        if ($messageKind == 2 || $messageKind == 4) {
+            $messageContent = PhotoGallery::where('id', $messageContent)->first()['photo'];
+        }
+        if ($messageContent) {
+            return array('state'=>'true', 'data'=>$messageContent);
+        } else {
+            return array('state' => 'false');
+        }
+    }
+
 }
