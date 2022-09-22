@@ -382,6 +382,7 @@ const onConnection = (socket) => {
     });
 
     socket.on('stickyToFree', data => {
+        console.log(data);
         db.query(`SELECT * FROM messages WHERE content=${data.photoId} AND kind=2`, (err, message) => {
             if (message[0].sender == currentUserId) {
                 db.query(`SELECT * FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {

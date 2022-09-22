@@ -90,9 +90,9 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     color: #1c9dea;
 }
 
-.messages .replies.msg-item .replyBtn {
+/* .messages .replies.msg-item .replyBtn {
     display: none;
-}
+} */
 
 #cast .chat-box .msg-setting {
     width: 25px;
