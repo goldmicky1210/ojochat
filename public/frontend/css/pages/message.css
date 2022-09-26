@@ -173,7 +173,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 
 .chat-main li .details>h5,
 .chat-main li .details>h6 {
-    width: 50%;
+    width: 60%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
