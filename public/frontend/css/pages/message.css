@@ -171,8 +171,9 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     border-radius: 20px;
 }
 
+.chat-main li .details>h5,
 .chat-main li .details>h6 {
-    width: 160px;
+    width: 50%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
