@@ -846,7 +846,7 @@ function addEventAction(panel, element) {
             if (tempImage) panel.remove(tempImage);
             if (text) panel.remove(text);
             let timeout = 2000;
-            if (element.left < -10 || element.left > panel.width || element.top < -10 || element.top > panel.height) {
+            if (element.left < -30 || element.left > panel.width || element.top < -30 || element.top > panel.height) {
                 panel.remove(panel.getActiveObject());
                 panel.remove(tempImage);
                 panel.remove(text);

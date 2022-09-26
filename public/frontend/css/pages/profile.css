@@ -1,0 +1,7 @@
+.contact-profile details  .name > h3,
+#slide-menu > div > div.contact-profile > div.theme-title > div > div:nth-child(1) > h2 {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
