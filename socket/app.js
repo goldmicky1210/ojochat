@@ -388,15 +388,25 @@ const onConnection = (socket) => {
                 db.query(`SELECT * FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {
                     let content = JSON.parse(item[0].content);
                     let index = content.findIndex(emojiInfo => emojiInfo.id == data.emojiId);
-                    console.log(content[index]);
-                    console.log(content[index].payersList.length);
-                    if (content[index].price && !content[index].payersList.length) {
-                        // if (content[index].price && !content[index].paid) {
-                        content[index].oldPrice = content[index].price;
-                        content[index].price = 0;
-                    } else if (content[index].price == 0 && !content[index].payersList.length && content[index].oldPrice) {
-                        content[index].price = content[index].oldPrice;
+                    if (!content[index].payersList.length) {
+                        if (+content[index].price) {
+                            console.log('aaa');
+                            content[index].oldPrice = content[index].price;
+                            content[index].price = 0;
+                        } else if (content[index].price == 0) {
+                            if (content[index].oldPrice == 0 || content[index].oldPrice == undefined) {
+                                content[index].oldPrice = -1;
+                            }
+                            content[index].price = content[index].oldPrice;
+                        }  
                     }
+                    // if (content[index].price && !content[index].payersList.length) {
+                    //     // if (content[index].price && !content[index].paid) {
+                    //     content[index].oldPrice = content[index].price;
+                    //     content[index].price = 0;
+                    // } else if (content[index].price == 0 && !content[index].payersList.length && content[index].oldPrice) {
+                    //     content[index].price = content[index].oldPrice;
+                    // }
                     item[0].content = JSON.stringify(content);
                     db.query(`UPDATE photo_galleries SET content=${JSON.stringify(item[0].content)} WHERE id=${item[0].id}`, (error, photo) => {
                         if (error) throw error;

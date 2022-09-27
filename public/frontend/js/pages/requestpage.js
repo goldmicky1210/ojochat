@@ -361,7 +361,6 @@ function addEmojisOnPhoto() {
                 editable: false,
                 price: price,
                 payersList: []
-                // originalPrice: price
             });
             textBox.id = Date.now();
             if ($('#createPhoto').hasClass('show')) {
@@ -415,11 +414,8 @@ function addEmojisOnPhoto() {
             fabric.Image.fromURL(reader.result, function (oImg) {
                 if ($('#createPhoto .preview-paid').hasClass('d-none')) {
                     oImg.price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
-                    // oImg.originalPrice = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
                 } else {
                     oImg.price = $('.preview-paid').val();
-                    // oImg.originalPrice = $('.preview-paid').val();
-                    // $('.sticky-switch').is(':checked') ? oImg.price = -1 : oImg.price = 0;
                 }
 
                 let ratio = oImg.width / oImg.height;
@@ -558,7 +554,6 @@ function getEmojisInfo(obj) {
                 position: [item.left, item.top],
                 angle: item.angle,
                 price: item.price,
-                // originalPrice: item.originalPrice || item.price,
                 blur: item.blur,
                 // originalBlur: item.originalBlur || item.blur,
                 payersList: item.payersList || [],
@@ -575,7 +570,6 @@ function getEmojisInfo(obj) {
                 position: [item.left, item.top],
                 angle: item.angle,
                 price: item.price,
-                // originalPrice: item.originalPrice || item.price,
                 // selectable: item.selectable,
                 fontSize: item.fontSize,
                 fontFamily: item.fontFamily,
@@ -1016,7 +1010,6 @@ function showPhotoContent(id) {
                                     oImg.scaleY = item.size[1];
                                     oImg.angle = item.angle;
                                     oImg.price = item.price;
-                                    // oImg.originalPrice = item.originalPrice;
                                     oImg.payersList = item.payersList;
                                     let filter = new fabric.Image.filters.Blur({
                                         blur: item.blur || 0
@@ -1076,7 +1069,6 @@ function showPhotoContent(id) {
                                     top: item.position[1],
                                     angle: item.angle,
                                     price: item.price,
-                                    // originalPrice: item.originalPrice,
                                     payersList: item.payersList,
                                     fontSize: item.fontSize,
                                     fontFamily: item.fontFamily,

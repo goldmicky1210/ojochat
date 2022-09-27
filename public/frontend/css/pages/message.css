@@ -178,6 +178,11 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
+#custom_modal .chat-main li .details>h5 {
+    width: 100%;
+    max-width: 320px;
+}
+
 @media (max-width: 768px) {
     .chat-main li .details>h5,
     .chat-main li .details>h6 {
