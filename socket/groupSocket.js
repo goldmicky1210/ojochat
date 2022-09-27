@@ -319,6 +319,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 expireDate = expireDate.setMonth(expireDate.getMonth() + 1);
             } else if (group[0].fee_type == 2) {
                 expireDate = expireDate.setFullYear(expireDate.getFullYear() + 1);
+            } else if (group[0].fee_type == 3) {
+                expireDate = expireDate.setFullYear(expireDate.getFullYear() + 100);
             }
             console.log(new Date(expireDate).toISOString().slice(0, 10));
             db.query(`UPDATE users_groups SET expire_date="${new Date(expireDate).toISOString().slice(0, 10)}" WHERE user_id = ${userId} AND group_id = ${groupId}`, (err, result) => {
