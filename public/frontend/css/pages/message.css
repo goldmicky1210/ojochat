@@ -172,6 +172,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 }
 #custom_modal .msg-chat-modal .chat-main {
     max-height: 350px;
+    height: auto;
 }
 #custom_modal .chat-main li {
     padding-top: 2px;
