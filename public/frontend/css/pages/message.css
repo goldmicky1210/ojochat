@@ -171,6 +171,10 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     border-radius: 20px;
 }
 
+#custom_modal .chat-main li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 .chat-main li .details>h5,
 .chat-main li .details>h6 {
     width: 120px;
