@@ -211,6 +211,11 @@ class HomeController extends Controller
         $id = Auth::id();
         $contactIds = Contact::where('user_id', $id)->get('contact_id');
         $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'desc')->get();
+        $contactList = $contactList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
         return $contactList;
 
         // for ($i = 0; $i < count($contacts); $i++) {
