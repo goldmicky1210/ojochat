@@ -172,6 +172,10 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 }
 
 #custom_modal .chat-main li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#custom_modal .chat-main li .chat-box .details {
     padding-top: 5px;
     padding-bottom: 5px;
 }
