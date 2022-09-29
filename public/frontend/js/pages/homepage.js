@@ -452,6 +452,17 @@ function setProfileRate(data) {
     document.querySelector('.content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
 }
 
+function getAverageRate(data) {
+    if (data.length) {
+        var averageRate = data.map(item => item.rate).reduce((cur, item, index, arr) => cur + (item / arr.length), 0) || 0;
+    } else {
+        var averageRate = 0;
+    }
+    return averageRate;
+    getContentRate('.contact-profile', Math.round(averageRate));
+    document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+}
+
 function openAndCloseProfile() {
     $('body').toggleClass('menu-active'); //add class
     $('.app-sidebar').toggleClass('active'); //remove

@@ -28,10 +28,10 @@
     color: #ffc700;
 }
 
-.modal-content:not(.sent) .photoRating div:hover,
-.modal-content:not(.sent) .photoRating div:hover~div,
-.sent .photoRating div:hover,
-.sent .photoRating div:hover~div {
+#photo_item .modal-content:not(.sent) .photoRating div:hover,
+#photo_item .modal-content:not(.sent) .photoRating div:hover~div,
+.sent.msg-item .photoRating div:hover,
+.sent.msg-item .photoRating div:hover~div {
     color: #deb217;
 }
 
@@ -42,11 +42,17 @@
     color: #ccc;
 }
 
-.contact-profile .photoRating {
+.contact-profile .photoRating,
+#custom_modal .photoRating {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     margin-top: 10px;
+}
+#custom_modal .photoRating {
+    width: fit-content;
+    font-size: 20px;
+    margin-top: 0;
 }
 
 .chitchat-right-sidebar .contact-profile .details {

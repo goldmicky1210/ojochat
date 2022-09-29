@@ -12,13 +12,11 @@ $(document).ready(function () {
         $('#custom_modal').find('.btn_group .btn').hide();
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.group_title input').val('');
-        // $('#custom_modal').find('.search_field').hide();
-        // $('#custom_modal').find('.chat-main').hide();
         let target = '#custom_modal .chat-main';
         $(target).empty();
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
             usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
                 statusItem = '';
@@ -498,7 +496,6 @@ $(document).ready(function () {
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
             contactList.filter(item => !currentGroupUsers.split(',').find(id => item.id == id)).forEach(item => addUsersListItem(target, item, statusItem));
-            // contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
     });
 
@@ -638,6 +635,7 @@ $(document).ready(function () {
 });
 
 function addUsersListItem(target, data, statusItem) {
+    console.log(getAverageRate(data.rateData));
     $(target).prepend(
         `<li data-to="blank" key="${data.id}">
             <div class="chat-box">
@@ -646,7 +644,10 @@ function addUsersListItem(target, data, statusItem) {
                 </div>
                 <div class="details">
                     <h5>${data.username}</h5>
-                    <h6>${data.description || 'Hello'}</h6>
+                    <h6>${data.description || ''}</h6>
+                    <div class="photoRating">
+                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                    </div>
                 </div>
                 <div class="date-status">
                     ${statusItem}
@@ -654,6 +655,8 @@ function addUsersListItem(target, data, statusItem) {
             </div>
         </li>`
     );
+    getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
+
 }
 
 function addNewGroupItem(target, data) {

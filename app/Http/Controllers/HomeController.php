@@ -168,7 +168,12 @@ class HomeController extends Controller
     public function getUsersList(Request $request) {
         $id = Auth::id();
         // $userList = User::where('id', '<>', $id)->get();
-        $userList = User::get();
+        $userList = User::orderBy('username', 'desc')->get();
+        $userList = $userList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
         return array('state' => 'true', 'data' => $userList);
     }
 
@@ -302,6 +307,7 @@ class HomeController extends Controller
             if (count($photoData)) {
                 $photoData[0]['rate'] = Rate::where('message_id', $messageId)->avg('rate');
                 $photoData[0]['messageId'] = $messageData[0]['id'];
+                $photoData[0]['senderId'] = $messageData[0]['sender'];
                 return array('state'=>'true', 'data'=>$photoData);
             }
             return array('state'=>'false', 'message'=>'no blink');

@@ -677,10 +677,13 @@ function setContentRate() {
         if ($('#photo_item').hasClass('show') && !$('#photo_item .modal-content').hasClass('sent')) {
             var messageId = $('#photo_item .modal-content').attr('key');
             var kind = 2;
+            console.log('aaa');
         } else {
+            console.log('bbb');
             var messageId = $(this).parents('li.sent').attr('key');
             var kind = $(this).parents('li.sent').attr('kind');
         }
+
         if (messageId) {
             $(e.target).closest('.photoRating').find('div').removeClass('checked');
             $(this).toggleClass('checked');
@@ -929,7 +932,8 @@ function showPhotoContent(id) {
                 $('#photo_item .modal-content').attr('key', id);
                 $('#photo_item .modal-content').attr('photoId', res.data[0].id);
                 $('#photo_item .modal-content').removeClass('sent');
-                if (res.data[0].from == currentUserId) {
+                console.log(res.data[0]);
+                if (res.data[0].senderId == currentUserId) {
                     $('#photo_item .modal-content').addClass('sent');
                 }
                 photo_canvas.clear();
@@ -958,10 +962,8 @@ function showPhotoContent(id) {
                                     $('.selected-emojis').append(img);
                                 }
 
-                                // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
                                 let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
 
-                                // let blur_price = !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                 price == 0 ? price = photoPrice : '';
