@@ -170,7 +170,9 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     padding: 3px 10px;
     border-radius: 20px;
 }
-
+#custom_modal .msg-chat-modal .chat-main {
+    max-height: 350px;
+}
 #custom_modal .chat-main li {
     padding-top: 2px;
     padding-bottom: 2px;
