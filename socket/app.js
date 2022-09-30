@@ -58,7 +58,6 @@ const onConnection = (socket) => {
     console.log(user_socketMap);
 
     socket.on('forward:message', data => {
-        console.log(data);
         data.groupType = 1;
         data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text';
         Notification.sendSMS(currentUserId, data.recipient, data);
@@ -71,7 +70,6 @@ const onConnection = (socket) => {
                             if (groupData.length) {
                                 if (error) throw error;
                                 let groupId = groupData[0]['group_id'];
-                                console.log('Foward to:', groupId);
                                 db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${newPhoto.insertId}", 2)`, (error, item) => {
                                     if (error) throw error;
                                     // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
@@ -103,7 +101,6 @@ const onConnection = (socket) => {
                         if (groupData.length) {
                             if (error) throw error;
                             let groupId = groupData[0]['group_id'];
-                            console.log('Foward to:', groupId);
                             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${messageContent[0]['content']}", 4)`, (error, item) => {
                                 if (error) throw error;
                                 // db.query(`UPDATE photo_galleries SET content=${JSON.stringify(contents[0]['content'])} WHERE id=${newPhoto.insertId}`, (error, photo) => {
@@ -237,7 +234,6 @@ const onConnection = (socket) => {
     });
 
     socket.on('give:rate', data => {
-        console.log(data);
         db.query(`SELECT * FROM messages WHERE id=${data.messageId}`, (err, messageInfo) => {
             if (err) throw err;
             if (messageInfo.length) {
@@ -281,7 +277,6 @@ const onConnection = (socket) => {
     socket.on('delete:message', data => {
         let senderSocketId = user_socketMap.get(currentUserId.toString());
         if (data.photoId) {
-            console.log(data.photoId);
             db.query(`SELECT * FROM photo_galleries WHERE id=${data.photoId}`, (error, photo) => {
                 if (photo[0].paid) {
                     io.sockets.sockets.get(senderSocketId).emit('delete:message', { id: data.messageId, state: false });
@@ -381,10 +376,7 @@ const onConnection = (socket) => {
 
     socket.on('send:mediaNotification', data => {
         db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.group_id}"`, (error, row) => {
-            console.log('groupUsers:', row);
             row.filter(item => item['user_id'] != data.sender).forEach(item => {
-                console.log(user_socketMap)
-                console.log(item['user_id'])
                 data.msgType = 'media';
                 let recipientSocketId = user_socketMap.get(item['user_id'].toString());
                 if (recipientSocketId) {
@@ -399,7 +391,6 @@ const onConnection = (socket) => {
     });
 
     socket.on('stickyToFree', data => {
-        console.log(data);
         db.query(`SELECT * FROM messages WHERE content=${data.photoId} AND kind=2`, (err, message) => {
             if (message[0].sender == currentUserId) {
                 db.query(`SELECT * FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {
@@ -407,7 +398,6 @@ const onConnection = (socket) => {
                     let index = content.findIndex(emojiInfo => emojiInfo.id == data.emojiId);
                     if (!content[index].payersList.length) {
                         if (+content[index].price) {
-                            console.log('aaa');
                             content[index].price = 0;
                         } else if (content[index].price == 0) {
                             if (content[index].oldPrice == 0 || content[index].oldPrice == undefined) {

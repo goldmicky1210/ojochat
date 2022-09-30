@@ -150,7 +150,6 @@ $(document).ready(function () {
     function toggleFreeEmojis(isLock) {
         if (isLock) {
             photo_canvas._objects.forEach(item => {
-                console.log(item)
                 item.price = item.oldPrice;
             })
         } else {
@@ -574,7 +573,6 @@ function showPhoto() {
 
     $('.contact-chat ul.chatappend').on('click', '.file_photo~.msg-dropdown-main .msg-open-btn', function () {
         let src = $(this).closest('.msg-setting-main').find('.file_photo').attr('src');
-        console.log(src);
         $('#photo_modal').modal('show');
         $('#photo_modal').find('.media_photo_src').attr('src', src);
     });
@@ -718,9 +716,7 @@ function setContentRate() {
         if ($('#photo_item').hasClass('show') && !$('#photo_item .modal-content').hasClass('sent')) {
             var messageId = $('#photo_item .modal-content').attr('key');
             var kind = 2;
-            console.log('aaa');
         } else {
-            console.log('bbb');
             var messageId = $(this).parents('li.sent').attr('key');
             var kind = $(this).parents('li.sent').attr('kind');
         }
@@ -973,7 +969,6 @@ function showPhotoContent(id) {
                 $('#photo_item .modal-content').attr('key', id);
                 $('#photo_item .modal-content').attr('photoId', res.data[0].id);
                 $('#photo_item .modal-content').removeClass('sent');
-                console.log(res.data[0]);
                 if (res.data[0].senderId == currentUserId) {
                     $('#photo_item .modal-content').addClass('sent');
                 }
