@@ -34,18 +34,9 @@
             <div class="form-group paid_type">
                 <label>Mode</label>
                 <select class="form-select form-select-sm price-list emojis-price d-none" aria-label="Default select example">
-                    <!-- <option value="0" selected>Mode</option> -->
                     <option value="0">Free</option>
                     <option value="-1">Sticky</option>
                     <option value="1">Paid</option>
-    
-                    <!-- <option value="1">$1</option>
-                    <option value="2">$2</option>
-                    <option value="5">$5</option>
-                    <option value="10">$10</option>
-                    <option value="15">$15</option>
-                    <option value="20">$20</option>
-                    <option value="25">$25</option> -->
                 </select>
             </div>
             <div class="form-group paid_value">
@@ -81,13 +72,11 @@
         </div>
         <div class="btn">
             <button class="submit icon-btn btn-primary" data-bs-dismiss="modal" id="save-photo">
-                <!-- <i data-feather="save"></i> -->
                 <img src="/images/save.png" alt="Save">
             </button>
         </div>
         <div class="btn">
             <button class="submit icon-btn btn-primary" data-bs-dismiss="modal" id="send-photo">
-                <!-- <i data-feather="send"></i> -->
                 <img src="/images/send.png" alt="Send">
             </button>
         </div>

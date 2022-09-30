@@ -492,6 +492,10 @@ ul.chatappend .msg-box .camera-icon {
     font-size: 15px;
     margin: 1px;
 }
+#photo_item .modal-content .toggleFreeBtn.lock .unLockImage,
+#photo_item .modal-content .toggleFreeBtn.unLock .lockImage {
+    display: none;
+}
 
 #photo_item .blur-image {
     text-align: center;

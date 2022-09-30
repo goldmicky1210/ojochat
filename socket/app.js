@@ -205,6 +205,23 @@ const onConnection = (socket) => {
         });
     });
 
+    socket.on('save:photo', (data, callback) => {
+        db.query(`UPDATE photo_galleries SET content=${JSON.stringify(data.content)}, edited=1 WHERE id=${data.photoId}`, (error, item) => {
+            if (error) throw error;
+            db.query(`SELECT group_id FROM messages WHERE id=${data.messageId}`, (error, groupInfo) => {
+                if (error) throw error;
+                if (groupInfo.length) {
+                    let groupId = groupInfo[0]['group_id'];
+                    data.msgType = 'editBlink';
+                    Notification.sendGroupSMS(data.sender, groupId, data, user_socketMap, io);
+                }
+                callback({
+                    status: 'OK'
+                });
+            })
+        });
+    });
+
     socket.on('update:cast', data => {
         let senderSocketId = user_socketMap.get(currentUserId.toString());
 
@@ -391,7 +408,6 @@ const onConnection = (socket) => {
                     if (!content[index].payersList.length) {
                         if (+content[index].price) {
                             console.log('aaa');
-                            content[index].oldPrice = content[index].price;
                             content[index].price = 0;
                         } else if (content[index].price == 0) {
                             if (content[index].oldPrice == 0 || content[index].oldPrice == undefined) {

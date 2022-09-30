@@ -92,7 +92,7 @@ $(document).ready(function () {
     });
 
     socket.on('edi:photo', data => {
-        
+
     })
 
 
@@ -140,12 +140,46 @@ $(document).ready(function () {
         socket.emit('reject:request');
     });
 
+    $('.toggleFreeBtn').on('click', function () {
+        let id = $('#photo_item .modal-content').attr('key');
+        $(this).toggleClass('lock');
+        $(this).toggleClass('unLock');
+        let isLock = $(this).hasClass('lock');
+        toggleFreeEmojis(isLock);
+    });
+    function toggleFreeEmojis(isLock) {
+        if (isLock) {
+            photo_canvas._objects.forEach(item => {
+                console.log(item)
+                item.price = item.oldPrice;
+            })
+        } else {
+            photo_canvas._objects.forEach(item => {
+                item.price = 0;
+            })
+        }
+        photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
+        let data = {};
+        data.sender = currentUserId;
+        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.content = getEmojisInfo(photo_canvas._objects);
+        data.photo = photo_canvas.toDataURL('image/png');
+        data.photoId = $('#photo_item').find('.modal-content').attr('photoId');
+        data.messageId = $('#photo_item').find('.modal-content').attr('key');
+        socket.emit('save:photo', data, res => {
+            if (res.status == 'OK') {
+                $(`.messages.active .chatappend .msg-item[key=${data.messageId}]`).find('.msg-setting-main .receive_photo').attr('src', data.photo);
+            } else {
+                console.log('edit photo error');
+            }
+        });
+    }
     $('.restoreBtn').on('click', () => {
         let id = $('#photo_item .modal-content').attr('key');
         if (id) {
             showPhotoContent(id);
         }
-    })
+    });
     $('.payWholePriceBtn').on('click', () => {
         payWholePhotoPrice();
     });
@@ -360,6 +394,7 @@ function addEmojisOnPhoto() {
                 textAlign: 'center',
                 editable: false,
                 price: price,
+                oldPrice: price,
                 payersList: []
             });
             textBox.id = Date.now();
@@ -390,6 +425,7 @@ function addEmojisOnPhoto() {
                 textAlign: 'center',
                 editable: false,
                 price: price,
+                oldPrice: price,
                 payersList: []
             });
             textBox.id = Date.now();
@@ -422,6 +458,7 @@ function addEmojisOnPhoto() {
                 oImg.scaleX = 100 / oImg.width;
                 oImg.scaleY = 100 / ratio / oImg.height;
                 oImg.id = Date.now();
+                oImg.oldPrice = oImg.price;
                 oImg.payersList = [];
                 addEventAction(target, oImg);
 
@@ -519,9 +556,11 @@ function showPhoto() {
         if ($(e.currentTarget).closest('li.msg-item').hasClass('replies')) {
             $('.previewBtn').removeClass('d-none');
             $('.payBtn').addClass('d-none');
+            $('.toggleFreeBtn').removeClass('d-none');
         } else {
             $('.previewBtn').addClass('d-none');
             $('.payBtn').removeClass('d-none');
+            $('.toggleFreeBtn').addClass('d-none');
         }
         let id = $(e.currentTarget).closest('li.msg-item').attr('key');
         $('.selected-emojis').empty();
@@ -554,6 +593,7 @@ function getEmojisInfo(obj) {
                 position: [item.left, item.top],
                 angle: item.angle,
                 price: item.price,
+                oldPrice: item.oldPrice,
                 blur: item.blur,
                 // originalBlur: item.originalBlur || item.blur,
                 payersList: item.payersList || [],
@@ -570,6 +610,7 @@ function getEmojisInfo(obj) {
                 position: [item.left, item.top],
                 angle: item.angle,
                 price: item.price,
+                oldPrice: item.oldPrice,
                 // selectable: item.selectable,
                 fontSize: item.fontSize,
                 fontFamily: item.fontFamily,
@@ -805,7 +846,7 @@ function addEventAction(panel, element) {
             } else {
                 if (((new Date().getTime()) - touchtime) < 800) {
                     if ($('#createPhoto').hasClass('show') || $('#photo_item').attr('edit')) {
-                        
+
                         let panel = $('#createPhoto').hasClass('show') ? canvas : photo_canvas;
                         let origin = panel.getActiveObject();
                         panel.getActiveObject().clone(function (clonedObj) {
@@ -1012,6 +1053,7 @@ function showPhotoContent(id) {
                                     oImg.scaleY = item.size[1];
                                     oImg.angle = item.angle;
                                     oImg.price = item.price;
+                                    oImg.oldPrice = item.olPrice;
                                     oImg.payersList = item.payersList;
                                     let filter = new fabric.Image.filters.Blur({
                                         blur: item.blur || 0
@@ -1071,6 +1113,7 @@ function showPhotoContent(id) {
                                     top: item.position[1],
                                     angle: item.angle,
                                     price: item.price,
+                                    oldPrice: item.oldPrice,
                                     payersList: item.payersList,
                                     fontSize: item.fontSize,
                                     fontFamily: item.fontFamily,

@@ -3631,18 +3631,22 @@
                     </div>
                     <div class="btn-group open_btn_group">
                         <div class="photo-price"></div>
-                        <div class="btn previewBtn d-none payWholePriceBtn" title="Preview"><img
-                                src="/images/preview.png" alt="Pay"> </div>
-                        <div class="btn payBtn" title="Pay"><img src="/images/pay.png" alt="Pay"> </div>
-                        <div class="btn sharePhotoBtn disabled" title="Share"><img src="/images/share.png"
-                                alt="Share">
+                        <div class="btn previewBtn d-none payWholePriceBtn" title="Preview">
+                            <img src="/images/preview.png" alt="Pay">
                         </div>
-                        <div class="btn restoreBtn" title="Restore"><img src="/images/restore.png" alt="Restore">
+                        <div class="btn payBtn" title="Pay">
+                            <img src="/images/pay.png" alt="Pay">
                         </div>
-                        {{-- <div class="btn emoji_btn">
-                            <div id="edit_emoji_button" class="emoji-button"></div>
+                        <div class="btn sharePhotoBtn disabled" title="Share">
+                            <img src="/images/share.png" alt="Share">
                         </div>
-                        <div class="btn savePhotoBtn" title="Save"><img src="/images/save.png" alt="Save"> </div> --}}
+                        <div class="btn toggleFreeBtn lock" title="Toggle Free">
+                            <img class="lockImage" src="/images/sticky.png" alt="Share">
+                            <img class="unLockImage" src="/images/unsticky.png" alt="Share">
+                        </div>
+                        <div class="btn restoreBtn" title="Restore">
+                            <img src="/images/restore.png" alt="Restore">
+                        </div>
                         <div class="btn " href="#" data-bs-dismiss="modal" title="Cancel"><img
                                 src="/images/cancel.png" alt="Cancel"></div>
                     </div>
