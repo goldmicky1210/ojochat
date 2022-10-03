@@ -118,15 +118,14 @@ exports.sendSMS = (sender, recipient, data) => {
                                     if (groupType == 1 || groupType == 3) {
                                         // Direct and Cast Message
                                         if (spainish) {
-                                            message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${data.senderName}. Inicie sesion en Ojochat.com para ver sus mensajes. ${val}`;
+                                            message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${data.senderName}. Inicie sesion en Ojochat para ver sus mensajes. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, you have a new ${data.msgType == 'text' ? 'text message' : 'Blink'} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                         }
                                     } else if (groupType == 2) {
                                         // Group Message
                                         if (spainish) {
-                                            // 'Hola, Keelan, NAME ha publicado un nuevo Blink en el grupo Beta.  Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo.'
-                                            message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat.com para ver nuevos mensajes de grupo. ${val}`;
+                                            message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para ver nuevos mensajes de grupo. ${val}`;
                                         } else {
                                             message = `Hey ${row[0].username}, a new ${data.msgType == 'text' ? 'text message' : 'Blink'} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                         }
@@ -155,13 +154,13 @@ exports.sendSMS = (sender, recipient, data) => {
                                     }
                                 } else if (data.msgType == 'media') {
                                     if (spainish) {
-                                        message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                        message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat para ver sus mensajes. ${val}`;
                                     } else {
                                         message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
                                     }
                                 } else if (data.msgType == 'editBlink') {
                                     if (spainish) {
-                                        message = `Hola ${row[0].username}, ${data.senderName} ha editado un Blink. Inicie sesión en Ojochat.com para ver sus mensajes. ${val}`;
+                                        message = `Hola ${row[0].username}, ${data.senderName} ha editado un Blink. Inicie sesión en Ojochat para ver sus mensajes. ${val}`;
                                     } else {
                                         message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
                                     }

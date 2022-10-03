@@ -489,7 +489,6 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Invite');
-        // $('#custom_modal').find('.btn_group').append(`<span class="invite_link">https://ojochat.com/groupinvite/?groupid=${groupId}</span>`);
 
         new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
