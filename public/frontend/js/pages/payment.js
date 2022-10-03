@@ -36,14 +36,10 @@ $(document).ready(function () {
         $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
     });
     $('#checkoutModal').on('hidden.bs.modal', function (e) {
-        // selectedEmojis = [];
-        // totalPrice = 0;
         let id = $('#photo_item .modal-content').attr('key');
         if (id) {
             showPhotoContent(id);
         }
-        // console.log('aaa');
-        // $('#createPhoto .photo-price').text(`$${getPhotoPrice(photo_canvas)}`);
     });
     $('#checkoutModal .product-list').on('click', '.btn-close', function() {
         let item = $(this).closest('.product-item');
@@ -90,7 +86,7 @@ function tempAction() {
 }
 function payPhoto() {
     $('.payBtn').on('click', () => {
-        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
+        let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => +item > 0).reduce((total, item) => item + total, 0);
 
         // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
         // let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));

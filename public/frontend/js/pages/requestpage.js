@@ -362,7 +362,7 @@ function blurPhoto() {
                 // blurPrice = $('.sticky-switch').is(':checked') ? -1 : 0;
             }
             // blurPrice = blurPrice < 0 ? 0 : blurPrice;
-            $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+            $('#createPhoto .photo-price').text(getPhotoPrice(canvas));
             let obj = Object.assign(globalImage);
 
             let filter = new fabric.Image.filters.Blur({
@@ -383,7 +383,6 @@ function addEmojisOnPhoto() {
             var price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             var price = $('.preview-paid').val();
-            // var price = $('.sticky-switch').is(':checked') ? -1 : 0;
         }
         let text = emoji;
         if (text) {
@@ -401,7 +400,7 @@ function addEmojisOnPhoto() {
                 addEventAction(canvas, textBox);
                 canvas.add(textBox).setActiveObject(textBox);
                 canvas.centerObject(textBox);
-                $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+                $('#createPhoto .photo-price').text(getPhotoPrice(canvas));
             } else if ($('#photo_item').hasClass('show')) {
                 addEventAction(photo_canvas, textBox);
                 photo_canvas.add(textBox).setActiveObject(textBox);
@@ -414,7 +413,6 @@ function addEmojisOnPhoto() {
             var price = $('.emojis-price').val() > 0 ? $('.paid_value input').val() : $('.emojis-price').val();
         } else {
             var price = $('.preview-paid').val();
-            // var price = $('.sticky-switch').is(':checked') ? -1 : 0;
         }
         let text = emoji;
         if (text) {
@@ -432,7 +430,7 @@ function addEmojisOnPhoto() {
                 addEventAction(canvas, textBox);
                 canvas.add(textBox).setActiveObject(textBox);
                 canvas.centerObject(textBox);
-                $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+                $('#createPhoto .photo-price').text(getPhotoPrice(canvas));
             } else if ($('#photo_item').hasClass('show')) {
                 addEventAction(photo_canvas, textBox);
                 photo_canvas.add(textBox).setActiveObject(textBox);
@@ -464,7 +462,7 @@ function addEmojisOnPhoto() {
                 target.add(oImg);
                 target.centerObject(oImg);
                 if ($('#createPhoto').hasClass('show')) {
-                    $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+                    $('#createPhoto .photo-price').text(getPhotoPrice(canvas));
                 }
 
             });
@@ -625,7 +623,8 @@ function getEmojisInfo(obj) {
 function getPhotoPrice(target) {
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
     let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
-    return target._objects.filter(item => item.payersList && !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
+    let price = target._objects.filter(item => item.payersList && !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
+    return price <= 0 ? '' : '$' + price;
 }
 
 function getPhotoSrcById(id, target) {
@@ -771,7 +770,7 @@ function addTextOnPhoto() {
             $(`#${modalId} .text-tool .text`).val('');
             $(`#${modalId} .text-tool`).slideToggle();
             if ($('#createPhoto').hasClass('show')) {
-                $('#createPhoto .photo-price').text(`$${getPhotoPrice(target)}`);
+                $('#createPhoto .photo-price').text(getPhotoPrice(target));
             }
 
         }
@@ -867,7 +866,7 @@ function addEventAction(panel, element) {
                             panel.requestRenderAll();
                             setTimeout(() => {
                                 if (clonedObj.payersList) {
-                                    $('#createPhoto .photo-price').text(`$${getPhotoPrice(canvas)}`);
+                                    $('#createPhoto .photo-price').text(getPhotoPrice(canvas));
                                 }
                             }, 500)
                         });
@@ -886,7 +885,7 @@ function addEventAction(panel, element) {
                 panel.remove(text);
                 photoPrice -= element.price;
                 if ($('#createPhoto').hasClass('show')) {
-                    $('#createPhoto .photo-price').text(`$${getPhotoPrice(panel)}`);
+                    $('#createPhoto .photo-price').text(getPhotoPrice(panel));
                 }
             }
             if (element.price == -1) tempImage = lockImage;
@@ -998,12 +997,16 @@ function showPhotoContent(id) {
                                     $('.selected-emojis').append(img);
                                 }
 
-                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
+                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => +item > 0).reduce((total, item) => item + total, 0);
 
                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                 price == 0 ? price = photoPrice : '';
-                                $('#photo_item .modal-content .photo-price').text('$' + price)
+                                if (price > 0) {
+                                    $('#photo_item .modal-content .photo-price').text('$' + price);
+                                } else {
+                                    $('#photo_item .modal-content .photo-price').text('');
+                                }
                             } else if (res.data[0].blur_price < 0) {
                                 alert('Blur is Sticky');
                             }
@@ -1079,15 +1082,17 @@ function showPhotoContent(id) {
                                                     $(img).attr('key', oImg.id);
                                                     $('.selected-emojis').append(img);
                                                 }
-                                                // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-                                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
+                                                let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => +item > 0).reduce((total, item) => item + total, 0);
 
-                                                // let blur_price = res.data[0].blur_price > 0 && !res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? res.data[0].blur_price : 0;
                                                 let blur_price = blurPrice < 0 ? 0 : blurPrice;
 
                                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                                 price == 0 ? price = photoPrice : '';
-                                                $('#photo_item .modal-content .photo-price').text('$' + price)
+                                                if (price > 0) {
+                                                    $('#photo_item .modal-content .photo-price').text('$' + price);
+                                                } else {
+                                                    $('#photo_item .modal-content .photo-price').text('');
+                                                }
                                                 touchtime = 0;
                                             } else {
                                                 // not a double click so set as a new first click
@@ -1146,13 +1151,17 @@ function showPhotoContent(id) {
                                                 $('.selected-emojis').append(img);
                                             }
                                             // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-                                            let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => item > 0).reduce((total, item) => item + total, 0);
+                                            let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => +item > 0).reduce((total, item) => item + total, 0);
 
                                             let blur_price = blurPrice < 0 ? 0 : blurPrice;
 
                                             if (selectedEmojis.includes('blur')) price += blur_price;
                                             price == 0 ? price = photoPrice : '';
-                                            $('#photo_item .modal-content .photo-price').text('$' + price)
+                                            if (price > 0) {
+                                                $('#photo_item .modal-content .photo-price').text('$' + price);
+                                            } else {
+                                                $('#photo_item .modal-content .photo-price').text('');
+                                            }
                                             touchtime = 0;
                                         } else {
                                             // not a double click so set as a new first click
@@ -1176,7 +1185,11 @@ function showPhotoContent(id) {
                         }
                         let blur_price = blurPrice < 0 ? 0 : blurPrice;
                         if (res.data[0].blur_price) photoPrice += blur_price;
-                        $('#photo_item .modal-content .photo-price').text('$' + photoPrice);
+                        if (photoPrice > 0) {
+                            $('#photo_item .modal-content .photo-price').text('$' + photoPrice);
+                        } else {
+                            $('#photo_item .modal-content .photo-price').text('');
+                        }
                     });
                 });
             } else {
