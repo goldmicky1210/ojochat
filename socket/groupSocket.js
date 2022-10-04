@@ -170,50 +170,52 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('invite:groupUsers', (data, callback) => {
-        data.sender = currentUserId;
-        let messageData = {
-            globalGroupId: data.currentGroupId,
-            msgType: 'inviteGroupUser',
-            senderName: data.senderName
-        }
-        data.groupUsers.split(',').forEach(userId => {
-            Notification.sendSMS(currentUserId, userId, messageData);
-            // db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${userId}, ${data.currentGroupId}, 1)`, (error, item) => {
-            //     console.log(userId, ': pending group user');
-            // });
-        });
-        data.content = data.currentGroupId;
-
-        data.groupUsers.split(',').forEach(recipientId => {
-            db.query(`SELECT group_id
-                    FROM \`groups\` 
-                    INNER JOIN users_groups 
-                    ON groups.id = users_groups.group_id
-                    WHERE (user_id = ${recipientId} OR user_id = ${data.sender})
-                    AND TYPE=1
-                    GROUP BY group_id
-                    HAVING COUNT(group_id) = 2`,
-
-                (error, result) => {
-                    if (error) throw error;
-                    if (result.length) {
-                        db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}", 3)`, (error, item) => {
-
-                        });
-                    } else {
-                        db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
-                            if (error) throw error;
-                            let groupId = group.insertId;
-
-                            db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
-                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.content}", 3)`, (error, item) => {
-                                    console.log('You created new group');
-                                });
-                            });
-                        });
-                    }
+        db.query(`SELECT id FROM \`groups\` WHERE id=${data.currentGroupId}`, (error, result) => {
+            if (error) throw error;
+            if (result.length) {
+                data.sender = currentUserId;
+                let messageData = {
+                    globalGroupId: data.currentGroupId,
+                    msgType: 'inviteGroupUser',
+                    senderName: data.senderName
+                }
+                data.groupUsers.split(',').forEach(userId => {
+                    Notification.sendSMS(currentUserId, userId, messageData);
                 });
-        });
+                data.content = data.currentGroupId;
+        
+                data.groupUsers.split(',').forEach(recipientId => {
+                    db.query(`SELECT group_id
+                            FROM \`groups\` 
+                            INNER JOIN users_groups 
+                            ON groups.id = users_groups.group_id
+                            WHERE (user_id = ${recipientId} OR user_id = ${data.sender})
+                            AND TYPE=1
+                            GROUP BY group_id
+                            HAVING COUNT(group_id) = 2`,
+        
+                        (error, result) => {
+                            if (error) throw error;
+                            if (result.length) {
+                                db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}", 3)`, (error, item) => {
+        
+                                });
+                            } else {
+                                db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
+                                    if (error) throw error;
+                                    let groupId = group.insertId;
+        
+                                    db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
+                                        db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.content}", 3)`, (error, item) => {
+                                            console.log('You created new group');
+                                        });
+                                    });
+                                });
+                            }
+                        });
+                });
+            }
+        })
     });
 
     socket.on('join:group', (data, callback) => {
