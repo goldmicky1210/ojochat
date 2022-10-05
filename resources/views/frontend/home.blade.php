@@ -320,7 +320,7 @@
                         </div>
                     </div>
                 </div>
-                <ul class="chat-main history-list">
+                <ul class="chat-main history-list" id="accordionExample">
 
                 </ul>
             </div>

@@ -336,6 +336,16 @@ class HomeController extends Controller
     {
         $userId = $request->input('userId');
         $data = PaymentHistory::where("sender", $userId)->orWhere("recipient", $userId)->orderBy('created_at', 'desc')->get();
+        $data = $data->map(function($item) {
+            if ($item['type'] == 0) {
+                $temp = PhotoGallery::where('id', $item['refer_id'])->get();
+                $item['thumb'] = $temp[0]['original_thumb'];
+            } else {
+                $temp = Group::where('id', $item['refer_id'])->get();
+                $item['group_title'] = $temp[0]['title'];
+            }
+            return $item;
+        });
         return array(
             'state' => 'true',
             'data' => $data

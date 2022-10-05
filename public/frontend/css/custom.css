@@ -410,14 +410,17 @@ ul.chatappend .msg-box .camera-icon {
 .msg-setting-main {
     position: relative;
 }
+
 .edited_img {
     width: 25px !important;
     position: absolute;
     top: 0;
 }
+
 .sent .edited_img {
     left: 105px;
 }
+
 .replies .edited_img {
     right: 0;
 }
@@ -492,6 +495,7 @@ ul.chatappend .msg-box .camera-icon {
     font-size: 15px;
     margin: 1px;
 }
+
 #photo_item .modal-content .toggleFreeBtn.lock .unLockImage,
 #photo_item .modal-content .toggleFreeBtn.unLock .lockImage {
     display: none;
@@ -643,8 +647,25 @@ h6.read {
     float: right;
     margin-top: 20px;
 }
+
 .hidden {
     display: none;
+}
+
+.history-list .accordion-item .accordion-body .detailed_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.history-list .accordion-item .accordion-body .detailed_info .send_heart {
+    display: flex;
+    align-items: center;
+    color: red;
+}
+
+.history-list .accordion-item .accordion-body .thumb {
+    width: 100px;
 }
 
 @media (max-width: 1366px) {

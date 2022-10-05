@@ -183,7 +183,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                     Notification.sendSMS(currentUserId, userId, messageData);
                 });
                 data.content = data.currentGroupId;
-        
+
                 data.groupUsers.split(',').forEach(recipientId => {
                     db.query(`SELECT group_id
                             FROM \`groups\` 
@@ -193,18 +193,18 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                             AND TYPE=1
                             GROUP BY group_id
                             HAVING COUNT(group_id) = 2`,
-        
+
                         (error, result) => {
                             if (error) throw error;
                             if (result.length) {
                                 db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}", 3)`, (error, item) => {
-        
+
                                 });
                             } else {
                                 db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
                                     if (error) throw error;
                                     let groupId = group.insertId;
-        
+
                                     db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
                                         db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${groupId}", "${data.content}", 3)`, (error, item) => {
                                             console.log('You created new group');
@@ -232,7 +232,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                             db.query(`UPDATE users_groups SET status=2 WHERE user_id=${currentUserId} AND group_id=${data.currentGroupId}`, (error, item) => {
                                 if (error) throw error;
                                 if (group[0].fee_value > 0) {
-                                    db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${currentUserId}, ${group[0].owner}, ${group[0].fee_value})`, (error, historyItem) => {
+                                    db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${group[0].owner}, ${group[0].fee_value}, ${group[0].id}, 1)`, (error, historyItem) => {
                                         if (error) throw error;
                                         console.log('You paid successfully');
                                     });
@@ -293,7 +293,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                 db.query(`UPDATE users_groups SET status=2 WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (error, item) => {
                                     if (error) throw error;
                                     if (group[0].fee_value > 0) {
-                                        db.query(`INSERT INTO payment_histories (sender, recipient, amount) VALUES (${data.userId}, ${group[0].owner}, ${group[0].fee_value})`, (error, historyItem) => {
+                                        db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${data.userId}, ${group[0].owner}, ${group[0].fee_value}, ${group[0].id}, 1)`, (error, historyItem) => {
                                             if (error) throw error;
                                             console.log('You paid successfully');
                                         });
