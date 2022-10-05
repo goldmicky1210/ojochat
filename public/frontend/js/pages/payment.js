@@ -11,7 +11,7 @@ $(document).ready(function () {
             selectedEmojis.push('blur');
         }
         let blurPrice = $('#photo_item .blur-image').attr('price');
-        photo_canvas._objects.filter(oImg => selectedEmojis.includes(oImg.id) && oImg.price > 0).forEach(item => {
+        photo_canvas._objects.filter(oImg => selectedEmojis.includes(oImg.id) && oImg.price > 0 && !oImg.payersList.includes(currentUserId)).forEach(item => {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
                     ${item.type == 'image' ? `<img class="item" key=${item.id} src=${item.getSrc()} />` : `<span key=${item.id} class="item ellipsis_text">${item.text}</span>`}
@@ -22,7 +22,8 @@ $(document).ready(function () {
                 </div>`)
             totalPrice += Number(item.price);
         });
-        if (Number(blurPrice) && selectedEmojis.includes('blur')) {
+        let isBlurPay = $('#photo_item .blur-image').attr('payers').split(',').map(item => +item).includes(currentUserId)
+        if (Number(blurPrice) && selectedEmojis.includes('blur') && !isBlurPay) {
             $('#checkoutModal .product-list .bottom-hr').before(
                 `<div class="product-item mt-2 mb-2">
                     <img class="item" key="blur" src="/images/blur.png" style="border-radius: 50%;"/>
@@ -90,8 +91,6 @@ function payPhoto() {
     $('.payBtn').on('click', () => {
         let price = selectedEmojis.filter(item => item != 'blur').map(item => Number(photo_canvas._objects.find(oImg => oImg.id == item).price)).filter(item => +item > 0).reduce((total, item) => item + total, 0);
 
-        // let price = selectedEmojis.filter(item => item != 'blur').reduce((total, item) => Number(photo_canvas._objects.find(oImg => oImg.id == item).price) + total, 0);
-        // let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
         let blur_price = Number($('.blur-image').attr('price')) < 0 ? 0 : Number($('.blur-image').attr('price'));
         if (selectedEmojis.includes('blur')) price += blur_price;
         price == 0 ? price = photoPrice : '';
