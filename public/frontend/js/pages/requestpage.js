@@ -575,6 +575,25 @@ function showPhoto() {
         $('#photo_modal').find('.media_photo_src').attr('src', src);
     });
 
+    $('.history-list').on('click', '.accordion-item .accordion-body .thumb', function () {
+        let messageId = $(this).closest('.accordion-body').attr('key');
+        $('#photo_item .modal-content .btn-group.edit_btn_group').css('display', 'none');
+        $('#photo_item .modal-content .btn-group.open_btn_group').css('display', 'flex');
+        if ($(this).closest('li.accordion-item').attr('sendFlag') == "true") {
+            $('.previewBtn').addClass('d-none');
+            $('.payBtn').removeClass('d-none');
+            $('.toggleFreeBtn').addClass('d-none');
+        } else {
+            $('.previewBtn').removeClass('d-none');
+            $('.payBtn').addClass('d-none');
+            $('.toggleFreeBtn').removeClass('d-none');
+        }
+        $('.selected-emojis').empty();
+        selectedEmojis = [];
+        showPhotoContent(messageId);
+
+    })
+
 
 }
 

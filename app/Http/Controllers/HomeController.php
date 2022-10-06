@@ -338,8 +338,11 @@ class HomeController extends Controller
         $data = PaymentHistory::where("sender", $userId)->orWhere("recipient", $userId)->orderBy('created_at', 'desc')->get();
         $data = $data->map(function($item) {
             if ($item['type'] == 0) {
-                $temp = PhotoGallery::where('id', $item['refer_id'])->get();
-                $item['thumb'] = $temp[0]['original_thumb'];
+                $message = Message::where('id', $item['refer_id'])->get();
+                if (count($message)) {
+                    $temp = PhotoGallery::where('id', $message[0]['content'])->get();
+                    $item['thumb'] = $temp[0]['original_thumb'];
+                }
             } else {
                 $temp = Group::where('id', $item['refer_id'])->get();
                 $item['group_title'] = $temp[0]['title'];

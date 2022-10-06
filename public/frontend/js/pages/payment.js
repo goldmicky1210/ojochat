@@ -42,12 +42,12 @@ $(document).ready(function () {
             showPhotoContent(id);
         }
     });
-    $('#checkoutModal .product-list').on('click', '.btn-close', function() {
+    $('#checkoutModal .product-list').on('click', '.btn-close', function () {
         let item = $(this).closest('.product-item');
         let key = $(item).find('.item').attr('key');
         let price = $(item).find('.item_price').text().slice(1);
         totalPrice -= Number(price);
-        selectedEmojis = selectedEmojis.filter(item =>item != key);
+        selectedEmojis = selectedEmojis.filter(item => item != key);
         $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
         $(this).closest('.product-item').remove();
     });
@@ -73,7 +73,7 @@ function tempAction() {
     let photoId = $('#photo_item .modal-content').attr('photoId');
     let addBalance = totalPrice * 0.7.toFixed(2);
     $('.payWithBalanceBtn').attr('disabled', true);
-    socket.emit('pay:blink', { photoId, selectedEmojis, addBalance, totalPrice }, (res) => {
+    socket.emit('pay:blink', { messageId, photoId, selectedEmojis, addBalance, totalPrice }, (res) => {
         if (res.status == 'OK') {
             $('#checkoutModal').modal('hide');
             alert('You paid Successfully');

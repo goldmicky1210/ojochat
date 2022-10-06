@@ -661,6 +661,7 @@ h6.read {
 .history-list .accordion-item .accordion-body .detailed_info .send_heart {
     display: flex;
     align-items: center;
+    gap: 5px;
     color: red;
 }
 

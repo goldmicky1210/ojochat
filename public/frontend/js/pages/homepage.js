@@ -595,7 +595,7 @@ function displayPaymentHistory(userId) {
                     let avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
                     let amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7).toFixed(2);
                     $('.history-list').append(`
-                        <li class="accordion-item">
+                        <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag}>
                             <h2 class="accordion-header" id="headingOne">
                             <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
                                 <a>
@@ -617,7 +617,7 @@ function displayPaymentHistory(userId) {
                             </div>
                             </h2>
                             <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
+                                <div class="accordion-body" key=${item.refer_id}>
                                     ${item.type == 0 ? `
                                         <div class="detailed_info">
                                             <img class="thumb" src="${item.thumb}" />
