@@ -622,10 +622,7 @@ function displayPaymentHistory(userId) {
                                     ${item.type == 0 ? `
                                         <div class="detailed_info">
                                             <img class="thumb" src="${item.thumb}" />
-                                            <div class="send_heart">
-                                                <i class="ti-heart"></i>
-                                                <span>Send Thanks</span>
-                                            </div>
+                                            ${!sendFlag ? `<div class="send_heart"><i class="ti-heart"></i><span>Send Thanks</span></div>` : ''}
                                         </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
                                 </div>
                             </div>

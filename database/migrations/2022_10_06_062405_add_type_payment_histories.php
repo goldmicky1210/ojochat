@@ -16,6 +16,7 @@ class AddTypePaymentHistories extends Migration
         Schema::table('payment_histories', function (Blueprint $table) {
             $table->integer('type')->default(0)->after('state');
             $table->integer('refer_id')->default(0)->after('state');
+            // $table->integer('thanks')->default(0)->after('type');
 
         });
     }
@@ -30,6 +31,7 @@ class AddTypePaymentHistories extends Migration
         Schema::table('payment_histories', function (Blueprint $table) {
             $table->dropColumn('type');
             $table->dropColumn('refer_id');
+            // $table->dropColumn('thanks');
         });
     }
 }

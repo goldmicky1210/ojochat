@@ -91,6 +91,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 }
 
 exports.sendSMS = (sender, recipient, data) => {
+    console.log(data);
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -164,6 +165,12 @@ exports.sendSMS = (sender, recipient, data) => {
                                     } else {
                                         message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
                                     }
+                                } else if (data.msgType == 'thanks') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, Thanks for your payment. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, Thanks for your payment. ${val}`;
+                                    }
                                 }
                                 console.log('message=', message);
                                 console.log(fullPhoneNumber);
@@ -180,6 +187,7 @@ exports.sendSMS = (sender, recipient, data) => {
 }
 
 exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
+    data.groupId = groupId;
     db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
         row.forEach(item => {
             let recipientSocketId = user_socketMap.get(item['user_id'].toString());
