@@ -239,6 +239,7 @@ function newMessage() {
             console.log("Request Sent");
         },
     });
+
     if ($('#direct_chat').hasClass('active')) {
         globalGroupId = currentDirectId;
         var groupType = 1;

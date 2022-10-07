@@ -775,6 +775,13 @@ h6.read {
     }
 }
 
+@media (max-width: 480px) {
+    .modal {
+        z-index: 10000;
+    }
+}
+
+
 @media (max-width: 425px) {
     .canvas-container {
         min-width: 280px !important;
