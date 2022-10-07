@@ -591,8 +591,12 @@ function showPhoto() {
         $('.selected-emojis').empty();
         selectedEmojis = [];
         showPhotoContent(messageId);
+    });
 
-    })
+    $('.history-list').on('click', '.accordion-item .accordion-body .send_heart', function () {
+        let userId = $(this).closest('.accordion-body').attr('userId');
+
+    });
 
 
 }
