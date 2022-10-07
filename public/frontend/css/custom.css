@@ -304,7 +304,7 @@ ul.chatappend .msg-box .camera-icon {
 }
 
 .emoji-picker {
-    z-index: 9999;
+    z-index: 10001;
 }
 
 .emoji-picker__preview {
@@ -519,7 +519,7 @@ ul.chatappend .msg-box .camera-icon {
 }
 
 .colorpicker {
-    z-index: 2500;
+    z-index: 10001;
 }
 
 /* .msg-box>li h5,
