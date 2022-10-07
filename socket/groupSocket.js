@@ -65,12 +65,15 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         }
     });
 
-    socket.on('send:thanksMessage', data => {
+    socket.on('send:thanksMessage', (data, callback) => {
         console.log(data);
         data.sender = currentUserId;
         data.content = "Thanks for your payment.";
         data.kind = 0;
         data.msgType = 'thanks';
+        db.query(`UPDATE payment_histories SET thanks=1 WHERE id=${data.paymentId}`, (error, data) => {
+            callback({ status: 'OK' })
+        });
         db.query(`SELECT group_id
                     FROM \`groups\` 
                     INNER JOIN users_groups 
@@ -274,7 +277,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                         console.log('You paid successfully');
                                     });
                                     db.query(`UPDATE users SET balances=balances+${group[0].fee_value * 0.7} WHERE id=${group[0].owner}`, (error, item) => {
-                                        console.log(item);
                                     });
                                     setExpireDate(currentUserId, data.currentGroupId);
                                     Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value * 0.7);
@@ -310,10 +312,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('check:expireDate', (data, callback) => {
-        console.log(data);
         db.query(`SELECT * from users_groups WHERE user_id=${data.userId} AND group_id=${data.groupId}`, (err, result) => {
             if (err) throw err;
-            console.log(result[0].expire_date);
             if (result[0].expire_date && result[0].expire_date < new Date()) {
                 db.query(`SELECT * from users WHERE id=${data.userId}`, (err, user) => {
                     db.query(`SELECT * from \`groups\` WHERE id=${data.groupId}`, (error, group) => {

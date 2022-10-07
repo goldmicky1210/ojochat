@@ -594,10 +594,14 @@ function showPhoto() {
     });
 
     $('.history-list').on('click', '.accordion-item .accordion-body .send_heart', function () {
-        let userId = $(this).closest('.accordion-item').attr('userId');
-        console.log(userId);
-        socket.emit('send:thanksMessage', { userId });
-
+        if ($(this).find('.fa-heart').hasClass('ti-heart')) {
+            let userId = $(this).closest('.accordion-item').attr('userId');
+            let paymentId = $(this).closest('.accordion-item').attr('paymentId');
+            socket.emit('send:thanksMessage', { userId, paymentId }, (res) => {
+                $(this).find('.fa-heart').removeClass('ti-heart');
+                $(this).find('.fa-heart').addClass('fa');
+            });
+        }
     });
 
 
