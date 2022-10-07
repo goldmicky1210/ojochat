@@ -653,6 +653,8 @@ function getPhotoPrice(target) {
     // return target._objects.map(item => item.price).filter(item => item && item > 0).reduce((total, item) => Number(item) + total, 0);
     let blur_price = isNaN(blurPrice) ? 0 : +blurPrice;
     let price = target._objects.filter(item => item.payersList && !item.payersList.includes(currentUserId) && +item.price > 0).map(item => item.price).reduce((total, item) => Number(item) + total, 0) + blur_price;
+    if (price - Math.floor(price) > 0) price = price.toFixed(2);
+
     return price <= 0 ? '' : '$' + price;
 }
 
@@ -1032,6 +1034,7 @@ function showPhotoContent(id) {
                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                 price == 0 ? price = photoPrice : '';
                                 if (price > 0) {
+                                    if (price - Math.floor(price) > 0) price = price.toFixed(2);
                                     $('#photo_item .modal-content .photo-price').text('$' + price);
                                 } else {
                                     $('#photo_item .modal-content .photo-price').text('');
@@ -1118,6 +1121,7 @@ function showPhotoContent(id) {
                                                 if (selectedEmojis.includes('blur')) price += blur_price;
                                                 price == 0 ? price = photoPrice : '';
                                                 if (price > 0) {
+                                                    if (price - Math.floor(price) > 0) price = price.toFixed(2);
                                                     $('#photo_item .modal-content .photo-price').text('$' + price);
                                                 } else {
                                                     $('#photo_item .modal-content .photo-price').text('');
@@ -1187,6 +1191,7 @@ function showPhotoContent(id) {
                                             if (selectedEmojis.includes('blur')) price += blur_price;
                                             price == 0 ? price = photoPrice : '';
                                             if (price > 0) {
+                                                if (price - Math.floor(price) > 0) price = price.toFixed(2);
                                                 $('#photo_item .modal-content .photo-price').text('$' + price);
                                             } else {
                                                 $('#photo_item .modal-content .photo-price').text('');
@@ -1215,6 +1220,7 @@ function showPhotoContent(id) {
                         let blur_price = blurPrice < 0 ? 0 : blurPrice;
                         if (res.data[0].blur_price) photoPrice += blur_price;
                         if (photoPrice > 0) {
+                            if (photoPrice - Math.floor(photoPrice) > 0) photoPrice = photoPrice.toFixed(2);
                             $('#photo_item .modal-content .photo-price').text('$' + photoPrice);
                         } else {
                             $('#photo_item .modal-content .photo-price').text('');
