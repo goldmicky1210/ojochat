@@ -595,6 +595,7 @@ function displayPaymentHistory(userId) {
                     let sendFlag = item.sender == currentUserId ? true : false;
                     let avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
                     let amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7).toFixed(2);
+                    let dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
                     $('.history-list').append(`
                         <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag}>
                             <h2 class="accordion-header" id="headingOne">
@@ -607,7 +608,7 @@ function displayPaymentHistory(userId) {
                                         </div>
                                         <div class="details">
                                             <h5>${sendFlag ? receiverInfo.username : senderInfo.username}</h5>
-                                            <h6 class="title">${new Date(item.created_at).toLocaleDateString()}</h6>
+                                            <h6 class="title">${dateString}</h6>
                                         </div>
                                         <div class="date-status">
                                             <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
@@ -622,7 +623,7 @@ function displayPaymentHistory(userId) {
                                     ${item.type == 0 ? `
                                         <div class="detailed_info">
                                             <img class="thumb" src="${item.thumb}" />
-                                            ${!sendFlag ? `<div class="send_heart"><i class="ti-heart"></i><span>Send Thanks</span></div>` : ''}
+                                            ${!sendFlag ? `<div class="send_heart"><i class="fa-regular fa-heart"></i><span>Send Thanks</span></div>` : ''}
                                         </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
                                 </div>
                             </div>
