@@ -93,6 +93,11 @@ class HomeController extends Controller
         return array('state' => 'true', 'data' => $result);;
     }
 
+    public function getRamdomPic($dir = 'images/backgrounds') {
+        $files = glob($dir.'/*.*');
+        $file = array_rand($files);
+        return $files[$file];
+    }
     public function getCurrentGroupChatContent(Request $request) {
         $id = Auth::id();
         $groupId = $request->input('currentGroupId');
@@ -137,10 +142,11 @@ class HomeController extends Controller
                 return $item;
             }
         });
+        $file = $this->getRamdomPic();
         $groupInfo = Group::where('id', $groupId)->first();
         $userStatus = UsersGroup::where('group_id', $groupId)->where('user_id', $id)->first('status');
         
-        return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo, 'userStatus'=>$userStatus);
+        return array('state'=>'true','messageData'=>$messages, 'groupInfo'=>$groupInfo, 'userStatus'=>$userStatus, 'backgroundImage'=>$file);
     }
     
     public function getRateData(Request $request) {

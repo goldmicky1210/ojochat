@@ -585,7 +585,6 @@ function displayPaymentHistory(userId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res.data);
             if (res.state == 'true') {
                 $('.history-list').empty();
                 res.data.forEach((item, index) => {

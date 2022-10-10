@@ -489,7 +489,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Invite');
- 
+
         new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
@@ -891,11 +891,11 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res);
             if (res.state == 'true') {
                 $(target).empty();
                 getUsersList();
-                let { messageData, groupInfo, userStatus } = res;
+                let { messageData, groupInfo, userStatus, backgroundImage } = res;
+                $('.messages.active').css('backgroundImage', `url("${backgroundImage}")`);
                 // chat page setting
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
