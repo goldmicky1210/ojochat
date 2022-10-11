@@ -146,6 +146,11 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                if (res.state = true) {
+                    alert('Image is uploaded Successfully');
+                } else {
+                    alert('Upload Failed');
+                }
             },
             error: function (response) {
 
