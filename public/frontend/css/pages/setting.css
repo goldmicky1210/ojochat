@@ -1,0 +1,27 @@
+.chatWallpaper>div {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    position: relative;
+}
+
+.backgroundImagePreview {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-image: url('/images/backgrounds/back\ \(1\).png');
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+#backgroundImageFileSelect {
+    position: absolute;
+    background-color: transparent;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    opacity: 0;
+    top: 0;
+}

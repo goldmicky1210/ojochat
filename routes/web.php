@@ -49,6 +49,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/setting/setPhoneNumber', 'SettingController@setPhoneNumber');
     Route::post('/setting/getPhoneNumber', 'SettingController@getPhoneNumber');
     Route::post('/setting/setNotification', 'SettingController@setNotification');
+    Route::post('/setting/uploadBackgroundImage', 'SettingController@uploadBackgroundImage');
     Route::post('/message/deleteChatThread', 'MessageController@deleteChatThread');
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
     Route::post('/message/deleteThread', 'MessageController@deleteThread');

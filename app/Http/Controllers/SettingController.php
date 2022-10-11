@@ -69,4 +69,15 @@ class SettingController extends Controller
             'update' => true,
         );
     }
+
+    public function uploadBackgroundImage(Request $request) {
+        if ($request->file('backgroundImage') != null) {
+            $file = $request->file('backgroundImage');
+            $file->store('/images/backgrounds', ['disk' => 'my_files']);
+        }
+        return array(
+            'message' => 'Upload Successfully',
+            'state' => true,
+        );
+    }
 }

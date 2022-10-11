@@ -661,17 +661,16 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <h5>Chat wallpaper</h5>
-                                <ul class="wallpaper">
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/2.jpg" alt="Avatar" /></li>
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/1.jpg" alt="Avatar" /></li>
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/3.jpg" alt="Avatar" /></li>
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/4.jpg" alt="Avatar" /></li>
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/5.jpg" alt="Avatar" /></li>
-                                    <li><img class="bg-img" src="/chat/images/wallpaper/6.jpg" alt="Avatar" /></li>
-                                </ul>
-                            </li>
+                            @if (Auth::user()->username == 'OJOChat' || Auth::user()->username == 'Cool Dev')
+                                <li class="chatWallpaper">
+                                    <h5>Chat wallpaper</h5>
+                                    <div class="">
+                                        <div class="backgroundImagePreview"></div>
+                                        <input type="file" id="backgroundImageFileSelect">
+                                        <button class="uploadBackgroundImageBtn">Upload</button>
+                                    </div>
+                                </li>
+                            @endif
                             <li>
                                 <h5> <a href="#">Archive all chat</a></h5>
                             </li>

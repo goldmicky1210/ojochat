@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var phoneNumberInput = document.querySelector('#phone');
     var telInput = $("#phone"),
         errorMsg = $("#error-msg"),
@@ -7,14 +7,14 @@ $(document).ready(function() {
     // var iti = window.intlTelInput(phoneNumberInput, {
     //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.16/js/utils.js"
     // })
-    var reset = function() {
+    var reset = function () {
         telInput.removeClass("error");
         errorMsg.addClass("hide");
         validMsg.addClass("hide");
     };
 
     // on blur: validate
-    telInput.blur(function() {
+    telInput.blur(function () {
         reset();
         let isValid = iti.isValidNumber();
         console.log(iti.getNumber());
@@ -88,12 +88,12 @@ $(document).ready(function() {
             processData: false,
             type: 'POST',
             dataType: "json",
-            success: function(res) {
+            success: function (res) {
                 if (res.update == 'true') {
                     alert('Phone Number saved correctly');
                 }
             },
-            error: function(response) {}
+            error: function (response) { }
         });
 
     });
@@ -114,9 +114,43 @@ $(document).ready(function() {
             type: 'POST',
             dataType: "json",
             data: form_data,
-            success: function(res) {},
-            error: function(response) {}
+            success: function (res) { },
+            error: function (response) { }
         });
-    })
+    });
+
+    // wallpaper setting
+    $('#backgroundImageFileSelect').on('change', function (e) {
+        let backgroundImageFile = $(this)[0].files[0];
+        let reader = new FileReader();
+        files = e.target.files;
+        reader.onload = () => {
+            $('.backgroundImagePreview').css('background-image', `url("${reader.result}")`);
+        }
+        if (files.length)
+            reader.readAsDataURL(files[0]);
+    });
+    $('.uploadBackgroundImageBtn').on('click', function () {
+        let form_data = new FormData();
+        form_data.append('backgroundImage', $('#backgroundImageFileSelect')[0].files[0] || null);
+        $.ajax({
+            url: '/setting/uploadBackgroundImage',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (response) {
+
+            }
+        });
+    });
 
 })
