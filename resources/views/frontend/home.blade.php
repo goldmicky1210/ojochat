@@ -456,9 +456,7 @@
                                 <div class="collapse" id="collapseSeven" aria-labelledby="headingSeven"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <a class="p-0 font-primary button-effect balance" href="payment-histories"> Show
-                                            History
-                                        </a>
+                                        <a class="p-0 font-primary button-effect balance" href="payment-histories">Show History</a>
                                         <a class="p-0 font-primary" href="#"> Connect Payment </a>
                                         <div class="content">
                                             <div class="links">

@@ -669,6 +669,10 @@ h6.read {
     width: 100px;
 }
 
+.chitchat-main .messages.active {
+    background-size: cover;
+}
+
 @media (max-width: 1366px) {
     .sidebar-active .chitchat-container .chitchat-main.section-py-space {
         width: 100%;
