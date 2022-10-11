@@ -787,9 +787,9 @@ function addTextOnPhoto() {
             let textBox = new fabric.Textbox(text, {
                 with: 200,
                 fontSize: 35,
-                fill: '#4700B3',
+                fill: '#000000',
                 textAlign: 'center',
-                backgroundColor: '#C4E6C1',
+                backgroundColor: '#FFFFFF00',
                 editable: false,
                 price: price,
                 payersList: []
@@ -833,6 +833,7 @@ function addTextOnPhoto() {
         let modalId = $(e.target).closest('.modal').attr('id');
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
         let color = e.color.toString();
+        console.log(color);
         $(this).css('backgroundColor', color);
         $(this).attr('value', color);
         if (target.getActiveObject()) {

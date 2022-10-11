@@ -508,14 +508,14 @@ ul.chatappend .msg-box .camera-icon {
 .colorPicker {
     width: 30px;
     height: 30px;
-    background-color: #4700B3;
+    background-color: #000000;
     border-radius: 5px;
     /* outline: 1px solid rgba(0, 100, 0, 0.938); */
     border: 1px solid rgba(0, 100, 0, 0.938) !important;
 }
 
 .backColorPicker {
-    background-color: #C4E6C1;
+    background-color: #FFFFFF00;
 }
 
 .colorpicker {

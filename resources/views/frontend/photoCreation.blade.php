@@ -9,8 +9,8 @@
             <span class="bold">B</span>
             <span class="italic">I</span>
         </div>
-        <div class="colorPicker fontColorPicker" value="#4700B3"></div>
-        <div class="colorPicker backColorPicker" value="#4700B3"></div>
+        <div class="colorPicker fontColorPicker" value="#000000"></div>
+        <div class="colorPicker backColorPicker" value="#FFFFFF"></div>
 
         <button type="button" class="btn btn-primary btn-sm addText">Add</button>
     </div>
