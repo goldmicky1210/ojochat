@@ -1,7 +1,26 @@
-.contact-profile details  .name > h3,
-#slide-menu > div > div.contact-profile > div.theme-title > div > div:nth-child(1) > h2 {
+.contact-profile details .name>h3,
+#slide-menu>div>div.contact-profile>div.theme-title>div>div:nth-child(1)>h2 {
     width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.shared_media .media_list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    margin-top: 10px;
+}
+
+.shared_media .media_list .media-small {
+    overflow: hidden;
+}
+
+.shared_media .media_list .border-portfolio {
+    border: 1px solid gray;
+}
+
+.portfolio-section .isotopeSelector img {
+    max-height: 72px;
 }

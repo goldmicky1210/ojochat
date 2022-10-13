@@ -166,6 +166,32 @@ class HomeController extends Controller
         return array('state'=>'true', 'rateData'=>$rateData);
     }
 
+    public function getSharedMedia(Request $request) {
+        $userId = $request->input('userId');
+        $groupId = $request->input('groupId');
+        $sendData = array();
+        $receiveData = array();
+        if ($groupId) {
+            $belongGroup = array(array('group_id'=>$groupId));
+        } else {
+            $belongGroup = UsersGroup::where('user_id', $userId)->get('group_id');
+        }
+        foreach($belongGroup as $group) {
+            $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->get(['sender', 'group_id', 'content']);
+            foreach($messageData as $item) {
+                $tempData = PhotoGallery::where('id', $item['content'])->first();
+                $item['id'] = $tempData['id'];
+                $item['photo'] = $tempData['photo'];
+                $item['original_thumb'] = $tempData['original_thumb'];
+                if ($item['sender'] == $userId) {
+                    array_push($sendData, $item);
+                } else {
+                    array_push($receiveData, $item);
+                }
+            }
+        }
+        return array('state'=>'true', 'sendData'=>$sendData, 'receiveData'=> $receiveData);
+    }
 
     public function getRecentChatData(Request $request) {
         

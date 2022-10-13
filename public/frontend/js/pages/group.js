@@ -899,6 +899,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 $('.messages.active').css('backgroundBlendMode', 'overlay');
                 $('.messages.active').css('backgroundColor', '#eff7fe');
                 // chat page setting
+                showSharedMedia(groupId);
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     setUserProfileContent(contactId);

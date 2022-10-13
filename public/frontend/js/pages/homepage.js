@@ -479,7 +479,61 @@ function openAndCloseProfile() {
 }
 
 function showSharedMedia(groupId) {
-
+    var form_data = new FormData();
+    form_data.append('userId', currentUserId);
+    form_data.append('groupId', groupId);
+    $.ajax({
+        url: '/home/showSharedMedia',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                $('.shared_media .media_list').empty();
+                res.sendData.forEach(item => {
+                    $('.shared_media .send_data').append(`
+                        <div class="media-small isotopeSelector filter" photoId=${item.id}>
+                            <div class="overlay">
+                                <div class="border-portfolio">
+                                    <a href=${item.photo}>
+                                        <div class="overlay-background">
+                                            <i class="ti-plus" aria-hidden="true"></i>
+                                        </div>
+                                        <img class="img-fluid bg-img" src=${item.photo} alt="portfolio-image"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+                res.receiveData.forEach(item => {
+                    $('.shared_media .receive_data').append(`
+                        <div class="media-small isotopeSelector filter" photoId=${item.id}>
+                            <div class="overlay">
+                                <div class="border-portfolio">
+                                    <a href=${item.photo}>
+                                        <div class="overlay-background">
+                                            <i class="ti-plus" aria-hidden="true"></i>
+                                        </div>
+                                        <img class="img-fluid bg-img" src=${item.photo} alt="portfolio-image"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                })
+                console.log(res.sendData);
+                console.log(res.receiveData);
+            }
+        },
+        error: function (response) { }
+    });
 }
 
 function displayRecentChatFriends(recentChatUsers) {
