@@ -1671,11 +1671,11 @@
                         </h5>
                         <div class="block-content">
                             <div class="share-media zoom-gallery shared_media">
-                                <span>Send Blink</span>
+                                <span>Sent Blink</span>
                                 <div class="send_data media_list">
                                     
                                 </div>
-                                <span>Receive Blink</span>
+                                <span>Received Blink</span>
                                 <div class="receive_data media_list">
                                         
                                 </div>
