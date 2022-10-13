@@ -597,7 +597,8 @@ function showPhoto() {
         if ($(this).find('.fa-heart').hasClass('ti-heart')) {
             let userId = $(this).closest('.accordion-item').attr('userId');
             let paymentId = $(this).closest('.accordion-item').attr('paymentId');
-            socket.emit('send:thanksMessage', { userId, paymentId }, (res) => {
+            let senderName = getCertainUserInfoById(currentUserId).username;
+            socket.emit('send:thanksMessage', { userId, paymentId, senderName }, (res) => {
                 $(this).find('.fa-heart').removeClass('ti-heart');
                 $(this).find('.fa-heart').addClass('fa');
             });

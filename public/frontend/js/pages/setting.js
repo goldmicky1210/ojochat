@@ -133,29 +133,31 @@ $(document).ready(function () {
     $('.uploadBackgroundImageBtn').on('click', function () {
         let form_data = new FormData();
         form_data.append('backgroundImage', $('#backgroundImageFileSelect')[0].files[0] || null);
-        $.ajax({
-            url: '/setting/uploadBackgroundImage',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                console.log(res);
-                if (res.state = true) {
-                    alert('Image is uploaded Successfully');
-                } else {
-                    alert('Upload Failed');
-                }
-            },
-            error: function (response) {
+        if ($('#backgroundImageFileSelect')[0].files.length) {
+            $.ajax({
+                url: '/setting/uploadBackgroundImage',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if (res.state = true) {
+                        alert('Image is uploaded Successfully');
+                    } else {
+                        alert('Upload Failed');
+                    }
+                },
+                error: function (response) {
 
-            }
-        });
+                }
+            });
+        }
     });
 
 })

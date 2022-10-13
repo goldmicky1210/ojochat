@@ -360,7 +360,6 @@ function setUserProfileContent(userId) {
     });
 }
 
-
 function setGroupProfileContent(groupId) {
     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
 
@@ -477,6 +476,10 @@ function openAndCloseProfile() {
         $('.app-sidebar').removeClass('active');
         $('.chitchat-main').removeClass("small-sidebar");
     }
+}
+
+function showSharedMedia(groupId) {
+
 }
 
 function displayRecentChatFriends(recentChatUsers) {

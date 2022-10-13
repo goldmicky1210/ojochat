@@ -166,10 +166,11 @@ exports.sendSMS = (sender, recipient, data) => {
                                         message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
                                     }
                                 } else if (data.msgType == 'thanks') {
+                                    console.log(data);
                                     if (spainish) {
-                                        message = `Hola ${row[0].username}, Thanks for your payment. ${val}`;
+                                        message = `${data.senderName} acaba de enviar un agradecimiento en OJOChat. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, Thanks for your payment. ${val}`;
+                                        message = `${data.senderName} just sent a Thank You on OJOChat. ${val}`;
                                     }
                                 }
                                 console.log('message=', message);
