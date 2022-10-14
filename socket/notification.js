@@ -91,7 +91,6 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 }
 
 exports.sendSMS = (sender, recipient, data) => {
-    console.log(data);
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -166,7 +165,6 @@ exports.sendSMS = (sender, recipient, data) => {
                                         message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
                                     }
                                 } else if (data.msgType == 'thanks') {
-                                    console.log(data);
                                     if (spainish) {
                                         message = `${data.senderName} acaba de enviar un agradecimiento en OJOChat. ${val}`;
                                     } else {

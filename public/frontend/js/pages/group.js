@@ -1038,3 +1038,32 @@ function getCertainGroupInfo(groupId) {
     });
     return result;
 }
+
+function getContactorInfoByGroupId(userId, groupId) {
+    var form_data = new FormData();
+    form_data.append('userId', userId);
+    form_data.append('groupId', groupId);
+    var result;
+    $.ajax({
+        url: '/group/getContactorInfoByGroupId',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                result = res.id;
+            } else {
+
+            }
+        },
+        error: function (response) { }
+    });
+    return result;
+}

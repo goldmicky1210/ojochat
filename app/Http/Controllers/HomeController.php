@@ -52,9 +52,7 @@ class HomeController extends Controller
         ->orderBy('groups.created_at', 'desc')
         ->get('groups.*')->toArray();
         if (count($groupArrs)) {
-            // $result = Group::where()
             foreach($groupArrs as $index => $group) {
-                // array_push($result, $this->getGroupUsers($group['id']));
                 $groupArrs[$index]['users'] = $this->getGroupUsers($group['id']);
                 $groupArrs[$index]['lastMessage'] = Message::where('group_id', $group['id'])->orderBy('created_at', 'desc')->first();
             }
@@ -63,7 +61,6 @@ class HomeController extends Controller
                     return $item["owner"] == Auth::id();
                 });
             }
-            // $groupArrs = collect($groupArrs)->sortBy('lastMessage')
             usort($groupArrs, function ($a, $b) {
                 $val1 = $a['lastMessage'] ? strtotime($a['lastMessage']['created_at']) : strtotime($a['created_at']);
                 $val2 = $b['lastMessage'] ? strtotime($b['lastMessage']['created_at']) : strtotime($b['created_at']);
@@ -171,10 +168,10 @@ class HomeController extends Controller
         $groupId = $request->input('groupId');
         $sendData = array();
         $receiveData = array();
-        if ($groupId) {
-            $belongGroup = array(array('group_id'=>$groupId));
+        if ($groupId != 'undefined') {
+            $belongGroup = Group::where('id', $groupId)->get(['id as group_id', 'title', 'type']);
         } else {
-            $belongGroup = UsersGroup::where('user_id', $userId)->get('group_id');
+            $belongGroup = UsersGroup::join('groups', 'groups.id', '=', 'users_groups.group_id')->where('user_id', $userId)->get(['group_id', 'title', 'type']);
         }
         foreach($belongGroup as $group) {
             $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->get(['sender', 'group_id', 'content']);
@@ -183,6 +180,8 @@ class HomeController extends Controller
                 $item['id'] = $tempData['id'];
                 $item['photo'] = $tempData['photo'];
                 $item['original_thumb'] = $tempData['original_thumb'];
+                $item['title'] = $group['title'];
+                $item['type'] = $group['type'];
                 if ($item['sender'] == $userId) {
                     array_push($sendData, $item);
                 } else {

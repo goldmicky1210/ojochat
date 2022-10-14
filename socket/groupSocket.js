@@ -259,7 +259,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('join:group', (data, callback) => {
-        console.log(data);
         db.query(`SELECT * from users WHERE id=${currentUserId}`, (error, user) => {
             if (user.length) {
                 db.query(`SELECT * from \`groups\` WHERE id=${data.currentGroupId}`, (error, group) => {

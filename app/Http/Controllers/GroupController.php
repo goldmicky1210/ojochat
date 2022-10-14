@@ -41,4 +41,15 @@ class GroupController extends Controller
             return array('state' => 'false');
         }
     }
+
+    public function getContactorInfoByGroupId(Request $request) {
+        $userId = $request->input('userId');
+        $groupId = $request->input('groupId');
+        $contactorId = UsersGroup::where('group_id', $groupId)->where('user_id','!=', $userId)->first()['user_id'];
+        if ($contactorId) {
+            return array('state' => 'true', 'id' => $contactorId);
+        } else {
+            return array('state' => 'false');
+        }
+    }
 }

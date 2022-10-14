@@ -61,6 +61,7 @@ $(document).ready(() => {
 
     $('.self_profile_btn').on('click', () => {
         setUserProfileContent(currentUserId);
+        showSharedMedia();
         $('.chitchat-container').toggleClass("mobile-menu");
         if ($(window).width() <= 768) {
             $('.main-nav').removeClass("on");
@@ -497,11 +498,17 @@ function showSharedMedia(groupId) {
             if (res.state == 'true') {
                 $('.shared_media .media_list').empty();
                 res.sendData.forEach(item => {
+                    let title = item.title;
+                    if (item.type == 1) {
+                        title = getCertainUserInfoById(getContactorInfoByGroupId(item.sender, item.group_id)).username;
+                    } else {
+                        title = item.title;
+                    }
                     $('.shared_media .send_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
-                                    <a href=${item.photo} title="To: ${getCertainUserInfoById(item.sender).username}">
+                                    <a href=${item.photo} title="To: ${title}">
                                         <div class="overlay-background">
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>
@@ -513,11 +520,13 @@ function showSharedMedia(groupId) {
                     `);
                 });
                 res.receiveData.forEach(item => {
+                    let title = getCertainUserInfoById(item.sender).username;
+                    if (item.type == 2) title = title + ' in ' + item.title;
                     $('.shared_media .receive_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
-                                    <a href=${item.photo} title="From: ${getCertainUserInfoById(item.sender).username}">
+                                    <a href=${item.photo} title="From: ${title}">
                                         <div class="overlay-background">
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>
