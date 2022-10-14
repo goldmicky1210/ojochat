@@ -501,7 +501,7 @@ function showSharedMedia(groupId) {
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
-                                    <a href=${item.photo}>
+                                    <a href=${item.photo} title="To: ${getCertainUserInfoById(item.sender).username}">
                                         <div class="overlay-background">
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>
@@ -517,7 +517,7 @@ function showSharedMedia(groupId) {
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
-                                    <a href=${item.photo}>
+                                    <a href=${item.photo} title="From: ${getCertainUserInfoById(item.sender).username}">
                                         <div class="overlay-background">
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>

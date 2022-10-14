@@ -1,7 +1,7 @@
 /*=====================
  Zoom gallery Js
  ==========================*/
-(function($) {
+(function ($) {
     "use strict";
 
     $('.zoom-gallery').magnificPopup({
@@ -12,8 +12,8 @@
         mainClass: 'mfp-with-zoom mfp-img-mobile',
         image: {
             verticalFit: true,
-            titleSrc: function(item) {
-                return item.el.attr('title') + ' &middot;';
+            titleSrc: function (item) {
+                return item.el.attr('title');
             }
         },
         gallery: {
@@ -22,7 +22,7 @@
         zoom: {
             enabled: true,
             duration: 300,
-            opener: function(element) {
+            opener: function (element) {
                 return element.find('img');
             }
         }
