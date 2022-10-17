@@ -628,8 +628,10 @@
         }
         if (admins.split(',').includes(currentUserId.toString())) {
             $('.chat-frind-content').find('.add_users_btn').removeClass('hidden');
+            $('.chat-frind-content').find('.remove_group_btn').removeClass('hidden');
         } else {
             $('.chat-frind-content').find('.add_users_btn').addClass('hidden');
+            $('.chat-frind-content').find('.remove_group_btn').addClass('hidden');
         }
     });
 
