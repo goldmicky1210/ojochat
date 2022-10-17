@@ -373,11 +373,15 @@ class HomeController extends Controller
                 $message = Message::where('id', $item['refer_id'])->get();
                 if (count($message)) {
                     $temp = PhotoGallery::where('id', $message[0]['content'])->get();
-                    $item['thumb'] = $temp[0]['original_thumb'];
+                    if (count($temp)) {
+                        $item['thumb'] = $temp[0]['original_thumb'];
+                    }
                 }
             } else {
                 $temp = Group::where('id', $item['refer_id'])->get();
-                $item['group_title'] = $temp[0]['title'];
+                if (count($temp)) {
+                    $item['group_title'] = $temp[0]['title'];
+                }
             }
             return $item;
         });
