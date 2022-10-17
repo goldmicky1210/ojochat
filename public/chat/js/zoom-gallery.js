@@ -13,7 +13,7 @@
         image: {
             verticalFit: true,
             titleSrc: function (item) {
-                return item.el.attr('title');
+                return item.el.attr('title') + '<br/> Date: ' + item.el.attr('date');
             }
         },
         gallery: {
@@ -26,6 +26,5 @@
                 return element.find('img');
             }
         }
-
     });
 })(jQuery);

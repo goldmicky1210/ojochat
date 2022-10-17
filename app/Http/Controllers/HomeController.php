@@ -182,6 +182,7 @@ class HomeController extends Controller
                 $item['original_thumb'] = $tempData['original_thumb'];
                 $item['title'] = $group['title'];
                 $item['type'] = $group['type'];
+                $item['created_at'] = $tempData['created_at'];
                 if ($item['sender'] == $userId) {
                     array_push($sendData, $item);
                 } else {
