@@ -696,11 +696,12 @@ function addNewGroupItem(target, data) {
                         <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
                         <div class="thread_info_content">
                             <ul>
-                                <li class="delete_thread">
-                                    <a class="icon-btn btn-outline-primary button-effect btn-xs"
-                                        href="#"><i class="ti-trash"></i></a>
+                                ${type == 1 || admins.split(',').includes(currentUserId.toString()) ? `<li class="delete_thread">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                        <i class="ti-trash"></i>
+                                    </a>
                                     <h5>Remove</h5>
-                                </li>
+                                </li>` : ''}
                             </ul>
                         </div>
                     </div>
@@ -768,12 +769,15 @@ function addGroupChatItem(target, data, loadFlag) {
     let time = data.created_at ? new Date(data.created_at) : new Date();
 
     if (data.kind == 3) {
-        var inviteContent = `
-        <div class="content invite_link" inviteGroupId=${data.content}>
-            <p class="invite_group_title">Join Group: ${data.inviteGroupTitle}</p>
-            <p class="invite_group_fee">${data.inviteGroupFeeType ? "Price " + groupFeeTypeConstant[data.inviteGroupFeeType] + ": $" + data.inviteGroupFeeValue : "Free"}</p>
-            <button class="btn btn-sm btn-success">Pay</button>
-         </div>`;
+        var inviteContent = data.inviteGroupTitle ? `
+            <div class="content invite_link" inviteGroupId=${data.content}>
+                <p class="invite_group_title">Join Group: ${data.inviteGroupTitle}</p>
+                <p class="invite_group_fee">${data.inviteGroupFeeType ? "Price " + groupFeeTypeConstant[data.inviteGroupFeeType] + ": $" + data.inviteGroupFeeValue : "Free"}</p>
+                <button class="btn btn-sm btn-success">Pay & Join</button>
+            </div>` :
+            `<div class="content invite_link" inviteGroupId=${data.content}>
+                <p class="invite_group_title">Invited Group is delelted</p>
+            </div>`;
     } else if (data.kind == 4) {
         var fileContent = getFileContent(data);
     }

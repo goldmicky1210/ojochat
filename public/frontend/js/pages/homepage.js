@@ -538,9 +538,7 @@ function showSharedMedia(groupId) {
                             </div>
                         </div>
                     `);
-                })
-                console.log(res.sendData);
-                console.log(res.receiveData);
+                });
             }
         },
         error: function (response) { }

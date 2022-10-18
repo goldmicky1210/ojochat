@@ -73,6 +73,7 @@ class MessageController extends Controller
         $res = Group::where("id", $groupId)->delete();
         if ($res) {
             Message::where("group_id", $groupId)->delete();
+            Message::where('content', $groupId)->where('kind', 3)->delete();
             return array('state'=>'true', 'data'=>$res);
         } else {
             return array('state' => 'false');

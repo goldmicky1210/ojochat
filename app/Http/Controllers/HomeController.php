@@ -126,9 +126,11 @@ class HomeController extends Controller
             }
             if ($item['kind'] == 3) {
                 $temp = Group::where('id', $item['content'])->get();
-                $item['inviteGroupTitle'] = $temp[0]['title'];
-                $item['inviteGroupFeeType'] = $temp[0]['fee_type'];
-                $item['inviteGroupFeeValue'] = $temp[0]['fee_value'];
+                if (count($temp)) {
+                    $item['inviteGroupTitle'] = $temp[0]['title'];
+                    $item['inviteGroupFeeType'] = $temp[0]['fee_type'];
+                    $item['inviteGroupFeeValue'] = $temp[0]['fee_value'];
+                }
                 return $item;
             }
             if ($item['kind'] == 4) {
