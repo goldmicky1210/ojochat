@@ -49,37 +49,37 @@ $(document).ready(function () {
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '.thread_info li.delete_thread', function (e) {
         e.stopPropagation();
         let groupId = $(this).closest('.chat-main>li').attr('groupId');
-        // currentGroupId = $('#group .group-main>li.active').next().attr('groupId') || $('#group .group-main>li.active').prev().attr('groupId');
 
-        console.log(groupId);
-        // $(this).find('.thread_info_content').toggle();
         if (confirm('Delete this Thread?')) {
-            let form_data = new FormData();
-            form_data.append('groupId', groupId);
-            $.ajax({
-                url: '/message/deleteThread',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                dataType: "json",
-                success: function (res) {
-                    if (res.state = 'true') {
-                        $(e.currentTarget).closest('.chat-main>li').remove();
-                        // $(e.currentTarget).closest('.date-status').closest('li').remove();
-                        // $(`#cast li[recipiet=${recipient}]`).remove();
-                    }
-                },
-                error: function (response) {
-
-                }
-            });
+            deleteGroup(groupId, this);
         }
     });
+    function deleteGroup(groupId, element) {
+        let form_data = new FormData();
+        form_data.append('groupId', groupId);
+        $.ajax({
+            url: '/message/deleteThread',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state = 'true') {
+                    $(element).closest('.chat-main>li').remove();
+                    // $(e.currentTarget).closest('.date-status').closest('li').remove();
+                    // $(`#cast li[recipiet=${recipient}]`).remove();
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+    }
 
     socket.on('arrive:message', message => {
         setTimeout(() => {
@@ -208,7 +208,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.chat-content .scroll-bottom-btn').on('click', function() {
+    $('.chat-content .scroll-bottom-btn').on('click', function () {
         $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
         $('.chat-content .unread_msg_count').addClass('hidden');
         $('.chat-content .unread_msg_count').text('0');
@@ -409,7 +409,7 @@ function convertListItems() {
 }
 
 function checkExpireStatus(userId, groupId) {
-    socket.emit('check:expireDate', {userId, groupId}, res => {
+    socket.emit('check:expireDate', { userId, groupId }, res => {
         console.log(res);
         if (res.status == 'expired') {
             alert('You have not enough balance for join this group. Please deposit balance');

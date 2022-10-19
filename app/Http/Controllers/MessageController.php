@@ -29,7 +29,7 @@ class MessageController extends Controller
 {
     public function getLastMessage(Request $request) {
         $groupId = $request->input('groupId');
-        $lastMessage = Message::where('group_id', $groupId)->orderBy('created_at', 'desc')->first();
+        $lastMessage = Message::where('group_id', $groupId)->where('deleted', 0)->orderBy('created_at', 'desc')->first();
         return array('state' => 'true', 'data' => $lastMessage);
     }
 
@@ -47,7 +47,7 @@ class MessageController extends Controller
     public function deleteChatThread(Request $request) {
         $userId = Auth::id();
         $recipients = $request->input('recipient');
-        $res = Message::whereRaw("sender = ".$userId." AND recipient = ".$recipients)->orWhereRaw("sender = ".$recipients." AND recipient = ".$userId)->delete();
+        $res = Message::whereRaw("sender = ".$userId." AND recipient = ".$recipients)->orWhereRaw("sender = ".$recipients." AND recipient = ".$userId)->update(array('deleted'=> 1));
         if ($res) {
             return array('state'=>'true', 'data'=>$res);
         } else {
@@ -70,10 +70,10 @@ class MessageController extends Controller
     public function deleteThread(Request $request) {
         $userId = Auth::id();
         $groupId = $request->input('groupId');
-        $res = Group::where("id", $groupId)->delete();
+        $res = Group::where("id", $groupId)->update(array('deleted'=>1));
         if ($res) {
-            Message::where("group_id", $groupId)->delete();
-            Message::where('content', $groupId)->where('kind', 3)->delete();
+            Message::where("group_id", $groupId)->update(array('deleted'=>1));
+            Message::where('content', $groupId)->where('kind', 3)->update(array('deleted'=>1));
             return array('state'=>'true', 'data'=>$res);
         } else {
             return array('state' => 'false');

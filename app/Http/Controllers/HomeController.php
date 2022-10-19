@@ -49,12 +49,13 @@ class HomeController extends Controller
         ->join('groups', 'users_groups.group_id', '=', 'groups.id')
         ->where('users.id', $id)
         ->where('groups.type', $type)
+        ->where('deleted', 0)
         ->orderBy('groups.created_at', 'desc')
         ->get('groups.*')->toArray();
         if (count($groupArrs)) {
             foreach($groupArrs as $index => $group) {
                 $groupArrs[$index]['users'] = $this->getGroupUsers($group['id']);
-                $groupArrs[$index]['lastMessage'] = Message::where('group_id', $group['id'])->orderBy('created_at', 'desc')->first();
+                $groupArrs[$index]['lastMessage'] = Message::where('group_id', $group['id'])->where('deleted', 0)->orderBy('created_at', 'desc')->first();
             }
             if ($type == 3) {
                 $groupArrs = array_filter($groupArrs, function ($item) {
@@ -98,7 +99,7 @@ class HomeController extends Controller
     public function getCurrentGroupChatContent(Request $request) {
         $id = Auth::id();
         $groupId = $request->input('currentGroupId');
-        $messageData = Message::where("group_id", $groupId)->orderBy('created_at', 'desc')->limit(15)->get();
+        $messageData = Message::where("group_id", $groupId)->where('deleted', 0)->orderBy('created_at', 'desc')->limit(15)->get();
         $messages = $messageData->map(function($item) {
             $rate = Rate::where('message_id', $item['id'])->avg('rate');
             $item['rate'] = $rate;
