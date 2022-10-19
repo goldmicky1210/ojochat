@@ -285,7 +285,7 @@ const onConnection = (socket) => {
                     // db.query(`DELETE FROM photo_galleries WHERE id=${data.photoId}`, (error, item) => {
                     //     if (!error) console.log(data.photoId, ': photo deleted')
                     // });
-                    db.query(`DELETE FROM messages WHERE id=${data.messageId}`, (error, item) => {
+                    db.query(`UPDATE messages SET deleted=1 WHERE id=${data.messageId}`, (error, item) => {
                         if (!error) {
                             db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
                                 row.forEach(item => {
@@ -300,7 +300,7 @@ const onConnection = (socket) => {
                 }
             });
         } else {
-            db.query(`DELETE FROM messages WHERE id=${data.messageId}`, (error, item) => {
+            db.query(`UPDATE messages SET deleted=1 WHERE id=${data.messageId}`, (error, item) => {
                 if (!error) {
                     db.query(`SELECT user_id FROM users_groups WHERE group_id="${data.globalGroupId}"`, (error, row) => {
                         row.forEach(item => {
