@@ -810,15 +810,9 @@
         }
     });
 
-    $(".emojis-sub-contain ul li").click(function () {
-        var number = $(this).html();
-        $("#setemoj").focus().val(function () {
-            return this.value + number;
-            $(".messages").animate({
-                scrollTop: $(document).height()
-            }, "fast");
-        });
-        $('#send-msg').removeClass('disabled').removeAttr("disabled")
+    $(".emojis-sub-contain ul").click('li', function () {
+
+        $('#createPhoto').modal('show');
     });
 
 
@@ -912,7 +906,7 @@
                     res.data.forEach(item => {
                         console.log(item);
                         $(target).append(`
-                            <li><img class="saved_blink_item" src=${item.photo} /></li>
+                            <li key=${item.id}><img class="saved_blink_item" src=${item.photo} /></li>
                         `);
                     });
                 }
