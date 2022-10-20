@@ -360,6 +360,17 @@ class HomeController extends Controller
         return array('state'=>'false', 'message'=>'no message');
 
     }
+
+    public function getBlinkData(Request $request)
+    {
+        $blinkId = $request->input('blinkId');
+        $blinkData = PhotoGallery::where('id', $blinkId)->get();
+        if (count($blinkData)) {
+            return array('state'=>'true', 'data'=>$blinkData);
+        }
+        return array('state'=>'false', 'message'=>'no blink');
+
+    }
     public function setContentRate(Request $request)
     {
         $messageId = $request->input('messageId');

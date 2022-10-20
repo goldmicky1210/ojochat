@@ -810,9 +810,10 @@
         }
     });
 
-    $(".emojis-sub-contain ul").click('li', function () {
-
+    $(".emojis-sub-contain ul").click('li', (e) => {
+        let blinkId = $(e.target).closest('li').attr('key');
         $('#createPhoto').modal('show');
+        showBlinkData(blinkId);
     });
 
 
@@ -882,7 +883,7 @@
         $(".sticker-contain").removeClass("open");
         $(".toggle-sticker").removeClass("active");
         $('.contact-poll-content').css('display', 'none');
-        console.log(currentUserId);
+        // create blink modal open
         showSavedBlinks(currentUserId);
     });
     function showSavedBlinks(userId) {
@@ -904,7 +905,6 @@
                     let target = '.emojis-sub-contain ul';
                     $(target).empty();
                     res.data.forEach(item => {
-                        console.log(item);
                         $(target).append(`
                             <li key=${item.id}><img class="saved_blink_item" src=${item.photo} /></li>
                         `);

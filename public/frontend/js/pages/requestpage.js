@@ -294,19 +294,6 @@ function selectBackPhoto() {
 
                 var width = canvasDimension;
                 var height = width / imgRatio;
-                // if (imgWidth > canvasDimension || imgHeight > canvasDimension) {
-                //     if (imgWidth > imgHeight) {
-                //         var width = canvasDimension;
-                //         var height = width / imgRatio;
-                //     } else {
-                //         // var height = canvasDimension;
-                //         // var width = height * imgRatio;
-                //     }
-
-                // } else {
-                //     var width = imgWidth;
-                //     var height = imgHeight;
-                // }
                 canvas.setWidth(width);
                 canvas.setHeight(height);
 
@@ -508,7 +495,7 @@ function sendBlink() {
         data.senderName = getCertainUserInfoById(currentUserId).username;
         data.photo = canvas.toDataURL('image/png');
         data.original_thumb = canvas.toDataURL('image/png');
-        data.back = ori_image || '';
+        data.back = ori_image || canvas.backgroundImage._originalElement.currentSrc;
         data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
         data.blurPrice = blurPrice;
         data.blurPayersList = '';
@@ -543,7 +530,7 @@ function sendBlink() {
         data.sender = currentUserId;
         data.senderName = getCertainUserInfoById(currentUserId).username;
         data.photo = canvas.toDataURL('image/png');
-        data.back = ori_image || '';
+        data.back = ori_image || canvas.backgroundImage._originalElement.currentSrc;
         data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
         data.blurPrice = blurPrice;
         data.blurPayersList = '';
@@ -1252,6 +1239,129 @@ function showPhotoContent(id) {
                 });
             } else {
                 $('#photo_item').modal('show');
+            }
+        },
+        error: function (response) {
+
+        }
+    });
+}
+
+function showBlinkData(blinkId) {
+    $('#createPhoto').modal('show');
+    $('#createPhoto .preview-paid').addClass('d-none');
+    $('#createPhoto .emojis-price').removeClass('d-none');
+    $('#createPhoto .save-send').css('margin-left', '0px');
+    var form_data = new FormData();
+    form_data.append('blinkId', blinkId);
+    $.ajax({
+        url: '/home/getBlinkData',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            // $('.selected-emojis').css('left', canvasDimension + 40 + 'px');
+            if (res.state == 'true') {
+                let emojis = JSON.parse(res.data[0].content);
+
+                canvas.clear();
+                selectedEmojis = [];
+                $('.selected-emojis').empty();
+                //add blur price 
+                blurPrice = res.data[0].blur_price;
+                //background
+                new Promise(resolve => {
+                    if (res.data[0].back) {
+                        let blur = res.data[0].blur_payers_list.split(',').map(item => +item).includes(currentUserId) ? 0 : res.data[0].blur;
+                        fabric.Image.fromURL(res.data[0].back, function (oImg) {
+                            let filter = new fabric.Image.filters.Blur({
+                                blur: blur
+                            });
+                            oImg.filters = [];
+                            oImg.filters.push(filter);
+                            oImg.applyFilters();
+                            canvas.setWidth(oImg.width);
+                            canvas.setHeight(oImg.height);
+                            canvas.setBackgroundImage(oImg, canvas.renderAll.bind(canvas));
+                            resolve();
+                        });
+                    } else {
+                        resolve();
+                    }
+                }).then(() => {
+                    photoPrice = 0;
+                    Promise.all(emojis.map(item => {
+                        return new Promise(resolve => {
+                            if (item.type == 'image') {
+                                fabric.Image.fromURL(item.src, function (oImg) {
+                                    oImg.id = item.id;
+                                    oImg.left = item.position[0];
+                                    oImg.top = item.position[1];
+                                    oImg.scaleX = item.size[0];
+                                    oImg.scaleY = item.size[1];
+                                    oImg.angle = item.angle;
+                                    oImg.price = item.price;
+                                    oImg.oldPrice = item.olPrice;
+                                    oImg.payersList = item.payersList;
+                                    let filter = new fabric.Image.filters.Blur({
+                                        blur: item.blur || 0
+                                    });
+                                    oImg.blur = item.blur;
+                                    oImg.filters = [];
+                                    oImg.filters.push(filter);
+                                    oImg.applyFilters();
+                                    resolve(oImg);
+                                });
+                            } else if (item.type == 'text') {
+                                let textBox = new fabric.Textbox(item.text, {
+                                    id: item.id,
+                                    width: item.width,
+                                    height: item.height,
+                                    scaleX: item.size[0],
+                                    scaleY: item.size[1],
+                                    left: item.position[0],
+                                    top: item.position[1],
+                                    angle: item.angle,
+                                    price: item.price,
+                                    oldPrice: item.oldPrice,
+                                    payersList: item.payersList,
+                                    fontSize: item.fontSize,
+                                    fontFamily: item.fontFamily,
+                                    fontSize: item.fontSize,
+                                    fontWeight: item.fontWeight,
+                                    fontStyle: item.fontStyle,
+                                    fill: item.fill,
+                                    backgroundColor: item.backgroundColor,
+                                    textAlign: 'center'
+                                });
+                                resolve(textBox);
+                            }
+                        });
+                    })).then(objects => {
+                        for (var object of objects) {
+                            canvas.add(object);
+                            addEventAction(canvas, object);
+                            if (!object.payersList.includes(currentUserId) && +object.price > 0) {
+                                photoPrice += Number(object.price);
+                            }
+                        }
+                        let blur_price = blurPrice < 0 ? 0 : blurPrice;
+                        if (res.data[0].blur_price) photoPrice += blur_price;
+                        if (photoPrice > 0) {
+                            if (photoPrice - Math.floor(photoPrice) > 0) photoPrice = photoPrice.toFixed(2);
+                            $('#createPhoto .modal-content .photo-price').text('$' + photoPrice);
+                        } else {
+                            $('#createPhoto .modal-content .photo-price').text('');
+                        }
+                    });
+                });
             }
         },
         error: function (response) {
