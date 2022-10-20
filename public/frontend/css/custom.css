@@ -747,6 +747,15 @@ h6.read {
     }
 }
 
+.emojis-main .emojis-contain.open,
+.emojis-main .sticker-contain.open {
+    height: 350px;
+}
+
+.saved_blink_item {
+    width: 80px;
+}
+
 @media (max-width: 510px) {
 
     #createPhoto .modal-dialog,

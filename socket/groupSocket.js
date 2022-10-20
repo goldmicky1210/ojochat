@@ -163,7 +163,15 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             }
         }
     });
+    socket.on('save:blink', (data, callback) => {
 
+        db.query(`INSERT INTO photo_galleries (photo, back, blur, blur_price, content, created_by) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${data.sender})`, (error, item) => {
+            data.id = item.insertId;
+            callback({
+                status: 'OK'
+            })
+        });
+    });
     socket.on('leave:group', data => {
         let { currentGroupId, currentGroupUsers, currentUserId } = data;
         currentGroupUsers = currentGroupUsers.split(',').filter(item => item != currentUserId).join(',');

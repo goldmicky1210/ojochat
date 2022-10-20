@@ -888,7 +888,41 @@
         $(".sticker-contain").removeClass("open");
         $(".toggle-sticker").removeClass("active");
         $('.contact-poll-content').css('display', 'none');
+        console.log(currentUserId);
+        showSavedBlinks(currentUserId);
     });
+    function showSavedBlinks(userId) {
+        var form_data = new FormData();
+        form_data.append('userId', userId);
+        $.ajax({
+            url: '/home/showSavedBlinks',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state == 'true') {
+                    let target = '.emojis-sub-contain ul';
+                    $(target).empty();
+                    res.data.forEach(item => {
+                        console.log(item);
+                        $(target).append(`
+                            <li><img class="saved_blink_item" src=${item.photo} /></li>
+                        `);
+                    });
+                }
+
+            },
+            error: function (response) {
+
+            }
+        });
+    }
 
     // Toggle poll
     $('.contact-poll').on('click', function (e) {

@@ -1207,8 +1207,7 @@
                 <div class="message-input">
                     <div class="wrap emojis-main">
                         <div class="dot-btn dot-primary me-3">
-                            <a class="icon-btn btn-outline-primary button-effect toggle-emoji" href="#"><i
-                                    data-feather="smile"></i></a>
+                            <a class="icon-btn btn-outline-primary button-effect toggle-emoji" href="#"><i data-feather="smile"></i></a>
                         </div>
 
                         <div class="contact-poll">
@@ -1219,10 +1218,7 @@
                                 <ul>
                                     <li><a id="mediaBtn"><i data-feather="image"></i>Media</a></li>
                                     <li><a id="createPhotoBtn"><i data-feather="image"></i>Blink</a></li>
-                                    <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i
-                                                data-feather="camera"></i>Photo Request</a></li>
-                                    {{-- <li><a data-bs-toggle="modal" data-bs-target="#createPhoto"><i
-                                            data-feather="image"></i>Media</a></li> --}}
+                                    <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i data-feather="camera"></i>Photo Request</a></li>
                                     <li><a href="#"><i data-feather="clipboard"> </i>File</a></li>
                                 </ul>
                             </div>
@@ -1236,69 +1232,7 @@
                         <div class="emojis-contain">
                             <div class="emojis-sub-contain custom-scroll">
                                 <ul>
-                                    <li>&#128512;</li>
-                                    <li>&#128513;</li>
-                                    <li>&#128514;</li>
-                                    <li>&#128515;</li>
-                                    <li>&#128516;</li>
-                                    <li>&#128517;</li>
-                                    <li>&#128518;</li>
-                                    <li>&#128519;</li>
-                                    <li>&#128520;</li>
-                                    <li>&#128521;</li>
-                                    <li>&#128522;</li>
-                                    <li>&#128523;</li>
-                                    <li>&#128524;</li>
-                                    <li>&#128525;</li>
-                                    <li>&#128526;</li>
-                                    <li>&#128527;</li>
-                                    <li>&#128528;</li>
-                                    <li>&#128529;</li>
-                                    <li>&#128530;</li>
-                                    <li>&#128531;</li>
-                                    <li>&#128532;</li>
-                                    <li>&#128533;</li>
-                                    <li>&#128534;</li>
-                                    <li>&#128535;</li>
-                                    <li>&#128536;</li>
-                                    <li>&#128537;</li>
-                                    <li>&#128538;</li>
-                                    <li>&#128539;</li>
-                                    <li>&#128540;</li>
-                                    <li>&#128541;</li>
-                                    <li>&#128542;</li>
-                                    <li>&#128543;</li>
-                                    <li>&#128544;</li>
-                                    <li>&#128545;</li>
-                                    <li>&#128546;</li>
-                                    <li>&#128547;</li>
-                                    <li>&#128549;</li>
-                                    <li>&#128550;</li>
-                                    <li>&#128551;</li>
-                                    <li>&#128552;</li>
-                                    <li>&#128553;</li>
-                                    <li>&#128554;</li>
-                                    <li>&#128555;</li>
-                                    <li>&#128557;</li>
-                                    <li>&#128558;</li>
-                                    <li>&#128559;</li>
-                                    <li>&#128560;</li>
-                                    <li>&#128561;</li>
-                                    <li>&#128562;</li>
-                                    <li>&#128563;</li>
-                                    <li>&#128564;</li>
-                                    <li>&#128565;</li>
-                                    <li>&#128566;</li>
-                                    <li>&#128567;</li>
-                                    <li>&#128568;</li>
-                                    <li>&#128569;</li>
-                                    <li>&#128570;</li>
-                                    <li>&#128571;</li>
-                                    <li>&#128572;</li>
-                                    <li>&#128573;</li>
-                                    <li>&#128574;</li>
-                                    <li>&#128576; </li>
-                                    <li>&#128579; </li>
+                                    
                                 </ul>
                             </div>
                         </div>

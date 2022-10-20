@@ -196,6 +196,11 @@ class HomeController extends Controller
         return array('state'=>'true', 'sendData'=>$sendData, 'receiveData'=> $receiveData);
     }
 
+    public function showSavedBlinks(Request $request) {
+        $userId = $request->input('userId');
+        $blinkData = PhotoGallery::where('created_by', $userId)->orderBy('created_at')->get();
+        return array('state'=>'true', 'data'=>$blinkData);
+    }
     public function getRecentChatData(Request $request) {
         
     }

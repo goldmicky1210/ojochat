@@ -533,6 +533,27 @@ function sendBlink() {
         }
         $('#createPhoto .photo-price').text('');
     });
+    // save Blink
+    $('#save-blink').on('click', function () {
+        if (!ori_image && !canvas._objects.length) {
+            return;
+        }
+        canvas._objects.filter(item => item.kind == 'temp').forEach(item => canvas.remove(item));
+        let data = {};
+        data.sender = currentUserId;
+        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.photo = canvas.toDataURL('image/png');
+        data.back = ori_image || '';
+        data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
+        data.blurPrice = blurPrice;
+        data.blurPayersList = '';
+        data.content = getEmojisInfo(canvas._objects);
+        socket.emit('save:blink', data, res => {
+            if (res.status == 'OK') {
+                alert('Blink is saved Successfully');
+            }
+        });
+    });
 
     // edit Photo
     // $('.savePhotoBtn').on('click', function (e) {
