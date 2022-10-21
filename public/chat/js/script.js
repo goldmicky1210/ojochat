@@ -810,14 +810,14 @@
         }
     });
 
-    $(".emojis-sub-contain ul").click('.saved_blink_img', (e) => {
+    $(".emojis-sub-contain ul").on('click', '.saved_blink_img', (e) => {
         e.stopPropagation();
         let blinkId = $(e.target).closest('li').attr('key');
         $('#createPhoto').modal('show');
         showBlinkData(blinkId);
     });
 
-    $(".emojis-sub-contain ul").click('.close_icon', (e) => {
+    $(".emojis-sub-contain ul").on('click', '.close_icon', (e) => {
         e.stopPropagation();
         let blinkId = $(e.target).closest('li').attr('key');
         removeSavedBlink(blinkId);
@@ -945,16 +945,8 @@
             dataType: "json",
             success: function (res) {
                 if (res.state == 'true') {
-                    let target = '.emojis-sub-contain ul';
-                    // $(target).empty();
-                    // res.data.forEach(item => {
-                    //     $(target).append(`
-                    //         <li class="saved_blink_item" key=${item.id}>
-                    //             <img class="saved_blink_img" src=${item.photo} />
-                    //             <span class="close_icon">×</span>
-                    //         </li>
-                    //     `);
-                    // });
+                    let target = `.emojis-sub-contain ul li.saved_blink_item[key=${blinkId}]`;
+                    $(target).remove();
                 }
 
             },
