@@ -810,10 +810,17 @@
         }
     });
 
-    $(".emojis-sub-contain ul").click('li', (e) => {
+    $(".emojis-sub-contain ul").click('.saved_blink_img', (e) => {
+        e.stopPropagation();
         let blinkId = $(e.target).closest('li').attr('key');
         $('#createPhoto').modal('show');
         showBlinkData(blinkId);
+    });
+
+    $(".emojis-sub-contain ul").click('.close_icon', (e) => {
+        e.stopPropagation();
+        let blinkId = $(e.target).closest('li').attr('key');
+        removeSavedBlink(blinkId);
     });
 
 
@@ -886,6 +893,7 @@
         // create blink modal open
         showSavedBlinks(currentUserId);
     });
+
     function showSavedBlinks(userId) {
         var form_data = new FormData();
         form_data.append('userId', userId);
@@ -906,9 +914,47 @@
                     $(target).empty();
                     res.data.forEach(item => {
                         $(target).append(`
-                            <li key=${item.id}><img class="saved_blink_item" src=${item.photo} /></li>
+                            <li class="saved_blink_item" key=${item.id}>
+                                <img class="saved_blink_img" src=${item.photo} />
+                                <span class="close_icon">×</span>
+                            </li>
                         `);
                     });
+                }
+
+            },
+            error: function (response) {
+
+            }
+        });
+    }
+
+    function removeSavedBlink(blinkId) {
+        var form_data = new FormData();
+        form_data.append('blinkId', blinkId);
+        $.ajax({
+            url: '/home/removeSavedBlink',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state == 'true') {
+                    let target = '.emojis-sub-contain ul';
+                    // $(target).empty();
+                    // res.data.forEach(item => {
+                    //     $(target).append(`
+                    //         <li class="saved_blink_item" key=${item.id}>
+                    //             <img class="saved_blink_img" src=${item.photo} />
+                    //             <span class="close_icon">×</span>
+                    //         </li>
+                    //     `);
+                    // });
                 }
 
             },

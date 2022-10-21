@@ -752,8 +752,23 @@ h6.read {
     height: 350px;
 }
 
+.emojis-sub-contain ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .saved_blink_item {
+    display: flex !important;
+    align-items: flex-start;
+}
+
+.saved_blink_img {
     width: 80px;
+}
+
+.emojis-sub-contain .saved_blink_item .close_icon {
+    font-size: 1.5rem;
+    line-height: 15px;
 }
 
 @media (max-width: 510px) {

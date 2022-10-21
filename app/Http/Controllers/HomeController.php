@@ -201,6 +201,17 @@ class HomeController extends Controller
         $blinkData = PhotoGallery::where('created_by', $userId)->orderBy('created_at')->get();
         return array('state'=>'true', 'data'=>$blinkData);
     }
+
+    public function removeSavedBlink(Request $request) {
+        $blinkId = $request->input('blinkId');
+        $res = PhotoGallery::where("id", $blinkId)->delete();
+        if ($res) {
+            return array('state'=>'true', 'data'=>$res);
+        } else {
+            return array('state' => 'false');
+        }
+    }
+
     public function getRecentChatData(Request $request) {
         
     }

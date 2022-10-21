@@ -42,6 +42,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/home/getCastData', 'MessageController@getCastData');
     Route::post('/home/showSharedMedia', 'HomeController@getSharedMedia');
     Route::post('/home/showSavedBlinks', 'HomeController@showSavedBlinks');
+    Route::post('/home/removeSavedBlink', 'HomeController@removeSavedBlink');
     Route::post('/home/getBlinkData', 'HomeController@getBlinkData');
     Route::post('/message/getLastMessage', 'MessageController@getLastMessage');
     Route::post('/api/create-paypal-transaction', 'PaymentController@createPayment');
