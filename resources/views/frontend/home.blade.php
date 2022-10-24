@@ -1230,6 +1230,12 @@
                         <button class="submit icon-btn btn-primary disabled" id="send-msg" disabled="disabled">
                             <i data-feather="send"></i></button>
                         <div class="emojis-contain">
+                            <div class="spining">
+                                <div class="spinner">
+                                    <div class="double-bounce1"></div>
+                                    <div class="double-bounce2"></div>
+                                </div>
+                            </div>
                             <div class="emojis-sub-contain custom-scroll">
                                 <ul>
                                     

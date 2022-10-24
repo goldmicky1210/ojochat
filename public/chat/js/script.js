@@ -810,18 +810,6 @@
         }
     });
 
-    $(".emojis-sub-contain ul").on('click', '.saved_blink_img', (e) => {
-        e.stopPropagation();
-        let blinkId = $(e.target).closest('li').attr('key');
-        $('#createPhoto').modal('show');
-        showBlinkData(blinkId);
-    });
-
-    $(".emojis-sub-contain ul").on('click', '.close_icon', (e) => {
-        e.stopPropagation();
-        let blinkId = $(e.target).closest('li').attr('key');
-        removeSavedBlink(blinkId);
-    });
 
 
     $('#send-msg').addClass('disabled').attr("disabled", "disabled")
@@ -891,12 +879,30 @@
         $(".toggle-sticker").removeClass("active");
         $('.contact-poll-content').css('display', 'none');
         // create blink modal open
-        showSavedBlinks(currentUserId);
+        if ($('.emojis-contain').hasClass('open')) {
+            showSavedBlinks(currentUserId);
+        }
+    });
+
+    $(".emojis-sub-contain ul").on('click', '.saved_blink_img', (e) => {
+        e.stopPropagation();
+        let blinkId = $(e.target).closest('li').attr('key');
+        $(".emojis-contain").removeClass("open");
+        $('#createPhoto').modal('show');
+        showBlinkData(blinkId);
+    });
+
+    $(".emojis-sub-contain ul").on('click', '.close_icon', (e) => {
+        e.stopPropagation();
+        let blinkId = $(e.target).closest('li').attr('key');
+        removeSavedBlink(blinkId);
     });
 
     function showSavedBlinks(userId) {
         var form_data = new FormData();
         form_data.append('userId', userId);
+        $('.emojis-contain .spining').css('display', 'flex');
+
         $.ajax({
             url: '/home/showSavedBlinks',
             headers: {
@@ -920,6 +926,8 @@
                             </li>
                         `);
                     });
+                    $('.emojis-contain .spining').css('display', 'none');
+
                 }
 
             },
@@ -969,12 +977,12 @@
         if (!outside_space.is(e.target) &&
             outside_space.has(e.target).length === 0) {
             $(".sticker-contain").removeClass("open");
-            $(".emojis-contain").removeClass("open");
+            // $(".emojis-contain").removeClass("open");
             $(".toggle-emoji, .toggle-sticker").removeClass("active");
             $('.contact-poll-content').css('display', 'none');
             $('.chat-frind-content').css('display', 'none');
         }
-    })
+    });
 
     $(".mode").on("click", function () {
         $('.mode i').toggleClass("fa-moon-o").toggleClass("fa-lightbulb-o");

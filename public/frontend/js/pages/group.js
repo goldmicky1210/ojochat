@@ -880,7 +880,7 @@ function getFileContent(data) {
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
 
-    $('.spining').css('display', 'flex');
+    $('.chat-content .spining').css('display', 'flex');
     var form_data = new FormData();
     form_data.append('currentGroupId', groupId);
     $.ajax({
@@ -976,7 +976,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 }).then(() => {
                     $(".messages").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
                     setTimeout(() => {
-                        $('.spining').css('display', 'none');
+                        $('.chat-content .spining').css('display', 'none');
                     }, 1000);
                 });
             } else {

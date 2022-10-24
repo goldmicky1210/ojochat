@@ -504,7 +504,6 @@ function showSharedMedia(groupId) {
                     } else {
                         title = item.title;
                     }
-                    console.log('date', item.created_at);
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
                     $('.shared_media .send_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>

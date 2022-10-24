@@ -49,6 +49,7 @@
     justify-content: center;
     margin-top: 10px;
 }
+
 #custom_modal .photoRating {
     width: fit-content;
     font-size: 20px;
@@ -83,6 +84,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    top: 0;
+    left: 0;
 }
 
 .spinner {
@@ -112,21 +115,25 @@
 }
 
 @-webkit-keyframes sk-bounce {
+
     0%,
     100% {
         -webkit-transform: scale(0.0)
     }
+
     50% {
         -webkit-transform: scale(1.0)
     }
 }
 
 @keyframes sk-bounce {
+
     0%,
     100% {
         transform: scale(0.0);
         -webkit-transform: scale(0.0);
     }
+
     50% {
         transform: scale(1.0);
         -webkit-transform: scale(1.0);

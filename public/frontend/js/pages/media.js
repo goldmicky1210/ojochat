@@ -57,7 +57,7 @@ $(document).ready(() => {
             var groupType = 3;
         }
 
-        $('.spining').css('display', 'flex');
+        $('.chat-content .spining').css('display', 'flex');
         $('#mediaPhoto').modal('hide');
         var form_data = new FormData();
         form_data.append('senderId', currentUserId);
@@ -78,7 +78,7 @@ $(document).ready(() => {
             type: 'POST',
             dataType: "json",
             success: function (res) {
-                $('.spining').css('display', 'none');
+                $('.chat-content .spining').css('display', 'none');
                 console.log(res.messageData);
                 let messageData = res.messageData;
                 let target = '.messages.active .contact-chat ul.chatappend';
@@ -89,7 +89,7 @@ $(document).ready(() => {
                                 from: item.sender,
                                 to: currentUserId,
                                 content: item.content,
-                                messageId: item.id, 
+                                messageId: item.id,
                                 state: item.state,
                             }
                             socket.emit('read:message', message);
