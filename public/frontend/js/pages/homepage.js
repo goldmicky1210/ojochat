@@ -497,6 +497,8 @@ function showSharedMedia(groupId) {
         success: function (res) {
             if (res.state == 'true') {
                 $('.shared_media .media_list').empty();
+                let count = (res.receiveData.length + res.sendData.length) || 0;
+                $('.media-gallery.portfolio-section .shared_media_count').text(count);
                 res.sendData.forEach(item => {
                     let title = item.title;
                     if (item.type == 1) {

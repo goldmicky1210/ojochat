@@ -1607,7 +1607,7 @@
                 <div class="media-gallery portfolio-section grid-portfolio">
                     <div class="collapse-block open">
                         <h5 class="block-title">Shared Media
-                            <label class="badge badge-primary sm ms-2">2</label>
+                            <label class="badge badge-primary sm ms-2 shared_media_count">2</label>
                         </h5>
                         <div class="block-content">
                             <div class="share-media zoom-gallery shared_media">
