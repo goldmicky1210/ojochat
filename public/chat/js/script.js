@@ -973,6 +973,12 @@
 
     // Outside click
     $(document).on('click', function (e) {
+        let target = $('.emojis-contain');
+        console.log(target.has(e.target).length);
+        console.log(target.is(e.target));
+        if (!target.is(e.target) && target.has(e.target).length == 0) {
+            $(".emojis-contain").removeClass("open");
+        }
         var outside_space = $(".outside");
         if (!outside_space.is(e.target) &&
             outside_space.has(e.target).length === 0) {

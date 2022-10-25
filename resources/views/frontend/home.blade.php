@@ -1230,6 +1230,7 @@
                         <button class="submit icon-btn btn-primary disabled" id="send-msg" disabled="disabled">
                             <i data-feather="send"></i></button>
                         <div class="emojis-contain">
+                            <div><span class="blink_saver_title">Blink Saver</span></div>
                             <div class="spining">
                                 <div class="spinner">
                                     <div class="double-bounce1"></div>

@@ -747,6 +747,10 @@ h6.read {
     }
 }
 
+.blink_saver_title {
+    font-size: 1.1rem;
+}
+
 .emojis-main .emojis-contain.open,
 .emojis-main .sticker-contain.open {
     height: 350px;
