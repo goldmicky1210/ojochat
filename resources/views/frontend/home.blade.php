@@ -82,9 +82,8 @@
                 <div class="recent">
                     <div class="theme-title">
                         <div class="media">
-                            <div>
-                                <h2>Recent</h2>
-                                <h4>Chat from your friends &#128536;</h4>
+                            <div class="follow_title">
+                                <h2><span class="followers"> Followers/</span><span class="followings">Following/</span><span class="discovery">Discovery</span></h2>
                             </div>
                             <div class="media-body"><a
                                     class="icon-btn btn-outline-light button-effect pull-right mobile-back"
@@ -101,24 +100,6 @@
                                 <div class="recent-profile"><img class="bg-img" src="/images/default-avatar.png"
                                         alt="Avatar" />
                                     <h6> John deo</h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="recent-box">
-                                <div class="dot-btn dot-success grow"></div>
-                                <div class="recent-profile online"><img class="bg-img"
-                                        src="/chat/images/avtar/big/audiocall.jpg" alt="Avatar" />
-                                    <h6> John </h6>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="recent-box">
-                                <div class="dot-btn dot-warning grow"></div>
-                                <div class="recent-profile"><img class="bg-img" src="/chat/images/avtar/2.jpg"
-                                        alt="Avatar" />
-                                    <h6> Jpny</h6>
                                 </div>
                             </div>
                         </div>

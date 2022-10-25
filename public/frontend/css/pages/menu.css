@@ -1,0 +1,10 @@
+.follow_title h2 span {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .follow_title h2 span {
+        font-size: 1.2rem;
+    }
+}

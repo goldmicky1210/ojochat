@@ -44,6 +44,7 @@
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/contextmenu.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/profile.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/pages/setting.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/pages/menu.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/dropzone.basic.css">
     <link rel="stylesheet" type="text/css" href="/frontend/css/dropzone.css">
     @yield('tracking')
