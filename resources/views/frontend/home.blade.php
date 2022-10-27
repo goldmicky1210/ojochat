@@ -83,7 +83,7 @@
                     <div class="theme-title">
                         <div class="media">
                             <div class="follow_title">
-                                <h2><span class="followers active">Followers</span>&nbsp&nbsp<span class="followings">Following</span>&nbsp&nbsp<span class="discovery">Discovery</span></h2>
+                                <h2><span class="followers">Followers</span>&nbsp&nbsp<span class="followings">Following</span>&nbsp&nbsp<span class="discovery">Discovery</span></h2>
                             </div>
                             <div class="media-body"><a
                                     class="icon-btn btn-outline-light button-effect pull-right mobile-back"
