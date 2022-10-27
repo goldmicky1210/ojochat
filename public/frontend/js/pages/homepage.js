@@ -105,8 +105,8 @@ function getRecentChatUsers(type) {
                 if (type == 1) {
                     currentDirectId = globalGroupId;
                     currentDirectUsers = globalGroupUsers;
-                    let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
-                    displayRecentChatFriends(recentChatUsers);
+                    // let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
+                    // displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     currentGroupId = globalGroupId;
                     currentGroupUsers = globalGroupUsers;
@@ -192,7 +192,9 @@ function getUsersList(resolve) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
+            console.log(res.data);
             usersList = res.data;
+
             if (resolve) {
                 resolve(res.data);
             }
@@ -334,6 +336,7 @@ function setUserProfileContent(userId) {
     } else {
         $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
     }
+    $('.contact-profile').attr('userId', userId);
     $('.contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
     $('.contact-profile .name h3').html(userInfo.firstName || userInfo.username);
     $('.contact-profile .name h5').html(userInfo.location);

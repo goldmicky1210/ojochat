@@ -83,7 +83,7 @@
                     <div class="theme-title">
                         <div class="media">
                             <div class="follow_title">
-                                <h2><span class="followers"> Followers/</span><span class="followings">Following/</span><span class="discovery">Discovery</span></h2>
+                                <h2><span class="followers active">Followers</span>&nbsp&nbsp<span class="followings">Following</span>&nbsp&nbsp<span class="discovery">Discovery</span></h2>
                             </div>
                             <div class="media-body"><a
                                     class="icon-btn btn-outline-light button-effect pull-right mobile-back"
@@ -1506,6 +1506,9 @@
                                         class="fa fa-facebook-f"></i></a>
                             </li>
                         </ul>
+                        <div class="follow_btn">
+                            <button class="btn btn-success button-effect btn-sm" type="button">Follow</button>
+                        </div>
                         <ul class="group_operation">
                             <li class="make_admin_btn">
                                 <span>Make Group Admin</span>
@@ -3246,4 +3249,5 @@
     <script src="/frontend/js/pages/group.js"></script>
     <script src="/frontend/js/pages/contextmenu.js"></script>
     <script src="/frontend/js/pages/media.js"></script>
+    <script src="/frontend/js/pages/follow.js"></script>
 @endsection

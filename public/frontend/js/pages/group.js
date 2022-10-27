@@ -17,7 +17,7 @@ $(document).ready(function () {
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
         new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
-            usersList.reverse().filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
+            usersList.filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
                 statusItem = '';
                 addUsersListItem(target, item, statusItem)

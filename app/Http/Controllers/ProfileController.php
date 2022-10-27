@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
+use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Country;
+use App\Models\CountryPhoneCode;
+use App\Models\State;
+use App\Models\City;
+use App\Models\User;
+use App\Models\Message;
+use App\Models\Contact;
+use App\Models\PhotoRequest;
+use App\Models\PhotoGallery;
+use App\Models\Rating;
+use App\Models\PaymentHistory;
+use App\Models\Cast;
+use App\Models\Group;
+use App\Models\UsersGroup;
+use App\Models\AttachFile;
+use App\Models\Follow;
+
+
+class ProfileController extends Controller
+{
+    public function followUser(Request $request) {
+        $userId = Auth::id();
+        $followId = $request->input('followId');
+        $row = Follow::where('user_id', $userId)->where('follow_id', $followId)->first();
+        if (is_null($row)) {
+            $newFollow = new Follow;
+            $newFollow->user_id = $userId;
+            $newFollow->follow_id = $followId;
+            $newFollow->save();
+            $result = 'follow';
+        } else {
+            Follow::where('user_id', $userId)->where('follow_id', $followId)->delete();
+            $result = 'unfollow';
+        }
+        return array('state' => 'true', 'result' => $result);
+    }
+
+}

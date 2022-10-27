@@ -62,6 +62,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/group/getGroupInfo', 'GroupController@getGroupInfo'); 
     Route::post('/group/getCertainGroupInfo', 'GroupController@getGroupInfo'); 
     Route::post('/group/getContactorInfoByGroupId', 'GroupController@getContactorInfoByGroupId'); 
+    Route::post('/profile/followUser', 'ProfileController@followUser'); 
 });
 
 Route::group(['middleware' => ['admin']], function () {

@@ -1,6 +1,11 @@
 .follow_title h2 span {
     font-size: 0.9rem;
     cursor: pointer;
+    font-weight: 500;
+}
+
+.follow_title h2 span.active {
+    font-weight: 700;
 }
 
 @media (max-width: 800px) {
