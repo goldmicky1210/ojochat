@@ -45,4 +45,11 @@ class ProfileController extends Controller
         return array('state' => 'true', 'result' => $result);
     }
 
+    public function getFollowData(Request $request) {
+        $userId = $request->input('userId');
+        $follows = Follow::where('follow_id', $userId)->get('user_id');
+        $followings = Follow::where('user_id', $userId)->get('follow_id');
+        return array('state' => 'true', 'follows' => $follows, 'followings' => $followings);
+    }
+
 }

@@ -17,7 +17,7 @@ $(document).ready(function () {
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
         new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
-            usersList.filter(item => item.id != currentUserId).filter(item => !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
+            usersList.filter(item => item.id != currentUserId && !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
                 statusItem = '';
                 addUsersListItem(target, item, statusItem)
@@ -634,8 +634,7 @@ $(document).ready(function () {
 });
 
 function addUsersListItem(target, data, statusItem) {
-    console.log(getAverageRate(data.rateData));
-    $(target).prepend(
+    $(target).append(
         `<li data-to="blank" key="${data.id}">
             <div class="chat-box">
                 <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">

@@ -3238,6 +3238,7 @@
 
     <script src="/frontend/js/constant.js"></script>
 
+    <script src="/frontend/js/pages/follow.js"></script>
     <script src="/frontend/js/pages/homepage.js"></script>
     <script src="/frontend/js/pages/requestpage.js"></script>
 
@@ -3249,5 +3250,4 @@
     <script src="/frontend/js/pages/group.js"></script>
     <script src="/frontend/js/pages/contextmenu.js"></script>
     <script src="/frontend/js/pages/media.js"></script>
-    <script src="/frontend/js/pages/follow.js"></script>
 @endsection

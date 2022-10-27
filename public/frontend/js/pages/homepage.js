@@ -27,7 +27,7 @@ $(document).ready(() => {
         typingAction();
         deleteMessages();
         displayRate();
-        searchList()
+        searchList();
     });
 
 
@@ -105,8 +105,8 @@ function getRecentChatUsers(type) {
                 if (type == 1) {
                     currentDirectId = globalGroupId;
                     currentDirectUsers = globalGroupUsers;
-                    // let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
-                    // displayRecentChatFriends(recentChatUsers);
+                    let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
+                    displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     currentGroupId = globalGroupId;
                     currentGroupUsers = globalGroupUsers;
@@ -192,7 +192,6 @@ function getUsersList(resolve) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res.data);
             usersList = res.data;
 
             if (resolve) {
