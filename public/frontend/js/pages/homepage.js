@@ -21,8 +21,8 @@ $(document).ready(() => {
         getUsersList(resolve);
     }).then(() => {
         $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
-        getRecentChatUsers(3);
-        getRecentChatUsers(2);
+        // getRecentChatUsers(3);
+        // getRecentChatUsers(2);
         getRecentChatUsers(1);
         typingAction();
         deleteMessages();
