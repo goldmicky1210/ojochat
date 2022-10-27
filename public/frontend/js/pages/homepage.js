@@ -340,7 +340,22 @@ function setUserProfileContent(userId) {
     $('.contact-profile .name h3').html(userInfo.firstName || userInfo.username);
     $('.contact-profile .name h5').html(userInfo.location);
     $('.contact-profile .name h6').html(userInfo.description);
+    if (userId == currentUserId) {
+        $('.contact-profile .follow_btn').addClass('hidden');
+    } else {
+        $('.contact-profile .follow_btn').removeClass('hidden');
+    }
 
+    if (isFollow(userId)) {
+        $('.contact-profile .follow_btn .btn').text('UnFollow');
+        $('.contact-profile .follow_btn .btn').removeClass('btn-success');
+        $('.contact-profile .follow_btn .btn').addClass('btn-danger');
+    } else {
+        $('.contact-profile .follow_btn .btn').text('Follow');
+        $('.contact-profile .follow_btn .btn').removeClass('btn-danger');
+        $('.contact-profile .follow_btn .btn').addClass('btn-success');
+
+    }
     var form_data = new FormData();
     form_data.append('userId', userId);
     $.ajax({
@@ -365,6 +380,7 @@ function setUserProfileContent(userId) {
 
 function setGroupProfileContent(groupId) {
     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
+    $('.contact-profile .follow_btn').addClass('hidden');
 
     let form_data = new FormData();
     form_data.append('groupId', groupId);

@@ -51,5 +51,14 @@ class ProfileController extends Controller
         $followings = Follow::where('user_id', $userId)->get('follow_id');
         return array('state' => 'true', 'follows' => $follows, 'followings' => $followings);
     }
+    public function isFollow(Request $request) {
+        $userId = Auth::id();
+        $followId = $request->input('userId');
+        $result = Follow::where('user_id', $userId)->where('follow_id', $followId)->first();
+        if (is_null($result)) {
+            return array('state' => 'true', 'result' => 0);
+        }
+        return array('state' => 'true', 'result' => 1);
+    }
 
 }
