@@ -15,6 +15,7 @@ let currentCastUsers;
 let globalGroupId;
 let globalGroupUsers;
 let rateData;
+let recentChatUsers;
 $(document).ready(() => {
 
     new Promise(resolve => {
@@ -106,7 +107,7 @@ function getRecentChatUsers(type) {
                 if (type == 1) {
                     currentDirectId = globalGroupId;
                     currentDirectUsers = globalGroupUsers;
-                    let recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
+                    recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
                     displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     currentGroupId = globalGroupId;

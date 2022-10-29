@@ -11,6 +11,8 @@ $(document).ready(() => {
             getFollowData(currentUserId, 1);
         } else if ($(this).hasClass('followings')) {
             getFollowData(currentUserId, 2);
+        } else if ($(this).hasClass('recents')) {
+            displayRecentChatFriends(recentChatUsers);
         }
     });
 
