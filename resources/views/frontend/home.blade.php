@@ -83,7 +83,12 @@
                     <div class="theme-title">
                         <div class="media">
                             <div class="follow_title">
-                                <h2><span class="followers">Followers</span>&nbsp&nbsp<span class="followings">Following</span>&nbsp&nbsp<span class="discovery">Discovery</span></h2>
+                                <h2>
+                                    <span class="recents active">Recent<label class="badge badge-primary sm ms-2 count">0</label></span>
+                                    <span class="followers">Followers<label class="badge badge-primary sm ms-2 count">0</label></span>
+                                    <span class="followings">Following<label class="badge badge-primary sm ms-2 count">0</label></span>
+                                    <!-- <span class="discovery">Discovery</span> -->
+                                </h2>
                             </div>
                             <div class="media-body"><a
                                     class="icon-btn btn-outline-light button-effect pull-right mobile-back"

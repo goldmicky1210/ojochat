@@ -23,6 +23,7 @@ $(document).ready(() => {
         $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
         // getRecentChatUsers(3);
         // getRecentChatUsers(2);
+        getFollowData(currentUserId, 1);
         getRecentChatUsers(1);
         typingAction();
         deleteMessages();
@@ -568,6 +569,7 @@ function displayRecentChatFriends(recentChatUsers) {
     $owl = $('.recent-slider');
     $owl.trigger('destroy.owl.carousel');
     $owl.html($owl.find('.owl-stage-outer').html()).removeClass('owl-loaded');
+    $('.chitchat-left-sidebar .theme-title .follow_title .recents .count').text(recentChatUsers.length);
     $('.recent-slider').empty();
     recentChatUsers.forEach(item => {
         $('.recent-slider').append(`<div class="item">

@@ -38,6 +38,8 @@ $(document).ready(() => {
 function getFollowData(userId, flag) {
     $.post('/profile/getFollowData', { userId }, res => {
         console.log(res);
+        $('.chitchat-left-sidebar .theme-title .follow_title .followers .count').text(res.follows.length);
+        $('.chitchat-left-sidebar .theme-title .follow_title .followings .count').text(res.followings.length);
         if (flag == 1) {
             var data = res.follows.map(item => getCertainUserInfoById(item.user_id));
         } else if (flag == 2) {
