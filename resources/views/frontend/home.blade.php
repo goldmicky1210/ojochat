@@ -112,11 +112,18 @@
                 </div>
                 <div class="chat custom-scroll">
                     <ul class="chat-cont-setting chat">
+                        <li class="search_user_btn">
+                            <a href="#"><span>Search Users</span>
+                                <div class="icon-btn btn-outline-primary button-effect btn-sm"><i
+                                        data-feather="search"></i></div>
+                            </a>
+                        </li>
                         <li class="create_new_chat_btn">
                             <a href="#"><span>new chat</span>
                                 <div class="icon-btn btn-outline-primary button-effect btn-sm"><i
                                         data-feather="message-square"></i></div>
                             </a>
+                        </li>
                         <li class="create_new_group_btn">
                             <a href="#"><span>new group</span>
                                 <div class="icon-btn btn-outline-success button-effect btn-sm"><i data-feather="users"></i>

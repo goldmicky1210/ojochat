@@ -16,41 +16,43 @@
     min-width: 100px;
 }
 
-.modal ul.chat-main li {
+.modal ul.chat-main>li {
     border-radius: 0 5px 5px 0;
 }
 
-ul.chat-main li {
+ul.chat-main>li {
     background-color: #eff1f2;
     margin-bottom: 1px;
     cursor: pointer;
 }
 
-ul.chat-main li:hover {
+ul.chat-main>li:hover {
     background-color: #eff7fe;
 }
 
-ul.chat-main li.active {
+ul.chat-main>li.active {
     background-color: #eff7fe;
 }
 
 .thread_info_content {
     display: none;
+    position: absolute;
+}
+
+.thread_info .thread_info_content ul {
+    position: absolute;
+    right: 0;
+    z-index: 1;
 }
 
 .thread_info .thread_info_content li {
     display: flex;
     align-items: center;
     gap: 10px;
-    position: absolute;
-    right: 0;
-    z-index: 1;
     background-color: white;
-    margin-top: 10px;
-
 }
 
-.modal ul.chat-main li .chat-box .date-status .form-check-input {
+.modal ul.chat-main>li .chat-box .date-status .form-check-input {
     font-size: 1.5em;
     border-radius: 50%;
     pointer-events: none;
@@ -70,22 +72,22 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     text-align: left;
 }
 
-.chat-main li .chat-box .date-status {
+.chat-main>li .chat-box .date-status {
     top: 50%;
     transform: translateY(-50%);
 }
 
-#cast .chat-main li .chat-box .date-status {
+#cast .chat-main>li .chat-box .date-status {
     display: flex;
     flex-direction: column;
 }
 
-#cast .chat-main li .chat-box .icon-btn.btn-outline-light {
+#cast .chat-main>li .chat-box .icon-btn.btn-outline-light {
     position: static;
     margin: 1px;
 }
 
-.chat-main li .chat-box .date-status i.ti-trash {
+.chat-main>li .chat-box .date-status i.ti-trash {
     font-size: 16px;
     color: #1c9dea;
 }
@@ -176,34 +178,34 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     height: auto;
 }
 
-#custom_modal .chat-main li {
+#custom_modal .chat-main>li {
     padding-top: 2px;
     padding-bottom: 2px;
 }
 
-#custom_modal .chat-main li .chat-box .details {
+#custom_modal .chat-main>li .chat-box .details {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.chat-main li .details>h5,
-.chat-main li .details>h6 {
+.chat-main>li .details>h5,
+.chat-main>li .details>h6 {
     width: 120px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
 }
 
-#custom_modal .chat-main li .details>h5,
-#custom_modal .chat-main li .details>h6 {
+#custom_modal .chat-main>li .details>h5,
+#custom_modal .chat-main>li .details>h6 {
     width: 100%;
     max-width: 320px;
 }
 
 @media (max-width: 768px) {
 
-    .chat-main li .details>h5,
-    .chat-main li .details>h6 {
+    .chat-main>li .details>h5,
+    .chat-main>li .details>h6 {
         width: 150px;
     }
 }

@@ -219,7 +219,7 @@ class HomeController extends Controller
     public function getUsersList(Request $request) {
         $id = Auth::id();
         // $userList = User::where('id', '<>', $id)->get();
-        $userList = User::orderBy('username', 'asc')->get();
+        $userList = User::orderBy('username', 'desc')->get();
         $userList = $userList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
             $item['rateData'] = $rateData;

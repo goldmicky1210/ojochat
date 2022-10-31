@@ -1,6 +1,63 @@
 
 let groupFeeTypeConstant = ['Free', "Monthly", "Anually", "Lifetime"];
 $(document).ready(function () {
+    // search new user start
+    $('.search_user_btn').on('click', function () {
+        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
+        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
+        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
+        $('#custom_modal').modal('show');
+        $('#custom_modal .modal-content').addClass('search_user_modal');
+        $('#custom_modal').find('.modal-title').text('Search Users');
+        $('#custom_modal').find('.btn_group .btn').hide();
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.group_title input').val('');
+        let target = '#custom_modal .chat-main';
+        $(target).empty();
+
+        new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
+            usersList.filter(item => item.id != currentUserId).forEach(item => {
+                let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
+                statusItem = `
+                    <div class="thread_info">
+                        <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
+                        <div class="thread_info_content">
+                            <ul>
+                                <li class="follow_btn">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                        <i class="ti-heart"></i>
+                                    </a>
+                                    <h5>${isFollow(item.id) ? 'UnFollow' : 'Follow'}</h5>
+                                </li>
+                                <li class="contact_request_btn">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                        <i class="ti-user"></i>
+                                    </a>
+                                    <h5>Contact Request</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                addUsersListItem(target, item, statusItem)
+            });
+            $('.chat-cont-setting').removeClass('open');
+        });
+    });
+
+
+    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .thread_info', function (e) {
+        $(this).parents('li').siblings().find('.thread_info_content').hide();
+        $(this).find('.thread_info_content').toggle();
+    });
+    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn', function (e) {
+        console.log($(this).find('h5').text());
+    });
+    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
+        console.log($(this).find('h5').text());
+    });
+    // search new user end
+
     // create new Chat start
     $('.create_new_chat_btn').on('click', function () {
         let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
@@ -433,6 +490,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.modal-body .group_description').remove();
         $('#custom_modal').find('.modal-body .group_fee_type').remove();
 
+        $('#custom_modal .modal-content').removeClass('search_user_modal');
         $('#custom_modal .modal-content').removeClass('create_new_chat_modal');
         $('#custom_modal .modal-content').removeClass('create_new_group_modal');
         $('#custom_modal .modal-content').removeClass('create_new_cast_modal');
@@ -634,7 +692,7 @@ $(document).ready(function () {
 });
 
 function addUsersListItem(target, data, statusItem) {
-    $(target).append(
+    $(target).prepend(
         `<li data-to="blank" key="${data.id}">
             <div class="chat-box">
                 <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">

@@ -18,7 +18,6 @@ $(document).ready(() => {
 
     $('.follow_btn').on('click', function () {
         let followId = $(this).closest('.contact-profile').attr('userId');
-        console.log(followId);
         $(this).find('.btn').prop('disabled', true)
         if (currentUserId != followId) {
             $.post('/profile/followUser', { followId }, (res) => {
@@ -47,7 +46,6 @@ function getFollowData(userId, flag) {
         } else if (flag == 2) {
             var data = res.followings.map(item => getCertainUserInfoById(item.follow_id));
         }
-        console.log(data);
         $owl = $('.recent-slider');
         $owl.trigger('destroy.owl.carousel');
         $owl.html($owl.find('.owl-stage-outer').html()).removeClass('owl-loaded');
