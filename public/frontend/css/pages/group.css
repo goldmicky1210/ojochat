@@ -117,3 +117,10 @@
 .messages .chatappend .msg-item .invite_link {
     cursor: pointer;
 }
+
+#custom_modal .search_user_modal .thread_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}

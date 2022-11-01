@@ -39,6 +39,20 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `;
+                statusItem = `
+                    <div class="thread_info">
+                        <div class="follow_btn">
+                            <a class="icon-btn ${isFollow(item.id) ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${isFollow(item.id) ? 'UnFollow' : 'Follow'}>
+                                <i class="${isFollow(item.id) ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                            </a>
+                        </div>
+                        <div class="contact_request_btn">
+                            <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                <i class="ti-user"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
                 addUsersListItem(target, item, statusItem)
             });
             $('.chat-cont-setting').removeClass('open');

@@ -1,5 +1,15 @@
+.follow_title h2 {
+    font-size: 0.9rem;
+    cursor: pointer;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
 .follow_title h2 span {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     cursor: pointer;
     font-weight: 400;
 }
@@ -14,8 +24,24 @@
     }
 }
 
+.chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
+    padding: 0 20px;
+}
+
+.theme-title .media .media-body {
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
 @media (max-width: 1366px) {
     .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
         padding: 0 5px;
+    }
+}
+
+@media (max-width: 800px) {
+    .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
+        padding: 0 20px;
     }
 }

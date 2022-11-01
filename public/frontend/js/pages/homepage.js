@@ -570,7 +570,7 @@ function displayRecentChatFriends(recentChatUsers) {
     $owl = $('.recent-slider');
     $owl.trigger('destroy.owl.carousel');
     $owl.html($owl.find('.owl-stage-outer').html()).removeClass('owl-loaded');
-    $('.chitchat-left-sidebar .theme-title .follow_title .recents .count').text(recentChatUsers.length);
+    // $('.chitchat-left-sidebar .theme-title .follow_title .recents .count').text(recentChatUsers.length);
     $('.recent-slider').empty();
     recentChatUsers.forEach(item => {
         $('.recent-slider').append(`<div class="item">

@@ -84,17 +84,27 @@
                         <div class="media">
                             <div class="follow_title">
                                 <h2>
-                                    <span class="recents active">Recent<label class="badge badge-primary sm ms-2 count">0</label></span>
-                                    <span class="followers">Followers<label class="badge badge-primary sm ms-2 count">0</label></span>
-                                    <span class="followings">Following<label class="badge badge-primary sm ms-2 count">0</label></span>
+                                    <span class="recents active">Recent</span>
+                                    <span class="followers">Followers(<label class='count'>0</label>)</span>
+                                    <span class="followings">Following(<label class='count'>0</label>)</span>
+                                    <!-- <span class="followers">Followers<label class="badge badge-primary sm ms-2 count">0</label></span>
+                                    <span class="followings">Following<label class="badge badge-primary sm ms-2 count">0</label></span> -->
                                     <!-- <span class="discovery">Discovery</span> -->
                                 </h2>
                             </div>
-                            <div class="media-body"><a
-                                    class="icon-btn btn-outline-light button-effect pull-right mobile-back"
-                                    href="#"><i class="ti-angle-right"></i></a><a
-                                    class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#"><i
-                                        class="ti-layout-grid2"></i></a>
+                            <div class="media-body">
+                                <div class="icon-btn btn-outline-primary button-effect btn-sm">
+                                    <span>d</span>
+                                </div>
+                                <div class="icon-btn btn-outline-primary button-effect btn-sm search_user_btn">
+                                    <i data-feather="search"></i>
+                                </div>
+                                <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
+                                    <i class="ti-angle-right"></i>
+                                </a>
+                                <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
+                                    <i class="ti-layout-grid2"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -114,8 +124,9 @@
                     <ul class="chat-cont-setting chat">
                         <li class="search_user_btn">
                             <a href="#"><span>Search Users</span>
-                                <div class="icon-btn btn-outline-primary button-effect btn-sm"><i
-                                        data-feather="search"></i></div>
+                                <div class="icon-btn btn-outline-primary button-effect btn-sm">
+                                    <i data-feather="search"></i>
+                                </div>
                             </a>
                         </li>
                         <li class="create_new_chat_btn">
