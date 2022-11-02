@@ -39,11 +39,12 @@ $(document).ready(function () {
                         </div>
                     </div>
                 `;
+                let isFollow = isFollow(item.id);
                 statusItem = `
                     <div class="thread_info">
                         <div class="follow_btn">
-                            <a class="icon-btn ${isFollow(item.id) ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${isFollow(item.id) ? 'UnFollow' : 'Follow'}>
-                                <i class="${isFollow(item.id) ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                            <a class="icon-btn ${isFollow ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${isFollow ? 'UnFollow' : 'Follow'}>
+                                <i class="${isFollow ? 'ti-heart-broken' : 'ti-heart'}"></i>
                             </a>
                         </div>
                         <div class="contact_request_btn">
