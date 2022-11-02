@@ -1041,7 +1041,7 @@ function setProfileData(userId) {
         $('#profile_modal .contact-top').css('background-image', `url("/images/default-avatar.png")`);
     }
 
-    convertListItems();
+    // convertListItems();
     $('#profile_modal .contact-profile').attr('userId', userId);
     // $('#profile_modal .contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
     $('#profile_modal .contact-profile .name').html(userInfo.firstName || userInfo.username);
