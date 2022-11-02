@@ -1,3 +1,5 @@
+let followers = [];
+let followings = [];
 $(document).ready(() => {
     $.ajaxSetup({
         headers: {
@@ -36,9 +38,11 @@ $(document).ready(() => {
     });
 
 });
+
 function getFollowData(userId, flag) {
     $.post('/profile/getFollowData', { userId }, res => {
-        console.log(res);
+        followers = res.follows
+        followings = res.followings
         $('.chitchat-left-sidebar .theme-title .follow_title .followers .count').text(res.follows.length);
         $('.chitchat-left-sidebar .theme-title .follow_title .followings .count').text(res.followings.length);
         if (flag == 1) {
@@ -101,28 +105,5 @@ function getFollowData(userId, flag) {
 }
 
 function isFollow(userId) {
-    let form_data = new FormData();
-    form_data.append('userId', userId);
-    let result = 0;
-    $.ajax({
-        url: '/profile/isFollow',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        async: false,
-
-        success: function (res) {
-            if (res.state = 'true') {
-                result = res.result;
-            }
-        },
-        error: function (response) { }
-    });
-    return result;
+    return followings.find(item => item.follow_id == userId) ? 1 : 0;
 }
