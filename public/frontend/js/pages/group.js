@@ -47,6 +47,7 @@ $(document).ready(function () {
     });
 
     $('#custom_modal .modal-content .chat-main').on('scroll', function () {
+        console.log('aaa');
         if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
             let isLoading = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
             if (isLoading) {
