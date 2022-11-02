@@ -1,11 +1,9 @@
 
 let groupFeeTypeConstant = ['Free', "Monthly", "Anually", "Lifetime"];
+let lastUserName = '';
 $(document).ready(function () {
     // search new user start
     $('.search_user_btn').on('click', function () {
-        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
-        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('search_user_modal');
         $('#custom_modal').find('.modal-title').text('Search Users');
@@ -14,30 +12,28 @@ $(document).ready(function () {
         $('#custom_modal').find('.group_title input').val('');
         let target = '#custom_modal .chat-main';
         $(target).empty();
-        let follwStatus;
-        new Promise((resolve) => getUsersForList(resolve)).then((usersList) => {
-            usersList.filter(item => item.id != currentUserId).forEach(item => {
-                follwStatus = isFollow(item.id);
-                let statusItem = `
-                    <div class="thread_info">
-                        <div class="follow_btn">
-                            <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
-                                <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
-                            </a>
-                        </div>
-                        <div class="contact_request_btn">
-                            <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
-                                <i class="ti-user"></i>
-                            </a>
-                        </div>
+        lastUserName = '';
+        let newUsersList = loadMoreUsers(lastUserName);
+        newUsersList.forEach(item => {
+            let follwStatus = isFollow(item.id);
+            let statusItem = `
+                <div class="thread_info">
+                    <div class="follow_btn">
+                        <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                            <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                        </a>
                     </div>
-                `;
-                addUsersListItem(target, item, statusItem)
-            });
-            $('.chat-cont-setting').removeClass('open');
+                    <div class="contact_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                            <i class="ti-user"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+            addUsersListItem(target, item, statusItem)
+            lastUserName = item.username;
         });
     });
-
 
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .thread_info', function (e) {
         $(this).parents('li').siblings().find('.thread_info_content').hide();
@@ -49,6 +45,64 @@ $(document).ready(function () {
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
         console.log(this);
     });
+
+    $('#custom_modal .modal-content .chat-main').on('scroll', function () {
+        if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
+            let isLoading = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
+            if (isLoading) {
+                let target = '#custom_modal .chat-main';
+                let newUsersList = loadMoreUsers(lastUserName);
+                newUsersList.forEach(item => {
+                    follwStatus = isFollow(item.id);
+                    let statusItem = `
+                        <div class="thread_info">
+                            <div class="follow_btn">
+                                <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                    <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                                </a>
+                            </div>
+                            <div class="contact_request_btn">
+                                <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                    <i class="ti-user"></i>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    addUsersListItem(target, item, statusItem)
+                    lastUserName = item.username;
+                });
+            }
+        }
+    });
+
+    function loadMoreUsers(lastUserName, searchStr) {
+        let form_data = new FormData();
+        form_data.append('lastUserName', lastUserName);
+        form_data.append('searchStr', searchStr);
+        let result = [];
+        $.ajax({
+            url: '/home/getUsersForList',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            async: false,
+            type: 'POST',
+            dataType: "json",
+            data: form_data,
+            success: function (res) {
+                result = res.data;
+            },
+            error: function (response) {
+                // document.location.href = '/';
+                alert('UserList Error');
+            }
+        });
+        return result;
+    }
+
     // search new user end
 
     // create new Chat start
@@ -85,7 +139,7 @@ $(document).ready(function () {
             $('#custom_modal').modal('hide');
         });
     });
-    // create new Chat end 
+    // create new Chat end
 
     // create newGroup start
     $('.create_new_group_btn').on('click', function () {
@@ -1121,3 +1175,5 @@ function getContactorInfoByGroupId(userId, groupId) {
     });
     return result;
 }
+
+// function loadMoreUsers(lastId)

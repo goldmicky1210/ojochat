@@ -230,8 +230,14 @@ class HomeController extends Controller
 
     public function getUsersForList(Request $request) {
         $id = Auth::id();
+        $lastUserName = $request->input('lastUserName');
         // $userList = User::where('id', '<>', $id)->get();
-        $userList = User::orderBy('username', 'asc')->limit(20)->get();
+        if ($lastUserName) {
+            $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
+        } else {
+            $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->limit(10)->get();
+        }
+        
         $userList = $userList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
             $item['rateData'] = $rateData;

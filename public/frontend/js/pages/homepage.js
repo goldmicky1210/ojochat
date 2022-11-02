@@ -22,8 +22,6 @@ $(document).ready(() => {
         getUsersList(resolve);
     }).then(() => {
         $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
-        // getRecentChatUsers(3);
-        // getRecentChatUsers(2);
         getFollowData(currentUserId, 1);
         getRecentChatUsers(1);
         typingAction();
@@ -206,28 +204,7 @@ function getUsersList(resolve) {
         }
     });
 }
-function getUsersForList(resolve) {
-    $.ajax({
-        url: '/home/getUsersForList',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            if (resolve) {
-                resolve(res.data);
-            }
-        },
-        error: function (response) {
-            // document.location.href = '/';
-            alert('UserList Error');
-        }
-    });
-}
+
 function newMessage() {
     let replyId = $('#content .chat-content>.replyMessage').attr('replyId');
     let replyKind = $('#content .chat-content>.replyMessage').attr('replyKind');
