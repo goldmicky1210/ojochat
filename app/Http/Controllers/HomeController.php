@@ -228,6 +228,17 @@ class HomeController extends Controller
         return array('state' => 'true', 'data' => $userList);
     }
 
+    public function getUsersForList(Request $request) {
+        $id = Auth::id();
+        // $userList = User::where('id', '<>', $id)->get();
+        $userList = User::orderBy('username', 'desc')->limit(20)->get();
+        $userList = $userList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
+        return array('state' => 'true', 'data' => $userList);
+    }
     public function addContactItem(Request $request)
     {
         $id=Auth::id();

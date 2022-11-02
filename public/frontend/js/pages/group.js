@@ -15,7 +15,7 @@ $(document).ready(function () {
         let target = '#custom_modal .chat-main';
         $(target).empty();
 
-        new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
+        new Promise((resolve) => getUsersForList(resolve)).then((usersList) => {
             usersList.filter(item => item.id != currentUserId).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
                 statusItem = `
@@ -87,7 +87,7 @@ $(document).ready(function () {
         $(target).empty();
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
-        new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
+        new Promise((resolve) => getUsersForList(resolve)).then((usersList) => {
             usersList.filter(item => item.id != currentUserId && !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
                 let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
                 statusItem = '';
@@ -99,7 +99,7 @@ $(document).ready(function () {
     });
     $('#custom_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
         let userId = $(this).attr('key');
-        new Promise(resolve => getUsersList(resolve)).then(usersList => {
+        new Promise(resolve => getUsersForList(resolve)).then(usersList => {
             let item = usersList.find(item => item.id == userId);
             users = [userId, currentUserId];
             socket.emit('create:group', { title: item.username, users, type: 1 });
