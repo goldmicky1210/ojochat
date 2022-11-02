@@ -14,37 +14,15 @@ $(document).ready(function () {
         $('#custom_modal').find('.group_title input').val('');
         let target = '#custom_modal .chat-main';
         $(target).empty();
-
+        let follwStatus;
         new Promise((resolve) => getUsersForList(resolve)).then((usersList) => {
             usersList.filter(item => item.id != currentUserId).forEach(item => {
-                let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
-                statusItem = `
-                    <div class="thread_info">
-                        <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
-                        <div class="thread_info_content">
-                            <ul>
-                                <li class="follow_btn">
-                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
-                                        <i class="ti-heart"></i>
-                                    </a>
-                                    <h5>${isFollow(item.id) ? 'UnFollow' : 'Follow'}</h5>
-                                </li>
-                                <li class="contact_request_btn">
-                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
-                                        <i class="ti-user"></i>
-                                    </a>
-                                    <h5>Contact Request</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
-                let isFollow = isFollow(item.id);
-                statusItem = `
+                follwStatus = isFollow(item.id);
+                let statusItem = `
                     <div class="thread_info">
                         <div class="follow_btn">
-                            <a class="icon-btn ${isFollow ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${isFollow ? 'UnFollow' : 'Follow'}>
-                                <i class="${isFollow ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                            <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
                             </a>
                         </div>
                         <div class="contact_request_btn">

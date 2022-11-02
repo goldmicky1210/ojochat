@@ -3225,7 +3225,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="search_field">
+                    <div class="search_field mb-2">
                         <!-- <span style="font-size: 16px;">Add Users</span> -->
                         <div class="input-group">
                             <input class="form-control search_list" type="text" placeholder="Search Users"
