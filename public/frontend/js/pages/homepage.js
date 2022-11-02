@@ -218,8 +218,6 @@ function getUsersForList(resolve) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            usersList = res.data;
-
             if (resolve) {
                 resolve(res.data);
             }
