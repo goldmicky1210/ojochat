@@ -85,11 +85,10 @@
                             <div class="follow_title">
                                 <h2>
                                     <span class="recents active">Recent</span>
+                                    <i class="fa fa-solid fa-circle"></i>
                                     <span class="followers">Followers(<label class='count'>0</label>)</span>
+                                    <i class="fa fa-solid fa-circle"></i>
                                     <span class="followings">Following(<label class='count'>0</label>)</span>
-                                    <!-- <span class="followers">Followers<label class="badge badge-primary sm ms-2 count">0</label></span>
-                                    <span class="followings">Following<label class="badge badge-primary sm ms-2 count">0</label></span> -->
-                                    <!-- <span class="discovery">Discovery</span> -->
                                 </h2>
                             </div>
                             <div class="media-body">
@@ -99,11 +98,11 @@
                                 <div class="icon-btn btn-outline-primary button-effect btn-sm search_user_btn">
                                     <i data-feather="search"></i>
                                 </div>
-                                <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
+                                <!-- <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
                                     <i class="ti-angle-right"></i>
-                                </a>
+                                </a> -->
                                 <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
-                                    <i class="ti-layout-grid2"></i>
+                                    <i class="ti-more-alt"></i>
                                 </a>
                             </div>
                         </div>
@@ -3252,6 +3251,131 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <img class="media_photo_src" src="" alt="photo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade add-popup todo-main-modal" id="profile_modal" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="contact-profile">
+                        <div class="theme-title">
+                            <div class="media">
+                                <div>
+                                    <h2>Profile</h2>
+                                    <h4>Personal Information</h4>
+                                </div>
+                                <div class="media-body text-end">
+                                    <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
+                                        <i data-feather="x"> </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="photoRating">
+                            <div>★</div>
+                            <div>★</div>
+                            <div>★</div>
+                            <div>★</div>
+                            <div>★</div>
+                        </div>
+                        <div class="details">
+                            <div class="contact-top " id="">
+                                <img class="bg-img" src="/images/default-avatar.png" alt="" />
+                            </div>
+                            <div class="mt-2">
+                                <h3 class="name">John Doe</h3>
+                                <h5 class="location mb-2">Alabma USA</h5>
+                                <h6 class="description"></h6>
+                            </div>
+                            <ul class="medialogo mt-2">
+                                <li><a class="icon-btn btn-danger button-effect" href="#"><i
+                                            class="fa fa-google"></i></a>
+                                </li>
+                                <li><a class="icon-btn btn-primary button-effect" href="#"><i
+                                            class="fa fa-twitter"></i></a>
+                                </li>
+                                <li><a class="icon-btn btn-facebook button-effect" href="#"><i
+                                            class="fa fa-facebook-f"></i></a>
+                                </li>
+                            </ul>
+                            <div class="follow_btn">
+                                <button class="btn btn-success button-effect btn-sm" type="button">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="document mt-3">
+                        <div class="filter-block">
+                            <div class="collapse-block open">
+                                <h5 class="block-title profile_rating_list mt-2">Content Ratings
+                                    <label class="badge badge-success sm ms-2">3</label>
+                                </h5>
+                                <div class="block-content">
+                                    <ul class="document-list content-rating-list">
+                                        <li class="text-rating"><i class="ti-text font-danger" title="text"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                        <li class="photo-rating"><i class="ti-camera font-success" title="photo"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                        <li class="video-rating"><i class="ti-video-clapper font-primary"
+                                                title="video"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                        <li class="audio-rating"><i class="ti-music font-danger" title="audio"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                        <li class="video-call-rating"><i class="ti-video-camera font-success"
+                                                title="video call"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                        <li class="voice-call-rating"><i class="ti-headphone-alt font-primary"
+                                                title="voice call"></i>
+                                            <div class="photoRating">
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                                <div>★</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

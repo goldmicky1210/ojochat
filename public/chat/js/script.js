@@ -758,6 +758,13 @@
         openAndCloseProfile();
     });
 
+    $('#custom_modal').on('click', '.search_user_modal .chat-main li .profile', function () {
+        let userId = $(this).closest('li').attr('key');
+        setProfileData(userId);
+        $('#profile_modal').modal('show');
+    });
+
+
     /*=====================
            28. dropdown
            ==========================*/
@@ -1022,6 +1029,93 @@
         return false;
     });
 
-
-
 })(jQuery);
+
+function setProfileData(userId) {
+    $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
+
+    let userInfo = getCertainUserInfoById(userId)
+    if (userInfo.avatar) {
+        $('#profile_modal .contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
+    } else {
+        $('#profile_modal .contact-top').css('background-image', `url("/images/default-avatar.png")`);
+    }
+
+    convertListItems();
+    $('#profile_modal .contact-profile').attr('userId', userId);
+    // $('#profile_modal .contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
+    $('#profile_modal .contact-profile .name').html(userInfo.firstName || userInfo.username);
+    $('#profile_modal .contact-profile .location').html(userInfo.location);
+    $('#profile_modal .contact-profile .description').html(userInfo.description);
+    // if (userId == currentUserId) {
+    //     $('.contact-profile .follow_btn').addClass('hidden');
+    // } else {
+    //     $('.contact-profile .follow_btn').removeClass('hidden');
+    // }
+
+    if (isFollow(userId)) {
+        $('#profile_modal .contact-profile .follow_btn .btn').text('UnFollow');
+        $('#profile_modal .contact-profile .follow_btn .btn').removeClass('btn-success');
+        $('#profile_modal .contact-profile .follow_btn .btn').addClass('btn-danger');
+    } else {
+        $('#profile_modal .contact-profile .follow_btn .btn').text('Follow');
+        $('#profile_modal .contact-profile .follow_btn .btn').removeClass('btn-danger');
+        $('#profile_modal .contact-profile .follow_btn .btn').addClass('btn-success');
+    }
+    var form_data = new FormData();
+    form_data.append('userId', userId);
+    $.ajax({
+        url: '/home/getRateData',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                setProfileRateData(res.rateData);
+            }
+        },
+        error: function (response) { }
+    });
+}
+function setProfileRateData(data) {
+    if (data.length) {
+        var textRate = data.filter(item => item.kind == 0).map(item => item.rate).reduce((cur, item, index, arr) => cur + (item / arr.length), 0) || 0;
+        var photoRate = data.filter(item => item.kind == 2).map(item => item.rate).reduce((cur, item, index, arr) => cur + (item / arr.length), 0) || 0;
+        var videoRate = 0;
+        var audioRate = 0;
+        var videoCallRate = 0;
+        var voiceCallRate = 0;
+        var averageRate = data.map(item => item.rate).reduce((cur, item, index, arr) => cur + (item / arr.length), 0) || 0;
+    } else {
+        var textRate = 0;
+        var photoRate = 0;
+        var videoRate = 0;
+        var audioRate = 0;
+        var videoCallRate = 0;
+        var voiceCallRate = 0;
+        var averageRate = 0;
+    }
+    let count = data.length || '';
+    $('#profile_modal .profile_rating_list .badge').text(count);
+    getContentRate('.right-sidebar .contact-profile', Math.round(averageRate));
+    document.querySelector('.right-sidebar .contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+
+    getContentRate('#profile_modal .content-rating-list .text-rating', Math.round(textRate));
+    getContentRate('#profile_modal .content-rating-list .photo-rating', Math.round(photoRate));
+    getContentRate('#profile_modal .content-rating-list .video-rating', Math.round(videoRate));
+    getContentRate('#profile_modal .content-rating-list .audio-rating', Math.round(audioRate));
+    getContentRate('#profile_modal .content-rating-list .video-call-rating', Math.round(videoCallRate));
+    getContentRate('#profile_modal .content-rating-list .voice-call-rating', Math.round(voiceCallRate));
+    document.querySelector('#profile_modal .content-rating-list .text-rating')._tippy.setContent(textRate.toFixed(2))
+    document.querySelector('#profile_modal .content-rating-list .photo-rating')._tippy.setContent(photoRate.toFixed(2))
+    document.querySelector('#profile_modal .content-rating-list .video-rating')._tippy.setContent(videoRate.toFixed(2))
+    document.querySelector('#profile_modal .content-rating-list .audio-rating')._tippy.setContent(audioRate.toFixed(2))
+    document.querySelector('#profile_modal .content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
+    document.querySelector('#profile_modal .content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
+}

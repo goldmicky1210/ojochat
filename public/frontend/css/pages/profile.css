@@ -37,3 +37,22 @@
     padding: 30px;
     padding-bottom: 15px;
 }
+
+#profile_modal .contact-profile .details .contact-top {
+    height: 150px;
+    width: 140px;
+    border-radius: 20px;
+    -webkit-box-shadow: -1px 10px 16px -10px #666;
+    box-shadow: -1px 10px 16px -10px #666;
+    margin: 0 auto;
+}
+
+#profile_modal .details {
+    text-align: center;
+}
+
+#profile_modal .details .medialogo {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}

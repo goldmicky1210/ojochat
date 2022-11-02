@@ -1,17 +1,24 @@
 .follow_title h2 {
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: 400;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 15px;
 }
 
 .follow_title h2 span {
     font-size: 0.9rem;
     cursor: pointer;
     font-weight: 400;
+}
+
+.recent-default .recent .theme-title .media {
+    align-items: center;
+}
+
+.follow_title h2 i {
+    font-size: 0.5rem;
+    font-weight: 400;
+    margin: 0 5px;
 }
 
 .follow_title h2 span.active {
@@ -24,6 +31,7 @@
     }
 }
 
+
 .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
     padding: 0 20px;
 }
@@ -34,14 +42,59 @@
     gap: 5px;
 }
 
+.mainnav {
+    transform: rotate(90deg);
+}
+
+@media (max-width: 2550px) {
+    .theme-title .media .media-body .icon-btn {
+        width: 25px;
+        height: 25px;
+    }
+}
+
 @media (max-width: 1366px) {
     .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
         padding: 0 5px;
+    }
+
+    .follow_title h2 span {
+        font-size: 11px;
+    }
+
+    .follow_title h2 i {
+        font-size: 5px;
     }
 }
 
 @media (max-width: 800px) {
     .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
         padding: 0 20px;
+    }
+
+    .follow_title h2 span {
+        font-size: 1.2rem;
+    }
+
+    .theme-title .media .media-body .icon-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 550px) {
+    .follow_title h2 span {
+        font-size: 0.9rem;
+    }
+
+    .theme-title .media .media-body .icon-btn {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 420px) {
+    .follow_title h2 span {
+        font-size: 12px;
     }
 }

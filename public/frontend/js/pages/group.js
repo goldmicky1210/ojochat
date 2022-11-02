@@ -65,10 +65,10 @@ $(document).ready(function () {
         $(this).find('.thread_info_content').toggle();
     });
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn', function (e) {
-        console.log($(this).find('h5').text());
+        console.log(this);
     });
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
-        console.log($(this).find('h5').text());
+        console.log(this);
     });
     // search new user end
 

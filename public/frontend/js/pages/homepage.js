@@ -333,29 +333,29 @@ function setUserProfileContent(userId) {
 
     let userInfo = getCertainUserInfoById(userId)
     if (userInfo.avatar) {
-        $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
+        $('.right-sidebar .contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
     } else {
-        $('.contact-top').css('background-image', `url("/images/default-avatar.png")`);
+        $('.right-sidebar .contact-top').css('background-image', `url("/images/default-avatar.png")`);
     }
-    $('.contact-profile').attr('userId', userId);
-    $('.contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
-    $('.contact-profile .name h3').html(userInfo.firstName || userInfo.username);
-    $('.contact-profile .name h5').html(userInfo.location);
-    $('.contact-profile .name h6').html(userInfo.description);
+    $('.right-sidebar .contact-profile').attr('userId', userId);
+    $('.right-sidebar .contact-profile .theme-title .media h2').html(userInfo.login_name || 'User Profile');
+    $('.right-sidebar .contact-profile .name h3').html(userInfo.firstName || userInfo.username);
+    $('.right-sidebar .contact-profile .name h5').html(userInfo.location);
+    $('.right-sidebar .contact-profile .name h6').html(userInfo.description);
     if (userId == currentUserId) {
         $('.contact-profile .follow_btn').addClass('hidden');
     } else {
-        $('.contact-profile .follow_btn').removeClass('hidden');
+        $('.right-sidebar .contact-profile .follow_btn').removeClass('hidden');
     }
 
     if (isFollow(userId)) {
-        $('.contact-profile .follow_btn .btn').text('UnFollow');
-        $('.contact-profile .follow_btn .btn').removeClass('btn-success');
-        $('.contact-profile .follow_btn .btn').addClass('btn-danger');
+        $('.right-sidebar .contact-profile .follow_btn .btn').text('UnFollow');
+        $('.right-sidebar .contact-profile .follow_btn .btn').removeClass('btn-success');
+        $('.right-sidebar .contact-profile .follow_btn .btn').addClass('btn-danger');
     } else {
-        $('.contact-profile .follow_btn .btn').text('Follow');
-        $('.contact-profile .follow_btn .btn').removeClass('btn-danger');
-        $('.contact-profile .follow_btn .btn').addClass('btn-success');
+        $('.right-sidebar .contact-profile .follow_btn .btn').text('Follow');
+        $('.right-sidebar .contact-profile .follow_btn .btn').removeClass('btn-danger');
+        $('.right-sidebar .contact-profile .follow_btn .btn').addClass('btn-success');
 
     }
     var form_data = new FormData();
@@ -382,7 +382,7 @@ function setUserProfileContent(userId) {
 
 function setGroupProfileContent(groupId) {
     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
-    $('.contact-profile .follow_btn').addClass('hidden');
+    $('.right-sidebar .contact-profile .follow_btn').addClass('hidden');
 
     let form_data = new FormData();
     form_data.append('groupId', groupId);
@@ -401,16 +401,16 @@ function setGroupProfileContent(groupId) {
             if (res.state == 'true') {
                 let { data } = res;
                 if (data.avatar) {
-                    $('.contact-top').css('background-image', `url("v1/api/downloadFile?path=${data.avatar}")`);
+                    $('.right-sidebar .contact-top').css('background-image', `url("v1/api/downloadFile?path=${data.avatar}")`);
                 } else {
-                    $('.contact-top').css('background-image', `url("/chat/images/avtar/teq.jpg")`);
+                    $('.right-sidebar .contact-top').css('background-image', `url("/chat/images/avtar/teq.jpg")`);
                 }
 
-                $('.contact-profile .theme-title .media h2').html('Group Profile');
-                $('.contact-profile .name h3').html(data.title || 'Group Title');
-                $('.contact-profile .name h5').html(data.description || '');
-                $('.contact-profile .name h6').html('');
-                $('.contact-profile .name').attr('groupAdmins', data.admins || '');
+                $('.right-sidebar .contact-profile .theme-title .media h2').html('Group Profile');
+                $('.right-sidebar .contact-profile .name h3').html(data.title || 'Group Title');
+                $('.right-sidebar .contact-profile .name h5').html(data.description || '');
+                $('.right-sidebar .contact-profile .name h6').html('');
+                $('.right-sidebar .contact-profile .name').attr('groupAdmins', data.admins || '');
 
                 $.ajax({
                     url: '/home/getRateData',
@@ -456,8 +456,8 @@ function setProfileRate(data) {
     }
     let count = data.length || '';
     $('.profile_rating_list .badge').text(count);
-    getContentRate('.contact-profile', Math.round(averageRate));
-    document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+    getContentRate('.right-sidebar .contact-profile', Math.round(averageRate));
+    document.querySelector('.right-sidebar .contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 
     getContentRate('.content-rating-list .text-rating', Math.round(textRate));
     getContentRate('.content-rating-list .photo-rating', Math.round(photoRate));
@@ -480,8 +480,6 @@ function getAverageRate(data) {
         var averageRate = 0;
     }
     return averageRate;
-    getContentRate('.contact-profile', Math.round(averageRate));
-    document.querySelector('.contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 }
 
 function openAndCloseProfile() {
