@@ -40,9 +40,15 @@ $(document).ready(() => {
         });
     });
     // accept contact request
-    $('.notification-tab .chat-main').on('click', 'li.user_item', function () {
+    $('.notification-tab .chat-main').on('click', 'li.user_item .accept_request_btn', function () {
         let userId = $(this).closest('.user_item').attr('key');
         addContact(userId);
+    });
+
+    // remove contact request
+    $('.notification-tab .chat-main').on('click', 'li.user_item .remove_request_btn', function () {
+        let userId = $(this).closest('.user_item').attr('key');
+        removeContactRequest(userId);
     });
 
 });
@@ -64,6 +70,51 @@ function addContact(userId) {
         dataType: "json",
         success: function (res) {
             console.log(res);
+            if (res.state) {
+
+            }
+            // if (res.insertion == false) {
+            //     $('.addContactError').html(res.message);
+            //     setTimeout(() => {
+            //         $('.addContactError').html('');
+            //     }, 1000);
+            // } else {
+            //     let data = res.data;
+            //     data.created_at = new Date();
+            //     let target = '#contact-list .chat-main';
+            //     addNewUserItem(target, data);
+            //     if (userId) {
+            //         let username = getCertainUserInfoById(userId).username;
+            //         alert(`${username} has been added to contacts successfully`);
+            //     }
+            // }
+        },
+        error: function (response) {
+            // document.location.href = '/';
+            alert('Add Contact Error');
+        }
+    });
+}
+
+function removeContactRequest(userId) {
+    var form_data = new FormData();
+    form_data.append('userId', userId);
+    $.ajax({
+        url: '/home/removeContactRequest',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            if (res.state) {
+
+            }
             // if (res.insertion == false) {
             //     $('.addContactError').html(res.message);
             //     setTimeout(() => {

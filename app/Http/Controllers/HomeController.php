@@ -278,6 +278,39 @@ class HomeController extends Controller
         );
     }
 
+    public function removeContactRequest(Request $request)
+    {
+        $id=Auth::id();
+        $contactId = $request->input('userId');
+        $result = Contact::where('user_id', $id)->where('contact_id', $contactId)->delete();
+        return array('state' => $result);
+
+        $newContactInfo = User::where('id', $request->input('userId'))->get();
+        $contactIds = Contact::where('user_id', Auth::id())->get();
+        if (!count($newContactInfo)) {
+            return array(
+                'message' => "This email doesn't register",
+                'insertion' => false
+            );
+        }
+        foreach($contactIds as $contactId) {
+            if ($newContactInfo[0]->id == $contactId->contact_id)
+                return array(
+                    'message' => 'This email exists in Contact',
+                    'insertion' => false
+                );
+        }
+        $newContact = new Contact;
+        $newContact->user_id = $id;
+        $newContact->contact_id = $newContactInfo[0]->id;
+        $newContact->save();
+        return array(
+            'message' => 'Save Successfully',
+            'insertion' => true,
+            'data' => $newContactInfo[0],
+        );
+    }
+
     public function getContactList(Request $request)
     {
         $id = Auth::id();

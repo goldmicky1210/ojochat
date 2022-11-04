@@ -33,6 +33,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/home/getContactList', 'HomeController@getContactList');
     Route::post('/home/getPendingContactList', 'HomeController@getPendingContactList');
     Route::post('/home/sendContactRequest', 'HomeController@sendContactRequest');
+    Route::post('/home/removeContactRequest', 'HomeController@removeContactRequest');
     Route::post('/home/sendMessage', 'HomeController@sendMessage');
     Route::post('/home/saveProfileInfo', 'HomeController@saveProfileInfo');
     Route::post('/home/getUploadFileURL', 'HomeController@getUploadFileURL');
