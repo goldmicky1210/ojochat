@@ -248,7 +248,10 @@ class HomeController extends Controller
     public function addContactItem(Request $request)
     {
         $id=Auth::id();
-        
+        $contactId = $request->input('userId');
+        $result = Contact::where('user_id', $id)->where('contact_id', $contactId)->update(['status' => 1]);
+        return array('state' => $result);
+
         $newContactInfo = User::where('id', $request->input('userId'))->get();
         $contactIds = Contact::where('user_id', Auth::id())->get();
         if (!count($newContactInfo)) {

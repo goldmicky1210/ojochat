@@ -63,21 +63,22 @@ function addContact(userId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            if (res.insertion == false) {
-                $('.addContactError').html(res.message);
-                setTimeout(() => {
-                    $('.addContactError').html('');
-                }, 1000);
-            } else {
-                let data = res.data;
-                data.created_at = new Date();
-                let target = '#contact-list .chat-main';
-                addNewUserItem(target, data);
-                if (userId) {
-                    let username = getCertainUserInfoById(userId).username;
-                    alert(`${username} has been added to contacts successfully`);
-                }
-            }
+            console.log(res);
+            // if (res.insertion == false) {
+            //     $('.addContactError').html(res.message);
+            //     setTimeout(() => {
+            //         $('.addContactError').html('');
+            //     }, 1000);
+            // } else {
+            //     let data = res.data;
+            //     data.created_at = new Date();
+            //     let target = '#contact-list .chat-main';
+            //     addNewUserItem(target, data);
+            //     if (userId) {
+            //         let username = getCertainUserInfoById(userId).username;
+            //         alert(`${username} has been added to contacts successfully`);
+            //     }
+            // }
         },
         error: function (response) {
             // document.location.href = '/';
