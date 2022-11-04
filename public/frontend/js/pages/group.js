@@ -43,11 +43,14 @@ $(document).ready(function () {
         console.log(this);
     });
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
-        console.log(this);
+        let userId = $(this).closest('.user_item').attr('key');
+        console.log(userId);
+        $.post('/home/sendContactRequest', { userId }, (res) => {
+            console.log(res)
+        })
     });
 
     $('#custom_modal .modal-content .chat-main').on('scroll', function () {
-        console.log('aaa');
         if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
             let isLoading = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
             if (isLoading) {
@@ -741,7 +744,7 @@ $(document).ready(function () {
 
 function addUsersListItem(target, data, statusItem) {
     $(target).append(
-        `<li data-to="blank" key="${data.id}">
+        `<li class="user_item" data-to="blank" key="${data.id}">
             <div class="chat-box">
                 <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
                     

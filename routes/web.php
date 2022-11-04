@@ -31,6 +31,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/home/getUsersListByGroupId', 'HomeController@getUsersListByGroupId');
     Route::post('/home/addContactItem', 'HomeController@addContactItem');
     Route::post('/home/getContactList', 'HomeController@getContactList');
+    Route::post('/home/sendContactRequest', 'HomeController@sendContactRequest');
     Route::post('/home/sendMessage', 'HomeController@sendMessage');
     Route::post('/home/saveProfileInfo', 'HomeController@saveProfileInfo');
     Route::post('/home/getUploadFileURL', 'HomeController@getUploadFileURL');

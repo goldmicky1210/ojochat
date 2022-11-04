@@ -285,15 +285,23 @@ class HomeController extends Controller
             return $item;
         });
         return $contactList;
-
-        // for ($i = 0; $i < count($contacts); $i++) {
-        //     $msg = Message::where('sender',$contacts[$i]->contact_id)
-        //         ->orWhere('recipient',$contacts[$i]->contact_id);
-        //     $contacts[$i]['message'] = $msg->count() ? $msg->orderBy('created_at','desc')->get()[0] : '';
-        //     $contacts[$i]['username'] = User::where('id', $contacts[$i]->contact_id)->get()[0]->username;
-        // }
-        // return $contactIds;
     }
+
+    public function sendContactRequest(Request $request) {
+        $userId = Auth::id();
+        $contactId = $request->input('userId');
+        $contact = Contact::where('user_id', $userId)->where('contact_id', $contactId)->first();
+        if ($contact) {
+            return array('message' => 'exist', 'data' => $contact);
+        }
+
+        $newContact = new Contact;
+        $newContact->user_id = $userId;
+        $newContact->contact_id = $contactId;
+        $newContact->save();
+        return array('message' => 'sent', 'data' => $newContact);
+    }
+
     
     public function sendMessage(Request $request)
     {
