@@ -251,11 +251,12 @@ class HomeController extends Controller
         
         $newContactInfo = User::where('id', $request->input('userId'))->get();
         $contactIds = Contact::where('user_id', Auth::id())->get();
-        if (!count($newContactInfo)) 
+        if (!count($newContactInfo)) {
             return array(
                 'message' => "This email doesn't register",
                 'insertion' => false
             );
+        }
         foreach($contactIds as $contactId) {
             if ($newContactInfo[0]->id == $contactId->contact_id)
                 return array(
@@ -277,8 +278,21 @@ class HomeController extends Controller
     public function getContactList(Request $request)
     {
         $id = Auth::id();
-        $contactIds = Contact::where('user_id', $id)->get('contact_id');
-        $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'desc')->get();
+        $contactIds = Contact::where('user_id', $id)->where('status', 1)->get('contact_id');
+        $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'asc')->get();
+        $contactList = $contactList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
+        return $contactList;
+    }
+
+    public function getPendingContactList(Request $request)
+    {
+        $id = Auth::id();
+        $contactIds = Contact::where('user_id', $id)->where('status', 0)->get('contact_id');
+        $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'asc')->get();
         $contactList = $contactList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
             $item['rateData'] = $rateData;

@@ -9,7 +9,7 @@ $(document).ready(() => {
         });
     });
 
-    // show Cast List
+    // show Contact List
     $('.sidebar-top li.contact_list_btn').on('click', () => {
         let target = '.contact-list-tab .chat-main';
         new Promise(resolve => getContactListData(resolve)).then(data => {
@@ -18,6 +18,33 @@ $(document).ready(() => {
             data.forEach(item => addNewUserItem(target, item))
         });
     });
+    // show contact request
+    $('.sidebar-top li.notification_list_btn').on('click', () => {
+        let target = '.notification-tab  .chat-main';
+        new Promise(resolve => getPendingContactListData(resolve)).then(data => {
+            $(target).empty();
+            let statusItem = `
+                <div class="thread_info">
+                    <div class="accept_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                            <i class="ti-check"></i>
+                        </a>
+                    </div>
+                    <div class="remove_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                            <i class="ti-trash"></i>
+                        </a>
+                    </div>
+                </div>`
+            data.forEach(item => addUsersListItem(target, item, statusItem))
+        });
+    });
+    // accept contact request
+    $('.notification-tab .chat-main').on('click', 'li.user_item', function () {
+        let userId = $(this).closest('.user_item').attr('key');
+        addContact(userId);
+    });
+
 });
 
 function addContact(userId) {
@@ -62,6 +89,26 @@ function addContact(userId) {
 function getContactListData(resolve) {
     $.ajax({
         url: '/home/getContactList',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            resolve(res);
+        },
+        error: function (response) {
+
+        }
+    });
+}
+
+function getPendingContactListData(resolve) {
+    $.ajax({
+        url: '/home/getPendingContactList',
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
