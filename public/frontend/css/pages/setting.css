@@ -25,3 +25,9 @@
     opacity: 0;
     top: 0;
 }
+
+@media (max-width: 1366px) {
+    .notification-tab .chat-main .chat-box .date-status {
+        top: 50%;
+    }
+}
