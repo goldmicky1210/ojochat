@@ -25,7 +25,7 @@ $(document).ready(function () {
                     </div>
                     <div class="contact_request_btn">
                         <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
-                            <i class="ti-user"></i>
+                            <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
                         </a>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ $(document).ready(function () {
                             </div>
                             <div class="contact_request_btn">
                                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
-                                    <i class="ti-user"></i>
+                                    <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
                                 </a>
                             </div>
                         </div>
