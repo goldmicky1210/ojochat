@@ -231,11 +231,19 @@ class HomeController extends Controller
     public function getUsersForList(Request $request) {
         $id = Auth::id();
         $lastUserName = $request->input('lastUserName');
-        // $userList = User::where('id', '<>', $id)->get();
-        if ($lastUserName) {
-            $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
+        $searchStr = $request->input('searchStr');
+        if ($searchStr) {
+            if ($lastUserName) {
+                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+            } else {
+                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+            }
         } else {
-            $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->limit(10)->get();
+            if ($lastUserName) {
+                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
+            } else {
+                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->limit(10)->get();
+            }
         }
         
         $userList = $userList->map(function($item) {
@@ -245,6 +253,7 @@ class HomeController extends Controller
         });
         return array('state' => 'true', 'data' => $userList);
     }
+
     public function addContactItem(Request $request)
     {
         $id=Auth::id();

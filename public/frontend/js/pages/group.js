@@ -13,7 +13,7 @@ $(document).ready(function () {
         let target = '#custom_modal .chat-main';
         $(target).empty();
         lastUserName = '';
-        let newUsersList = loadMoreUsers(lastUserName);
+        let newUsersList = loadMoreUsers(lastUserName, '');
         newUsersList.forEach(item => {
             let follwStatus = isFollow(item.id);
             let statusItem = `
@@ -55,7 +55,7 @@ $(document).ready(function () {
             let isLoading = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
             if (isLoading) {
                 let target = '#custom_modal .chat-main';
-                let newUsersList = loadMoreUsers(lastUserName);
+                let newUsersList = loadMoreUsers(lastUserName, '');
                 newUsersList.forEach(item => {
                     follwStatus = isFollow(item.id);
                     let statusItem = `
@@ -78,35 +78,6 @@ $(document).ready(function () {
             }
         }
     });
-
-    function loadMoreUsers(lastUserName, searchStr) {
-        let form_data = new FormData();
-        form_data.append('lastUserName', lastUserName);
-        form_data.append('searchStr', searchStr);
-        let result = [];
-        $.ajax({
-            url: '/home/getUsersForList',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-            async: false,
-            type: 'POST',
-            dataType: "json",
-            data: form_data,
-            success: function (res) {
-                result = res.data;
-            },
-            error: function (response) {
-                // document.location.href = '/';
-                alert('UserList Error');
-            }
-        });
-        return result;
-    }
-
     // search new user end
 
     // create new Chat start
@@ -122,6 +93,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.group_title input').val('');
         let target = '#custom_modal .chat-main';
         $(target).empty();
+
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
         new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
@@ -194,20 +166,17 @@ $(document).ready(function () {
 
         document.getElementById("group_profile_avatar_create")
             .addEventListener('click', function () {
-                let adminList = $('.contact-profile .name').attr('groupAdmins').split(',');
-                if (adminList.includes(currentUserId.toString())) {
+
+                let adminList = $('.contact-profile .name').attr('groupAdmins');
+                adminList = adminList ? adminList.split(',') : [];
+                if (adminList.includes(currentUserId.toString()) || !adminList.length) {
                     document.getElementById("group_avatar_select").click();
                 }
             }, false);
     });
     $('#custom_modal').on('click', '.modal-content.create_new_group_modal .btn_group .btn', function () {
 
-        // setTimeout(() => {
-        //     $(`#group-tab`).click();
-        // }, 100);
-
         let title = $('#custom_modal').find('.group_title input').val();
-        console.log(title);
         if (!title) {
             $('#custom_modal .group_title input').addClass('is-invalid');
             setTimeout(() => {
@@ -548,6 +517,7 @@ $(document).ready(function () {
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
         $('#custom_modal .modal-content').removeClass('edit_group_modal');
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
+        $('#custom_modal').find('.search_list').val('');
 
     });
 
@@ -1180,4 +1150,30 @@ function getContactorInfoByGroupId(userId, groupId) {
     return result;
 }
 
-// function loadMoreUsers(lastId)
+function loadMoreUsers(lastUserName, searchStr) {
+    let form_data = new FormData();
+    form_data.append('lastUserName', lastUserName);
+    form_data.append('searchStr', searchStr);
+    let result = [];
+    $.ajax({
+        url: '/home/getUsersForList',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        data: form_data,
+        success: function (res) {
+            result = res.data;
+        },
+        error: function (response) {
+            // document.location.href = '/';
+            alert('UserList Error');
+        }
+    });
+    return result;
+}

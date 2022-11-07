@@ -795,18 +795,72 @@ function searchList() {
         keyuptimer = setTimeout(() => {
             let value = $(this).val();
             if (value) {
-                $(target).find('.chat-main>li').each(function () {
-                    let title = $(this).find('.details h5').text().toLowerCase();
-                    if (title.includes(value.toLowerCase())) {
-                        $(this).removeClass('hidden');
-                    } else {
-                        $(this).addClass('hidden');
-                    }
-                });
+                if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
+                    let target = '#custom_modal .chat-main';
+                    lastUserName = '';
+                    console.log(lastUserName)
+                    $(target).empty();
+                    let newUsersList = loadMoreUsers(lastUserName, value);
+                    newUsersList.forEach(item => {
+                        follwStatus = isFollow(item.id);
+                        let statusItem = `
+                            <div class="thread_info">
+                                <div class="follow_btn">
+                                    <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                        <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                                    </a>
+                                </div>
+                                <div class="contact_request_btn">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                        <i class="ti-user"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        addUsersListItem(target, item, statusItem)
+                        lastUserName = item.username;
+                    });
+                } else {
+                    $(target).find('.chat-main>li').each(function () {
+                        let title = $(this).find('.details h5').text().toLowerCase();
+                        if (title.includes(value.toLowerCase())) {
+                            $(this).removeClass('hidden');
+                        } else {
+                            $(this).addClass('hidden');
+                        }
+                    });
+                }
             } else {
-                $(target).find('.chat-main>li').each(function (item) {
-                    $(this).removeClass('hidden');
-                });
+                if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
+                    let target = '#custom_modal .chat-main';
+                    lastUserName = '';
+                    console.log(lastUserName)
+                    $(target).empty();
+                    let newUsersList = loadMoreUsers(lastUserName, '');
+                    newUsersList.forEach(item => {
+                        follwStatus = isFollow(item.id);
+                        let statusItem = `
+                            <div class="thread_info">
+                                <div class="follow_btn">
+                                    <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                        <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                                    </a>
+                                </div>
+                                <div class="contact_request_btn">
+                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                        <i class="ti-user"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        addUsersListItem(target, item, statusItem)
+                        lastUserName = item.username;
+                    });
+                } else {
+                    $(target).find('.chat-main>li').each(function (item) {
+                        $(this).removeClass('hidden');
+                    });
+                }
             }
         }, 100);
     });
