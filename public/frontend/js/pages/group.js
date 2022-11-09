@@ -88,20 +88,29 @@ $(document).ready(function () {
         $('#new_chat_modal').find('.btn_group .btn').hide();
         $('#new_chat_modal').find('.sub_title').hide();
         $('#new_chat_modal').find('.group_title input').val('');
-        let target = '#new_chat_modal .chat-main';
-        $(target).empty();
+        let target1 = '#new_chat_modal #contact_tab_content .chat-main';
+        $(target1).empty();
 
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
 
-        new Promise((resolve) => getUsersList(resolve)).then((usersList) => {
+        let statusItem = '';
+        new Promise((resolve) => getContactListData(resolve)).then((usersList) => {
             usersList.filter(item => item.id != currentUserId && !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
-                let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
-                statusItem = '';
-                addUsersListItem(target, item, statusItem)
+                addUsersListItem(target1, item, statusItem)
             });
             $('.chat-cont-setting').removeClass('open');
-
         });
+
+        let target2 = '#new_chat_modal #follow_tab_content .chat-main';
+        $(target2).empty();
+        new Promise((resolve) => getFollowList(resolve)).then((usersList) => {
+            usersList.filter(item => item.id != currentUserId && !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
+                addUsersListItem(target2, item, statusItem)
+            });
+            $('.chat-cont-setting').removeClass('open');
+        });
+
+
     });
     $('#new_chat_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
         let userId = $(this).attr('key');
@@ -1175,4 +1184,24 @@ function loadMoreUsers(lastUserName, searchStr) {
         }
     });
     return result;
+}
+
+function getFollowList(resolve) {
+    $.ajax({
+        url: '/profile/getFollowList',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            resolve(res);
+        },
+        error: function (response) {
+
+        }
+    });
 }

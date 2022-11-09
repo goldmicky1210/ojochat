@@ -24,6 +24,7 @@ use App\Models\Group;
 use App\Models\UsersGroup;
 use App\Models\AttachFile;
 use App\Models\Follow;
+use App\Models\Rate;
 
 
 class ProfileController extends Controller
@@ -59,6 +60,19 @@ class ProfileController extends Controller
             return array('state' => 'true', 'result' => 0);
         }
         return array('state' => 'true', 'result' => 1);
+    }
+
+    public function getFollowList(Request $request)
+    {
+        $id = Auth::id();
+        $followings = Follow::where('user_id', $id)->get('follow_id');
+        $contactList = User::whereIn('id', $followings)->orderBy('username', 'asc')->get();
+        $contactList = $contactList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
+        return $contactList;
     }
 
 }

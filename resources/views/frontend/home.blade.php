@@ -3273,8 +3273,42 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="chat-main custom-scroll">
-                    </ul>
+                    <div class="theme-tab">
+                        <ul class="nav nav-tabs" id="new_chat_tab" role="tablist">
+                            <li class="nav-item"><a class="nav-link button-effect active" id="contact_tab"
+                                    data-bs-toggle="tab" href="#contact_tab_content" role="tab"
+                                    aria-controls="direct" aria-selected="false"
+                                    data-to="direct_chat">Contacts</a></li>
+                            <li class="nav-item"><a class="nav-link button-effect" id="follow_tab"
+                                    data-bs-toggle="tab" href="#follow_tab_content" role="tab" aria-controls="group"
+                                    aria-selected="true" data-to="group_chat">Follows</a></li>
+                            
+                        </ul>
+                        <div class="tab-content" id="new_chat_tab_content">
+                            <div class="tab-pane fade show active" id="contact_tab_content" role="tabpanel"
+                                aria-labelledby="direct-tab">
+                                <ul class="group-main chat-main">
+
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="follow_tab_content" role="tabpanel"
+                                aria-labelledby="group-tab">
+                                {{-- <div class="search2">
+                                    <div>
+                                        <div class="input-group">
+                                            <div class="input-group-append"><span class="input-group-text"><i
+                                                        class="fa fa-search"></i></span></div>
+                                            <input class="form-control" type="text"
+                                                placeholder="Start Chat" />
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <ul class="group-main chat-main">
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="btn_group">
                         <button class="btn btn-success button-effect btn-sm" type="button">Button</button>
                     </div>

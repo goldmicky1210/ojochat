@@ -202,13 +202,6 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     max-width: 320px;
 }
 
-@media (max-width: 768px) {
-
-    .chat-main>li .details>h5,
-    .chat-main>li .details>h6 {
-        width: 150px;
-    }
-}
 
 .contact-chat>ul>li.sent .document i,
 .contact-chat>ul>li.replies .document i {
@@ -241,4 +234,17 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     text-align: center;
     line-height: 16px;
     font-size: 12px;
+}
+
+#new_chat_modal .theme-tab .nav-tabs {
+    justify-content: center;
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .chat-main>li .details>h5,
+    .chat-main>li .details>h6 {
+        width: 150px;
+    }
 }
