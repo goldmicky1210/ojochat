@@ -82,16 +82,13 @@ $(document).ready(function () {
 
     // create new Chat start
     $('.create_new_chat_btn').on('click', function () {
-        let groupId = $('#myTabContent1 .tab-pane.active .group-main li.active').attr('groupId');
-        let groupTitle = $('#myTabContent1 .tab-pane.active .group-main li.active .details h5').text() || 'Group Title is undefined';
-        let groupAatarSrc = $('.messages.active .contact-details .media .bg-img').attr('src');
-        $('#custom_modal').modal('show');
-        $('#custom_modal .modal-content').addClass('create_new_chat_modal');
-        $('#custom_modal').find('.modal-title').text('Create New Chat');
-        $('#custom_modal').find('.btn_group .btn').hide();
-        $('#custom_modal').find('.sub_title').hide();
-        $('#custom_modal').find('.group_title input').val('');
-        let target = '#custom_modal .chat-main';
+        $('#new_chat_modal').modal('show');
+        $('#new_chat_modal .modal-content').addClass('create_new_chat_modal');
+        $('#new_chat_modal').find('.modal-title').text('Create New Chat');
+        $('#new_chat_modal').find('.btn_group .btn').hide();
+        $('#new_chat_modal').find('.sub_title').hide();
+        $('#new_chat_modal').find('.group_title input').val('');
+        let target = '#new_chat_modal .chat-main';
         $(target).empty();
 
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
@@ -106,7 +103,7 @@ $(document).ready(function () {
 
         });
     });
-    $('#custom_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
+    $('#new_chat_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
         let userId = $(this).attr('key');
         new Promise(resolve => getUsersList(resolve)).then(usersList => {
             let item = usersList.find(item => item.id == userId);
@@ -115,6 +112,8 @@ $(document).ready(function () {
             $('#custom_modal').modal('hide');
         });
     });
+
+
     // create new Chat end
 
     // create newGroup start

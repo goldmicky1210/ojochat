@@ -829,3 +829,12 @@ h6.read {
         width: 60px;
     }
 }
+
+@media (max-width: 800px) {
+
+    .msg-chat-modal .chat-main,
+    .msg-chat-modal .call-log-main {
+        max-height: 600px;
+        height: auto;
+    }
+}

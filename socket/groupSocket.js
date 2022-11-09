@@ -31,6 +31,8 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         }
 
         if (data.groupType == 3) {
+            console.log('===================');
+            console.log(data.globalGroupUsers);
             let groupUsers = data.globalGroupUsers ? data.globalGroupUsers.split(',') : []
             groupUsers.filter(id => id != currentUserId).forEach(recipientId => {
                 db.query(`SELECT group_id

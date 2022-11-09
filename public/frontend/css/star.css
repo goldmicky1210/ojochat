@@ -44,6 +44,7 @@
 
 .notification-tab .photoRating,
 .contact-profile .photoRating,
+#new_chat_modal .photoRating,
 #custom_modal .photoRating {
     display: flex;
     flex-direction: row-reverse;
@@ -52,6 +53,7 @@
 }
 
 .notification-tab .photoRating,
+#new_chat_modal .photoRating,
 #custom_modal .photoRating {
     width: fit-content;
     font-size: 20px;
