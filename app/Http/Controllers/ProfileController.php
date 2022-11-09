@@ -65,7 +65,7 @@ class ProfileController extends Controller
     public function getFollowList(Request $request)
     {
         $id = Auth::id();
-        $followings = Follow::where('user_id', $id)->get('follow_id');
+        $followings = Follow::where('follow_id', $id)->get('user_id');
         $contactList = User::whereIn('id', $followings)->orderBy('username', 'asc')->get();
         $contactList = $contactList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
