@@ -118,7 +118,7 @@ $(document).ready(function () {
             let item = usersList.find(item => item.id == userId);
             users = [userId, currentUserId];
             socket.emit('create:group', { title: item.username, users, type: 1 });
-            $('#custom_modal').modal('hide');
+            $('#new_chat_modal').modal('hide');
         });
     });
 
