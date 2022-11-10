@@ -3281,7 +3281,7 @@
                                     data-to="direct_chat">Contacts</a></li>
                             <li class="nav-item"><a class="nav-link button-effect" id="follow_tab"
                                     data-bs-toggle="tab" href="#follow_tab_content" role="tab" aria-controls="group"
-                                    aria-selected="true" data-to="group_chat">Follows</a></li>
+                                    aria-selected="true" data-to="group_chat">Followers</a></li>
                             
                         </ul>
                         <div class="tab-content" id="new_chat_tab_content">
