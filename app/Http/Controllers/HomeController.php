@@ -290,9 +290,9 @@ class HomeController extends Controller
 
     public function removeContactRequest(Request $request)
     {
-        $id=Auth::id();
-        $contactId = $request->input('userId');
-        $result = Contact::where('user_id', $id)->where('contact_id', $contactId)->delete();
+        $contactId = Auth::id();
+        $userId = $request->input('userId');
+        $result = Contact::where('user_id', $userId)->where('contact_id', $contactId)->delete();
         return array('state' => $result);
     }
 
