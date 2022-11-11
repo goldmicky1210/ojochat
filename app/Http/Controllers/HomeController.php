@@ -336,7 +336,7 @@ class HomeController extends Controller
     public function getPendingContactList(Request $request)
     {
         $id = Auth::id();
-        $contactIds = Contact::where('user_id', $id)->where('status', 0)->get('contact_id');
+        $contactIds = Contact::where('contact_id', $id)->where('status', 0)->get('user_id');
         $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'asc')->get();
         $contactList = $contactList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);

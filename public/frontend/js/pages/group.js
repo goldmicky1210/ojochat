@@ -47,6 +47,9 @@ $(document).ready(function () {
         console.log(userId);
         $.post('/home/sendContactRequest', { userId }, (res) => {
             console.log(res)
+            if (res.message == 'sent') {
+                alert('Contact Request sent Successfully');
+            }
         })
     });
 
