@@ -104,6 +104,13 @@ function getFollowData(userId, flag) {
     })
 }
 
-function isFollow(userId) {
+function isFollowing(userId) {
     return followings.find(item => item.follow_id == userId) ? 1 : 0;
+}
+
+function isFollower(userId) {
+    return followers.find(item => item.user_id == userId) ? 1 : 0;
+}
+function isContact(userId) {
+
 }

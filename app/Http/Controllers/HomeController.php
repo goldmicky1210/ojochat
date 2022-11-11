@@ -20,6 +20,7 @@ use App\Models\Rating;
 use App\Models\Rate;
 use App\Models\PaymentHistory;
 use App\Models\AttachFile;
+use App\Models\Follow;
 use App\Events\NewMessage;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
@@ -293,6 +294,30 @@ class HomeController extends Controller
         $contactId = $request->input('userId');
         $result = Contact::where('user_id', $id)->where('contact_id', $contactId)->delete();
         return array('state' => $result);
+    }
+
+    public function isContact(Request $request)
+    {
+        $id = Auth::id();
+        $userId = $request->input('userId');
+        $flag1 = Contact::where('user_id', $id)->where('contact_id', $userId)->where('status', 1)->first();
+        $flag2 = Contact::where('user_id', $userId)->where('contact_id', $id)->where('status', 1)->first();
+        $flag3 = Follow::where('user_id', $userId)->where('follow_id', $id)->first();
+
+        if ($flag1 || $flag2 || $flag3) {
+            return 1;
+        }
+        return 0;
+    }
+
+    public function isFollow(Request $request) {
+        $userId = Auth::id();
+        $followId = $request->input('userId');
+        $result = Follow::where('user_id', $userId)->where('follow_id', $followId)->first();
+        if (is_null($result)) {
+            return array('state' => 'true', 'result' => 0);
+        }
+        return array('state' => 'true', 'result' => 1);
     }
 
     public function getContactList(Request $request)

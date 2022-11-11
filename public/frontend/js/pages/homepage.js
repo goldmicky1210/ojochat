@@ -346,7 +346,7 @@ function setUserProfileContent(userId) {
         $('.right-sidebar .contact-profile .follow_btn').removeClass('hidden');
     }
 
-    if (isFollow(userId)) {
+    if (isFollowing(userId)) {
         $('.right-sidebar .contact-profile .follow_btn .btn').text('UnFollow');
         $('.right-sidebar .contact-profile .follow_btn .btn').removeClass('btn-success');
         $('.right-sidebar .contact-profile .follow_btn .btn').addClass('btn-danger');
@@ -798,11 +798,10 @@ function searchList() {
                 if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
                     let target = '#custom_modal .chat-main';
                     lastUserName = '';
-                    console.log(lastUserName)
                     $(target).empty();
                     let newUsersList = loadMoreUsers(lastUserName, value);
                     newUsersList.forEach(item => {
-                        follwStatus = isFollow(item.id);
+                        follwStatus = isFollowing(item.id);
                         let statusItem = `
                             <div class="thread_info">
                                 <div class="follow_btn">
@@ -838,7 +837,7 @@ function searchList() {
                     $(target).empty();
                     let newUsersList = loadMoreUsers(lastUserName, '');
                     newUsersList.forEach(item => {
-                        follwStatus = isFollow(item.id);
+                        follwStatus = isFollowing(item.id);
                         let statusItem = `
                             <div class="thread_info">
                                 <div class="follow_btn">

@@ -15,7 +15,7 @@ $(document).ready(function () {
         lastUserName = '';
         let newUsersList = loadMoreUsers(lastUserName, '');
         newUsersList.forEach(item => {
-            let follwStatus = isFollow(item.id);
+            let follwStatus = isFollowing(item.id);
             let statusItem = `
                 <div class="thread_info">
                     <div class="follow_btn">
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 let target = '#custom_modal .chat-main';
                 let newUsersList = loadMoreUsers(lastUserName, '');
                 newUsersList.forEach(item => {
-                    follwStatus = isFollow(item.id);
+                    follwStatus = isFollowing(item.id);
                     let statusItem = `
                         <div class="thread_info">
                             <div class="follow_btn">
@@ -990,9 +990,15 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 $('.messages.active').css('backgroundColor', '#eff7fe');
                 // chat page setting
                 showSharedMedia(groupId);
+                $('#setemoj').attr('disabled', false);
+                $('#setemoj').removeClass('disabled');
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     setUserProfileContent(contactId);
+                    if (!isContact(contactId)) {
+                        $('#setemoj').addClass('disabled');
+                        $('#setemoj').attr('disabled', true);
+                    }
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
@@ -1204,4 +1210,30 @@ function getFollowList(resolve) {
 
         }
     });
+}
+
+function isContact(userId) {
+    let form_data = new FormData();
+    form_data.append('userId', userId);
+    let result = 0;
+    $.ajax({
+        url: '/home/isContact',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        data: form_data,
+        success: function (res) {
+            result = res;
+        },
+        error: function (response) {
+
+        }
+    });
+    return result;
 }

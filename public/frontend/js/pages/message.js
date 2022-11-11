@@ -11,7 +11,10 @@ $(document).ready(function () {
     $('#cast-tab').on('click', function () {
         getRecentChatUsers(3);
     });
-
+    // isContact? 
+    $('#setemoj').on('click', function () {
+        console.log($(this).hasClass('disabled'))
+    })
     // displayChatData();
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '>li', function (event) {
         event.stopPropagation();
@@ -54,32 +57,6 @@ $(document).ready(function () {
             deleteGroup(groupId, this);
         }
     });
-    function deleteGroup(groupId, element) {
-        let form_data = new FormData();
-        form_data.append('groupId', groupId);
-        $.ajax({
-            url: '/message/deleteThread',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                if (res.state = 'true') {
-                    $(element).closest('.chat-main>li').remove();
-                    // $(e.currentTarget).closest('.date-status').closest('li').remove();
-                    // $(`#cast li[recipiet=${recipient}]`).remove();
-                }
-            },
-            error: function (response) {
-
-            }
-        });
-    }
 
     socket.on('arrive:message', message => {
         setTimeout(() => {
@@ -413,6 +390,32 @@ function checkExpireStatus(userId, groupId) {
         console.log(res);
         if (res.status == 'expired') {
             alert('You have not enough balance for join this group. Please deposit balance');
+        }
+    });
+}
+function deleteGroup(groupId, element) {
+    let form_data = new FormData();
+    form_data.append('groupId', groupId);
+    $.ajax({
+        url: '/message/deleteThread',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state = 'true') {
+                $(element).closest('.chat-main>li').remove();
+                // $(e.currentTarget).closest('.date-status').closest('li').remove();
+                // $(`#cast li[recipiet=${recipient}]`).remove();
+            }
+        },
+        error: function (response) {
+
         }
     });
 }
