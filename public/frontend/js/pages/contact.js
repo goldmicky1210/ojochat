@@ -12,11 +12,18 @@ $(document).ready(() => {
     // show Contact List
     $('.sidebar-top li.contact_list_btn').on('click', () => {
         let target = '.contact-list-tab .chat-main';
+        let statusItem = '<i class="ti-trash"></i>'
         new Promise(resolve => getContactListData(resolve)).then(data => {
             console.log(data);
             $(target).empty();
-            data.forEach(item => addNewUserItem(target, item))
+            // data.forEach(item => addNewUserItem(target, item))
+            data.forEach(item => addUsersListItem(target, item, statusItem))
         });
+    });
+    // remove contact
+    $('.contact-list-tab .chat-main').on('click', 'li.user_item .ti-trash', function () {
+        let userId = $(this).closest('.user_item').attr('key');
+        removeContactRequest(userId, this);
     });
     // show contact request
     $('.sidebar-top li.notification_list_btn').on('click', () => {
@@ -48,7 +55,7 @@ $(document).ready(() => {
     // remove contact request
     $('.notification-tab .chat-main').on('click', 'li.user_item .remove_request_btn', function () {
         let userId = $(this).closest('.user_item').attr('key');
-        removeContactRequest(userId);
+        removeContactRequest(userId, this);
     });
 
 });
@@ -96,7 +103,7 @@ function addContact(userId) {
     });
 }
 
-function removeContactRequest(userId) {
+function removeContact(userId) {
     var form_data = new FormData();
     form_data.append('userId', userId);
     $.ajax({
@@ -130,6 +137,33 @@ function removeContactRequest(userId) {
             //         alert(`${username} has been added to contacts successfully`);
             //     }
             // }
+        },
+        error: function (response) {
+            // document.location.href = '/';
+            alert('Add Contact Error');
+        }
+    });
+}
+
+function removeContactRequest(userId, target) {
+    var form_data = new FormData();
+    form_data.append('userId', userId);
+    $.ajax({
+        url: '/home/removeContactRequest',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            if (res.state) {
+                $(target).closest(`.user_item[key='${userId}']`).remove();
+            }
         },
         error: function (response) {
             // document.location.href = '/';

@@ -42,6 +42,7 @@
     color: #ccc;
 }
 
+.contact-list-tab .photoRating,
 .notification-tab .photoRating,
 .contact-profile .photoRating,
 #new_chat_modal .photoRating,
@@ -52,6 +53,7 @@
     margin-top: 10px;
 }
 
+.contact-list-tab .photoRating,
 .notification-tab .photoRating,
 #new_chat_modal .photoRating,
 #custom_modal .photoRating {
