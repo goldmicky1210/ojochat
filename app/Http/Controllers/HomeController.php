@@ -310,6 +310,22 @@ class HomeController extends Controller
         return $contactList;
     }
 
+    public function getAvailableUsers(Request $request)
+    {
+        $id = Auth::id();
+        $list1 = Contact::where('user_id', $id)->where('status', 1)->get('contact_id');
+        $list2 = Contact::where('contact_id', $id)->where('status', 1)->get('user_id');  
+        $list3 = Follow::where('follow_id', $id)->get('user_id');
+        $contactList = User::whereIn('id', $list1)->orWhereIn('id', $list2)->orWhereIn('id', $list3)->orderBy('username', 'asc')->get();
+        $contactList = $contactList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
+        return $contactList;
+    }
+
+
     public function getPendingContactList(Request $request)
     {
         $id = Auth::id();

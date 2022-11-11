@@ -115,7 +115,6 @@ $(document).ready(function () {
             $('.chat-cont-setting').removeClass('open');
         });
 
-
     });
     $('#new_chat_modal').on('click', '.modal-content.create_new_chat_modal .chat-main>li', function () {
         let userId = $(this).attr('key');
@@ -153,7 +152,7 @@ $(document).ready(function () {
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
         `);
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
@@ -264,7 +263,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Cast Title');
         $('#custom_modal').find('.sub_title input').val('');
         $('#custom_modal').find('.btn_group .btn').text('Create');
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
@@ -1245,4 +1244,24 @@ function isContact(userId) {
         }
     });
     return result;
+}
+
+function getAvailableUsers(resolve) {
+    $.ajax({
+        url: '/home/getAvailableUsers',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            resolve(res);
+        },
+        error: function (response) {
+
+        }
+    });
 }
