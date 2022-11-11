@@ -75,7 +75,7 @@ function addContact(userId) {
         success: function (res) {
             console.log(res);
             if (res.state) {
-
+                alert('Contact is added Successfully');
             }
         },
         error: function (response) {
@@ -86,31 +86,34 @@ function addContact(userId) {
 }
 
 function removeContactRequest(userId, target) {
-    var form_data = new FormData();
-    form_data.append('userId', userId);
-    $.ajax({
-        url: '/home/removeContactRequest',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            console.log(res);
-            if (res.state) {
-                $(target).closest(`.user_item[key='${userId}']`).remove();
-                alert('Remove Successfully')
+    const removeAction = () => {
+        var form_data = new FormData();
+        form_data.append('userId', userId);
+        $.ajax({
+            url: '/home/removeContactRequest',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.state) {
+                    $(target).closest(`.user_item[key='${userId}']`).remove();
+                    alert('Remove Successfully')
+                }
+            },
+            error: function (response) {
+                // document.location.href = '/';
+                alert('Add Contact Error');
             }
-        },
-        error: function (response) {
-            // document.location.href = '/';
-            alert('Add Contact Error');
-        }
-    });
+        });
+    }
+    confirmModal('', 'Remove this Contact?', removeAction)
 }
 
 function getContactListData(resolve) {
