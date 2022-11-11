@@ -257,43 +257,19 @@ class HomeController extends Controller
 
     public function addContactItem(Request $request)
     {
-        $id=Auth::id();
-        $contactId = $request->input('userId');
-        $result = Contact::where('user_id', $id)->where('contact_id', $contactId)->update(['status' => 1]);
+        $contactId=Auth::id();
+        $userId = $request->input('userId');
+        $result = Contact::where('user_id', $userId)->where('contact_id', $contactId)->update(['status' => 1]);
         return array('state' => $result);
-
-        $newContactInfo = User::where('id', $request->input('userId'))->get();
-        $contactIds = Contact::where('user_id', Auth::id())->get();
-        if (!count($newContactInfo)) {
-            return array(
-                'message' => "This email doesn't register",
-                'insertion' => false
-            );
-        }
-        foreach($contactIds as $contactId) {
-            if ($newContactInfo[0]->id == $contactId->contact_id)
-                return array(
-                    'message' => 'This email exists in Contact',
-                    'insertion' => false
-                );
-        }
-        $newContact = new Contact;
-        $newContact->user_id = $id;
-        $newContact->contact_id = $newContactInfo[0]->id;
-        $newContact->save();
-        return array(
-            'message' => 'Save Successfully',
-            'insertion' => true,
-            'data' => $newContactInfo[0],
-        );
     }
 
     public function removeContactRequest(Request $request)
     {
         $contactId = Auth::id();
         $userId = $request->input('userId');
-        $result = Contact::where('user_id', $userId)->where('contact_id', $contactId)->delete();
-        return array('state' => $result);
+        $result1 = Contact::where('user_id', $userId)->where('contact_id', $contactId)->delete();
+        $result2 = Contact::where('user_id', $contactId)->where('contact_id', $userId)->delete();
+        return array('state' => $result1 || $result2);
     }
 
     public function isContact(Request $request)
@@ -323,8 +299,9 @@ class HomeController extends Controller
     public function getContactList(Request $request)
     {
         $id = Auth::id();
-        $contactIds = Contact::where('user_id', $id)->where('status', 1)->get('contact_id');
-        $contactList = User::whereIn('id', $contactIds)->orderBy('username', 'asc')->get();
+        $contactIds1 = Contact::where('user_id', $id)->where('status', 1)->get('contact_id');
+        $contactIds2 = Contact::where('contact_id', $id)->where('status', 1)->get('user_id');        
+        $contactList = User::whereIn('id', $contactIds1)->orWhereIn('id', $contactIds2)->orderBy('username', 'asc')->get();
         $contactList = $contactList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
             $item['rateData'] = $rateData;
