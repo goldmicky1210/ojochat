@@ -14,9 +14,7 @@ $(document).ready(() => {
         let target = '.contact-list-tab .chat-main';
         let statusItem = '<i class="ti-trash"></i>'
         new Promise(resolve => getContactListData(resolve)).then(data => {
-            console.log(data);
             $(target).empty();
-            // data.forEach(item => addNewUserItem(target, item))
             data.forEach(item => addUsersListItem(target, item, statusItem))
         });
     });
@@ -62,7 +60,6 @@ $(document).ready(() => {
 
 function addContact(userId) {
     var form_data = new FormData();
-    // form_data.append('email', email || $('#exampleInputEmail1').val());
     form_data.append('userId', userId || $('#exampleInputEmail1').val());
     $.ajax({
         url: '/home/addContactItem',
@@ -80,63 +77,6 @@ function addContact(userId) {
             if (res.state) {
 
             }
-            // if (res.insertion == false) {
-            //     $('.addContactError').html(res.message);
-            //     setTimeout(() => {
-            //         $('.addContactError').html('');
-            //     }, 1000);
-            // } else {
-            //     let data = res.data;
-            //     data.created_at = new Date();
-            //     let target = '#contact-list .chat-main';
-            //     addNewUserItem(target, data);
-            //     if (userId) {
-            //         let username = getCertainUserInfoById(userId).username;
-            //         alert(`${username} has been added to contacts successfully`);
-            //     }
-            // }
-        },
-        error: function (response) {
-            // document.location.href = '/';
-            alert('Add Contact Error');
-        }
-    });
-}
-
-function removeContact(userId) {
-    var form_data = new FormData();
-    form_data.append('userId', userId);
-    $.ajax({
-        url: '/home/removeContactRequest',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            console.log(res);
-            if (res.state) {
-
-            }
-            // if (res.insertion == false) {
-            //     $('.addContactError').html(res.message);
-            //     setTimeout(() => {
-            //         $('.addContactError').html('');
-            //     }, 1000);
-            // } else {
-            //     let data = res.data;
-            //     data.created_at = new Date();
-            //     let target = '#contact-list .chat-main';
-            //     addNewUserItem(target, data);
-            //     if (userId) {
-            //         let username = getCertainUserInfoById(userId).username;
-            //         alert(`${username} has been added to contacts successfully`);
-            //     }
-            // }
         },
         error: function (response) {
             // document.location.href = '/';
@@ -210,26 +150,4 @@ function getPendingContactListData(resolve) {
 
         }
     });
-}
-
-function addNewUserItem(target, data) {
-    $(target).prepend(
-        `<li data-to="blank" userId="${data.id}">
-            <div class="chat-box">
-                <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                    
-                </div>
-                <div class="details">
-                    <h5>${data.username}</h5>
-                    <h6>${data.description || 'Hello'}</h6>
-                </div>
-                <div class="date-status">
-                    <i class="ti-trash"></i>
-                    <h6></h6>
-                    <h6 class="font-success status"></h6>
-                    <div class="badge badge-primary sm"></div>
-                </div>
-            </div>
-        </li>`
-    );
 }
