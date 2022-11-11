@@ -49,6 +49,8 @@ $(document).ready(function () {
             console.log(res)
             if (res.message == 'sent') {
                 alert('Contact Request sent Successfully');
+            } else if (res.message == 'exist') {
+                alert('Contact Request already exist');
             }
         })
     });

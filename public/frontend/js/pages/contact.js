@@ -103,6 +103,7 @@ function removeContactRequest(userId, target) {
             console.log(res);
             if (res.state) {
                 $(target).closest(`.user_item[key='${userId}']`).remove();
+                alert('Remove Successfully')
             }
         },
         error: function (response) {
