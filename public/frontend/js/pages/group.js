@@ -992,11 +992,15 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 showSharedMedia(groupId);
                 $('#setemoj').attr('disabled', false);
                 $('#setemoj').removeClass('disabled');
+                $('#send-photo').removeClass('disabled');
+                $('.send_attach_btn').removeClass('disabled');
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     setUserProfileContent(contactId);
                     if (!isContact(contactId)) {
                         $('#setemoj').addClass('disabled');
+                        $('#send-photo').addClass('disabled');
+                        $('.send_attach_btn').addClass('disabled');
                         $('#setemoj').attr('disabled', true);
                     }
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');

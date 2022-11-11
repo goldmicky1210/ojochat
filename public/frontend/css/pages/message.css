@@ -241,6 +241,10 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     gap: 20px;
 }
 
+#mediaPhoto .send_attach_btn.disabled {
+    pointer-events: unset;
+}
+
 @media (max-width: 768px) {
 
     .chat-main>li .details>h5,

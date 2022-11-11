@@ -45,7 +45,11 @@ $(document).ready(() => {
         }
     });
 
-    $('#mediaPhoto .send_attach_btn').on('click', function () {
+    $('.send_attach_btn').on('click', function () {
+        if ($(this).hasClass('disabled')) {
+            alert("This User is not Following you or in your Contacts.");
+            return;
+        }
         if ($('#direct_chat').hasClass('active')) {
             globalGroupId = currentDirectId;
             var groupType = 1;

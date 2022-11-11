@@ -485,7 +485,11 @@ function savePhoto() {
 
 function sendBlink() {
     // send New Photo
-    $('#send-photo').on('click', (e) => {
+    $('#send-photo').on('click', function (e) {
+        if ($(this).hasClass('disabled')) {
+            alert("This User is not Following you or in your Contacts.");
+            return;
+        }
         if (!ori_image && !canvas._objects.length) {
             return;
         }
