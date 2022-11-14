@@ -71,6 +71,9 @@
     overflow: hidden;
 }
 
+.chitchat-container .chitchat-left-sidebar .recent-default .recent~.chat {
+    margin-top: 190px;
+}
 
 @media (max-width: 2550px) {
     .theme-title .media .media-body .icon-btn {
