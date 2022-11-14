@@ -50,6 +50,7 @@
 .recent-chat {
     display: flex;
     gap: 10px;
+    overflow: auto;
 }
 
 .recent-chat .item .gr-profile {
