@@ -73,6 +73,7 @@
 
 .chitchat-container .chitchat-left-sidebar .recent-default .recent~.chat {
     margin-top: 190px;
+    min-height: calc(100vh - 190px)
 }
 
 @media (max-width: 2550px) {
