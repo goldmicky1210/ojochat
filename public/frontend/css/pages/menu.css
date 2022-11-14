@@ -25,11 +25,6 @@
     font-weight: 700;
 }
 
-@media (max-width: 800px) {
-    .follow_title h2 span {
-        font-size: 1.2rem;
-    }
-}
 
 
 .chitchat-container .chitchat-left-sidebar .recent-default .recent .theme-title {
@@ -45,6 +40,30 @@
 .mainnav {
     transform: rotate(90deg);
 }
+
+.recent .view_all_btn {
+    text-align: right;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.recent-chat {
+    display: flex;
+    gap: 10px;
+}
+
+.recent-chat .item .gr-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.recent-chat .item .username {
+    width: 60px;
+    margin-top: 5px;
+}
+
 
 @media (max-width: 2550px) {
     .theme-title .media .media-body .icon-btn {

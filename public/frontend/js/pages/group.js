@@ -1022,7 +1022,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     groupUsers.split(',').forEach(id => {
                         let userInfo = getCertainUserInfoById(id);
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '/images/default-avatar.png';
-                        let item = groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
+                        groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}"><img class="bg-img" src="${avatar}" alt="Avatar"/></div>`).children('.gr-profile:last-child');
                     });
                     tippy('.gr-profile[data-tippy-content]', { placement: "right" });
                     convertListItems();

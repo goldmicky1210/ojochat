@@ -107,16 +107,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="recent-slider recent-chat owl-carousel owl-theme">
-                        <div class="item">
-                            <div class="recent-box">
-                                <div class="dot-btn dot-danger grow"></div>
-                                <div class="recent-profile"><img class="bg-img" src="/images/default-avatar.png"
-                                        alt="Avatar" />
-                                    <h6> John deo</h6>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="recent-slider recent-chat">
+                    </div>
+                    <div class="view_all_btn">
+                        <span>View All</span>
                     </div>
                 </div>
                 <div class="chat custom-scroll">

@@ -563,57 +563,17 @@ function showSharedMedia(groupId) {
 }
 
 function displayRecentChatFriends(recentChatUsers) {
-    $owl = $('.recent-slider');
-    $owl.trigger('destroy.owl.carousel');
-    $owl.html($owl.find('.owl-stage-outer').html()).removeClass('owl-loaded');
-    // $('.chitchat-left-sidebar .theme-title .follow_title .recents .count').text(recentChatUsers.length);
     $('.recent-slider').empty();
     recentChatUsers.forEach(item => {
-        $('.recent-slider').append(`<div class="item">
-            <div class="recent-box">
-                <div class="dot-btn dot-success grow"></div>
-                <div class="recent-profile">
+        $('.recent-slider').append(`
+            <div class="item">
+                <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
                     <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
-                    <h6>${item.username}</h6>
                 </div>
+                <div class="username">${item.username}</div>
             </div>
-        </div>`);
-    });
-    $('.recent-slider').owlCarousel({
-        items: 3,
-        dots: false,
-        loop: true,
-        margin: 60,
-        nav: false,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: false,
-        responsive: {
-            300: {
-                items: 2,
-                margin: 30,
-            },
-            320: {
-                items: 3,
-                margin: 20,
-            },
-            500: {
-                items: 3,
-                margin: 30,
-            },
-            560: {
-                items: 3,
-                margin: 80,
-            },
-            660: {
-                items: 4,
-                margin: 40,
-            },
-            800: {
-                items: 2,
-                margin: 30,
-            },
-        }
+        `);
+        convertListItems();
     });
 }
 

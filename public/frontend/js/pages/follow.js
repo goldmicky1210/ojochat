@@ -50,56 +50,17 @@ function getFollowData(userId, flag) {
         } else if (flag == 2) {
             var data = res.followings.map(item => getCertainUserInfoById(item.follow_id));
         }
-        $owl = $('.recent-slider');
-        $owl.trigger('destroy.owl.carousel');
-        $owl.html($owl.find('.owl-stage-outer').html()).removeClass('owl-loaded');
         $('.recent-slider').empty();
         data.forEach(item => {
-            $('.recent-slider').append(`<div class="item">
-            <div class="recent-box">
-                <div class="dot-btn dot-success grow"></div>
-                <div class="recent-profile">
-                    <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
-                    <h6>${item.username}</h6>
+            $('.recent-slider').append(`
+                <div class="item">
+                    <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
+                        <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
+                    </div>
+                    <div class="username">${item.username}</div>
                 </div>
-            </div>
-        </div>`);
-        });
-        $('.recent-slider').owlCarousel({
-            items: 3,
-            dots: false,
-            loop: true,
-            margin: 60,
-            nav: false,
-            autoplay: true,
-            autoplayTimeout: 5000,
-            autoplayHoverPause: false,
-            responsive: {
-                300: {
-                    items: 2,
-                    margin: 30,
-                },
-                320: {
-                    items: 3,
-                    margin: 20,
-                },
-                500: {
-                    items: 3,
-                    margin: 30,
-                },
-                560: {
-                    items: 3,
-                    margin: 80,
-                },
-                660: {
-                    items: 4,
-                    margin: 40,
-                },
-                800: {
-                    items: 2,
-                    margin: 30,
-                },
-            }
+            `);
+            convertListItems();
         });
     })
 }
