@@ -1511,17 +1511,7 @@
                             <h5 class="mb-2">Alabma USA</h5>
                             <h6>add description</h6>
                         </div>
-                        <ul class="medialogo">
-                            <li><a class="icon-btn btn-danger button-effect" href="#"><i
-                                        class="fa fa-google"></i></a>
-                            </li>
-                            <li><a class="icon-btn btn-primary button-effect" href="#"><i
-                                        class="fa fa-twitter"></i></a>
-                            </li>
-                            <li><a class="icon-btn btn-facebook button-effect" href="#"><i
-                                        class="fa fa-facebook-f"></i></a>
-                            </li>
-                        </ul>
+                        
                         <div class="follow_btn">
                             <button class="btn btn-success button-effect btn-sm" type="button">Follow</button>
                         </div>
@@ -3355,17 +3345,6 @@
                                 <h5 class="location mb-2">Alabma USA</h5>
                                 <h6 class="description"></h6>
                             </div>
-                            <ul class="medialogo mt-2">
-                                <li><a class="icon-btn btn-danger button-effect" href="#"><i
-                                            class="fa fa-google"></i></a>
-                                </li>
-                                <li><a class="icon-btn btn-primary button-effect" href="#"><i
-                                            class="fa fa-twitter"></i></a>
-                                </li>
-                                <li><a class="icon-btn btn-facebook button-effect" href="#"><i
-                                            class="fa fa-facebook-f"></i></a>
-                                </li>
-                            </ul>
                             <div class="follow_btn">
                                 <button class="btn btn-success button-effect btn-sm" type="button">Follow</button>
                             </div>
