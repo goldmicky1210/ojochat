@@ -65,10 +65,12 @@
 }
 
 .recent-chat .item .username {
-    max-width: 100px;
+    width: 70px;
     margin-top: 5px;
     text-align: center;
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .chitchat-container .chitchat-left-sidebar .recent-default .recent~.chat {
