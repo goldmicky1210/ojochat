@@ -3322,11 +3322,11 @@
                                     <h2>Profile</h2>
                                     <h4>Personal Information</h4>
                                 </div>
-                                <div class="media-body text-end">
+                                <!-- <div class="media-body text-end">
                                     <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
                                         <i data-feather="x"> </i>
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="photoRating">

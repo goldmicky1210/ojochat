@@ -53,7 +53,7 @@ function getFollowData(userId, flag) {
         $('.recent-slider').empty();
         data.forEach(item => {
             $('.recent-slider').append(`
-                <div class="item">
+                <div class="item" key=${item.id}>
                     <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
                         <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
                     </div>

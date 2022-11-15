@@ -763,6 +763,11 @@
         setProfileData(userId);
         $('#profile_modal').modal('show');
     });
+    $('.recent-chat').on('click', '.item', function () {
+        let userId = $(this).attr('key');
+        setProfileData(userId);
+        $('#profile_modal').modal('show');
+    });
 
 
     /*=====================
@@ -1061,6 +1066,7 @@ function setProfileData(userId) {
         error: function (response) { }
     });
 }
+
 function setProfileRateData(data) {
     if (data.length) {
         var textRate = data.filter(item => item.kind == 0).map(item => item.rate).reduce((cur, item, index, arr) => cur + (item / arr.length), 0) || 0;
