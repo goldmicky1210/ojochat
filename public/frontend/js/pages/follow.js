@@ -37,6 +37,46 @@ $(document).ready(() => {
         }
     });
 
+    $('.view_all_btn').on('click', function () {
+        $('#custom_modal').modal('show');
+        $('#custom_modal').find('.btn_group .btn').hide();
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.group_title input').val('');
+        let target = '#custom_modal .chat-main';
+        $(target).empty();
+        let usersList;
+        if ($('.recent .follow_title .recents').hasClass('active')) {
+            usersList = recentChatUsers
+            $('#custom_modal').find('.modal-title').text('Recent Chat Users');
+            $('#custom_modal .modal-content').addClass('recent_chat_user_modal');
+        } else if ($('.recent .follow_title .followers').hasClass('active')) {
+            usersList = followers.map(item => getCertainUserInfoById(item.user_id))
+            $('#custom_modal').find('.modal-title').text('Followers');
+            $('#custom_modal .modal-content').addClass('follow_user_modal');
+        } else if ($('.recent .follow_title .followings').hasClass('active')) {
+            usersList = followings.map(item => getCertainUserInfoById(item.follow_id))
+            $('#custom_modal').find('.modal-title').text('Followings');
+            $('#custom_modal .modal-content').addClass('follwing_user_modal');
+        }
+        usersList.forEach(item => {
+            let follwStatus = isFollowing(item.id);
+            let statusItem = `
+                <div class="thread_info">
+                    <div class="follow_btn">
+                        <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                            <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                        </a>
+                    </div>
+                    <div class="contact_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                            <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+                        </a>
+                    </div>
+                </div>
+            `;
+            addUsersListItem(target, item, statusItem)
+        });
+    });
 });
 
 function getFollowData(userId, flag) {

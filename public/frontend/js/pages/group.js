@@ -35,10 +35,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .thread_info', function (e) {
-        $(this).parents('li').siblings().find('.thread_info_content').hide();
-        $(this).find('.thread_info_content').toggle();
-    });
     $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn', function (e) {
         console.log(this);
     });
@@ -529,6 +525,9 @@ $(document).ready(function () {
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
         $('#custom_modal .modal-content').removeClass('edit_group_modal');
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
+        $('#custom_modal .modal-content').removeClass('recent_user_modal');
+        $('#custom_modal .modal-content').removeClass('follower_user_modal');
+        $('#custom_modal .modal-content').removeClass('following_user_modal');
         $('#custom_modal').find('.search_list').val('');
 
     });
