@@ -52,11 +52,11 @@ $(document).ready(() => {
         } else if ($('.recent .follow_title .followers').hasClass('active')) {
             usersList = followers.map(item => getCertainUserInfoById(item.user_id))
             $('#custom_modal').find('.modal-title').text('Followers');
-            $('#custom_modal .modal-content').addClass('follow_user_modal');
+            $('#custom_modal .modal-content').addClass('follower_user_modal');
         } else if ($('.recent .follow_title .followings').hasClass('active')) {
             usersList = followings.map(item => getCertainUserInfoById(item.follow_id))
-            $('#custom_modal').find('.modal-title').text('Followings');
-            $('#custom_modal .modal-content').addClass('follwing_user_modal');
+            $('#custom_modal').find('.modal-title').text('Following');
+            $('#custom_modal .modal-content').addClass('following_user_modal');
         }
         usersList.forEach(item => {
             let follwStatus = isFollowing(item.id);

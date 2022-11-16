@@ -35,14 +35,42 @@ $(document).ready(function () {
         });
     });
 
-    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn', function (e) {
-        console.log(this);
+
+
+    $('#custom_modal').on('click',
+        '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn,\
+        .modal-content.recent_chat_user_modal .chat-main>li .date-status .follow_btn,\
+        .modal-content.follower_user_modal .chat-main>li .date-status .follow_btn,\
+        .modal-content.following_user_modal .chat-main>li .date-status .follow_btn', function (e) {
+        let followId = $(this).closest('.user_item').attr('key');
+        $(this).find('.icon-btn').prop('disabled', true)
+        if (currentUserId != followId) {
+            $.post('/profile/followUser', { followId }, (res) => {
+                if (res.result == 'follow') {
+                    $(this).find('.icon-btn').addClass('btn-outline-danger');
+                    $(this).find('.icon-btn').removeClass('btn-outline-primary');
+                    $(this).find('.icon-btn').attr('title', 'UnFollow');
+                    $(this).find('i').addClass('ti-heart-broken');
+                    $(this).find('i').removeClass('ti-heart');
+                } else if (res.result == 'unfollow') {
+                    $(this).find('.icon-btn').addClass('btn-outline-primary');
+                    $(this).find('.icon-btn').removeClass('btn-outline-danger');
+                    $(this).find('.icon-btn').attr('title', 'Follow');
+                    $(this).find('i').addClass('ti-heart');
+                    $(this).find('i').removeClass('ti-heart-broken');
+                }
+                $(this).find('.icon-btn').prop('disabled', false)
+            })
+        }
     });
-    $('#custom_modal').on('click', '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
+
+    $('#custom_modal').on('click',
+        '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn,\
+        .modal-content.recent_chat_user_modal .chat-main>li .date-status .contact_request_btn,\
+        .modal-content.follower_user_modal .chat-main>li .date-status .contact_request_btn,\
+        .modal-content.following_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
         let userId = $(this).closest('.user_item').attr('key');
-        console.log(userId);
         $.post('/home/sendContactRequest', { userId }, (res) => {
-            console.log(res)
             if (res.message == 'sent') {
                 alert('Contact Request sent Successfully');
             } else if (res.message == 'exist') {
@@ -525,7 +553,7 @@ $(document).ready(function () {
         $('#custom_modal .modal-content').removeClass('edit_group_profile_modal');
         $('#custom_modal .modal-content').removeClass('edit_group_modal');
         $('#custom_modal .modal-content').removeClass('invite_group_modal');
-        $('#custom_modal .modal-content').removeClass('recent_user_modal');
+        $('#custom_modal .modal-content').removeClass('recent_chat_user_modal');
         $('#custom_modal .modal-content').removeClass('follower_user_modal');
         $('#custom_modal .modal-content').removeClass('following_user_modal');
         $('#custom_modal').find('.search_list').val('');
