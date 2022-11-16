@@ -181,10 +181,6 @@ const onConnection = (socket) => {
         }
     });
 
-    socket.on('send:state', data => {
-        // console.log(data);
-    });
-
     socket.on('edit:photo', (data, callback) => {
         db.query(`UPDATE photo_galleries SET photo=${JSON.stringify(data.photo)}, content=${JSON.stringify(data.content)}, edited=1 WHERE id=${data.photoId}`, (error, item) => {
             if (error) throw error;
@@ -216,20 +212,6 @@ const onConnection = (socket) => {
                     status: 'OK'
                 });
             })
-        });
-    });
-
-    socket.on('update:cast', data => {
-        let senderSocketId = user_socketMap.get(currentUserId.toString());
-
-        db.query(`UPDATE casts SET cast_title = "${data.newCastTitle}", recipients="${data.newRecipients}" WHERE sender=${currentUserId} AND cast_title="${data.oldCastTitle}"`, (error, item) => {
-            if (error) throw error;
-
-            if (senderSocketId) {
-                if (io.sockets.sockets.get(senderSocketId)) {
-                    io.sockets.sockets.get(senderSocketId).emit('update:cast', data);
-                }
-            }
         });
     });
 

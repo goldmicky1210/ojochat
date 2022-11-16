@@ -91,17 +91,6 @@ $(document).ready(function () {
         }
     });
 
-    socket.on('update:cast', (data) => {
-        new Promise((resolve) => {
-            getCastData(resolve);
-        }).then(() => {
-            $('#cast > ul.chat-main >li').removeClass('active');
-            $('#cast > ul.chat-main >li').filter(function () {
-                return $(this).find('.details>h5').text() === data.newCastTitle;
-            }).addClass('active');
-        });
-    });
-
     $('#cast').on('click', 'li .date-status .ti-trash', function (e) {
         e.stopPropagation();
         if (confirm('Delete this Thread?')) {

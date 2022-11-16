@@ -174,6 +174,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             })
         });
     });
+
     socket.on('leave:group', data => {
         let { currentGroupId, currentGroupUsers, currentUserId } = data;
         currentGroupUsers = currentGroupUsers.split(',').filter(item => item != currentUserId).join(',');
