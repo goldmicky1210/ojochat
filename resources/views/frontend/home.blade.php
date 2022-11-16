@@ -30,7 +30,7 @@
         <nav class="main-nav on custom-scroll">
             <div class="logo-warpper">
                 <div>
-                    <img src="/chat/images/logo/logo.png" alt="logo" />
+                    <img src="/chat/images/logo/logo.svg" alt="logo" />
                 </div>
                 <a class="button-effect balance" href="payment-histories">
                     <div class="">
