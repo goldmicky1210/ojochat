@@ -72,6 +72,8 @@ $(document).ready(function () {
         let userId = $(this).closest('.user_item').attr('key');
         $.post('/home/sendContactRequest', { userId }, (res) => {
             if (res.message == 'sent') {
+                senderName = getCertainUserInfoById(currentUserId).username
+                socket.emit('send:contactRequest', { userId, senderName });
                 alert('Contact Request sent Successfully');
             } else if (res.message == 'exist') {
                 alert('Contact Request already exist');

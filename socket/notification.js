@@ -91,6 +91,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 }
 
 exports.sendSMS = (sender, recipient, data) => {
+    console.log(sender, recipient)
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -169,6 +170,18 @@ exports.sendSMS = (sender, recipient, data) => {
                                         message = `${data.senderName} acaba de enviar un agradecimiento en OJOChat. ${val}`;
                                     } else {
                                         message = `${data.senderName} just sent a Thank You on OJOChat. ${val}`;
+                                    }
+                                } else if (data.msgType == 'contactRequest') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}.  Inicie sesión en OJOChat para aceptar. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, you have received a contact request from ${data.senderName}. Login to OJOChat.com to accept. ${val}`;
+                                    }
+                                } else if (data.msgType == 'acceptContactRequest') {
+                                    if (spainish) {
+                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}.  Inicie sesión en OJOChat para aceptar.  Inicie sesión en OJOChat para aceptar. ${val}`;
+                                    } else {
+                                        message = `Hey ${row[0].username}, ${data.senderName} has accepted your contact request. Visit OJOChat.com and start chatting. Login to OJOChat.com to accept. ${val}`;
                                     }
                                 }
                                 console.log('message=', message);

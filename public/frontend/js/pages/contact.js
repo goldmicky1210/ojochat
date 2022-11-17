@@ -73,8 +73,9 @@ function addContact(userId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res);
             if (res.state) {
+                senderName = getCertainUserInfoById(currentUserId).username
+                socket.emit('accept:contactRequest', { userId, senderName })
                 alert('Contact is added Successfully');
             }
         },

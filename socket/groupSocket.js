@@ -107,6 +107,18 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             });
     });
 
+    socket.on('send:contactRequest', (data, callback) => {
+        data.kind = 0;
+        data.msgType = 'contactRequest';
+        Notification.sendSMS(currentUserId, data.userId, data);
+    });
+
+    socket.on('accept:contactRequest', (data, callback) => {
+        data.kind = 0;
+        data.msgType = 'acceptContactRequest';
+        Notification.sendSMS(currentUserId, data.userId, data);
+    });
+
     socket.on('send:groupBlink', async (data) => {
 
         db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)})`, async (error, item) => {
