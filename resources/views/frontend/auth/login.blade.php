@@ -10,8 +10,8 @@
                     <div class="login-contain-main">
                         <div class="left-page">
                             <div class="login-content">
-                                <div class="login-content-header"><img class="image-fluid"
-                                        src="/chat/images/logo/landing-logo.png" alt="images"></div>
+                                <div class="login-content-header">
+                                    <img class="image-fluid" src="/chat/images/logo/landing-logo.gif" loop=infinite alt="images"></div>
                                 <h3>Hello Everyone , We are Ojochat</h3>
                                 <h4>Wellcome to ojochat please login to your account.</h4>
                                 <span class="alert alert-danger" style="display:none;"></span>
