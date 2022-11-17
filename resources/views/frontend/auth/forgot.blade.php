@@ -7,7 +7,7 @@
 <div class="auth-wrapper auth-v2">
 	<div class="auth-inner row m-0">
 		<!-- Brand logo--><a class="brand-logo" href="#">
-		<div class="login-content-header"><img class="image-fluid" src="/chat/images/logo/landing-logo.png" alt="images"></div>
+		<div class="login-content-header"><img class="image-fluid" src="/chat/images/logo/landing-logo.gif" alt="images"></div>
 		</a>
 		<!-- /Brand logo-->
 		<!-- Left Text-->
