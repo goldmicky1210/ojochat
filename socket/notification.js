@@ -173,15 +173,15 @@ exports.sendSMS = (sender, recipient, data) => {
                                     }
                                 } else if (data.msgType == 'contactRequest') {
                                     if (spainish) {
-                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}.  Inicie sesion en OJOChat para aceptar. ${val}`;
+                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}. Inicie sesion en OJOChat para aceptar. ${val}`;
                                     } else {
                                         message = `Hey ${row[0].username}, you have received a contact request from ${data.senderName}. Login to OJOChat.com to accept. ${val}`;
                                     }
                                 } else if (data.msgType == 'acceptContactRequest') {
                                     if (spainish) {
-                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}.  Inicie sesion en OJOChat para aceptar.  Inicie sesion en OJOChat para aceptar. ${val}`;
+                                        message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}. Inicie sesion en OJOChat para aceptar. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, ${data.senderName} has accepted your contact request. Visit OJOChat.com and start chatting. Login to OJOChat.com to accept. ${val}`;
+                                        message = `Hey ${row[0].username}, ${data.senderName} has accepted your contact request. Visit OJOChat.com and start chatting. ${val}`;
                                     }
                                 }
                                 console.log('message=', message);
