@@ -37,6 +37,7 @@
                         <span class="balance-amount">$0.00</span>
                     </div>
                 </a>
+                <p>View</p>
             </div>
             <div class="sidebar-main">
                 <ul class="sidebar-top">
