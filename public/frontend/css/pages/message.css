@@ -24,6 +24,8 @@ ul.chat-main>li {
     background-color: #eff1f2;
     margin-bottom: 1px;
     cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 ul.chat-main>li:hover {
@@ -178,14 +180,23 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     height: auto;
 }
 
-#custom_modal .chat-main>li {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-#custom_modal .chat-main>li .chat-box .details {
+#custom_modal .chat-main>li,
+#new_chat_modal .chat-main>li {
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.chat-main>li .chat-box {
+    display: flex;
+}
+
+.chat-main li .chat-box .profile {
+    position: relative;
+}
+
+.chat-main>li .chat-box .details {
+    padding: 0;
+    padding-left: 10px;
 }
 
 .chat-main>li .details>h5,
@@ -200,6 +211,11 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 #custom_modal .chat-main>li .details>h6 {
     width: 100%;
     max-width: 320px;
+}
+
+.msg-chat-modal .chat-main li .chat-box .details,
+.msg-chat-modal .call-log-main li .chat-box .details {
+    padding-left: 10px;
 }
 
 

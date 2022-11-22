@@ -78,6 +78,15 @@
     min-height: calc(100vh - 190px)
 }
 
+.main-nav .user-popup {
+    margin-bottom: 20px;
+}
+
+.chitchat-container .main-nav .sidebar-main .sidebar-top li,
+.chitchat-container .main-nav .sidebar-main .sidebar-bottom li {
+    padding-top: 5px;
+}
+
 @media (max-width: 2550px) {
     .theme-title .media .media-body .icon-btn {
         width: 25px;

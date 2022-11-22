@@ -41,39 +41,57 @@
             <div class="sidebar-main">
                 <ul class="sidebar-top">
                     <li class="self_profile_btn">
-                        <div class="user-popup status one ">
+                        <div class="user-popup status one">
                             <div>
                                 <img class="bg-img"
                                     src="{{ !Auth::user()->avatar ? '/images/default-avatar.png' : '/v1/api/downloadFile?path=' . Auth::user()->avatar }}"
                                     alt="Avatar" />
                             </div>
+                            <p>Profile</p>
                         </div>
                     </li>
                     <!-- <li><a class="icon-btn btn-light button-effect" href="favourite" data-tippy-content="Favourite"><i class="fa fa-star"></i></a></li> -->
                     <li class="contact_list_btn">
-                        <a class="icon-btn btn-light button-effect" href="contact-list" data-tippy-content="Contact List"><i
-                                class="fa fa-users"> </i></a>
+                        <a class="icon-btn btn-light button-effect" href="contact-list" data-tippy-content="Contact List">
+                            <i class="fa fa-users"></i>
+                        </a>
+                        <p>Contacts</p>
                     </li>
                     <li class="notification_list_btn">
-                        <div class="dot-danger grow"><a class="icon-btn btn-light button-effect" href="notification"
-                                data-tippy-content="Notification"> <i class="fa fa-bell"></i></a></div>
+                        <div class="dot-danger grow">
+                            <a class="icon-btn btn-light button-effect" href="notification" data-tippy-content="Notification">
+                                <i class="fa fa-bell"></i>
+                            </a>
+                        </div>
+                        <p>Notifications</p>
                     </li>
                     <li class="photo_request_list_btn">
                         <div class="dot-danger grow photo_request_icon">
-                            <a class="icon-btn btn-light button-effect" href="request" data-tippy-content="PhotoRequest"> <i
-                                    class="fa fa-image"></i></a>
+                            <a class="icon-btn btn-light button-effect" href="request" data-tippy-content="PhotoRequest">
+                                <i class="fa fa-image"></i></a>
                         </div>
+                        <p>Photo Request</p>
                     </li>
                     <li class="setting_btn">
-                        <a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting"> <i
-                                class="fa fa-cog"></i></a>
+                        <a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <p>Settings</p>
                     </li>
                 </ul>
                 <ul class="sidebar-bottom">
-                    <li><a class="icon-btn btn-light button-effect mode" href="#" data-tippy-content="Theme Mode"><i
-                                class="fa fa-moon-o"></i></a></li>
-                    <li><a class="icon-btn btn-light" id="logoutBtn" href="/logout" data-tippy-content=" SignOut"> <i
-                                class="fa fa-power-off"> </i></a></li>
+                    <li>
+                        <a class="icon-btn btn-light button-effect mode" href="#" data-tippy-content="Theme Mode">
+                            <i class="fa fa-moon-o"></i>
+                        </a>
+                        <p>Night</p>
+                    </li>
+                    <li>
+                        <a class="icon-btn btn-light" id="logoutBtn" href="/logout" data-tippy-content=" SignOut">
+                            <i class="fa fa-power-off"> </i>
+                        </a>
+                        <p>Logout</p>
+                    </li>
                 </ul>
             </div>
         </nav>
