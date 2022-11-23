@@ -35,8 +35,6 @@ $(document).ready(function () {
         });
     });
 
-
-
     $('#custom_modal').on('click',
         '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn,\
         .modal-content.recent_chat_user_modal .chat-main>li .date-status .follow_btn,\

@@ -111,7 +111,7 @@
                                 </h2>
                             </div>
                             <div class="media-body">
-                                <div class="icon-btn btn-outline-primary button-effect btn-sm">
+                                <div class="icon-btn btn-outline-primary button-effect btn-sm discovery_btn">
                                     <span>d</span>
                                 </div>
                                 <div class="icon-btn btn-outline-primary button-effect btn-sm search_user_btn">
@@ -3458,6 +3458,6 @@
     <script src="/frontend/js/pages/message.js"></script>
     <script src="/frontend/js/pages/contact.js"></script>
     <script src="/frontend/js/pages/group.js"></script>
-    <script src="/frontend/js/pages/contextmenu.js"></script>
+    <script src="/frontend/js/pages/menu.js"></script>
     <script src="/frontend/js/pages/media.js"></script>
 @endsection

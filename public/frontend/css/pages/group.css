@@ -8,16 +8,10 @@
     display: none !important;
 }
 
-
-
 .messages .groupuser {
-    /* width: 100%; */
     overflow: auto;
     padding-top: 10px;
     margin-top: 10px;
-    /* z-index: 101; */
-    /* position: absolute; */
-    /* top: 135px; */
 }
 
 .messages .groupuser .gr-profile {
@@ -118,6 +112,8 @@
     cursor: pointer;
 }
 
+#custom_modal .thread_info,
+#custom_modal .discovery_user_modal .thread_info,
 #custom_modal .search_user_modal .thread_info,
 #custom_modal .recent_chat_user_modal .thread_info,
 #custom_modal .follower_user_modal .thread_info,
