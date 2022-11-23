@@ -94,6 +94,9 @@ function getFollowData(userId, flag) {
         data.forEach(item => {
             $('.recent-slider').append(`
                 <div class="item" key=${item.id}>
+                    <div class="photoRating">
+                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                    </div>
                     <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
                         <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
                     </div>
@@ -101,6 +104,8 @@ function getFollowData(userId, flag) {
                 </div>
             `);
             convertListItems();
+            getContentRate(`.recent-slider .item[key="${item.id}"]`, Math.round(getAverageRate(item.rateData)));
+
         });
     })
 }

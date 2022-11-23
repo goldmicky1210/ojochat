@@ -42,6 +42,7 @@
     color: #ccc;
 }
 
+.recent-slider .photoRating,
 .contact-list-tab .photoRating,
 .notification-tab .photoRating,
 .contact-profile .photoRating,
@@ -51,6 +52,10 @@
     flex-direction: row-reverse;
     justify-content: center;
     margin-top: 10px;
+}
+
+.recent-slider .photoRating {
+    font-size: 15px;
 }
 
 .contact-list-tab .photoRating,
