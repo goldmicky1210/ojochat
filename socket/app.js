@@ -88,7 +88,7 @@ const onConnection = (socket) => {
             db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                 if (error) throw error;
                 let groupId = groupData[0]['group_id'];
-                console.log(groupId)
+                console.log('groupId', groupId)
                 db.query(`INSERT INTO messages(content, kind) SELECT content, kind FROM messages WHERE id = ${data.forwardId}`, (error, item) => {
                     db.query(`UPDATE messages SET sender = ${currentUserId}, group_id=${groupId} WHERE id=${item.insertId}`, (error, item) => {
                         if (error) throw error;
