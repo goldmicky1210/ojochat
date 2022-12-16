@@ -1292,3 +1292,29 @@ function getAvailableUsers(resolve) {
         }
     });
 }
+
+function getDirectGroupId(userId) {
+    let form_data = new FormData();
+    form_data.append('userId', userId);
+    let result = 0;
+    $.ajax({
+        url: '/group/getDirectGroupId',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        data: form_data,
+        success: function (res) {
+            result = res;
+        },
+        error: function (response) {
+
+        }
+    });
+    return result;
+}

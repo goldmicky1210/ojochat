@@ -329,15 +329,21 @@ class HomeController extends Controller
     public function getPendingContactList(Request $request)
     {
         $id = Auth::id();
-        $contactIds1 = Contact::where('contact_id', $id)->where('status', 0)->get('user_id');
-        $contactIds2 = Contact::where('user_id', $id)->where('status', 0)->get('contact_id');
-        $contactList = User::whereIn('id', $contactIds1)->orWhereIn('id', $contactIds2)->orderBy('username', 'asc')->get();
-        $contactList = $contactList->map(function($item) {
+        $receiveRequests = Contact::where('contact_id', $id)->where('status', 0)->get('user_id');
+        $sendRequests = Contact::where('user_id', $id)->where('status', 0)->get('contact_id');
+        $receiveList = User::whereIn('id', $receiveRequests)->orderBy('username', 'asc')->get();
+        $sendList = User::whereIn('id', $sendRequests)->orderBy('username', 'asc')->get();
+        $receiveContactList = $receiveList->map(function($item) {
             $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
             $item['rateData'] = $rateData;
             return $item;
         });
-        return $contactList;
+        $sendContactList = $sendList->map(function($item) {
+            $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $item['id'])->get(['rate', 'kind']);
+            $item['rateData'] = $rateData;
+            return $item;
+        });
+        return array('receiveData' => $receiveContactList, 'sendData' => $sendContactList);
     }
 
     public function sendContactRequest(Request $request) {

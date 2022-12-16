@@ -52,4 +52,20 @@ class GroupController extends Controller
             return array('state' => 'false');
         }
     }
+
+    public function getDirectGroupId(Request $request) {
+        $id = Auth::id();
+        $userId = $request->input('userId');
+        $directGroupId = Group::join('users_groups', 'groups.id', '=', 'users_groups.group_id')
+        ->whereRaw('user_id='.$id.' OR user_id='.$userId)
+        ->where('type', 1)
+        ->groupBy('group_id')
+        ->havingRaw('count(group_id) = ?', [2])
+        ->first('group_id');
+        if ($directGroupId) {
+            return array('state' => 'true', 'groupId' => $directGroupId['group_id']);
+        } else {
+            return array('state' => 'false');
+        }
+    }
 }

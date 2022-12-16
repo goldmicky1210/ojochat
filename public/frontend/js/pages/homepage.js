@@ -96,6 +96,7 @@ function getRecentChatUsers(type) {
         type: 'POST',
         dataType: "json",
         data: form_data,
+        async: false,
         success: function (res) {
             if (res.state == 'true') {
                 globalGroupId = res.data.slice(-1)[0] ? res.data.slice(-1)[0].id : 0;

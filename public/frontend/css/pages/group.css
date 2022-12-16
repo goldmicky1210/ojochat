@@ -118,6 +118,7 @@
 #custom_modal .recent_chat_user_modal .thread_info,
 #custom_modal .follower_user_modal .thread_info,
 #custom_modal .following_user_modal .thread_info,
+.contact-list-tab .user_item .thread_info,
 .notification-tab .user_item .thread_info {
     display: flex;
     align-items: center;
