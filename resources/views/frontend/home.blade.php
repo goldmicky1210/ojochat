@@ -3341,11 +3341,16 @@
                                     <h2>Profile</h2>
                                     <h4>Personal Information</h4>
                                 </div>
-                                <!-- <div class="media-body text-end">
-                                    <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
+                                <div class="media-body text-end">
+                                    <div class="open_chat_btn">
+                                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                            <i class="ti-themify-favicon-alt"></i>
+                                        </a>
+                                    </div>
+                                    <!-- <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
                                         <i data-feather="x"> </i>
-                                    </a>
-                                </div> -->
+                                    </a> -->
+                                </div>
                             </div>
                         </div>
                         <div class="photoRating">

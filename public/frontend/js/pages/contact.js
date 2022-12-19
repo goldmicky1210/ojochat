@@ -69,6 +69,35 @@ $(document).ready(() => {
             });
         }
     });
+    $('#profile_modal .open_chat_btn').on('click', function () {
+        let userId = $(this).closest('.contact-profile').attr('userId');
+        $('#profile_modal').modal('hide');
+        $('.dynemic-sidebar, .button-effect.active:not(#myTab .button-effect):not(#myTab1 .button-effect), sidebar-top .sidebar-top > li > a').removeClass("active");
+        $('.recent-default').addClass("active");
+        $('.messages.custom-scroll').removeClass("active");
+        $('#direct_chat').addClass("active");
+        $('#group-tab').removeClass('active show');
+        $('#direct-tab').addClass('active show');
+        $('#group').removeClass('active show');
+        $('#direct').addClass('active show');
+        $(`#direct .chat-main>li`).removeClass('active');
+        getRecentChatUsers(1)
+
+        let directGroupId = getDirectGroupId(userId).groupId;
+        if (directGroupId) {
+            if ($(`#direct .chat-main>li[groupId=${directGroupId}]`).length) {
+                $(`#direct .chat-main>li[groupId=${directGroupId}]`).click()
+            } else {
+                console.log('no group')
+            }
+        } else {
+            new Promise(resolve => getUsersList(resolve)).then(usersList => {
+                let item = usersList.find(item => item.id == userId);
+                users = [userId, currentUserId];
+                socket.emit('create:group', { title: item.username, users, type: 1 });
+            });
+        }
+    })
 
     // remove contact
     $('.contact-list-tab .chat-main').on('click', 'li.user_item .ti-trash', function () {
