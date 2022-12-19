@@ -1016,7 +1016,9 @@
 
 function setProfileData(userId) {
     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
-
+    new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
+        contactList.find(item => item.id == userId) ? $('#profile_modal .open_chat_btn').show() : $('#profile_modal .open_chat_btn').hide();
+    });
     let userInfo = getCertainUserInfoById(userId)
     if (userInfo.avatar) {
         $('#profile_modal .contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
