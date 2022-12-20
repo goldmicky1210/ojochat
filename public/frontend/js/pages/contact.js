@@ -72,6 +72,7 @@ $(document).ready(() => {
     $('#profile_modal .open_chat_btn').on('click', function () {
         let userId = $(this).closest('.contact-profile').attr('userId');
         $('#profile_modal').modal('hide');
+        $('#custom_modal').modal('hide');
         $('.dynemic-sidebar, .button-effect.active:not(#myTab .button-effect):not(#myTab1 .button-effect), sidebar-top .sidebar-top > li > a').removeClass("active");
         $('.recent-default').addClass("active");
         $('.messages.custom-scroll').removeClass("active");
