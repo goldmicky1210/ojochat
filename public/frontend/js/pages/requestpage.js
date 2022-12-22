@@ -534,7 +534,7 @@ function sendBlink() {
         data.sender = currentUserId;
         data.senderName = getCertainUserInfoById(currentUserId).username;
         data.photo = canvas.toDataURL('image/png');
-        data.back = ori_image || (canvas.backgroundImage._originalElement && canvas.backgroundImage._originalElement.currentSrc);
+        data.back = ori_image || (canvas.backgroundImage && canvas.backgroundImage._originalElement.currentSrc);
         data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
         data.blurPrice = blurPrice;
         data.blurPayersList = '';
