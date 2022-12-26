@@ -1,3 +1,7 @@
+#myTabContent1 .chat-main .date-status .thread_info {
+    display: flex;
+    justify-content: center;
+}
 #group_chat .chat-friend-toggle .chat-frind-content,
 #cast_chat .chat-friend-toggle .chat-frind-content {
     width: 200px;
