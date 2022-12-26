@@ -57,6 +57,7 @@ class HomeController extends Controller
             foreach($groupArrs as $index => $group) {
                 $groupArrs[$index]['users'] = $this->getGroupUsers($group['id']);
                 $groupArrs[$index]['lastMessage'] = Message::where('group_id', $group['id'])->where('deleted', 0)->orderBy('created_at', 'desc')->first();
+                $groupArrs[$index]['unreadCount'] = Message::where('group_id', $group['id'])->where('sender', '!=', $id)->where('deleted', 0)->where('state', 1)->orderBy('created_at', 'desc')->count();
             }
             if ($type == 3) {
                 $groupArrs = array_filter($groupArrs, function ($item) {

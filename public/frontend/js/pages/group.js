@@ -776,7 +776,7 @@ function addUsersListItem(target, data, statusItem) {
 }
 
 function addNewGroupItem(target, data) {
-    let { id, title, avatar, type, users, owner, admins } = data;
+    let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
         let userInfo = getCertainUserInfoById(directId);
@@ -810,6 +810,7 @@ function addNewGroupItem(target, data) {
                         ${countRecipients > 3 ? "<li>+" + (countRecipients - 3) + "</li>" : ""}
                     </ul>
                     <div class="thread_info">
+                        <div class="badge badge-primary sm">${unreadCount ? unreadCount : ''}</div>
                         <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
                         <div class="thread_info_content">
                             <ul>
