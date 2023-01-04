@@ -19,6 +19,17 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         });
     });
 
+    socket.on('create:newGroup', (data, callback) => {
+        console.log('new group', data)
+        db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
+            if (error) throw error;
+            let groupId = group.insertId;
+            db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${data.recipient}, ${groupId}, 2)`, (error, item) => {
+                callback({ status: 'OK', groupId })
+            });
+        });
+    });
+
     socket.on('send:groupMessage', data => {
         data.sender = currentUserId;
         if (data.globalGroupId) {

@@ -250,7 +250,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
 
-        new Promise((resolve) => getContactListData(resolve)).then((contactList) => {
+        new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<button class="btn btn-outline-primary button-effect btn-sm forward_btn" type="button">Send</button>';
@@ -276,7 +276,15 @@ $(document).ready(function () {
             let forwardKind = $('#custom_modal').attr('forwardKind');
             let recipient = $(this).closest('li').attr('key');
             let senderName = getCertainUserInfoById(currentUserId).username;
-            socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId });
+            let globalGroupId = getDirectGroupId(recipient);
+            console.log(globalGroupId)
+            if (globalGroupId) {
+                socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId });
+            } else {
+                socket.emit('create:newGroup', {senderName, sender: currentUserId, recipient}, res => {
+                    socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId:res.groupId });
+                })
+            }
         }
     });
 

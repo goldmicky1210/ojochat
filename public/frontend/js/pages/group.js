@@ -1319,5 +1319,5 @@ function getDirectGroupId(userId) {
 
         }
     });
-    return result;
+    return result['groupId'];
 }

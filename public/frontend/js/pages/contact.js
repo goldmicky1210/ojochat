@@ -54,7 +54,7 @@ $(document).ready(() => {
         $(`#direct .chat-main>li`).removeClass('active');
         getRecentChatUsers(1)
 
-        let directGroupId = getDirectGroupId(userId).groupId;
+        let directGroupId = getDirectGroupId(userId);
         if (directGroupId) {
             if ($(`#direct .chat-main>li[groupId=${directGroupId}]`).length) {
                 $(`#direct .chat-main>li[groupId=${directGroupId}]`).click()
@@ -84,7 +84,7 @@ $(document).ready(() => {
         $(`#direct .chat-main>li`).removeClass('active');
         getRecentChatUsers(1)
 
-        let directGroupId = getDirectGroupId(userId).groupId;
+        let directGroupId = getDirectGroupId(userId);
         if (directGroupId) {
             if ($(`#direct .chat-main>li[groupId=${directGroupId}]`).length) {
                 $(`#direct .chat-main>li[groupId=${directGroupId}]`).click()
