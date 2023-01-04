@@ -252,6 +252,10 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     font-size: 12px;
 }
 
+.chat-main .unread_msg_count {
+    justify-content: center;
+}
+
 #new_chat_modal .theme-tab .nav-tabs {
     justify-content: center;
     gap: 20px;

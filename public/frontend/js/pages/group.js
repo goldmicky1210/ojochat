@@ -810,7 +810,7 @@ function addNewGroupItem(target, data) {
                         ${countRecipients > 3 ? "<li>+" + (countRecipients - 3) + "</li>" : ""}
                     </ul>
                     <div class="thread_info">
-                        <div class="badge badge-primary sm">${unreadCount ? unreadCount : ''}</div>
+                        <div class="badge badge-primary sm unread_msg_count">${unreadCount ? unreadCount : ''}</div>
                         <a class="icon-btn btn-xs btn-light bg-transparent button-effect outside" href="#"><i class="ti-more-alt"></i></a>
                         <div class="thread_info_content">
                             <ul>
@@ -1056,11 +1056,13 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     convertListItems();
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);
-
+                
                 // show chat page display
                 $('.section-py-space').css('display', 'none');
                 $('.app-list').css('display', 'block');
                 $('#content').css('display', 'block');
+                // remove unread message count
+                $('.chat-main>li.active .thread_info .unread_msg_count').text('');
 
                 // chat history append
                 new Promise(resolve => {
