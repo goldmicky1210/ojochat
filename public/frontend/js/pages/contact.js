@@ -107,33 +107,33 @@ $(document).ready(() => {
     });
     // show contact request
     $('.sidebar-top li.notification_list_btn').on('click', () => {
-        let target = '.notification-tab  .chat-main';
-        new Promise(resolve => getPendingContactListData(resolve)).then(data => {
-            $(target).empty();
-            let receiveStatusItem = `
-                <div class="thread_info">
-                    <div class="accept_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
-                            <i class="ti-check"></i>
-                        </a>
-                    </div>
-                    <div class="remove_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
-                            <i class="ti-trash"></i>
-                        </a>
-                    </div>
-                </div>`
-            let sendStatusItem = `
-                <div class="thread_info">
-                    <div class="remove_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
-                            <i class="ti-trash"></i>
-                        </a>
-                    </div>
-                </div>`
-            data.receiveData.forEach(item => addUsersListItem(target, item, receiveStatusItem))
-            data.sendData.forEach(item => addUsersListItem(target, item, sendStatusItem))
-        });
+        // let target = '.notification-tab  .chat-main';
+        // new Promise(resolve => getPendingContactListData(resolve)).then(data => {
+        //     $(target).empty();
+        //     let receiveStatusItem = `
+        //         <div class="thread_info">
+        //             <div class="accept_request_btn">
+        //                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+        //                     <i class="ti-check"></i>
+        //                 </a>
+        //             </div>
+        //             <div class="remove_request_btn">
+        //                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+        //                     <i class="ti-trash"></i>
+        //                 </a>
+        //             </div>
+        //         </div>`
+        //     let sendStatusItem = `
+        //         <div class="thread_info">
+        //             <div class="remove_request_btn">
+        //                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+        //                     <i class="ti-trash"></i>
+        //                 </a>
+        //             </div>
+        //         </div>`
+        //     data.receiveData.forEach(item => addUsersListItem(target, item, receiveStatusItem))
+        //     data.sendData.forEach(item => addUsersListItem(target, item, sendStatusItem))
+        // });
     });
     // accept contact request
     $('.notification-tab .chat-main').on('click', 'li.user_item .accept_request_btn', function () {

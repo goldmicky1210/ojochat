@@ -28,6 +28,7 @@ $(document).ready(() => {
         deleteMessages();
         displayRate();
         searchList();
+        getNotificationList();
     });
 
 
@@ -77,6 +78,41 @@ $(document).ready(() => {
     changeProfileImageAjax();
 
 });
+
+function getNotificationList() {
+    let target = '.notification-tab  .chat-main';
+    new Promise(resolve => getPendingContactListData(resolve)).then(data => {
+        $(target).empty();
+        let receiveStatusItem = `
+                <div class="thread_info">
+                    <div class="accept_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                            <i class="ti-check"></i>
+                        </a>
+                    </div>
+                    <div class="remove_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                            <i class="ti-trash"></i>
+                        </a>
+                    </div>
+                </div>`
+        let sendStatusItem = `
+                <div class="thread_info">
+                    <div class="remove_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                            <i class="ti-trash"></i>
+                        </a>
+                    </div>
+                </div>`
+        data.receiveData.forEach(item => addUsersListItem(target, item, receiveStatusItem))
+        data.sendData.forEach(item => addUsersListItem(target, item, sendStatusItem))
+        if(data.receiveData.length) {
+            $('.notification_list_btn .dot-danger').addClass('dot-btn');
+        } else {
+            $('.notification_list_btn .dot-danger').removeClass('dot-btn');
+        }
+    });
+}
 
 function getCertainUserInfoById(id) {
     return usersList.find(item => item.id == id);
