@@ -791,6 +791,8 @@ function searchList() {
         let target = '#myTabContent1 .tab-pane.active';
         if ($('#custom_modal').hasClass('show')) {
             target = '#custom_modal'
+        } else if($('#new_chat_modal').hasClass('show')) {
+            target = '#new_chat_modal'
         }
         clearTimeout(keyuptimer);
         keyuptimer = setTimeout(() => {
@@ -804,23 +806,25 @@ function searchList() {
                     newUsersList.forEach(item => {
                         follwStatus = isFollowing(item.id);
                         let statusItem = `
-                            <div class="thread_info">
-                                <div class="follow_btn">
-                                    <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
-                                        <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
-                                    </a>
-                                </div>
-                                <div class="contact_request_btn">
-                                    <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
-                                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="thread_info">
+                        <div class="follow_btn">
+                        <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                        <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                        </a>
+                        </div>
+                        <div class="contact_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+                        </a>
+                        </div>
+                        </div>
                         `;
                         addUsersListItem(target, item, statusItem)
                         lastUserName = item.username;
                     });
                 } else {
+                    console.log(value)
+                    console.log(target)
                     $(target).find('.chat-main>li').each(function () {
                         let title = $(this).find('.details h5').text().toLowerCase();
                         if (title.includes(value.toLowerCase())) {
