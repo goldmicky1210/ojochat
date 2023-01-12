@@ -80,11 +80,35 @@ $(document).ready(function () {
     });
 
     $('#custom_modal .modal-content .chat-main').on('scroll', function () {
+        let isLoading = ($(this).scrollTop() + $(this).innerHeight()) >= ($(this)[0].scrollHeight - 2);
         if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
-            let isLoading = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
             if (isLoading) {
                 let target = '#custom_modal .chat-main';
                 let newUsersList = loadMoreUsers(lastUserName, '');
+                newUsersList.forEach(item => {
+                    follwStatus = isFollowing(item.id);
+                    let statusItem = `
+                        <div class="thread_info">
+                            <div class="follow_btn">
+                                <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                    <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                                </a>
+                            </div>
+                            <div class="contact_request_btn">
+                                <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                    <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    addUsersListItem(target, item, statusItem)
+                    lastUserName = item.username;
+                });
+            }
+        } else if ($(this).closest('.modal-content').hasClass('discovery_user_modal')) {
+            if (isLoading) {
+                let target = '#custom_modal .chat-main';
+                let newUsersList = loadMoreUsers(lastUserName, '', true);
                 newUsersList.forEach(item => {
                     follwStatus = isFollowing(item.id);
                     let statusItem = `
@@ -546,6 +570,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.modal-body .group_description').remove();
         $('#custom_modal').find('.modal-body .group_fee_type').remove();
 
+        $('#custom_modal .modal-content').removeClass('discovery_user_modal');
         $('#custom_modal .modal-content').removeClass('search_user_modal');
         $('#custom_modal .modal-content').removeClass('create_new_chat_modal');
         $('#custom_modal .modal-content').removeClass('create_new_group_modal');
@@ -1202,10 +1227,11 @@ function getContactorInfoByGroupId(userId, groupId) {
     return result;
 }
 
-function loadMoreUsers(lastUserName, searchStr) {
+function loadMoreUsers(lastUserName, searchStr, randomFlag=false) {
     let form_data = new FormData();
     form_data.append('lastUserName', lastUserName);
     form_data.append('searchStr', searchStr);
+    form_data.append('randomFlag', randomFlag);
     let result = [];
     $.ajax({
         url: '/home/getUsersForList',

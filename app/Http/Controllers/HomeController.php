@@ -234,18 +234,24 @@ class HomeController extends Controller
         $id = Auth::id();
         $lastUserName = $request->input('lastUserName');
         $searchStr = $request->input('searchStr');
-        if ($searchStr) {
-            if ($lastUserName) {
-                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+        $randomFlag = $request->input('randomFlag');
+        if ($randomFlag == 'false') {
+            if ($searchStr) {
+                if ($lastUserName) {
+                    $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+                } else {
+                    $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+                }
             } else {
-                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', 'LIKE', '%'.$searchStr.'%')->limit(10)->get();
+                if ($lastUserName) {
+                    $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
+                } else {
+                    $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->limit(10)->get();
+                }
             }
         } else {
-            if ($lastUserName) {
-                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
-            } else {
-                $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->limit(10)->get();
-            }
+            $userList = User::all()->random(5);
+            // $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
         }
         
         $userList = $userList->map(function($item) {

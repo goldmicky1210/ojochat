@@ -6,13 +6,14 @@ $(document).ready(() => {
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('discovery_user_modal');
         $('#custom_modal').find('.modal-title').text('Discover Users');
+        $('#custom_modal').find('.search_field').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.group_title input').val('');
         let target = '#custom_modal .chat-main';
         $(target).empty();
         lastUserName = '';
-        let newUsersList = loadMoreUsers(lastUserName, '');
+        let newUsersList = loadMoreUsers(lastUserName, '', true);
         newUsersList.forEach(item => {
             let follwStatus = isFollowing(item.id);
             let statusItem = `
