@@ -758,7 +758,7 @@
         openAndCloseProfile();
     });
 
-    $('#custom_modal').on('click', '.search_user_modal .chat-main li .profile', function () {
+    $('#custom_modal').on('click', '.chat-main li .profile', function () {
         let userId = $(this).closest('li').attr('key');
         setProfileData(userId);
         $('#profile_modal').modal('show');
