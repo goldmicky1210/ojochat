@@ -8,13 +8,14 @@
 
 .shared_media .media_list {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 30% 30% 30%;
     grid-gap: 10px;
     margin-top: 10px;
 }
 
 .shared_media .media_list .media-small {
     overflow: hidden;
+    height: auto;
 }
 
 .shared_media .media_list .border-portfolio {
@@ -22,7 +23,8 @@
 }
 
 .portfolio-section .isotopeSelector img {
-    max-height: 72px;
+    /* max-width: 72px; */
+    width: 100%;
 }
 
 .mfp-title {
