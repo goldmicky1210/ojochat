@@ -5,10 +5,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+#profile_modal .media-gallery {
+    margin-top: 15px;
+}
 .shared_media .media_list {
-    display: grid;
-    grid-template-columns: 30% 30% 30%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    /* grid-template-columns: 30% 30% 30%; */
     grid-gap: 10px;
     margin-top: 10px;
 }
@@ -16,12 +20,16 @@
 .shared_media .media_list .media-small {
     overflow: hidden;
     height: auto;
+    width: fit-content;
 }
 
 .shared_media .media_list .border-portfolio {
     border: 1px solid gray;
 }
 
+.portfolio-section .isotopeSelector img {
+    max-height: 80px;
+}
 .mfp-title {
     display: block;
 }

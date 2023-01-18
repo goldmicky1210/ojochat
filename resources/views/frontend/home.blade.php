@@ -3444,6 +3444,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="media-gallery portfolio-section grid-portfolio">
+                    <div class="collapse-block open">
+                        <h5 class="block-title">Shared Media
+                            <label class="badge badge-primary sm ms-2 shared_media_count">2</label>
+                        </h5>
+                        <div class="block-content">
+                            <div class="share-media zoom-gallery shared_media">
+                                <span>Sent Blinks</span>
+                                <div class="send_data media_list">
+                                    
+                                </div>
+                                <span>Received Blinks</span>
+                                <div class="receive_data media_list">
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
