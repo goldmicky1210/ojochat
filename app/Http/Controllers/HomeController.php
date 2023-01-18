@@ -173,11 +173,12 @@ class HomeController extends Controller
         $groupId = $request->input('groupId');
         $sendData = array();
         $receiveData = array();
-        if ($groupId != 'undefined') {
-            $belongGroup = Group::where('id', $groupId)->get(['id as group_id', 'title', 'type']);
-        } else {
+        $belongGroup = array();
+        if ($groupId == 'all') {
             $belongGroup = UsersGroup::join('groups', 'groups.id', '=', 'users_groups.group_id')->where('user_id', $userId)->get(['group_id', 'title', 'type']);
-        }
+        } else if ($groupId != 'undefined') {
+            $belongGroup = Group::where('id', $groupId)->get(['id as group_id', 'title', 'type']);
+        }  
         foreach($belongGroup as $group) {
             $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->get(['sender', 'group_id', 'content']);
             foreach($messageData as $item) {

@@ -65,7 +65,7 @@ $(document).ready(() => {
 
     $('.self_profile_btn').on('click', () => {
         setUserProfileContent(currentUserId);
-        showSharedMedia();
+        showSharedMedia('all');
         $('.chitchat-container').toggleClass("mobile-menu");
         if ($(window).width() <= 768) {
             $('.main-nav').removeClass("on");

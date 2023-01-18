@@ -1079,6 +1079,8 @@ function setProfileData(userId) {
         },
         error: function (response) { }
     });
+
+    showSharedMedia(getDirectGroupId(userId))
 }
 
 function setProfileRateData(data) {
