@@ -1053,7 +1053,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 $('.send_attach_btn').removeClass('disabled');
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
-                    setUserProfileContent(contactId);
+                    // setUserProfileContent(contactId);
+
                     if (!isContact(contactId)) {
                         $('#setemoj').addClass('disabled');
                         $('#send-photo').addClass('disabled');
@@ -1063,8 +1064,11 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
+                    $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', contactId);
+                    
                 } else {
                     setGroupProfileContent(groupId);
+                    $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', groupId);
                     if (groupInfo.avatar) {
                         $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
                     } else {
@@ -1081,7 +1085,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     convertListItems();
                 }
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);
-                
+
                 // show chat page display
                 $('.section-py-space').css('display', 'none');
                 $('.app-list').css('display', 'block');
@@ -1198,36 +1202,7 @@ function getCertainGroupInfo(groupId) {
     return result;
 }
 
-function getContactorInfoByGroupId(userId, groupId) {
-    var form_data = new FormData();
-    form_data.append('userId', userId);
-    form_data.append('groupId', groupId);
-    var result;
-    $.ajax({
-        url: '/group/getContactorInfoByGroupId',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data,
-        cache: false,
-        contentType: false,
-        processData: false,
-        async: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            if (res.state == 'true') {
-                result = res.id;
-            } else {
-
-            }
-        },
-        error: function (response) { }
-    });
-    return result;
-}
-
-function loadMoreUsers(lastUserName, searchStr, randomFlag=false) {
+function loadMoreUsers(lastUserName, searchStr, randomFlag = false) {
     let form_data = new FormData();
     form_data.append('lastUserName', lastUserName);
     form_data.append('searchStr', searchStr);

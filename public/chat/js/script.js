@@ -754,8 +754,24 @@
     /*=====================
            27. profile open close
            ==========================*/
-    $('.self_profile_btn, .menu-trigger, .close-profile').on('click', function (e) {
+    $('.menu-trigger, .close-profile').on('click', function (e) {
         openAndCloseProfile();
+    });
+
+    // $('.menu-trigger').on('click', function (e) {
+    //     // openAndCloseProfile();
+    //     let userId;
+    //     if ($('.messages.active').attr('id') == 'direct_chat') {
+    //         userId = $(this).attr('key')
+    //         setProfileData(userId);
+    //         $('#profile_modal').modal('show');
+    //     }
+    // });
+
+    $('.self_profile_btn').on('click', function () {
+        let userId = currentUserId;
+        setProfileData(userId);
+        $('#profile_modal').modal('show');
     });
 
     $('#custom_modal').on('click', '.chat-main li .profile', function () {
@@ -763,6 +779,7 @@
         setProfileData(userId);
         $('#profile_modal').modal('show');
     });
+
     $('.recent-chat').on('click', '.item', function () {
         let userId = $(this).attr('key');
         setProfileData(userId);

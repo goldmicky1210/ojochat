@@ -18,6 +18,9 @@ let rateData;
 let recentChatUsers;
 $(document).ready(() => {
 
+    // cache function
+    getContactorInfoByGroupId = cachingDecorator(getContactorInfoByGroupId)
+
     new Promise(resolve => {
         getUsersList(resolve);
     }).then(() => {
@@ -597,6 +600,50 @@ function showSharedMedia(groupId) {
         },
         error: function (response) { }
     });
+}
+
+function getContactorInfoByGroupId(userId, groupId) {
+    let form_data = new FormData();
+    form_data.append('userId', userId);
+    form_data.append('groupId', groupId);
+    let result;
+    $.ajax({
+        url: '/group/getContactorInfoByGroupId',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                result = res.id;
+            } else {
+
+            }
+        },
+        error: function (response) { }
+    });
+    return result;
+}
+
+function cachingDecorator(func) {
+    let cache = new Map();
+
+    return function (x, y) {
+        if (cache.has(`${x}:${y}`)) {    // if there's such key in cache
+            return cache.get(`${x}:${y}`); // read the result from it
+        }
+
+        let result = func(x, y);  // otherwise call func
+
+        cache.set(`${x}:${y}`, result);  // and cache (remember) the result
+        return result;
+    };
 }
 
 function displayRecentChatFriends(recentChatUsers) {
