@@ -281,8 +281,8 @@ $(document).ready(function () {
             if (globalGroupId) {
                 socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId });
             } else {
-                socket.emit('create:newGroup', {senderName, sender: currentUserId, recipient}, res => {
-                    socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId:res.groupId });
+                socket.emit('create:newGroup', { senderName, sender: currentUserId, recipient }, res => {
+                    socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId: res.groupId });
                 })
             }
         }
@@ -415,4 +415,14 @@ function deleteGroup(groupId, element) {
 
         }
     });
+}
+
+
+
+function isValidURL(str) {
+    if (/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(str)) {
+        return true;
+    } else {
+        return false;
+    }
 }

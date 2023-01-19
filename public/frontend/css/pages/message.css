@@ -206,6 +206,9 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
+.msg-setting-main .content a {
+    color: white;
+}
 
 #custom_modal .chat-main>li .details>h5,
 #custom_modal .chat-main>li .details>h6 {

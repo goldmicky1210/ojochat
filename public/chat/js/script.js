@@ -755,7 +755,13 @@
            27. profile open close
            ==========================*/
     $('.close-profile').on('click', function (e) {
-        openAndCloseProfile();
+        if ($('#profile_modal').hasClass('show')) {
+            $('#profile_modal').modal('hide');
+        } else {
+            $('body').removeClass('menu-active'); //add class
+            $('.app-sidebar').addClass('active'); //remove
+            $('.chitchat-main').addClass("small-sidebar"); //remove
+        }
     });
 
     $('.menu-trigger').on('click', function (e) {

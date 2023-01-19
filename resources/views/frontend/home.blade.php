@@ -3347,9 +3347,9 @@
                                             <i class="ti-themify-favicon-alt"></i>
                                         </a>
                                     </div>
-                                    <!-- <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
+                                    <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
                                         <i data-feather="x"> </i>
-                                    </a> -->
+                                    </a>
                                 </div>
                             </div>
                         </div>

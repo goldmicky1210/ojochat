@@ -923,7 +923,10 @@ function addGroupChatItem(target, data, loadFlag) {
             </div>`;
     } else if (data.kind == 4) {
         var fileContent = getFileContent(data);
+    } else if (data.kind == 0) {
+        data.content = isValidURL(data.content) ? `<a href="${data.content}" target="_blank">${data.content}</a>` : data.content;
     }
+
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">
         <div class="media">
             <div class="profile me-4 bg-size" style="background-image: url(${senderInfo.avatar ? 'v1/api/downloadFile?path=' + senderInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center;">
@@ -1065,7 +1068,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', contactId);
-                    
+
                 } else {
                     setGroupProfileContent(groupId);
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', groupId);
