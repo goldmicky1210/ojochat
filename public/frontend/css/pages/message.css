@@ -206,7 +206,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
-.msg-setting-main .content a {
+.sent .msg-setting-main .content a {
     color: white;
 }
 
