@@ -10,9 +10,9 @@ $(document).ready(() => {
         $('.follow_title span').removeClass('active');
         $(this).addClass('active');
         if ($(this).hasClass('followers')) {
-            getFollowData(currentUserId, 1);
+            displayFollowInfo(1);
         } else if ($(this).hasClass('followings')) {
-            getFollowData(currentUserId, 2);
+            displayFollowInfo(2);
         } else if ($(this).hasClass('recents')) {
             displayRecentChatFriends(recentChatUsers);
         }
@@ -79,20 +79,23 @@ $(document).ready(() => {
     });
 });
 
-function getFollowData(userId, flag) {
+function getFollowData(userId) {
     $.post('/profile/getFollowData', { userId }, res => {
         followers = res.follows
         followings = res.followings
-        $('.chitchat-left-sidebar .theme-title .follow_title .followers .count').text(res.follows.length);
-        $('.chitchat-left-sidebar .theme-title .follow_title .followings .count').text(res.followings.length);
-        if (flag == 1) {
-            var data = res.follows.map(item => getCertainUserInfoById(item.user_id));
-        } else if (flag == 2) {
-            var data = res.followings.map(item => getCertainUserInfoById(item.follow_id));
-        }
-        $('.recent-slider').empty();
-        data.forEach(item => {
-            $('.recent-slider').append(`
+        $('.chitchat-left-sidebar .theme-title .follow_title .followers .count').text(followers.length);
+        $('.chitchat-left-sidebar .theme-title .follow_title .followings .count').text(followings.length);
+    })
+}
+function displayFollowInfo(flag) {
+    if (flag == 1) {
+        var data = followers.map(item => getCertainUserInfoById(item.user_id));
+    } else if (flag == 2) {
+        var data = followings.map(item => getCertainUserInfoById(item.follow_id));
+    }
+    $('.recent-slider').empty();
+    data.forEach(item => {
+        $('.recent-slider').append(`
                 <div class="item" key=${item.id}>
                     <div class="photoRating">
                         <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
@@ -103,11 +106,9 @@ function getFollowData(userId, flag) {
                     <div class="username">${item.username}</div>
                 </div>
             `);
-            convertListItems();
-            getContentRate(`.recent-slider .item[key="${item.id}"]`, Math.round(getAverageRate(item.rateData)));
-
-        });
-    })
+        convertListItems();
+        getContentRate(`.recent-slider .item[key="${item.id}"]`, Math.round(getAverageRate(item.rateData)));
+    });
 }
 
 function isFollowing(userId) {
