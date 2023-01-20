@@ -924,7 +924,11 @@ function addGroupChatItem(target, data, loadFlag) {
     } else if (data.kind == 4) {
         var fileContent = getFileContent(data);
     } else if (data.kind == 0) {
-        data.content = isValidURL(data.content) ? `<a href="${data.content}" target="_blank">${data.content}</a>` : data.content;
+        if (isValidURL(data.content)) {
+            data.content = (/^(http(s):\/\/.)/).test(data.content) ?
+                `<a href="${data.content}" target="_blank">${data.content}</a>`
+                : `<a href="https://${data.content}" target="_blank">${data.content}</a>`
+        }
     }
 
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">

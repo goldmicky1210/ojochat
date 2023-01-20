@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
     // isContact? 
     $('#setemoj').on('click', function () {
-        console.log($(this).hasClass('disabled'))
+        // console.log($(this).hasClass('disabled'))
     })
     // displayChatData();
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '>li', function (event) {
@@ -420,7 +420,7 @@ function deleteGroup(groupId, element) {
 
 
 function isValidURL(str) {
-    if (/^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(str)) {
+    if (/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/g.test(str)) {
         return true;
     } else {
         return false;
