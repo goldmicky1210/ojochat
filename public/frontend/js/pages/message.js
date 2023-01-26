@@ -15,6 +15,7 @@ $(document).ready(function () {
     $('#setemoj').on('click', function () {
         // console.log($(this).hasClass('disabled'))
     })
+
     // displayChatData();
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '>li', function (event) {
         event.stopPropagation();

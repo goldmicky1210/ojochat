@@ -1240,7 +1240,8 @@
                             </div>
                         </div>
                         <input class="setemoj" id="setemoj" type="text" placeholder="Write your message..." />
-                        <a class="icon-btn btn-outline-primary button-effect me-3 ms-3" href="#">
+                        <audio class="setemoj hidden" id="voiceMsgTag" controls></audio>
+                        <a class="icon-btn btn-outline-primary button-effect me-3 ms-3 voiceMsgBtn" href="#">
                             <i data-feather="mic"></i>
                         </a>
                         <button class="submit icon-btn btn-primary disabled" id="send-msg" disabled="disabled">
@@ -3484,4 +3485,5 @@
     <script src="/frontend/js/pages/group.js"></script>
     <script src="/frontend/js/pages/menu.js"></script>
     <script src="/frontend/js/pages/media.js"></script>
+    <script src="/frontend/js/pages/voicemessage.js"></script>
 @endsection
