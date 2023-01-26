@@ -1030,6 +1030,10 @@ function getFileContent(data) {
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
 
+    $(this).removeClass('btn-outline-danger')
+    $('#voiceMsgTag').addClass('hidden')
+    $('#setemoj').removeClass('hidden')
+
     $('.chat-content .spining').css('display', 'flex');
     var form_data = new FormData();
     form_data.append('currentGroupId', groupId);
