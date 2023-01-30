@@ -33,7 +33,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('send:groupMessage', async (data) => {
-        console.log(data)
+        // console.log(data)
         data.sender = currentUserId;
         if (data.globalGroupId) {
             if (data.msgType == 'text') {
@@ -64,7 +64,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 const audioBlob = new Blob([data.content], { type: 'audio/webm' });
                 const arrayBuffer = await audioBlob.arrayBuffer();
                 const buffer = Buffer.from(arrayBuffer)
-                console.log(audioBlob)
+                // console.log(audioBlob)
                 let fileName = `${currentUserId}-${Date.now()}.mp3`;
                 fs.writeFile(`public/upload/audio/${fileName}`, buffer, (err) => {
                     if (err) throw err;
