@@ -933,7 +933,7 @@ function addGroupChatItem(target, data, loadFlag) {
         // voice message
         console.log(data.content)
         data.content = `<audio controls>
-            <source src="upload/audio/${data.content}" type="audio/mp3">
+            <source src="/audio/${data.content}" type="audio/mp3">
         </audio>`
     }
 
