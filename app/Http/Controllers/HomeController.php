@@ -105,7 +105,7 @@ class HomeController extends Controller
         $messages = $messageData->map(function($item) {
             $rate = Rate::where('message_id', $item['id'])->avg('rate');
             $item['rate'] = $rate;
-            if ($item['kind'] == 0) 
+            if ($item['kind'] == 0 || $item['kind'] == 10) 
                 return $item;
             if ($item['kind'] == 1) {
                 $temp = PhotoRequest::where('id', $item['content'])->get();

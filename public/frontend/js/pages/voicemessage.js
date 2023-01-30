@@ -1,5 +1,5 @@
 
-const voiceList = [];
+let voiceData;
 let recorder = null;
 let audioElement = null;
 let startButton = null;
@@ -23,14 +23,13 @@ $(document).ready(() => {
     }).then(stream => {
         recorder = new MediaRecorder(stream);
         recorder.ondataavailable = (event) => {
-            voiceList.push(event.data);
+            voiceData = event.data
         }
         recorder.onstop = () => {
-            const blob = new Blob(voiceList, {
-                type: 'audio/mp4; codecs=opus'
-            });
+            const blob = new Blob([voiceData], {type: 'audio/webm'}, 'audio.webm');
             const url = URL.createObjectURL(blob);
             $('#voiceMsgTag').attr('src', url);
+            $('#send-msg').removeClass('disabled').removeAttr("disabled")
         }
     })
 

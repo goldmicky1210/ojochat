@@ -929,6 +929,11 @@ function addGroupChatItem(target, data, loadFlag) {
                 `<a href="${data.content}" target="_blank">${data.content}</a>`
                 : `<a href="https://${data.content}" target="_blank">${data.content}</a>`
         }
+    } else if (data.kind == 10) {
+        // voice message
+        data.content = `<audio controls>
+            <source src="v1/api/downloadFile?path=upload/audio/${data.content}" type="audio/mpeg">
+        </audio>`
     }
 
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">
@@ -955,7 +960,9 @@ function addGroupChatItem(target, data, loadFlag) {
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
                 : data.kind == 2 ? `${data.edited ? `<img class="edited_img" src="/images/edited.png">` : ''}<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
                     : data.kind == 3 ? inviteContent
-                        : data.kind == 4 ? fileContent : ''}
+                    : data.kind == 4 ? fileContent
+                    : data.kind == 10 ? data.content : ''
+                }
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>
@@ -1030,7 +1037,7 @@ function getFileContent(data) {
 
 function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
 
-    $(this).removeClass('btn-outline-danger')
+    $('.voiceMsgBtn').removeClass('btn-outline-danger')
     $('#voiceMsgTag').addClass('hidden')
     $('#setemoj').removeClass('hidden')
 
@@ -1108,8 +1115,9 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 new Promise(resolve => {
                     if (userStatus.status == 2) {
                         if (messageData.length) {
+                            console.log(messageData)
                             messageData.reverse().forEach(item => {
-                                if (item.state != 3 && currentUserId != item.sender) {
+                                if (item && item.state != 3 && currentUserId != item.sender) {
                                     let message = {
                                         from: item.sender,
                                         to: currentUserId,

@@ -256,7 +256,11 @@ function newMessage() {
     // $('#content .chat-content>.replyMessage').removeAttr('forwardKind');
     $('#content .chat-content>.replyMessage').hide();
     var content = $('.message-input input').val();
-    if ($.trim(content) == '') {
+    let msgType = 'text';
+    if (voiceData) {
+        content = voiceData
+        msgType = 'audio';
+    } else if ($.trim(content) == '') {
         return false;
     }
 
@@ -265,22 +269,22 @@ function newMessage() {
 
     let senderName = getCertainUserInfoById(currentUserId).username;
 
-    $.ajax({
-        type: "POST",
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "/home/sendMessage",
-        data: {
-            id: getCertainUserInfoById(currentUserId).id,
-            content,
-            foo: 'bar',
-            currentContactID: currentContactId
-        },
-        success: function (datas) {
-            console.log("Request Sent");
-        },
-    });
+    // $.ajax({
+    //     type: "POST",
+    //     headers: {
+    //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     url: "/home/sendMessage",
+    //     data: {
+    //         id: getCertainUserInfoById(currentUserId).id,
+    //         content,
+    //         foo: 'bar',
+    //         currentContactID: currentContactId
+    //     },
+    //     success: function (datas) {
+    //         console.log("Request Sent");
+    //     },
+    // });
 
     if ($('#direct_chat').hasClass('active')) {
         globalGroupId = currentDirectId;
@@ -292,7 +296,7 @@ function newMessage() {
         globalGroupId = currentCastId;
         var groupType = 3;
     }
-    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, groupType });
+    socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, groupType, msgType });
     return;
 };
 

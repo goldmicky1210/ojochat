@@ -839,7 +839,7 @@
     $('.message-input input').on('keydown', function (e) {
         if (e.which == 13) {
             if (!e.target.value) {
-                return false
+                return false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
             }
             newMessage();
             return false;
