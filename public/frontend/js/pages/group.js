@@ -884,6 +884,7 @@ function getMessgageContentById(messageId, messageKind) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
+    console.log(data)
     let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
@@ -910,7 +911,6 @@ function addGroupChatItem(target, data, loadFlag) {
     let senderInfo = getCertainUserInfoById(data.sender);
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
-    console.log(data.kind)
     if (data.kind == 3) {
         var inviteContent = data.inviteGroupTitle ? `
             <div class="content invite_link" inviteGroupId=${data.content}>
@@ -933,7 +933,7 @@ function addGroupChatItem(target, data, loadFlag) {
         // voice message
         console.log(data.content)
         data.content = `<audio controls>
-            <source src="/audio/${data.content}" type="audio/mp3">
+            <source src="${data.content}" type="audio/mp3">
         </audio>`
     }
 
