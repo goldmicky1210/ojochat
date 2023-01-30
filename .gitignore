@@ -18,3 +18,5 @@ Homestead.json
 
 public/frontend/js/constant.js
 socket/config.js
+public/upload/
+package-lock.json
