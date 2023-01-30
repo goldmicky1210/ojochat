@@ -931,8 +931,9 @@ function addGroupChatItem(target, data, loadFlag) {
         }
     } else if (data.kind == 10) {
         // voice message
+        console.log(data.content)
         data.content = `<audio controls>
-            <source src="v1/api/downloadFile?path=upload/audio/${data.content}" type="audio/mpeg">
+            <source src="upload/audio/${data.content}" type="audio/mp3">
         </audio>`
     }
 
