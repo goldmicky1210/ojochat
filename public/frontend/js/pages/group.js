@@ -884,7 +884,6 @@ function getMessgageContentById(messageId, messageKind) {
 }
 
 function addGroupChatItem(target, data, loadFlag) {
-    console.log(data)
     let replyId = data.replyId || data.reply_id;
     let replyKind = data.replyKind || data.reply_kind || 0;
     if (replyId) {
@@ -933,7 +932,7 @@ function addGroupChatItem(target, data, loadFlag) {
         // voice message
         console.log(data.content)
         data.content = `<audio controls>
-            <source src="${data.content}" type="audio/mp3">
+            <source src="upload/audio/${data.content}" type="audio/mp3">
         </audio>`
     }
 
