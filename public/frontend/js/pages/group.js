@@ -932,8 +932,9 @@ function addGroupChatItem(target, data, loadFlag) {
         // voice message
         console.log(data.content)
         data.content = `<audio controls>
-            <source src="upload/audio/${data.content}" type="audio/mp3">
-        </audio>`
+            <source src="v1/api/downloadFile?path=upload/audio/${data.content}" type="audio/mp3">
+            </audio>`
+            // <source src="upload/audio/${data.content}" type="audio/mp3">
     }
 
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">

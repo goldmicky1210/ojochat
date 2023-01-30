@@ -66,7 +66,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 const buffer = Buffer.from(arrayBuffer)
                 // console.log(audioBlob)
                 let fileName = `${currentUserId}-${Date.now()}.mp3`;
-                fs.writeFile(`public/upload/audio/${fileName}`, buffer, (err) => {
+                fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
                     if (err) throw err;
                     console.log(fileName)
                     console.log('It\'s saved!');
@@ -79,10 +79,19 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                         Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
                     });
                 });
-                //   saveAudioBlobToServer(audioBlob, audioFilePath)
-                //     .then(() => console.log(`Audio blob saved to ${audioFilePath}`))
-                //     .catch(error => console.error('Error saving audio blob:', error));
-
+                // fs.writeFile(`public/upload/audio/${fileName}`, buffer, (err) => {
+                //     if (err) throw err;
+                //     console.log(fileName)
+                //     console.log('It\'s saved!');
+                //     db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind, kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${fileName}", ${data.replyId || 0}, ${data.replyKind || 0}, 10)`, (error, item) => {
+                //         console.log(error)
+                //         data.id = item.insertId;
+                //         data.kind = 10;
+                //         data.msgType = 'voice';
+                //         data.content = fileName;
+                //         Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
+                //     });
+                // });
             }
         }
 
