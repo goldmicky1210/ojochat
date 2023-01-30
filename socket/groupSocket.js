@@ -75,6 +75,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                         data.id = item.insertId;
                         data.kind = 10;
                         data.msgType = 'voice';
+                        data.content = fileName;
                         Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
                     });
                 });
