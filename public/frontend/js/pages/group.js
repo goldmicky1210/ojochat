@@ -777,27 +777,43 @@ $(document).ready(function () {
 });
 
 function addUsersListItem(target, data, statusItem) {
-    $(target).append(
-        `<li class="user_item" data-to="blank" key="${data.id}">
-            <div class="chat-box">
-                <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-                    
+    if ($(target).parents('.modal').length) {
+        $(target).append(
+            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}'>
+                <div class="photoRating">
+                    <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                 </div>
                 <div class="details">
                     <h5>${data.username}</h5>
                     <h6>${data.description || ''}</h6>
-                    <div class="photoRating">
-                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                    </div>
                 </div>
                 <div class="date-status">
                     ${statusItem}
                 </div>
-            </div>
-        </li>`
-    );
+            </li>`
+        );
+    } else {
+        $(target).append(
+            `<li class="user_item" data-to="blank" key="${data.id}">
+                <div class="chat-box">
+                    <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
+    
+                    </div>
+                    <div class="details">
+                        <h5>${data.username}</h5>
+                        <h6>${data.description || ''}</h6>
+                        <div class="photoRating">
+                            <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                        </div>
+                    </div>
+                    <div class="date-status">
+                        ${statusItem}
+                    </div>
+                </div>
+            </li>`
+        );
+    }
     getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
-
 }
 
 function addNewGroupItem(target, data) {
@@ -934,7 +950,7 @@ function addGroupChatItem(target, data, loadFlag) {
         data.content = `<audio controls>
             <source src="v1/api/downloadFile?path=upload/audio/${data.content}" type="audio/mp3">
             </audio>`
-            // <source src="upload/audio/${data.content}" type="audio/mp3">
+        // <source src="upload/audio/${data.content}" type="audio/mp3">
     }
 
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}">
@@ -961,9 +977,9 @@ function addGroupChatItem(target, data, loadFlag) {
                 `<div class="camera-icon" requestid="${data.requestId}">$${data.content}</div>`
                 : data.kind == 2 ? `${data.edited ? `<img class="edited_img" src="/images/edited.png">` : ''}<img class="receive_photo" messageId="${data.messageId}" photoId="${data.photoId}" src="${data.content}">`
                     : data.kind == 3 ? inviteContent
-                    : data.kind == 4 ? fileContent
-                    : data.kind == 10 ? data.content : ''
-                }
+                        : data.kind == 4 ? fileContent
+                            : data.kind == 10 ? data.content : ''
+        }
                             <div class="msg-dropdown-main">
                                 <div class="msg-open-btn"><span>Open</span></div>
                                 <div class="msg-setting"><i class="ti-more-alt"></i></div>

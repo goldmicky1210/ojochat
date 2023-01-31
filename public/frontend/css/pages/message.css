@@ -27,6 +27,33 @@ ul.chat-main>li {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+.modal ul.chat-main {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+}
+.modal ul.chat-main li.user_item {
+    min-height: 250px;
+    padding: 10px;
+    position: relative;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.modal ul.chat-main li.user_item .details {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}
+.modal ul.chat-main li.user_item .date-status {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+.modal ul.chat-main li.user_item .date-status .thread_info{
+    flex-direction: column;
+}
 
 ul.chat-main>li:hover {
     background-color: #eff7fe;
