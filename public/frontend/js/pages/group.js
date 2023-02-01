@@ -779,7 +779,9 @@ $(document).ready(function () {
 function addUsersListItem(target, data, statusItem) {
     if ($(target).parents('.modal').length) {
         $(target).append(
-            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}'>
+            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})`  : "none"}'>
+                
+                ${!data.avatar ? `<div class='back-user-name'><div>${data.username.split(' ').reduce((prev, cur) =>  prev + cur[0].toUpperCase(), '')}</div></div>`: ''}
                 <div class="photoRating">
                     <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                 </div>

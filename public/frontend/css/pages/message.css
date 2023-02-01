@@ -40,10 +40,31 @@ ul.chat-main>li {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-color: #243138;
+}
+.modal ul.chat-main li.user_item:hover {
+    background-color: #8493a1;
+}
+.modal ul.chat-main li.user_item .back-user-name {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal ul.chat-main li.user_item .back-user-name>div {
+    width: 70px;
+    height: 70px;
+    font-size: 25px;
+    text-align: center;
+    line-height: 75px;
+    border-radius: 50%;
+    background-color: cyan;
 }
 .modal ul.chat-main li.user_item .photoRating{
-    opacity: 0.6;
+    opacity: 0.8;
     color: white;
+    position: absolute;
+    top: 10px;
 }
 .modal ul.chat-main li.user_item .details {
     position: absolute;
