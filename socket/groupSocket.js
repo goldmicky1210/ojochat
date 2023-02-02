@@ -45,26 +45,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                 });
             } else if (data.msgType == 'audio') {
 
-                // const saveAudioBlobToServer = (blob, filePath) => {
-                //     return new Promise((resolve, reject) => {
-                //       const reader = new FileReader()
-                //       reader.onload = () => {
-                //         fs.writeFile(filePath, Buffer.from(new Uint8Array(reader.result)), error => {
-                //           if (error) {
-                //             reject(error);
-                //           } else {
-                //             resolve();
-                //           }
-                //         });
-                //       };
-                //       reader.readAsArrayBuffer(blob);
-                //     });
-                //   };
-
                 const audioBlob = new Blob([data.content], { type: 'audio/webm' });
                 const arrayBuffer = await audioBlob.arrayBuffer();
                 const buffer = Buffer.from(arrayBuffer)
-                // console.log(audioBlob)
                 let fileName = `${currentUserId}-${Date.now()}.mp3`;
                 fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
                     if (err) throw err;
@@ -79,19 +62,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                         Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
                     });
                 });
-                // fs.writeFile(`public/upload/audio/${fileName}`, buffer, (err) => {
-                //     if (err) throw err;
-                //     console.log(fileName)
-                //     console.log('It\'s saved!');
-                //     db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind, kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${fileName}", ${data.replyId || 0}, ${data.replyKind || 0}, 10)`, (error, item) => {
-                //         console.log(error)
-                //         data.id = item.insertId;
-                //         data.kind = 10;
-                //         data.msgType = 'voice';
-                //         data.content = fileName;
-                //         Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
-                //     });
-                // });
             }
         }
 

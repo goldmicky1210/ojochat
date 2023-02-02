@@ -776,12 +776,18 @@ $(document).ready(function () {
     });
 });
 
+function getNameStr(nameStr = '') {
+    let str = nameStr.split(' ').reduce((prev, cur) => prev + cur[0].toUpperCase(), '')
+    if (str.length == 1) {
+        str = nameStr.slice(0, 2).toUpperCase();
+    }
+    return str;
+}
 function addUsersListItem(target, data, statusItem) {
     if ($(target).parents('.modal').length) {
         $(target).append(
-            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})`  : "none"}'>
-                
-                ${!data.avatar ? `<div class='back-user-name'><div>${data.username.split(' ').reduce((prev, cur) =>  prev + cur[0].toUpperCase(), '')}</div></div>`: ''}
+            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
+                ${!data.avatar ? `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>` : ''}
                 <div class="photoRating">
                     <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                 </div>
@@ -798,8 +804,8 @@ function addUsersListItem(target, data, statusItem) {
         $(target).append(
             `<li class="user_item" data-to="blank" key="${data.id}">
                 <div class="chat-box">
-                    <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" style="background-image: url(${data.avatar ? 'v1/api/downloadFile?path=' + data.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;">
-    
+                    <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
+                    ${getNameStr(data.username)}
                     </div>
                     <div class="details">
                         <h5>${data.username}</h5>
@@ -840,7 +846,11 @@ function addNewGroupItem(target, data) {
         `<li class="" data-to="group_chat" groupId=${id} groupUsers=${users.join(',')} owner=${owner} admins=${admins}>
             <div class="group-box">
                 <div class="profile">
-                    <img class="bg-img" src=${avatar ? 'v1/api/downloadFile?path=' + avatar : '/images/default-avatar.png'} alt="Avatar"/>
+                ${avatar ?
+                    `<img class="bg-img" src="v1/api/downloadFile?path=${avatar}" alt="Avatar" />`
+                    :
+                    getNameStr(title)
+                }
                 </div>
                 <div class="details">
                     <h5>${title}</h5>

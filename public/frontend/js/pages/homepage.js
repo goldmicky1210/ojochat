@@ -659,7 +659,11 @@ function displayRecentChatFriends(recentChatUsers) {
                         <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                     </div>
                 <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
-                    <img class="bg-img" src="${item.avatar ? 'v1/api/downloadFile?path=' + item.avatar : '/images/default-avatar.png'}" alt="Avatar" />
+                ${item.avatar ?
+                    `<img class="bg-img" src='v1/api/downloadFile?path=${item.avatar}' alt="Avatar" />`
+                    :
+                    getNameStr(item.username)
+                }
                 </div>
                 <div class="username">${item.username}</div>
             </div>

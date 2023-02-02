@@ -27,11 +27,13 @@ ul.chat-main>li {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 .modal ul.chat-main {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 10px;
 }
+
 .modal ul.chat-main li.user_item {
     min-height: 250px;
     padding: 10px;
@@ -42,15 +44,18 @@ ul.chat-main>li {
     background-position: center;
     background-color: #243138;
 }
+
 .modal ul.chat-main li.user_item:hover {
     background-color: #8493a1;
 }
+
 .modal ul.chat-main li.user_item .back-user-name {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .modal ul.chat-main li.user_item .back-user-name>div {
     width: 70px;
     height: 70px;
@@ -60,29 +65,33 @@ ul.chat-main>li {
     border-radius: 50%;
     background-color: cyan;
 }
-.modal ul.chat-main li.user_item .photoRating{
+
+.modal ul.chat-main li.user_item .photoRating {
     opacity: 0.8;
     color: white;
     position: absolute;
     top: 10px;
 }
+
 .modal ul.chat-main li.user_item .details {
     position: absolute;
     left: 10px;
     bottom: 10px;
     color: white;
 }
+
 .modal ul.chat-main li.user_item .details h5,
-.modal ul.chat-main li.user_item .details h6
-{
+.modal ul.chat-main li.user_item .details h6 {
     color: white;
 }
+
 .modal ul.chat-main li.user_item .date-status {
     position: absolute;
     right: 10px;
     bottom: 10px;
 }
-.modal ul.chat-main li.user_item .date-status .thread_info{
+
+.modal ul.chat-main li.user_item .date-status .thread_info {
     flex-direction: column;
 }
 
@@ -250,6 +259,25 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 
 .chat-main li .chat-box .profile {
     position: relative;
+    background-color: cyan;
+    background-size: cover;
+    background-position: center center;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    font-size: 22px;
+}
+.group-box .profile {
+    background-color: cyan;
+    text-align: center;
+    line-height: 50px;
+    font-size: 22px;
+}
+.gr-profile {
+    text-align: center;
+    line-height: 50px;
+    font-size: 22px;
+    background-color: cyan;
 }
 
 .chat-main>li .chat-box .details {
@@ -264,6 +292,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
+
 .sent .msg-setting-main .content a {
     color: white;
 }
