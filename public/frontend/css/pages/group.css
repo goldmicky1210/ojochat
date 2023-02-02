@@ -21,6 +21,8 @@
 .messages .groupuser .gr-profile {
     flex-shrink: 0;
     cursor: pointer;
+    line-height: 40px;
+    font-size: 20px;
 }
 
 .chitchat-right-sidebar .contact-profile .group_operation {
