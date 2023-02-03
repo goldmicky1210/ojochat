@@ -30,7 +30,7 @@ ul.chat-main>li {
 
 .modal ul.chat-main {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
     grid-gap: 10px;
 }
 
