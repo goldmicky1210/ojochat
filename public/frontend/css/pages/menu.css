@@ -55,13 +55,15 @@
 
 .recent-chat .item {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .recent-chat .item .gr-profile {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin: auto;
 }
 
 .recent-chat .item .username {
