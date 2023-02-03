@@ -781,7 +781,7 @@
         $('#profile_modal').modal('show');
     });
 
-    $('#custom_modal').on('click', '.chat-main li .profile', function () {
+    $('#custom_modal').on('click', '.chat-main li.user_item', function () {
         let userId = $(this).closest('li').attr('key');
         setProfileData(userId);
         $('#profile_modal').modal('show');
