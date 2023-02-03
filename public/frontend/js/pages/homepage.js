@@ -258,7 +258,7 @@ function newMessage() {
     var content = $('.message-input input').val();
     let msgType = 'text';
     if (voiceData) {
-        content = voiceData
+        content = JSON.parse(JSON.stringify(voiceData))
         msgType = 'audio';
     } else if ($.trim(content) == '') {
         return false;
@@ -297,6 +297,11 @@ function newMessage() {
         var groupType = 3;
     }
     socket.emit('send:groupMessage', { globalGroupId, globalGroupUsers, content, senderName, replyId, replyKind, groupType, msgType });
+    voiceData = null;
+    $('.voiceMsgBtn').removeClass('btn-outline-danger')
+    $('#voiceMsgTag').addClass('hidden')
+    $('#setemoj').removeClass('hidden')
+
     return;
 };
 
