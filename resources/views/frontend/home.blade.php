@@ -3472,6 +3472,7 @@
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
     <script src="/frontend/js/constant.js"></script>
+    <script src="/frontend/js/pages/recorder.js"></script>
 
     <script src="/frontend/js/pages/follow.js"></script>
     <script src="/frontend/js/pages/homepage.js"></script>
