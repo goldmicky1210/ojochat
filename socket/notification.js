@@ -61,7 +61,7 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
                                 // countStar += '⭐️⭐️⭐️⭐️⭐️';
                             }
                             let type = KindConstant[kindIndex];
-                            let messageType = type == 'text' ? 'un mensaje de texto' : type == 'blink' ? 'blink' : type == 'media' ? 'media' : 'solicitar';
+                            let messageType = type == 'text' ? 'un mensaje de texto' : type == 'blink' ? 'blink' : type == 'media' ? 'media' : type == 'voice' ? 'voice' : 'solicitar';
                             if (spainish) {
                                 var message = `Hola ${row[0].username}, ${user[0].username} acaba de darte ${countStar} en ${messageType} en OJO.`;
                             } else {
@@ -92,6 +92,8 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 
 exports.sendSMS = (sender, recipient, data) => {
     console.log(sender, recipient)
+    console.log(data)
+
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -115,20 +117,21 @@ exports.sendSMS = (sender, recipient, data) => {
                                 if (groupInfo && groupInfo.length) {
                                     let groupType = data.groupType;
 
-                                    let messageType = data.msgType == 'text' ? 'de texto' : data.msgType == 'blink' ? 'Blink' : 'solicitar';
+                                    let englishMsgType = data.msgType == 'text' ? 'text message' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'mensaje de voz' : 'message';
+                                    let spanishMsgType = data.msgType == 'text' ? 'de texto' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'voice message' : 'message';
                                     if (groupType == 1 || groupType == 3) {
                                         // Direct and Cast Message
                                         if (spainish) {
-                                            message = `Hola ${row[0].username}, tienes un nuevo ${messageType} de ${data.senderName}. Inicie sesion en Ojochat para ver sus mensajes. ${val}`;
+                                            message = `Hola ${row[0].username}, tienes un nuevo ${spanishMsgType} de ${data.senderName}. Inicie sesion en Ojochat para ver sus mensajes. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, you have a new ${data.msgType == 'text' ? 'text message' : 'Blink'} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
+                                            message = `Hey ${row[0].username}, you have a new ${englishMsgType} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
                                         }
                                     } else if (groupType == 2) {
                                         // Group Message
                                         if (spainish) {
-                                            message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${messageType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para ver nuevos mensajes de grupo. ${val}`;
+                                            message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${spanishMsgType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para ver nuevos mensajes de grupo. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, a new ${data.msgType == 'text' ? 'text message' : 'Blink'} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
+                                            message = `Hey ${row[0].username}, a new ${englishMsgType} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
                                         }
                                     }
                                 }
