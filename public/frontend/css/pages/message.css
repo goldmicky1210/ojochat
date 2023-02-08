@@ -121,10 +121,9 @@ ul.chat-main>li.active {
     background-color: white;
 }
 
-.modal ul.chat-main>li .chat-box .date-status .form-check-input {
-    font-size: 1.5em;
+.modal ul.chat-main>li .date-status .form-check-input {
+    font-size: 25px;
     border-radius: 50%;
-    pointer-events: none;
 }
 
 body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {

@@ -35,11 +35,8 @@ $(document).ready(function () {
         });
     });
 
-    $('#custom_modal').on('click',
-        '.modal-content.search_user_modal .chat-main>li .date-status .follow_btn,\
-        .modal-content.recent_chat_user_modal .chat-main>li .date-status .follow_btn,\
-        .modal-content.follower_user_modal .chat-main>li .date-status .follow_btn,\
-        .modal-content.following_user_modal .chat-main>li .date-status .follow_btn', function (e) {
+    $('#custom_modal').on('click','.follow_btn', function (e) {
+        e.stopPropagation()
         let followId = $(this).closest('.user_item').attr('key');
         $(this).find('.icon-btn').prop('disabled', true)
         if (currentUserId != followId) {
@@ -62,11 +59,8 @@ $(document).ready(function () {
         }
     });
 
-    $('#custom_modal').on('click',
-        '.modal-content.search_user_modal .chat-main>li .date-status .contact_request_btn,\
-        .modal-content.recent_chat_user_modal .chat-main>li .date-status .contact_request_btn,\
-        .modal-content.follower_user_modal .chat-main>li .date-status .contact_request_btn,\
-        .modal-content.following_user_modal .chat-main>li .date-status .contact_request_btn', function (e) {
+    $('#custom_modal').on('click', '.contact_request_btn', function (e) {
+        e.stopPropagation()
         let userId = $(this).closest('.user_item').attr('key');
         $.post('/home/sendContactRequest', { userId }, (res) => {
             if (res.message == 'sent') {
@@ -958,7 +952,6 @@ function addGroupChatItem(target, data, loadFlag) {
         }
     } else if (data.kind == 10) {
         // voice message
-        console.log(data.content)
         data.content = `<audio controls>
             <source src="v1/api/downloadFile?path=upload/audio/${data.content}" type="audio/mp3">
             </audio>`
@@ -1151,7 +1144,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 new Promise(resolve => {
                     if (userStatus.status == 2) {
                         if (messageData.length) {
-                            console.log(messageData)
                             messageData.reverse().forEach(item => {
                                 if (item && item.state != 3 && currentUserId != item.sender) {
                                     let message = {

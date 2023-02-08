@@ -1,6 +1,6 @@
 var oldRecipients = '';
 var oldCastTitle = '';
-
+let inputElement;
 $(document).ready(function () {
     $('#direct-tab').on('click', function () {
         getRecentChatUsers(1);
@@ -182,11 +182,13 @@ $(document).ready(function () {
 
     });
 
-    $('#custom_modal ul.chat-main').on('click', 'li', function (e) {
-        if ($(this).find('.form-check-input').length) {
-            $(this).find('.form-check-input').prop('checked', !$(this).find('.form-check-input')[0].checked);
-            $(this).toggleClass('active');
-        }
+    $('#custom_modal').on('click', '.form-check-input', function (e) {
+        e.stopPropagation()
+        inputElement = $(this)
+        console.log($(this)[0].checked)
+        // $(this)[0].checked = !$(this)[0].checked
+        $(this)[0].checked = true
+        $(this).closest('li.user_item').toggleClass('active');
     });
 
     //reply message
