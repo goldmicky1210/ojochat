@@ -44,15 +44,12 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                     Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
                 });
             } else if (data.msgType == 'audio') {
-
                 const audioBlob = new Blob([data.content], { type: 'audio/wav' });
                 const arrayBuffer = await audioBlob.arrayBuffer();
                 const buffer = Buffer.from(arrayBuffer)
                 let fileName = `${currentUserId}-${Date.now()}.wav`;
                 fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
                     if (err) throw err;
-                    console.log(fileName)
-                    console.log('It\'s saved!');
                     db.query(`INSERT INTO messages (sender, group_id, content, reply_id, reply_kind, kind) VALUES ("${currentUserId}", "${data.globalGroupId}", "${fileName}", ${data.replyId || 0}, ${data.replyKind || 0}, 10)`, (error, item) => {
                         console.log(error)
                         data.id = item.insertId;
@@ -79,21 +76,49 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                     GROUP BY group_id
                     HAVING COUNT(group_id) = 2`,
 
-                    (error, result) => {
+                    async (error, result) => {
                         if (error) throw error;
+                        console.log('result:', result)
                         if (result.length) {
-                            db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}")`, (error, item) => {
-
-                            });
+                            if (data.msgType == 'text') {
+                                db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}")`, (error, item) => {
+                                    
+                                });
+                            } else if (data.msgType == 'audio') {
+                                const audioBlob = new Blob([data.content], { type: 'audio/wav' });
+                                const arrayBuffer = await audioBlob.arrayBuffer();
+                                const buffer = Buffer.from(arrayBuffer)
+                                let fileName = `${currentUserId}-${Date.now()}.wav`;
+                                fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
+                                    if (err) throw err;
+                                    db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${fileName}", 10)`, (error, item) => {
+                                    });
+                                });
+                            }
                         } else {
                             db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
                                 if (error) throw error;
                                 let groupId = group.insertId;
 
-                                db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, (error, item) => {
-                                    db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${data.sender}", "${groupId}", "${data.content}")`, (error, item) => {
-                                        console.log('You created new group');
-                                    });
+                                db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, async(error, item) => {
+                                    // db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${data.sender}", "${groupId}", "${data.content}")`, (error, item) => {
+                                    //     console.log('You created new group');
+                                    // });
+                                    if (data.msgType == 'text') {
+                                        db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}")`, (error, item) => {
+                                            
+                                        });
+                                    } else if (data.msgType == 'audio') {
+                                        const audioBlob = new Blob([data.content], { type: 'audio/wav' });
+                                        const arrayBuffer = await audioBlob.arrayBuffer();
+                                        const buffer = Buffer.from(arrayBuffer)
+                                        let fileName = `${currentUserId}-${Date.now()}.wav`;
+                                        fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
+                                            if (err) throw err;
+                                            db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${fileName}", 10)`, (error, item) => {
+                                            });
+                                        });
+                                    }
                                 });
                             });
                         }
