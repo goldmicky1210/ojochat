@@ -1,6 +1,6 @@
 var oldRecipients = '';
 var oldCastTitle = '';
-let inputElement;
+
 $(document).ready(function () {
     $('#direct-tab').on('click', function () {
         getRecentChatUsers(1);
@@ -184,10 +184,7 @@ $(document).ready(function () {
 
     $('#custom_modal').on('click', '.form-check-input', function (e) {
         e.stopPropagation()
-        inputElement = $(this)
-        console.log($(this)[0].checked)
-        // $(this)[0].checked = !$(this)[0].checked
-        $(this)[0].checked = true
+        $(this).prop('checked', $(this).prop('checked'));
         $(this).closest('li.user_item').toggleClass('active');
     });
 
