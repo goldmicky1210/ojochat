@@ -742,11 +742,11 @@
     });
 
     $('.apps-toggle').on('click', function () {
-        if (!$('body').hasClass('sidebar-active main-page menu-active'))
-            $('body').toggleClass('sidebar-active main-page');
-        $('body').removeClass('menu-active');
-        $('.app-sidebar').toggleClass('active');
-        $('.chitchat-main').toggleClass("small-sidebar");
+        // if (!$('body').hasClass('sidebar-active main-page menu-active'))
+        //     $('body').toggleClass('sidebar-active main-page');
+        // $('body').removeClass('menu-active');
+        // $('.app-sidebar').toggleClass('active');
+        // $('.chitchat-main').toggleClass("small-sidebar");
     });
 
 
