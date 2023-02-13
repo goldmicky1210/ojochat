@@ -589,7 +589,7 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Save');
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
+        new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
             let target = '#custom_modal .chat-main';
             $(target).empty();
             let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
