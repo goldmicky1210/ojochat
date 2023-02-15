@@ -642,13 +642,12 @@ $(document).ready(function () {
         $('#custom_modal').find('.sub_title span').text('Group Title');
         $('#custom_modal').find('.sub_title input').val(groupTitle);
         $('#custom_modal').find('.btn_group .btn').text('Invite');
+        let usersList = loadMoreUsers('', '');
+        let target = '#custom_modal .chat-main';
+        $(target).empty();
+        let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
+        usersList.filter(item => !currentGroupUsers.split(',').find(id => item.id == id)).forEach(item => addUsersListItem(target, item, statusItem));
 
-        new Promise((resolve) => getUsersList(resolve)).then((contactList) => {
-            let target = '#custom_modal .chat-main';
-            $(target).empty();
-            let statusItem = '<input class="form-check-input" type="checkbox" value="" aria-label="...">';
-            contactList.filter(item => !currentGroupUsers.split(',').find(id => item.id == id)).forEach(item => addUsersListItem(target, item, statusItem));
-        });
     });
 
     $('#custom_modal').on('click', '.modal-content.invite_group_modal .btn_group .btn', function () {
