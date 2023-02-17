@@ -89,6 +89,18 @@
     padding-top: 5px;
 }
 
+.payment-card .card-body>div{
+    display: flex;
+}
+.payment-card .card-body a {
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: #b0f9b0;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+
 @media (max-width: 2550px) {
     .theme-title .media .media-body .icon-btn {
         width: 25px;

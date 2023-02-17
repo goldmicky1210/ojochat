@@ -464,7 +464,7 @@
                                     href="#"> <i data-feather="chevron-left"> </i></a></div>
                         </div>
                         <div class="theme-according" id="accordion">
-                            <div class="card">
+                            <div class="card payment-card">
                                 <div class="card-header" id="headingSeven" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                                     <a><i class="fa fa-angle-down"></i> Payment</a>
@@ -472,13 +472,11 @@
                                 <div class="collapse" id="collapseSeven" aria-labelledby="headingSeven"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <a class="p-0 font-primary button-effect balance" href="payment-histories">Show History</a>
-                                        <a class="p-0 font-primary deposit-modal-open" href="#" data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit Balance </a>
-                                        <!-- <div class="content">
-                                            <div class="links">
-                                                <div id="deposit-button"></div>
-                                            </div>
-                                        </div> -->
+                                        <a class="font-primary button-effect balance" href="payment-histories">Show History</a>
+                                        <div >
+                                            <a class="font-primary button-effect deposit-modal-open" href="#" data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
+                                            <a class="font-primary button-effect" href="#" data-bs-toggle="modal" data-bs-target="#withdrawModal"> Withdraw </a>
+                                        </div>
                                         
                                         <p> <b>Note :</b>You can deposit the balance of OJOChat or withdraw money.</p>
                                     </div>
@@ -3209,6 +3207,28 @@
                             <div id="paypal-button-container"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Credit</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="deposit-amount form-group group_title mb-3">
+                        <label>Withdraw Amount</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary confirmWithdrawBtn"
+                        data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
