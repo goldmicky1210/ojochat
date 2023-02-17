@@ -21,6 +21,7 @@ const io = require('socket.io')(server, {
 });
 
 const groupSocket = require('./groupSocket');
+const paymentSocket = require('./paymentSocket');
 
 db.query(`SET GLOBAL max_allowed_packet=1024*1024*1024`, (error, item) => {
     // db.query(`SHOW VARIABLES LIKE 'max_allowed_packet'`, (error, item) => {
@@ -40,6 +41,7 @@ app.use(cors({
 
 const onConnection = (socket) => {
     groupSocket(io, socket, user_socketMap, socket_userMap);
+    paymentSocket(io, socket, user_socketMap, socket_userMap);
     let currentUserId = socket.handshake.query.currentUserId;
     //user table logout flag make false
     console.log('userId:', currentUserId, ' logined');

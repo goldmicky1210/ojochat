@@ -473,12 +473,13 @@
                                     data-parent="#accordion">
                                     <div class="card-body">
                                         <a class="p-0 font-primary button-effect balance" href="payment-histories">Show History</a>
-                                        <a class="p-0 font-primary" href="#"> Connect Payment </a>
-                                        <div class="content">
+                                        <a class="p-0 font-primary deposit-modal-open" href="#" data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit Balance </a>
+                                        <!-- <div class="content">
                                             <div class="links">
                                                 <div id="deposit-button"></div>
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        
                                         <p> <b>Note :</b>You can deposit the balance of OJOChat or withdraw money.</p>
                                     </div>
                                 </div>
@@ -3190,6 +3191,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="depositModal" tabindex="-1" aria-labelledby="depositModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="depositModalLabel">Deposit Balance</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="deposit-amount form-group group_title mb-3">
+                        <label>Deposit Amount</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div id="smart-button-container">
+                        <div style="text-align: center;">
+                            <div id="paypal-button-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -3469,7 +3492,10 @@
         </div>
     </div>
 
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+
 
     <script src="/frontend/js/constant.js"></script>
     <script src="/frontend/js/pages/recorder.js"></script>

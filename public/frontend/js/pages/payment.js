@@ -2,7 +2,7 @@ let totalPrice = 0;
 
 $(document).ready(function () {
     payPhoto();
-
+    initPayPalButton(0);
     $('#checkoutModal').on('shown.bs.modal', function (e) {
         totalPrice = 0;
         $('#checkoutModal .product-list .product-item').remove();
@@ -64,9 +64,62 @@ $(document).ready(function () {
             alert('You have no enough balance. Please pay via Paypal or Card');
         }
     });
+    let timer;
+    $('.deposit-amount').on('keyup','input', function () {
+        let amount = $(this).val()
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            console.log(amount)
+            $('#paypal-button-container').empty()
+            initPayPalButton(amount)
+        }, 300)            
+    })
 
 
 });
+
+function initPayPalButton(amount) {
+    paypal.Buttons({
+        style: {
+            shape: 'rect',
+            color: 'gold',
+            layout: 'vertical',
+            label: 'paypal',
+
+        },
+
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{ "amount": { "currency_code": "USD", "value": amount } }]
+            });
+        },
+
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+
+                // Full available details
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+
+                // Show a success message within this page, e.g.
+                const element = document.getElementById('paypal-button-container');
+                element.innerHTML = '';
+                element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+                // Or go to another URL:  actions.redirect('thank_you.html');
+                socket.emit('add:balance', { amount }, (res) => {
+                    console.log('add', amount)
+                    console.log($('.balance-amount').text())
+                    let balance = parseFloat($('.balance-amount').text().slice(1)) + Number(amount);
+                    $('.balance-amount').text(`$${Number(balance).toFixed(2)}`)
+                })
+            });
+        },
+
+        onError: function (err) {
+            console.log(err);
+        }
+    }).render('#paypal-button-container');
+}
 
 function tempAction() {
     let messageId = $('#photo_item .modal-content').attr('key');
@@ -105,3 +158,11 @@ function payPhoto() {
         }
     });
 }
+
+function debounce(func, timeout = 300){
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
