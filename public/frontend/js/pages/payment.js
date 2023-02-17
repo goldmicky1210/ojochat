@@ -61,7 +61,7 @@ $(document).ready(function () {
         if (userInfo.balances >= totalPrice) {
             tempAction();
         } else {
-            alert('You have no enough balance. Please pay via Paypal or Card');
+            alert('⚠️Low Balance⚠️ Please add funds to your account.');
         }
     });
     let timer;
