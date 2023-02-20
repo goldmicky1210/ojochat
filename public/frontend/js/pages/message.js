@@ -268,6 +268,7 @@ $(document).ready(function () {
     });
 
     $('#custom_modal').on('click', '.modal-content.forward_message_modal .chat-main .date-status .btn.forward_btn', function (e) {
+        e.stopPropagation()
         if ($(this).hasClass('btn-outline-primary')) {
             $(this).addClass('btn-success');
             $(this).removeClass('btn-outline-primary');
