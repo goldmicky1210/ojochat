@@ -29,6 +29,7 @@
 
 .portfolio-section .isotopeSelector img {
     max-height: 80px;
+    width: auto;
 }
 .mfp-title {
     display: block;
