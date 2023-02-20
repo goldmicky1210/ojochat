@@ -403,7 +403,7 @@ ul.chatappend .msg-box .camera-icon {
 
 .receive_photo,
 .file_photo {
-    border: 1px solid gray;
+    /* border: 1px solid gray; */
     /* border-radius: 15px; */
 }
 
