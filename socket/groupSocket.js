@@ -181,12 +181,13 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
     socket.on('send:groupBlink', async (data) => {
 
-        db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)})`, async (error, item) => {
+        db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content, owner) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${JSON.stringify(data.content)}, ${currentUserId})`, async (error, item) => {
             data.id = item.insertId;
             data.photoId = item.insertId;
             data.content = data.photo;
             data.kind = 2;
             data.msgType = 'blink';
+            data.forwardList = '';
             db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${data.sender}", "${data.globalGroupId}", "${data.id}", 2)`, (error, messageItem) => {
                 data.messageId = messageItem.insertId;
                 Notification.sendMessage(currentUserId, data.globalGroupId, data, user_socketMap, io);
@@ -198,7 +199,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             for (const recipientId of groupUsers) {
                 if (recipientId != currentUserId) {
                     let tempData = JSON.parse(JSON.stringify(data));
-                    db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content) VALUES (${JSON.stringify(tempData.photo)}, ${JSON.stringify(tempData.photo)}, ${JSON.stringify(tempData.back)}, ${tempData.blur}, ${tempData.blurPrice}, ${JSON.stringify(tempData.content)}, ${JSON.stringify(tempData.content)})`, (error, item) => {
+                    db.query(`INSERT INTO photo_galleries (photo, original_thumb, back, blur, blur_price, content, original_content, owner) VALUES (${JSON.stringify(tempData.photo)}, ${JSON.stringify(tempData.photo)}, ${JSON.stringify(tempData.back)}, ${tempData.blur}, ${tempData.blurPrice}, ${JSON.stringify(tempData.content)}, ${JSON.stringify(tempData.content)}, ${currentUserId})`, (error, item) => {
                         tempData.id = item.insertId;
                         tempData.photoId = item.insertId;
                         tempData.content = tempData.photo;
@@ -239,7 +240,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
     socket.on('save:blink', (data, callback) => {
 
-        db.query(`INSERT INTO photo_galleries (photo, back, blur, blur_price, content, created_by) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${data.sender})`, (error, item) => {
+        db.query(`INSERT INTO photo_galleries (photo, back, blur, blur_price, content, created_by, owner) VALUES (${JSON.stringify(data.photo)}, ${JSON.stringify(data.back)}, ${data.blur}, ${data.blurPrice}, ${JSON.stringify(data.content)}, ${data.sender}, ${currentUserId})`, (error, item) => {
             data.id = item.insertId;
             callback({
                 status: 'OK'

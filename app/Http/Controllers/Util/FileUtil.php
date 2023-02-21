@@ -118,6 +118,7 @@ class FileUtil extends Controller{
             if ($item['kind'] == 2) {
                 $temp = PhotoGallery::where('id', $item['content'])->get();
                 $item['photoId'] = $temp[0]['id'];
+                $item['forwardList'] = $temp[0]['forward_list'];
                 $payBlurState = array_search(Auth::id(), explode(',', $temp[0]['blur_payers_list']), false);
                 if ($payBlurState === false) {
                     $item['content'] = $temp[0]['original_thumb'];

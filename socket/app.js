@@ -59,7 +59,7 @@ const onConnection = (socket) => {
     console.log(user_socketMap);
 
     socket.on('forward:message', data => {
-        console.log('forwad Data', data);
+        console.log('forward Data', data);
         data.groupType = 1;
         data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text';
         Notification.sendSMS(currentUserId, data.recipient, data);
@@ -67,7 +67,13 @@ const onConnection = (socket) => {
         if (data.forwardKind == 2) {
             db.query(`SELECT content FROM messages WHERE id=${data.forwardId}`, (error, messageContent) => {
                 if (messageContent.length) {
-                    db.query(`INSERT INTO photo_galleries(photo, original_thumb, back, blur, blur_price, content, original_content) SELECT original_thumb, original_thumb, back, blur, blur_price, original_content, original_content FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
+                    db.query(`INSERT INTO photo_galleries(photo, original_thumb, back, blur, blur_price, content, original_content, owner) SELECT original_thumb, original_thumb, back, blur, blur_price, original_content, original_content, owner FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
+                        let forwardList = Array.from(new Set([...data.forwardList.split(','), currentUserId])).filter(item => item != '').join(',');
+                        console.log('forwardList', forwardList)
+                        db.query(`UPDATE photo_galleries SET forward_list="${forwardList}" where id=${newPhoto.insertId}`, (error, photo) => {
+                            if (error) throw error
+                            console.log(photo)
+                        })
                         db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                             if (groupData.length) {
                                 if (error) throw error;
@@ -324,27 +330,57 @@ const onConnection = (socket) => {
             });
             db.query(`UPDATE photo_galleries SET blur_payers_list=${JSON.stringify(item[0].blur_payers_list || '')}, content=${JSON.stringify(JSON.stringify(JSON.parse(item[0].content)))}, paid=1 WHERE id=${item[0].id}`, (error, photo) => {
                 if (error) throw error;
-                db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
-                    if (error) throw error;
-                    if (messageItem.length) {
-                        let photoSender = messageItem[0]['sender'];
 
-                        db.query(`UPDATE users SET balances=balances+${data.addBalance} WHERE id=${photoSender}`, (error, item) => {
+                let photoSender = item[0]['owner'];
+                let forwardList = item[0]['forward_list'].split(',');
+                console.log(forwardList)
+                if (forwardList[0] !== '') {
+                    var ownerAddAmount = data.addBalance / 2;
+                    let forwardAddAmount = data.addBalance / 2 / forwardList.length
+                    forwardList.forEach((item, index, array) => {
+                        db.query(`UPDATE users SET balances=balances+${forwardAddAmount} WHERE id=${item}`, (error, item) => {
                             if (error) throw error;
                         });
-                        db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
-                            if (error) throw error;
-                        });
-                        db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice}, ${data.messageId}, 0)`, (error, historyItem) => {
-                            if (error) throw error;
-                            console.log('OK');
-                        });
-                        Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
-                        callback({
-                            status: 'OK'
-                        })
-                    }
+                    })
+                } else {
+                    var ownerAddAmount = data.addBalance;
+                }
+                db.query(`UPDATE users SET balances=balances+${ownerAddAmount} WHERE id=${photoSender}`, (error, item) => {
+                    if (error) throw error;
                 });
+                db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
+                    if (error) throw error;
+                });
+                db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice}, ${data.messageId}, 0)`, (error, historyItem) => {
+                    if (error) throw error;
+                    console.log('OK');
+                });
+                Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
+                callback({
+                    status: 'OK'
+                })
+
+                // db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
+                //     if (error) throw error;
+                //     if (messageItem.length) {
+                //         let photoSender = messageItem[0]['sender'];
+
+                //         db.query(`UPDATE users SET balances=balances+${data.addBalance} WHERE id=${photoSender}`, (error, item) => {
+                //             if (error) throw error;
+                //         });
+                //         db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
+                //             if (error) throw error;
+                //         });
+                //         db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice}, ${data.messageId}, 0)`, (error, historyItem) => {
+                //             if (error) throw error;
+                //             console.log('OK');
+                //         });
+                //         Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
+                //         callback({
+                //             status: 'OK'
+                //         })
+                //     }
+                // });
             });
         });
     });

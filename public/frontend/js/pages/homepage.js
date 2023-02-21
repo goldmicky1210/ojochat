@@ -248,12 +248,8 @@ function getUsersList(resolve) {
 function newMessage() {
     let replyId = $('#content .chat-content>.replyMessage').attr('replyId');
     let replyKind = $('#content .chat-content>.replyMessage').attr('replyKind');
-    // let forwardId = $('#content .chat-content>.replyMessage').attr('forwardId');
-    // let forwardKind = $('#content .chat-content>.replyMessage').attr('forwardKind');
     $('#content .chat-content>.replyMessage').removeAttr('replyId');
     $('#content .chat-content>.replyMessage').removeAttr('replyKind');
-    // $('#content .chat-content>.replyMessage').removeAttr('forwardId');
-    // $('#content .chat-content>.replyMessage').removeAttr('forwardKind');
     $('#content .chat-content>.replyMessage').hide();
     var content = $('.message-input input').val();
     let msgType = 'text';

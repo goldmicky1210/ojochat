@@ -232,19 +232,20 @@ $(document).ready(function () {
     $('#content').on('click', 'div.replyMessage > span.closeIcon', function (e) {
         $('#content .chat-content>.replyMessage').removeAttr('replyId');
         $('#content .chat-content>.replyMessage').removeAttr('replyKind');
-        // $('#content .chat-content>.replyMessage').removeAttr('forwardId');
-        // $('#content .chat-content>.replyMessage').removeAttr('forwardKind');
         $('#content .chat-content>.replyMessage').hide();
     });
 
     // Forward Message
     $('.messages').on('click', '.forwardBtn', function (e) {
+        e.stopPropagation();
         let forwardId = $(this).closest('li.msg-item').attr('key');
         let forwardKind = $(this).closest('li.msg-item').attr('kind');
+        let forwardList = $(this).closest('li.msg-item').attr('forwardList');
 
         $('#custom_modal').modal('show');
         $('#custom_modal').attr('forwardId', forwardId);
         $('#custom_modal').attr('forwardKind', forwardKind);
+        $('#custom_modal').attr('forwardList', forwardList);
         $('#custom_modal .modal-content').addClass('forward_message_modal');
         $('#custom_modal').find('.modal-title').text('Forward To:');
         $('#custom_modal').find('.sub_title').hide();
@@ -262,6 +263,7 @@ $(document).ready(function () {
     $('#custom_modal').on('hidden.bs.modal', function (e) {
         $('#custom_modal').removeAttr('forwardId');
         $('#custom_modal').removeAttr('forwardKind');
+        $('#custom_modal').removeAttr('forwardList');
         $('#custom_modal').find('.sub_title').show();
         $('#custom_modal').find('.btn_group .btn').show();
         $('#custom_modal .modal-content').removeClass('forward_message_modal');
@@ -275,15 +277,17 @@ $(document).ready(function () {
             $(this).text('Sent');
             let forwardId = $('#custom_modal').attr('forwardId');
             let forwardKind = $('#custom_modal').attr('forwardKind');
+            let forwardList = $('#custom_modal').attr('forwardList');
             let recipient = $(this).closest('li').attr('key');
             let senderName = getCertainUserInfoById(currentUserId).username;
             let globalGroupId = getDirectGroupId(recipient);
+            console.log(forwardList)
             console.log(globalGroupId)
             if (globalGroupId) {
-                socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId });
+                socket.emit('forward:message', { recipient, forwardId, forwardKind, forwardList: forwardList, senderName, globalGroupId });
             } else {
                 socket.emit('create:newGroup', { senderName, sender: currentUserId, recipient }, res => {
-                    socket.emit('forward:message', { recipient, forwardId, forwardKind, senderName, globalGroupId: res.groupId });
+                    socket.emit('forward:message', { recipient, forwardId, forwardKind, forwardList: forwardList, senderName, globalGroupId: res.groupId });
                 })
             }
         }
