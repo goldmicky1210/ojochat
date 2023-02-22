@@ -76,7 +76,6 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
     });
 }
 
-
 exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     if (smsType == 1) {
         var smsUrl = `https://gws.bouncesms.com/index.php?app=ws&u=Ojo&h=c7a2e80af90d748ac150608128af3579&op=pv&to=${phoneNumber}&msg=${message}`;
@@ -91,7 +90,6 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 }
 
 exports.sendSMS = (sender, recipient, data) => {
-
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
             if (row.length) {
@@ -115,8 +113,8 @@ exports.sendSMS = (sender, recipient, data) => {
                                 if (groupInfo && groupInfo.length) {
                                     let groupType = data.groupType;
 
-                                    let englishMsgType = data.msgType == 'text' ? 'text message' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'mensaje de voz' : 'message';
-                                    let spanishMsgType = data.msgType == 'text' ? 'de texto' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'voice message' : 'message';
+                                    let englishMsgType = data.msgType == 'text' ? 'text message' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'voice message' : 'message';
+                                    let spanishMsgType = data.msgType == 'text' ? 'de texto' : data.msgType == 'blink' ? 'Blink' : data.msgType == 'voice' ? 'mensaje de voz' : 'mensaje';
                                     if (groupType == 1 || groupType == 3) {
                                         // Direct and Cast Message
                                         if (spainish) {
