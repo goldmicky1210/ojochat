@@ -20,7 +20,7 @@ $(document).ready(function () {
                         <button type="button" class="btn-close" aria-label="Close"></button>        
                     </div>
                 </div>`)
-            totalPrice += Number(item.price).toFixed(2);
+            totalPrice += Number(item.price);
         });
         let isBlurPay = $('#photo_item .blur-image').attr('payers').split(',').map(item => +item).includes(currentUserId)
         if (Number(blurPrice) && selectedEmojis.includes('blur') && !isBlurPay) {
@@ -32,7 +32,7 @@ $(document).ready(function () {
                         <button type="button" class="btn-close" aria-label="Close"></button>        
                     </div>
                 </div>`);
-            totalPrice += Number(blurPrice).toFixed(2);
+            totalPrice += Number(blurPrice);
         }
         $('#checkoutModal .total-price span:last-child').text(`$${totalPrice.toFixed(2)}`);
     });
