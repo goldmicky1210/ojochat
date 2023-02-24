@@ -738,7 +738,7 @@ function displayPaymentHistory(userId) {
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
                     $('.history-list').append(`
                         <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
-                            <h2 class="accordion-header" id="headingOne">
+                            <h2 class="accordion-header" id="headingOne-${index}">
                             <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
                                 <a>
                                     <div class="chat-box">
@@ -758,7 +758,7 @@ function displayPaymentHistory(userId) {
                                 </a>
                             </div>
                             </h2>
-                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body" key=${item.refer_id}>
                                     ${item.type == 0 ? `
                                         <div class="detailed_info">

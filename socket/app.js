@@ -340,6 +340,10 @@ const onConnection = (socket) => {
                     forwardList.forEach((item, index, array) => {
                         db.query(`UPDATE users SET balances=balances+${forwardAddAmount} WHERE id=${item}`, (error, item) => {
                             if (error) throw error;
+                            db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${item}, ${data.forwardAddAmount}, ${data.messageId}, 0)`, (error, historyItem) => {
+                                if (error) throw error;
+                                console.log('OK');
+                            });
                         });
                     })
                 } else {
@@ -348,6 +352,7 @@ const onConnection = (socket) => {
                 db.query(`UPDATE users SET balances=balances+${ownerAddAmount} WHERE id=${photoSender}`, (error, item) => {
                     if (error) throw error;
                 });
+
                 db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
                     if (error) throw error;
                 });
@@ -359,28 +364,6 @@ const onConnection = (socket) => {
                 callback({
                     status: 'OK'
                 })
-
-                // db.query(`SELECT sender FROM messages WHERE content=${item[0].id} AND kind=2`, (error, messageItem) => {
-                //     if (error) throw error;
-                //     if (messageItem.length) {
-                //         let photoSender = messageItem[0]['sender'];
-
-                //         db.query(`UPDATE users SET balances=balances+${data.addBalance} WHERE id=${photoSender}`, (error, item) => {
-                //             if (error) throw error;
-                //         });
-                //         db.query(`UPDATE users SET balances=balances-${data.totalPrice} WHERE id=${currentUserId}`, (error, item) => {
-                //             if (error) throw error;
-                //         });
-                //         db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice}, ${data.messageId}, 0)`, (error, historyItem) => {
-                //             if (error) throw error;
-                //             console.log('OK');
-                //         });
-                //         Notification.sendPaySMS(currentUserId, photoSender, data.addBalance);
-                //         callback({
-                //             status: 'OK'
-                //         })
-                //     }
-                // });
             });
         });
     });
