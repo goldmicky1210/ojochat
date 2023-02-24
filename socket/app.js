@@ -360,7 +360,7 @@ const onConnection = (socket) => {
                     if (error) throw error;
                     console.log('OK');
                 });
-                Notification.sendPaySMS(currentUserId, photoSender, data.toFixed(2));
+                Notification.sendPaySMS(currentUserId, photoSender, data.addBalance.toFixed(2));
                 callback({
                     status: 'OK'
                 })
