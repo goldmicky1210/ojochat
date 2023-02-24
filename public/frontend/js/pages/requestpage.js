@@ -940,7 +940,12 @@ function addEventAction(panel, element) {
                 timeout = 5000;
             }
             tempImage.scale(0.5);
-            if (element.price > 9) tempImage.scaleX *= 1.2;
+            
+            if (String(element.price).length == 2) {
+                tempImage.scaleX *= 1.2
+            } else if (String(element.price).length > 2) {
+                tempImage.scaleX *= (1.2 + (String(element.price).length - 2) * 0.25)
+            }
             // tempImage.left = element.aCoords.tr.x - 0.25 * tempImage.width + 5;
             tempImage.left = element.aCoords.tr.x;
             tempImage.top = element.aCoords.tr.y - 0.5 * tempImage.height;
