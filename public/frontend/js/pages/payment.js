@@ -20,7 +20,7 @@ $(document).ready(function () {
                         <button type="button" class="btn-close" aria-label="Close"></button>        
                     </div>
                 </div>`)
-            totalPrice += Number(item.price);
+            totalPrice += Number(item.price).toFixed(2);
         });
         let isBlurPay = $('#photo_item .blur-image').attr('payers').split(',').map(item => +item).includes(currentUserId)
         if (Number(blurPrice) && selectedEmojis.includes('blur') && !isBlurPay) {
@@ -32,9 +32,9 @@ $(document).ready(function () {
                         <button type="button" class="btn-close" aria-label="Close"></button>        
                     </div>
                 </div>`);
-            totalPrice += Number(blurPrice);
+            totalPrice += Number(blurPrice).toFixed(2);
         }
-        $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
+        $('#checkoutModal .total-price span:last-child').text(`$${totalPrice.toFixed(2)}`);
     });
     $('#checkoutModal').on('hidden.bs.modal', function (e) {
         let id = $('#photo_item .modal-content').attr('key');
@@ -48,7 +48,7 @@ $(document).ready(function () {
         let price = $(item).find('.item_price').text().slice(1);
         totalPrice -= Number(price);
         selectedEmojis = selectedEmojis.filter(item => item != key);
-        $('#checkoutModal .total-price span:last-child').text(`$${totalPrice}`);
+        $('#checkoutModal .total-price span:last-child').text(`$${totalPrice.toFixed(2)}`);
         $(this).closest('.product-item').remove();
     });
 

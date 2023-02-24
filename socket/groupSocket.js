@@ -362,7 +362,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                     db.query(`UPDATE users SET balances=balances+${group[0].fee_value * 0.7} WHERE id=${group[0].owner}`, (error, item) => {
                                     });
                                     setExpireDate(currentUserId, data.currentGroupId);
-                                    Notification.sendPaySMS(currentUserId, group[0].owner, group[0].fee_value * 0.7);
+                                    Notification.sendPaySMS(currentUserId, group[0].owner, (group[0].fee_value * 0.7).toFixed(2));
                                 }
                                 callback({ status: 'OK' });
                             });
@@ -421,7 +421,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                             console.log(item);
                                         });
                                         setExpireDate(data.userId, data.groupId);
-                                        Notification.sendPaySMS(data.userId, group[0].owner, group[0].fee_value * 0.7);
+                                        Notification.sendPaySMS(data.userId, group[0].owner, (group[0].fee_value * 0.7).toFixed(2));
                                     }
                                 });
                             });
