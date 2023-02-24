@@ -259,9 +259,13 @@ function newMessage() {
     } else if ($.trim(content) == '') {
         return false;
     }
-
+    if (msgType == 'text') {
+        $('.chat-main .active .details h6').html('<span>You : </span>' + content);
+    } else if (msgType == 'audio') {
+        $('.chat-main .active .details h6').html('<span>You : Sent a Audio</span>');
+    }
+    
     $('.message-input input').val(null);
-    $('.chat-main .active .details h6').html('<span>You : </span>' + content);
 
     let senderName = getCertainUserInfoById(currentUserId).username;
 
