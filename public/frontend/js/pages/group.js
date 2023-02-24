@@ -793,10 +793,11 @@ function getNameStr(nameStr = '') {
     return str;
 }
 function addUsersListItem(target, data, statusItem) {
+    console.log(data.avatar)
     if ($(target).parents('.modal').length) {
         $(target).append(
             `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
-                ${!data.avatar ? `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>` : ''}
+                ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                 <div class="photoRating">
                     <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                 </div>
@@ -814,7 +815,7 @@ function addUsersListItem(target, data, statusItem) {
             `<li class="user_item" data-to="blank" key="${data.id}">
                 <div class="chat-box">
                     <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
-                    ${getNameStr(data.username)}
+                    ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                     </div>
                     <div class="details">
                         <h5>${data.username}</h5>

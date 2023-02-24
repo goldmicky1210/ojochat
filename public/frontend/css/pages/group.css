@@ -1,11 +1,14 @@
 #myTabContent1 .chat-main .date-status .thread_info {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
 }
 #group_chat .chat-friend-toggle .chat-frind-content,
 #cast_chat .chat-friend-toggle .chat-frind-content {
     width: 200px;
     z-index: 1;
+}
+#group_chat .replyEditBtn {
+    display: none;
 }
 
 .chat-friend-toggle .chat-frind-content ul li.hidden {

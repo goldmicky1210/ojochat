@@ -603,6 +603,9 @@
     $('#direct ul.chat-main, #group ul.chat-main, #cast ul.chat-main').on('click', '.thread_info', function (e) {
         e.stopPropagation();
         $(this).find('.thread_info_content').toggle();
+        setTimeout(() => {
+            $(this).find('.thread_info_content').hide();
+        }, 2000)
     });
 
     $('.gr-chat-friend-toggle').on('click', function () {
