@@ -33,6 +33,10 @@ $(document).ready(() => {
                 recorder.record()
             }).catch((err) => {
                 console.log('Error: ', err)
+                $('#voiceMsgTag').addClass('hidden')
+                $('#setemoj').removeClass('hidden')
+                $(this).removeClass('btn-outline-danger')
+                alert('You have not audio device.')
             })
         }
     })
