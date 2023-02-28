@@ -342,7 +342,7 @@ const onConnection = (socket) => {
                         console.log(item)
                         db.query(`UPDATE users SET balances=balances+${Number(forwardAddAmount)} WHERE id=${item}`, (error) => {
                             if (error) throw error;
-                            db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${item}, ${forwardAddAmount}, ${data.messageId}, 0)`, (error, historyItem) => {
+                            db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type, forward_flag) VALUES (${currentUserId}, ${item}, ${forwardAddAmount}, ${data.messageId}, 0, ${forwardFlag})`, (error, historyItem) => {
                                 if (error) throw error;
                                 console.log('OK');
                             });
