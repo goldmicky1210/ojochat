@@ -493,14 +493,18 @@ class HomeController extends Controller
         $data = PaymentHistory::where("sender", $userId)->orWhere("recipient", $userId)->orderBy('created_at', 'desc')->get();
         $data = $data->map(function($item) {
             if ($item['type'] == 0) {
+                // Blink
                 $message = Message::where('id', $item['refer_id'])->get();
                 if (count($message)) {
                     $temp = PhotoGallery::where('id', $message[0]['content'])->get();
                     if (count($temp)) {
                         $item['thumb'] = $temp[0]['original_thumb'];
+                        $item['blinkOwner'] = $temp[0]['owner'];
+                        $item['lastSender'] = $message[0]['sender'];
                     }
                 }
             } else {
+                // Group fee
                 $temp = Group::where('id', $item['refer_id'])->get();
                 if (count($temp)) {
                     $item['group_title'] = $temp[0]['title'];

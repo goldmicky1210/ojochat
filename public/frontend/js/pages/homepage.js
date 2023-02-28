@@ -109,7 +109,7 @@ function getNotificationList() {
                 </div>`
         data.receiveData.forEach(item => addUsersListItem(target, item, receiveStatusItem))
         data.sendData.forEach(item => addUsersListItem(target, item, sendStatusItem))
-        if(data.receiveData.length) {
+        if (data.receiveData.length) {
             $('.notification_list_btn .dot-danger').addClass('dot-btn');
         } else {
             $('.notification_list_btn .dot-danger').removeClass('dot-btn');
@@ -166,7 +166,7 @@ function getRecentChatUsers(type) {
                         let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
                             sender = "You";
-                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent a Audio': 'Sent a message';
+                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent a Audio' : 'Sent a message';
                         item.lastMessageSender = sender;
                         item.lastMessageContent = content;
                         item.lastMessageDate = new Date(item.lastMessage.created_at);
@@ -264,7 +264,7 @@ function newMessage() {
     } else if (msgType == 'audio') {
         $('.chat-main .active .details h6').html('<span>You : Sent a Audio</span>');
     }
-    
+
     $('.message-input input').val(null);
 
     let senderName = getCertainUserInfoById(currentUserId).username;
@@ -666,10 +666,10 @@ function displayRecentChatFriends(recentChatUsers) {
                     </div>
                 <div class="gr-profile dot-btn dot-success" data-user-id=${item.id}>
                 ${item.avatar ?
-                    `<img class="bg-img" src='v1/api/downloadFile?path=${item.avatar}' alt="Avatar" />`
-                    :
-                    getNameStr(item.username)
-                }
+                `<img class="bg-img" src='v1/api/downloadFile?path=${item.avatar}' alt="Avatar" />`
+                :
+                getNameStr(item.username)
+            }
                 </div>
                 <div class="username">${item.username}</div>
             </div>
@@ -737,50 +737,172 @@ function displayPaymentHistory(userId) {
                 res.data.forEach((item, index) => {
                     let status = ['Holding', 'Completed'];
                     let senderInfo = getCertainUserInfoById(item.sender);
-                    let receiverInfo = getCertainUserInfoById(item.recipient);
+                    var receiverInfo = getCertainUserInfoById(item.recipient);
                     let sendFlag = item.sender == currentUserId ? true : false;
-                    let avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
-                    let amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7).toFixed(2);
-                    let dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
-                    $('.history-list').append(`
-                        <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
-                            <h2 class="accordion-header" id="headingOne-${index}">
-                            <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
-                                <a>
-                                    <div class="chat-box">
-                                        <div class="profile bg-size"
-                                            style="background-image: url(${avatar ? 'v1/api/downloadFile?path=' + avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
-                                            center; display: block;">
-                                        </div>
-                                        <div class="details">
-                                            <h5>${sendFlag ? receiverInfo.username : senderInfo.username}</h5>
-                                            <h6 class="title">${dateString}</h6>
-                                        </div>
-                                        <div class="date-status">
-                                            <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
-                                            <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
+                    var dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+                    if (item.forward_flag) {
+                        // var avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
+                        if (item.recipient == item.blinkOwner) {
+                            var receiverInfo = getCertainUserInfoById(item.lastSender);
+                            var avatar = sendFlag ? receiverInfo.avatar : '';
+                            var amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7 * 0.5).toFixed(2);
+                            $('.history-list').append(`
+                                <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
+                                    <h2 class="accordion-header" id="headingOne-${index}">
+                                    <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                        <a>
+                                            <div class="chat-box">
+                                                <div class="profile bg-size"
+                                                    style="background-image: url(${avatar ? 'v1/api/downloadFile?path=' + avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
+                                                    center; display: block;">
+                                                </div>
+                                                <div class="details">
+                                                    <h5>${sendFlag ? receiverInfo.username : getSecretUsername(senderInfo.username)}</h5>
+                                                    <h6 class="title">${dateString}</h6>
+                                                </div>
+                                                <div class="date-status">
+                                                    <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
+                                                    <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    </h2>
+                                    <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body" key=${item.refer_id}>
+                                            ${item.type == 0 ? `
+                                                <div class="detailed_info">
+                                                    <img class="thumb" src="${item.thumb}" />
+                                                    ${!sendFlag ? `<div class="send_heart"><i class="${item.thanks ? 'fa' : 'ti-heart'} fa-heart"></i><span>Send Thanks</span></div>` : ''}
+                                                </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
                                         </div>
                                     </div>
-                                </a>
-                            </div>
-                            </h2>
-                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
-                                <div class="accordion-body" key=${item.refer_id}>
-                                    ${item.type == 0 ? `
-                                        <div class="detailed_info">
-                                            <img class="thumb" src="${item.thumb}" />
-                                            ${!sendFlag ? `<div class="send_heart"><i class="${item.thanks ? 'fa' : 'ti-heart'} fa-heart"></i><span>Send Thanks</span></div>` : ''}
-                                        </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
+                                </li>
+                            `);
+                        } else {
+                            var amount = (item.amount).toFixed(2);
+                            if (!sendFlag) {
+                                if (item.recipient == item.lastSender ) {
+                                    var avatar = senderInfo.avatar;
+                                    $('.history-list').append(`
+                                        <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
+                                            <h2 class="accordion-header" id="headingOne-${index}">
+                                            <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                                <a>
+                                                    <div class="chat-box">
+                                                        <div class="profile bg-size"
+                                                            style="background-image: url(${avatar ? 'v1/api/downloadFile?path=' + avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
+                                                            center; display: block;">
+                                                        </div>
+                                                        <div class="details">
+                                                            <h5>${sendFlag ? receiverInfo.username : senderInfo.username}</h5>
+                                                            <h6 class="title">${dateString}</h6>
+                                                        </div>
+                                                        <div class="date-status">
+                                                            <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
+                                                            <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            </h2>
+                                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body" key=${item.refer_id}>
+                                                    ${item.type == 0 ? `
+                                                        <div class="detailed_info">
+                                                            <img class="thumb" src="${item.thumb}" />
+                                                            ${!sendFlag ? `<div class="send_heart"><i class="${item.thanks ? 'fa' : 'ti-heart'} fa-heart"></i><span>Send Thanks</span></div>` : ''}
+                                                        </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    `);
+                                } else {
+                                    $('.history-list').append(`
+                                        <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
+                                            <h2 class="accordion-header" id="headingOne-${index}">
+                                            <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                                <a>
+                                                    <div class="chat-box">
+                                                        <div class="profile bg-size"
+                                                            style="background-image: url(${avatar ? 'v1/api/downloadFile?path=' + avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
+                                                            center; display: block;">
+                                                        </div>
+                                                        <div class="details">
+                                                            <h5>${sendFlag ? receiverInfo.username : getSecretUsername(senderInfo.username)}</h5>
+                                                            <h6 class="title">${dateString}</h6>
+                                                        </div>
+                                                        <div class="date-status">
+                                                            <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
+                                                            <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            </h2>
+                                            <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body" key=${item.refer_id}>
+                                                    ${item.type == 0 ? `
+                                                        <div class="detailed_info">
+                                                            <img class="thumb" src="${item.thumb}" />
+                                                            ${!sendFlag ? `<div class="send_heart"><i class="${item.thanks ? 'fa' : 'ti-heart'} fa-heart"></i><span>Send Thanks</span></div>` : ''}
+                                                        </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
+                                                </div>
+                                            </div>
+                                        </li>
+                                    `);
+                                }
+                            }
+                        }
+                    } else {
+                        var avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
+                        var amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7).toFixed(2);
+                        let dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
+                        $('.history-list').append(`
+                            <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
+                                <h2 class="accordion-header" id="headingOne-${index}">
+                                <div class="sent" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                    <a>
+                                        <div class="chat-box">
+                                            <div class="profile bg-size"
+                                                style="background-image: url(${avatar ? 'v1/api/downloadFile?path=' + avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
+                                                center; display: block;">
+                                            </div>
+                                            <div class="details">
+                                                <h5>${sendFlag ? receiverInfo.username : senderInfo.username}</h5>
+                                                <h6 class="title">${dateString}</h6>
+                                            </div>
+                                            <div class="date-status">
+                                                <span class=${sendFlag ? 'font-danger' : 'font-success'}>${sendFlag ? '-' : ''}$${amount}</span>
+                                                <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
-                            </div>
-                        </li>
-                    `);
+                                </h2>
+                                <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="headingOne-${index}" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body" key=${item.refer_id}>
+                                        ${item.type == 0 ? `
+                                            <div class="detailed_info">
+                                                <img class="thumb" src="${item.thumb}" />
+                                                ${!sendFlag ? `<div class="send_heart"><i class="${item.thanks ? 'fa' : 'ti-heart'} fa-heart"></i><span>Send Thanks</span></div>` : ''}
+                                            </div>` : `<span>This is Group ${item.group_title} Fee.</span>`}
+                                    </div>
+                                </div>
+                            </li>
+                        `);
+                    }
 
                 })
             }
         },
         error: function (response) { }
     });
+}
+
+function getSecretUsername(username) {
+    return username[0] + '******';
 }
 
 function getChatTimeString(time) {
@@ -853,7 +975,7 @@ function searchList() {
         let target = '#myTabContent1 .tab-pane.active';
         if ($('#custom_modal').hasClass('show')) {
             target = '#custom_modal'
-        } else if($('#new_chat_modal').hasClass('show')) {
+        } else if ($('#new_chat_modal').hasClass('show')) {
             target = '#new_chat_modal'
         }
         clearTimeout(keyuptimer);
