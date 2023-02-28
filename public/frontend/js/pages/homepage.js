@@ -538,7 +538,8 @@ function openAndCloseProfile() {
         $('.chitchat-main').addClass("small-sidebar"); //remove
     }
     if ($('body').hasClass('menu-active')) {
-        $('body').addClass('sidebar-active main-page');
+        // $('body').addClass('sidebar-active main-page');
+        $('body').addClass('main-page');
         $('.app-sidebar').removeClass('active');
         $('.chitchat-main').removeClass("small-sidebar");
     }
@@ -731,6 +732,7 @@ function displayPaymentHistory(userId) {
         dataType: "json",
         success: function (res) {
             if (res.state == 'true') {
+                console.log(res)
                 $('.history-list').empty();
                 res.data.forEach((item, index) => {
                     let status = ['Holding', 'Completed'];

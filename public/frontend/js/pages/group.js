@@ -713,7 +713,8 @@ $(document).ready(function () {
                     $('.chitchat-main').removeClass("small-sidebar"); //remove
                 }
                 if ($('body').hasClass('menu-active')) {
-                    $('body').addClass('sidebar-active main-page');
+                    // $('body').addClass('sidebar-active main-page');
+                    $('body').addClass('main-page');
                     $('.app-sidebar').removeClass('active');
                     $('.chitchat-main').removeClass("small-sidebar");
                 }

@@ -335,28 +335,31 @@ const onConnection = (socket) => {
                 let forwardList = item[0]['forward_list'].split(',');
                 console.log(forwardList)
                 if (forwardList[0] !== '') {
+                    var forwardFlag = 1;
                     var ownerAddAmount = (data.addBalance / 2).toFixed(2);
                     let forwardAddAmount = (data.addBalance / 2 / forwardList.length).toFixed(2)
                     forwardList.forEach((item, index, array) => {
-                        db.query(`UPDATE users SET balances=balances+${forwardAddAmount.toFixed(2)} WHERE id=${item}`, (error, item) => {
+                        console.log(item)
+                        db.query(`UPDATE users SET balances=balances+${Number(forwardAddAmount)} WHERE id=${item}`, (error) => {
                             if (error) throw error;
-                            db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${item}, ${data.forwardAddAmount.toFixed(2)}, ${data.messageId}, 0)`, (error, historyItem) => {
+                            db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${item}, ${forwardAddAmount}, ${data.messageId}, 0)`, (error, historyItem) => {
                                 if (error) throw error;
                                 console.log('OK');
                             });
                         });
                     })
                 } else {
+                    var forwardFlag = 0;
                     var ownerAddAmount = data.addBalance;
                 }
-                db.query(`UPDATE users SET balances=balances+${ownerAddAmount} WHERE id=${photoSender}`, (error, item) => {
+                db.query(`UPDATE users SET balances=balances+${Number(ownerAddAmount)} WHERE id=${photoSender}`, (error, item) => {
                     if (error) throw error;
                 });
 
-                db.query(`UPDATE users SET balances=balances-${data.totalPrice.toFixed(2)} WHERE id=${currentUserId}`, (error, item) => {
+                db.query(`UPDATE users SET balances=balances-${Number(data.totalPrice)} WHERE id=${currentUserId}`, (error, item) => {
                     if (error) throw error;
                 });
-                db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice.toFixed(2)}, ${data.messageId}, 0)`, (error, historyItem) => {
+                db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type, forward_flag) VALUES (${currentUserId}, ${photoSender}, ${data.totalPrice.toFixed(2)}, ${data.messageId}, 0, ${forwardFlag})`, (error, historyItem) => {
                     if (error) throw error;
                     console.log('OK');
                 });
