@@ -531,7 +531,7 @@ function getAverageRate(data) {
 
 function openAndCloseProfile() {
     $('body').toggleClass('menu-active'); //add class
-    $('.app-sidebar').toggleClass('active'); //remove
+    // $('.app-sidebar').toggleClass('active'); //remove
     $('.chitchat-main').toggleClass("small-sidebar"); //remove
     if ($(window).width() <= 1440) {
         $('.chitchat-container').toggleClass('sidebar-overlap');
@@ -591,11 +591,13 @@ function showSharedMedia(groupId) {
                 res.receiveData.forEach(item => {
                     let title = getCertainUserInfoById(item.sender).username;
                     if (item.type == 2) title = title + ' in ' + item.title;
+                    let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
                     $('.shared_media .receive_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
-                                    <a href=${item.photo} title="From: ${title}">
+                                    <a href=${item.photo} title="From: ${title}" date="${dateString}">
                                         <div class="overlay-background">
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>

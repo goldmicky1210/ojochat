@@ -706,7 +706,7 @@ $(document).ready(function () {
                 touchtime = 0;
 
                 $('body').addClass('menu-active'); //add class
-                $('.app-sidebar').addClass('active'); //remove
+                // $('.app-sidebar').addClass('active'); //remove
                 $('.chitchat-main').addClass("small-sidebar"); //remove
                 if ($(window).width() <= 1440) {
                     $('.chitchat-container').addClass('sidebar-overlap');

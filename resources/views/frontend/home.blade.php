@@ -870,14 +870,6 @@
                             </div>
                             <div class="col">
                                 <ul class="calls text-end">
-                                    <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Quick Audio Call" data-bs-toggle="modal"
-                                            data-bs-target="#audiocall"><i data-feather="phone"></i></a></li>
-                                    <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Quick Video Call" data-bs-toggle="modal"
-                                            data-bs-target="#videocall"><i data-feather="video"></i></a></li>
-                                    <li><a class="icon-btn btn-light button-effect apps-toggle" href="#"
-                                            data-tippy-content="All Apps"><i class="ti-layout-grid2"></i></a></li>
                                     <li class="chat-friend-toggle">
                                         <a class="icon-btn btn-light bg-transparent button-effect outside" href="#"
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
@@ -953,16 +945,8 @@
                             </div>
                             <div class="col">
                                 <ul class="calls text-end">
-                                    <!-- <li><a class="icon-btn btn-light button-effect" href="#"
-                                                                    data-tippy-content="Start Audio Conference" data-bs-toggle="modal"
-                                                                    data-bs-target="#confercall"><i data-feather="phone"></i></a></li>
-                                                            <li><a class="icon-btn btn-light button-effect" href="#"
-                                                                    data-tippy-content="Start Video Conference" data-bs-toggle="modal"
-                                                                    data-bs-target="#confvideocl"><i data-feather="video"></i></a></li> -->
-                                    <li><a class="icon-btn btn-light button-effect apps-toggle" href="#"
-                                            data-tippy-content="All Apps"><i class="ti-layout-grid2"></i></a></li>
-                                    <li class="chat-friend-toggle"><a
-                                            class="icon-btn btn-light bg-transparent button-effect outside" href="#"
+                                    <li class="chat-friend-toggle">
+                                        <a class="icon-btn btn-light bg-transparent button-effect outside" href="#"
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
                                         <div class="chat-frind-content">
                                             <ul>
@@ -1050,11 +1034,8 @@
                             </div>
                             <div class="col">
                                 <ul class="calls text-end">
-
-                                    <li><a class="icon-btn btn-light button-effect apps-toggle" href="#"
-                                            data-tippy-content="All Apps"><i class="ti-layout-grid2"></i></a></li>
-                                    <li class="chat-friend-toggle"><a
-                                            class="icon-btn btn-light bg-transparent button-effect outside" href="#"
+                                    <li class="chat-friend-toggle">
+                                        <a class="icon-btn btn-light bg-transparent button-effect outside" href="#"
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
                                         <div class="chat-frind-content">
                                             <ul>
@@ -1139,16 +1120,8 @@
                             </div>
                             <div class="col">
                                 <ul class="calls text-end">
-                                    <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Quick Audio Call" data-bs-toggle="modal"
-                                            data-bs-target="#audiocall"><i data-feather="phone"></i></a></li>
-                                    <li><a class="icon-btn btn-light button-effect" href="#"
-                                            data-tippy-content="Quick Video Call" data-bs-toggle="modal"
-                                            data-bs-target="#videocall"><i data-feather="video"></i></a></li>
-                                    <li><a class="icon-btn btn-light button-effect apps-toggle" href="#"
-                                            data-tippy-content="All Apps"><i class="ti-layout-grid2"></i></a></li>
-                                    <li class="chat-friend-toggle"><a
-                                            class="icon-btn btn-light bg-transparent button-effect outside" href="#"
+                                    <li class="chat-friend-toggle">
+                                        <a class="icon-btn btn-light bg-transparent button-effect outside" href="#"
                                             data-tippy-content="Quick action"><i data-feather="more-vertical"></i></a>
                                         <div class="chat-frind-content">
                                             <ul>
@@ -1761,7 +1734,7 @@
                 </div>
             </div>
         </aside>
-        <aside class="app-sidebar active">
+        <aside class="app-sidebar">
             <div class="apps">
                 <ul class="apps-ul">
                     <li id="todo">
