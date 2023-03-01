@@ -46427,10 +46427,10 @@ footer .footer-mobile-title {
         padding-left: 0 !important;
         padding-right: 8px
     }
-    .chitchat-container .chitchat-main .messages .media-right ul li:nth-child(1),
+    /* .chitchat-container .chitchat-main .messages .media-right ul li:nth-child(1),
     .chitchat-container .chitchat-main .messages .media-right ul li:nth-child(2) {
         display: none
-    }
+    } */
     .chitchat-container .chitchat-left-sidebar .recent-default .chat>.theme-tab.chat-tabs>ul>li>a {
         padding: 5px 20px
     }

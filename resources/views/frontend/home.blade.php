@@ -858,10 +858,6 @@
                                     </div>
                                     <div class="media-right">
                                         <ul>
-                                            <li><a class="icon-btn btn-light button-effect mute" href="#"><i
-                                                        class="fa fa-volume-up"></i></a></li>
-                                            <li><a class="icon-btn btn-light search-right" href="#"><i
-                                                        data-feather="search"></i></a></li>
                                             <li><a class="icon-btn btn-light button-effect mobile-sidebar"
                                                     href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
@@ -925,18 +921,6 @@
                                     </div>
                                     <div class="media-right">
                                         <ul>
-                                            <li><a class="icon-btn btn-light button-effect mute" href="#"><i
-                                                        class="fa fa-volume-up"></i></a></li>
-                                            <li><a class="icon-btn btn-light search search-right" href="#"> <i
-                                                        data-feather="search"></i></a>
-                                                <form class="form-inline search-form">
-                                                    <div class="form-group">
-                                                        <input class="form-control-plaintext" type="search"
-                                                            placeholder="Search.." />
-                                                        <div class="icon-close close-search"> </div>
-                                                    </div>
-                                                </form>
-                                            </li>
                                             <li><a class="icon-btn btn-light button-effect mobile-sidebar"
                                                     href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
@@ -1022,10 +1006,6 @@
                                     </div>
                                     <div class="media-right">
                                         <ul>
-                                            <li><a class="icon-btn btn-light button-effect mute" href="#"><i
-                                                        class="fa fa-volume-up"></i></a></li>
-                                            <li><a class="icon-btn btn-light search-right" href="#"><i
-                                                        data-feather="search"></i></a></li>
                                             <li><a class="icon-btn btn-light button-effect mobile-sidebar"
                                                     href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
@@ -1100,18 +1080,6 @@
                                     </div>
                                     <div class="media-right">
                                         <ul>
-                                            <li><a class="icon-btn btn-light button-effect mute" href="#"><i
-                                                        class="fa fa-volume-up"></i></a></li>
-                                            <li><a class="icon-btn btn-light search search-right" href="#"> <i
-                                                        data-feather="search"></i></a>
-                                                <form class="form-inline search-form">
-                                                    <div class="form-group">
-                                                        <input class="form-control-plaintext" type="search"
-                                                            placeholder="Search.." />
-                                                        <div class="icon-close close-search"> </div>
-                                                    </div>
-                                                </form>
-                                            </li>
                                             <li><a class="icon-btn btn-light button-effect mobile-sidebar"
                                                     href="#"><i data-feather="chevron-left"></i></a></li>
                                         </ul>
