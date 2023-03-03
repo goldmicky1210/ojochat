@@ -51,7 +51,7 @@ class AuthController extends Controller
             return view('frontend.auth.register',['page_title' => 'Register']);
         
         $this->validate($request, [
-            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/',
+            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
             'email' => 'required|email|unique:users|max:50',
             'password' => 'required'
         ], [
@@ -60,12 +60,15 @@ class AuthController extends Controller
             'username.max' => 'The username must be at least 3 characters long.',
             'username.max' => 'The username may not be greater than 15 characters.',
             'username.regex' => 'The username should only contain letters, numbers, hyphens, underscores, and periods.',
+            'username.not_regex' => 'The username may not contain the string "ojo".',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email format is incorrect.',
             'email.unique' => ' The email already exists.',
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
         ]);
+        $request->validate([    'username' => ['required', 'string', 'min:3', 'max:15', 'regex:/^[a-zA-Z0-9._-]+$/',        'not_regex:/ojo/i'],
+    ], [    'username.not_regex' => 'The username may not contain the string "ojo".',]);
     
         $password=$request->input('password');//Str::random(7);
         $cryptpass=Hash::make($password);
