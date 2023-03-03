@@ -51,20 +51,22 @@ class AuthController extends Controller
             return view('frontend.auth.register',['page_title' => 'Register']);
         
         $this->validate($request, [
-            'username' => 'required|unique:users|max:50',
+            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/',
             'email' => 'required|email|unique:users|max:50',
             'password' => 'required'
         ], [
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username already exists.',
+            'username.max' => 'The username length should be longer than 3',
             'username.max' => 'The username length should be less than 50',
+            'username.regex' => 'The username may only contain letters, numbers, hyphens, underscores, and periods.',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email format is incorrect.',
             'email.unique' => ' The email already exists.',
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
         ]);
-
+        
         $password=$request->input('password');//Str::random(7);
         $cryptpass=Hash::make($password);
         $email=$request->input('email');

@@ -19,7 +19,7 @@
                                 <div class="form-group" {{ $errors->has('username') ? 'has-error' : '' }}>
                                     <label class="col-form-label" for="uname">Username</label>
                                     <input class="form-control" id="uname" type="text" name="username"
-                                        placeholder="Demo@123" value="{{ old('username') }}">
+                                        placeholder="Demo@123" value="{{ old('username') }}" minlegnth="3" maxlength="15" pattern="[a-zA-Z0-9._-]+">
                                     <span class="text-danger">{{ $errors->first('username') }}</span>
                                 </div>
                                 <div class="form-group" {{ $errors->has('email') ? 'has-error' : '' }}>
