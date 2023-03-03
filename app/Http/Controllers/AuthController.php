@@ -56,11 +56,11 @@ class AuthController extends Controller
             'password' => 'required'
         ], [
             'username.required' => 'The username field is required.',
-            'username.unique' => 'The username already exists.',
+            'username.unique' => 'Sorry, that username is taken. Please try again.',
             'username.max' => 'The username must be at least 3 characters long.',
             'username.max' => 'The username may not be greater than 15 characters.',
-            'username.regex' => 'The username should only contain letters, numbers, hyphens, underscores, and periods.',
-            'username.not_regex' => 'The username may not contain the string "ojo".',
+            'username.regex' => 'Sorry, usernames may only contain letters, numbers, (1) hyphen, underscore, or period. Please try again.',
+            'username.not_regex' => 'Sorry, that username is not available. Please try again.',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email format is incorrect.',
             'email.unique' => ' The email already exists.',
