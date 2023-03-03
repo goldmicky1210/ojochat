@@ -57,16 +57,16 @@ class AuthController extends Controller
         ], [
             'username.required' => 'The username field is required.',
             'username.unique' => 'The username already exists.',
-            'username.max' => 'The username length should be longer than 3',
-            'username.max' => 'The username length should be less than 50',
-            'username.regex' => 'The username may only contain letters, numbers, hyphens, underscores, and periods.',
+            'username.max' => 'The username must be at least 3 characters long.',
+            'username.max' => 'The username may not be greater than 15 characters.',
+            'username.regex' => 'The username should only contain letters, numbers, hyphens, underscores, and periods.',
             'email.required' => 'The email field is required.',
             'email.email' => 'The email format is incorrect.',
             'email.unique' => ' The email already exists.',
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
         ]);
-        
+    
         $password=$request->input('password');//Str::random(7);
         $cryptpass=Hash::make($password);
         $email=$request->input('email');
