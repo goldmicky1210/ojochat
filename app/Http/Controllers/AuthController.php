@@ -67,8 +67,6 @@ class AuthController extends Controller
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
         ]);
-        $request->validate([    'username' => ['required', 'string', 'min:3', 'max:15', 'regex:/^[a-zA-Z0-9._-]+$/',        'not_regex:/ojo/i'],
-    ], [    'username.not_regex' => 'The username may not contain the string "ojo".',]);
     
         $password=$request->input('password');//Str::random(7);
         $cryptpass=Hash::make($password);
