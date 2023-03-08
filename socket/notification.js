@@ -208,7 +208,8 @@ exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
             } else {
                 db.query(`SELECT * FROM \`groups\` WHERE id="${groupId}"`, (error, group) => {
                     if (error) throw error;
-                    if (group.notification) {
+                    console.log(group)
+                    if (group[0]['notification']) {
                         console.log('No socket SMS')
                         this.sendSMS(data.sender, item['user_id'], data);
                     } else {
