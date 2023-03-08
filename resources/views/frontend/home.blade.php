@@ -1390,55 +1390,7 @@
         </div>
 
         <section class="section-py-space chitchat-main light-bg">
-            <a class="icon-btn btn-light button-effect mobile-sidebar" href="#"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="feather feather-chevron-left">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg></a>
-            <div class="container-fluid">
-                <div class="landing-title">
-                    <div class="sub-title">
-                        <div>
-                            <h4>Welcome to OJOChat</h4>
-                            <h2>OJOChat is fully responsive excellent choice</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="custom-container">
-                <div class="row chit-chat-block">
-                    <div class="col-md-6">
-                        <div class="chitchat-contain"><img class="img-fluid chitchat-img"
-                                src="/chat/images/landing/chitchat/4.png" alt="chit-chat" /></div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="chitchat-contain">
-                            <div>
-                                <div class="chitchat-logo"><img class="img-fluid"
-                                        src="/chat/images/logo/landing-logo.png" alt="landing-logo" /></div>
-                                <h3>Easy to use<span>Our Application</span></h3>
-                                <h1>All-in-one responsive app for you</h1>
-
-                                <h4> It is about us being able to offer help with the branding campaign, product
-                                    presentation, and advertisement running across social media.</h4>
-                                <ul class="detial-price">
-                                    <li><i class="fa fa-check"></i>Customer First Content-focused Displaying Effects
-                                    </li>
-                                    <li><i class="fa fa-check"> </i>High Definition Full-screen Sliders & Backgrounds
-                                    </li>
-                                    <li><i class="fa fa-check"> </i>Try for free, Forever! </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="chitchat-back-block"><img class="img-fluid chit-chat1"
-                    src="/chat/images/landing/chitchat/2.png" alt="chit-chat-back-img" /><img
-                    class="img-fluid chit-chat2" src="/chat/images/landing/chitchat/1.png"
-                    alt="chit-chat-back-img" /><img class="img-fluid chit-chat3"
-                    src="/chat/images/landing/chitchat/3.png" alt="chit-chat-back-img" /></div>
+            
         </section>
 
         <aside class="chitchat-right-sidebar" id="slide-menu">
