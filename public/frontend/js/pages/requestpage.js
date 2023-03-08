@@ -520,6 +520,7 @@ function sendBlink() {
         if (globalGroupId) {
             data.globalGroupId = globalGroupId;
             data.globalGroupUsers = globalGroupUsers;
+            
             socket.emit('send:groupBlink', data);
         }
         $('#createPhoto .photo-price').text('');
