@@ -198,18 +198,26 @@ exports.sendSMS = (sender, recipient, data) => {
 
 exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
     data.groupId = groupId;
-    db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
-        row.forEach(item => {
-            let recipientSocketId = user_socketMap.get(item['user_id'].toString());
-            if (recipientSocketId) {
-                if (io.sockets.sockets.get(recipientSocketId)) {
-                    io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
-                }
-            } else {
-                console.log('No socket SMS')
-                this.sendSMS(data.sender, item['user_id'], data);
-            }
-        })
+
+    db.query(`SELECT * FROM \'groups\' WHERE id="${groupId}"`, (error, group) => {
+        if (error) throw error;
+        if (group.notification) {
+            db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
+                row.forEach(item => {
+                    let recipientSocketId = user_socketMap.get(item['user_id'].toString());
+                    if (recipientSocketId) {
+                        if (io.sockets.sockets.get(recipientSocketId)) {
+                            io.sockets.sockets.get(recipientSocketId).emit('send:groupMessage', data);
+                        }
+                    } else {
+                        console.log('No socket SMS')
+                        this.sendSMS(data.sender, item['user_id'], data);
+                    }
+                })
+            });
+        } else {
+            console.log('this group is not allowed Notification.');
+        }
     });
 }
 

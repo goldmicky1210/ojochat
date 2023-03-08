@@ -69,6 +69,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/group/getCertainGroupInfo', 'GroupController@getGroupInfo'); 
     Route::post('/group/getContactorInfoByGroupId', 'GroupController@getContactorInfoByGroupId'); 
     Route::post('/group/getDirectGroupId', 'GroupController@getDirectGroupId'); 
+    Route::post('/group/setProfileSetting', 'GroupController@setProfileSetting');
     Route::post('/profile/followUser', 'ProfileController@followUser'); 
     Route::post('/profile/getFollowData', 'ProfileController@getFollowData'); 
     Route::post('/profile/isFollow', 'ProfileController@isFollow'); 

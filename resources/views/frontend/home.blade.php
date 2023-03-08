@@ -518,7 +518,7 @@
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can see last
                                                     seen or not.</p>
                                             </li>
-                                            <li>
+                                            {{-- <li>
                                                 <h5>Profile Photo</h5>
                                                 <input class="js-switch11" type="checkbox" />
                                                 <p>
@@ -536,7 +536,7 @@
                                                 <input class="js-switch14" type="checkbox" />
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can see your
                                                     status or not. </p>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <h5>Read receipts</h5>
                                                 <input class="js-switch16" type="checkbox" />
@@ -1668,7 +1668,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="status">
+                {{-- <div class="status">
                     <ul>
                         <li>
                             <input class="js-switch" type="checkbox" />
@@ -1683,7 +1683,7 @@
                             <h5>Get Notification</h5>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
                 <div class="status other">
                     <ul>
                         <li>
@@ -3429,25 +3429,41 @@
                             </div>
                         </div>
                     </div>
+                    <div class="status profile-setting">
+                        <ul>
+                            <li>
+                                <input class="js-switch block-switch" type="checkbox" />
+                                <h5>Block </h5>
+                            </li>
+                            <li>
+                                <input class="js-switch1 mute-switch" type="checkbox" />
+                                <h5>Mute </h5>
+                            </li>
+                            <li>
+                                <input class="js-switch2 notification-switch" type="checkbox" checked="" />
+                                <h5>Get Notification</h5>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="media-gallery portfolio-section grid-portfolio">
-                    <div class="collapse-block open">
-                        <h5 class="block-title">Shared Media
-                            <label class="badge badge-primary sm ms-2 shared_media_count">2</label>
-                        </h5>
-                        <div class="block-content">
-                            <div class="share-media zoom-gallery shared_media">
-                                <span>Sent Blinks</span>
-                                <div class="send_data media_list">
-                                    
-                                </div>
-                                <span>Received Blinks</span>
-                                <div class="receive_data media_list">
+                        <div class="collapse-block open">
+                            <h5 class="block-title">Shared Media
+                                <label class="badge badge-primary sm ms-2 shared_media_count">2</label>
+                            </h5>
+                            <div class="block-content">
+                                <div class="share-media zoom-gallery shared_media">
+                                    <span>Sent Blinks</span>
+                                    <div class="send_data media_list">
                                         
+                                    </div>
+                                    <span>Received Blinks</span>
+                                    <div class="receive_data media_list">
+                                            
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -3474,4 +3490,5 @@
     <script src="/frontend/js/pages/menu.js"></script>
     <script src="/frontend/js/pages/media.js"></script>
     <script src="/frontend/js/pages/voicemessage.js"></script>
+    <script src="/frontend/js/pages/profile.js"></script>
 @endsection

@@ -68,4 +68,18 @@ class GroupController extends Controller
             return array('state' => 'false');
         }
     }
+    public function setProfileSetting(Request $request) {
+        $groupId = $request->input('groupId');
+        $state = $request->input('state');
+        $fieldName = $request->input('fieldName');
+        
+        $group = Group::find($groupId);
+        $group[$fieldName] = $state;
+        $group->updated_at = date('Y-m-d H:i:s');
+        $group->save();
+        return array(
+            'message' => 'Save Successfully',
+            'update' => true,
+        );
+    }
 }
