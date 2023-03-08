@@ -17,7 +17,6 @@ function setProfileSetting(fieldName, state) {
     form_data.append('fieldName', fieldName);
     form_data.append('state', state);
 
-
     $.ajax({
         url: '/group/setProfileSetting',
         headers: {

@@ -808,7 +808,7 @@
     $('.message-input input').on('keydown', function (e) {
         if (e.which == 13) {
             if (!e.target.value) {
-                return false                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                return false
             }
             newMessage();
             return false;
@@ -1055,7 +1055,32 @@ function setProfileData(userId) {
         error: function (response) { }
     });
 
-    showSharedMedia(getDirectGroupId(userId))
+    let directGroupId = getDirectGroupId(userId);
+    showSharedMedia(directGroupId)
+
+    let form_data1 = new FormData();
+    form_data1.append('groupId', directGroupId);
+    $.ajax({
+        url: '/group/getGroupInfo',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data1,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                let { data } = res;
+                console.log(data)
+                let notificationState = data.notification ? false : true;
+                $(".notification-switch").prop('checked', notificationState).trigger('click')
+            }
+        },
+        error: function (response) { }
+    });
 }
 
 function setProfileRateData(data) {
