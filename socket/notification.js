@@ -199,7 +199,7 @@ exports.sendSMS = (sender, recipient, data) => {
 exports.sendMessage = (sender, groupId, data, user_socketMap, io) => {
     data.groupId = groupId;
 
-    db.query(`SELECT * FROM \'groups\' WHERE id="${groupId}"`, (error, group) => {
+    db.query(`SELECT * FROM \`groups\` WHERE id="${groupId}"`, (error, group) => {
         if (error) throw error;
         if (group.notification) {
             db.query(`SELECT user_id FROM users_groups WHERE group_id="${groupId}"`, (error, row) => {
