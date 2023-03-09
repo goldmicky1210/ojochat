@@ -58,6 +58,23 @@ $(document).ready(function () {
             })
         }
     });
+    $('#profile_modal').on('click','.follow_btn', function (e) {
+        e.stopPropagation()
+        let followId = $(this).closest('.contact-profile').attr('userId');
+        if (currentUserId != followId) {
+            $.post('/profile/followUser', { followId }, (res) => {
+                if (res.result == 'follow') {
+                    $(this).find('.btn-sm').addClass('btn-danger');
+                    $(this).find('.btn-sm').removeClass('btn-success');
+                    $(this).find('.btn-sm').text('UnFollow');
+                } else if (res.result == 'unfollow') {
+                    $(this).find('.btn-sm').addClass('btn-success');
+                    $(this).find('.btn-sm').removeClass('btn-danger');
+                    $(this).find('.btn-sm').text('Follow');
+                }
+            })
+        }
+    });
 
     $('#custom_modal').on('click', '.contact_request_btn', function (e) {
         e.stopPropagation()

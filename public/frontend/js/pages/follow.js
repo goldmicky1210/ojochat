@@ -18,26 +18,6 @@ $(document).ready(() => {
         }
     });
 
-    // $('#custom_modal').on('click','.follow_btn', function (event) {
-    //     event.stopPropagation()
-    //     let followId = $(this).closest('.contact-profile').attr('userId');
-    //     $(this).find('.btn').prop('disabled', true)
-    //     if (currentUserId != followId) {
-    //         $.post('/profile/followUser', { followId }, (res) => {
-    //             if (res.result == 'follow') {
-    //                 $('.contact-profile .follow_btn .btn').text('UnFollow');
-    //                 $('.contact-profile .follow_btn .btn').removeClass('btn-success');
-    //                 $('.contact-profile .follow_btn .btn').addClass('btn-danger');
-    //             } else if (res.result == 'unfollow') {
-    //                 $('.contact-profile .follow_btn .btn').text('Follow');
-    //                 $('.contact-profile .follow_btn .btn').addClass('btn-success');
-    //                 $('.contact-profile .follow_btn .btn').removeClass('btn-danger');
-    //             }
-    //             $(this).find('.btn').prop('disabled', false)
-    //         })
-    //     }
-    // });
-
     $('.view_all_btn').on('click', function () {
         $('#custom_modal').modal('show');
         $('#custom_modal').find('.btn_group .btn').hide();

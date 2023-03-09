@@ -786,7 +786,7 @@ function displayPaymentHistory(userId) {
                         } else {
                             var amount = (item.amount).toFixed(2);
                             if (!sendFlag) {
-                                if (item.recipient == item.lastSender ) {
+                                if (item.recipient == item.lastSender) {
                                     var avatar = senderInfo.avatar;
                                     $('.history-list').append(`
                                         <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
@@ -995,16 +995,16 @@ function searchList() {
                         follwStatus = isFollowing(item.id);
                         let statusItem = `
                         <div class="thread_info">
-                        <div class="follow_btn">
-                        <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
-                        <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
-                        </a>
-                        </div>
-                        <div class="contact_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
-                        <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
-                        </a>
-                        </div>
+                            <div class="follow_btn">
+                                <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                                    <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                                </a>
+                            </div>
+                            <div class="contact_request_btn">
+                                <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                                    <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+                                </a>
+                            </div>
                         </div>
                         `;
                         addUsersListItem(target, item, statusItem)
