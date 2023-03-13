@@ -303,6 +303,9 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
+.msg-setting-main .content {
+    overflow-wrap: anywhere;
+}
 
 .sent .msg-setting-main .content a {
     color: white;
