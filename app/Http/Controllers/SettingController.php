@@ -69,6 +69,19 @@ class SettingController extends Controller
             'update' => true,
         );
     }
+    public function setReadReceipts(Request $request) {
+        $id = Auth::id();
+        $state = $request->input('state');
+        
+        $user = User::find($id);
+        $user->read_receipts = $state;
+        $user->updated_at = date('Y-m-d H:i:s');
+        $user->save();
+        return array(
+            'message' => 'Save Successfully',
+            'update' => true,
+        );
+    }
 
     public function uploadBackgroundImage(Request $request) {
         if ($request->file('backgroundImage') != null) {

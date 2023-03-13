@@ -539,7 +539,7 @@
                                             </li> --}}
                                             <li>
                                                 <h5>Read receipts</h5>
-                                                <input class="js-switch16" type="checkbox" />
+                                                <input class="js-switch16 read-receipts-switch" type="checkbox" />
                                                 <p> <b>Note : </b>If turn off this option you won't be able to see read
                                                     recipts from contact. read receipts are always sent for group chats.
                                                 </p>
@@ -1179,7 +1179,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <input class="setemoj" id="setemoj" type="text" placeholder="Write your message..." />
+                        {{-- <input class="setemoj" id="setemoj" type="text" placeholder="Write your message..." /> --}}
+                        <textarea class="setemoj" id="setemoj" placeholder="Write your message..." ></textarea>
                         <audio class="setemoj hidden" id="voiceMsgTag" controls></audio>
                         <a class="icon-btn btn-outline-primary button-effect me-3 ms-3 voiceMsgBtn" href="#">
                             <i data-feather="mic"></i>

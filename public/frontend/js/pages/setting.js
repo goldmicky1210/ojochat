@@ -1,3 +1,5 @@
+let readReceiptsStatus;
+
 $(document).ready(function () {
     var phoneNumberInput = document.querySelector('#phone');
     var telInput = $("#phone"),
@@ -160,4 +162,25 @@ $(document).ready(function () {
         }
     });
 
+    // Privacy read recipts setting
+    readReceiptsStatus = $('.read-receipts-switch').prop('checked') ? 1 : 0;
+    $('.read-receipts-switch').on('change', () => {
+        readReceiptsStatus = $('.read-receipts-switch').prop('checked') ? 1 : 0;
+        var form_data = new FormData();
+        form_data.append('state', readReceiptsStatus);
+        $.ajax({
+            url: '/setting/setReadReceipts',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            data: form_data,
+            success: function (res) { },
+            error: function (response) { }
+        });
+    });
 })

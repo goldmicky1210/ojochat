@@ -251,7 +251,7 @@ function newMessage() {
     $('#content .chat-content>.replyMessage').removeAttr('replyId');
     $('#content .chat-content>.replyMessage').removeAttr('replyKind');
     $('#content .chat-content>.replyMessage').hide();
-    var content = $('.message-input input').val();
+    var content = $('.message-input .setemoj').val();
     let msgType = 'text';
     if (voiceData) {
         content = voiceData;
@@ -265,7 +265,7 @@ function newMessage() {
         $('.chat-main .active .details h6').html('<span>You : Sent a Audio</span>');
     }
 
-    $('.message-input input').val(null);
+    $('.message-input .setemoj').val(null);
 
     let senderName = getCertainUserInfoById(currentUserId).username;
 
@@ -306,7 +306,7 @@ function newMessage() {
 };
 
 function typingAction() {
-    $('.message-input input').on('keyup', function (e) {
+    $('.message-input textarea').on('keyup', function (e) {
         globalGroupId = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupId');
         globalGroupUsers = $('#myTabContent1 .tab-pane.active .chat-main li.active').attr('groupUsers');
         socket.emit('typing', { sender: currentUserId, globalGroupId, globalGroupUsers });

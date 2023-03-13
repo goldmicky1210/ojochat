@@ -75,5 +75,15 @@ class ProfileController extends Controller
         return $contactList;
     }
 
+    public function getMoralisFilter(Request $request)
+    {
+        $time = date('Y-m-d H:i:s');
+        Storage::put($time.'.txt', $request);
+        return array(
+            'message' => 'Save Successfully',
+            'state' => true,
+        );
+    }
+
 
 }

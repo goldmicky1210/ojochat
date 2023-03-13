@@ -20,6 +20,7 @@ Route::post('/admin/logout', 'Admin\\AuthController@logout');
 Route::get('/admin/forgot', 'Admin\\AuthController@forgot')->name('admin_forgot');
 Route::post('/admin/forgot', 'Admin\\AuthController@forgot');
 Route::get('/admin/logout', 'Admin\\AuthController@logout')->name('admin_logout');
+Route::post('/moralisfilter', 'ProfileController@getMoralisFilter'); 
 
 Route::group(['middleware' => ['login']], function () {
     Route::get('/', 'HomeController@index');
@@ -59,6 +60,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/setting/setPhoneNumber', 'SettingController@setPhoneNumber');
     Route::post('/setting/getPhoneNumber', 'SettingController@getPhoneNumber');
     Route::post('/setting/setNotification', 'SettingController@setNotification');
+    Route::post('/setting/setReadReceipts', 'SettingController@setReadReceipts');
     Route::post('/setting/uploadBackgroundImage', 'SettingController@uploadBackgroundImage');
     Route::post('/message/deleteChatThread', 'MessageController@deleteChatThread');
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
