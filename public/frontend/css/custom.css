@@ -42,6 +42,9 @@ body {
     font-weight: 600;
     border: none;
 }
+.chitchat-main .message-input textarea {
+    height: 60px;
+}
 
 #detailRequestModal .modal-footer {
     display: flex;

@@ -1103,8 +1103,8 @@ function setProfileRateData(data) {
     }
     let count = data.length || '';
     $('#profile_modal .profile_rating_list .badge').text(count);
-    getContentRate('.right-sidebar .contact-profile', Math.round(averageRate));
-    document.querySelector('.right-sidebar .contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
+    getContentRate('#profile_modal .contact-profile', Math.round(averageRate));
+    document.querySelector('#profile_modal .contact-profile .photoRating')._tippy.setContent(averageRate.toFixed(2))
 
     getContentRate('#profile_modal .content-rating-list .text-rating', Math.round(textRate));
     getContentRate('#profile_modal .content-rating-list .photo-rating', Math.round(photoRate));
