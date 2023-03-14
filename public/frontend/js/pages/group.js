@@ -728,7 +728,6 @@ $(document).ready(function () {
                 // $('.app-sidebar').addClass('active'); //remove
                 $('.chitchat-main').addClass("small-sidebar"); //remove
                 if ($(window).width() <= 1440) {
-                    $('.chitchat-container').addClass('sidebar-overlap');
                     $('.chitchat-main').removeClass("small-sidebar"); //remove
                 }
                 if ($('body').hasClass('menu-active')) {

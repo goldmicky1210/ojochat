@@ -22,6 +22,7 @@ use App\Models\PaymentHistory;
 use App\Models\Cast;
 use App\Models\Group;
 use App\Models\UsersGroup;
+use App\Models\Block;
 
 class GroupController extends Controller
 {
@@ -33,10 +34,12 @@ class GroupController extends Controller
     }
 
     public function getGroupInfo(Request $request) {
+        $userId = Auth::id();
         $groupId = $request->input('groupId');
         $result = Group::where('id', $groupId)->first();
+        $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
         if ($result) {
-            return array('state' => 'true', 'data' => $result);
+            return array('state' => 'true', 'data' => $result, 'blockState'=> $blockState);
         } else {
             return array('state' => 'false');
         }
@@ -68,18 +71,5 @@ class GroupController extends Controller
             return array('state' => 'false');
         }
     }
-    public function setProfileSetting(Request $request) {
-        $groupId = $request->input('groupId');
-        $state = $request->input('state');
-        $fieldName = $request->input('fieldName');
-        
-        $group = Group::find($groupId);
-        $group[$fieldName] = $state;
-        $group->updated_at = date('Y-m-d H:i:s');
-        $group->save();
-        return array(
-            'message' => 'Save Successfully',
-            'update' => true,
-        );
-    }
+    
 }

@@ -27507,12 +27507,6 @@ ul.grop-icon li img {
     cursor: pointer
 }
 
-.menu-active .chitchat-container .chitchat-main {
-    width: calc(100% - 850px);
-    -webkit-transition: all 0.7s;
-    transition: all 0.7s
-}
-
 .menu-active .chitchat-right-sidebar {
     opacity: 1;
     right: 0;
@@ -27536,12 +27530,6 @@ ul.grop-icon li img {
 
 .sidebar-active .sidebar-toggle .main-nav.on~.chitchat-main .message-input {
     width: calc(100% - 890px)
-}
-
-.sidebar-active .chitchat-container .chitchat-main {
-    width: calc(100% - 890px);
-    -webkit-transition: all 0.7s;
-    transition: all 0.7s
 }
 
 .sidebar-active .chitchat-container .chitchat-main.small-sidebar {
@@ -27574,11 +27562,6 @@ ul.grop-icon li img {
     width: calc(100% - 590px)
 }
 
-.menu-active .chitchat-container .chitchat-main {
-    width: calc(100% - 850px);
-    -webkit-transition: all 0.7s;
-    transition: all 0.7s
-}
 
 .menu-active .chitchat-main .message-input {
     width: calc(100% - 850px);

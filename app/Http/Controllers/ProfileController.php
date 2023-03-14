@@ -25,6 +25,7 @@ use App\Models\UsersGroup;
 use App\Models\AttachFile;
 use App\Models\Follow;
 use App\Models\Rate;
+use App\Models\Block;
 
 
 class ProfileController extends Controller
@@ -85,5 +86,36 @@ class ProfileController extends Controller
         );
     }
 
-
+    public function setProfileSetting(Request $request) {
+        $groupId = $request->input('groupId');
+        $state = $request->input('state');
+        $fieldName = $request->input('fieldName');
+        if ($fieldName == 'notification') {
+            $group = Group::find($groupId);
+            $group[$fieldName] = $state;
+            $group->updated_at = date('Y-m-d H:i:s');
+            $group->save();
+        } else if ($fieldName == 'block') {
+            $userId = Auth::id();
+            if ($state == 1) {
+                $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
+                if (!$blockState) {
+                    Block::create([
+                        'user_id' => $userId,
+                        'group_id' => $groupId
+                    ]);
+                }
+                return array(
+                    'message' => 'Block Successfully',
+                    'status' => true,
+                );
+            } else {
+                Block::where('user_id', $userId)->where('group_id', $groupId)->delete();
+                return array(
+                    'message' => 'Remove Block Successfully',
+                    'status' => true,
+                );
+            }
+        }
+    }
 }

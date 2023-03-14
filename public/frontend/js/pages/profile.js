@@ -18,7 +18,7 @@ function setProfileSetting(fieldName, state) {
     form_data.append('state', state);
 
     $.ajax({
-        url: '/group/setProfileSetting',
+        url: '/profile/setProfileSetting',
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         },
@@ -28,7 +28,9 @@ function setProfileSetting(fieldName, state) {
         type: 'POST',
         dataType: "json",
         data: form_data,
-        success: function (res) { },
+        success: function (res) { 
+            console.log(res)
+        },
         error: function (response) { }
     });
 }

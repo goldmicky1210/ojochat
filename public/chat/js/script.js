@@ -1007,6 +1007,7 @@
 
 })(jQuery);
 
+// show new Profile 
 function setProfileData(userId) {
     $('.chitchat-right-sidebar .contact-profile .group_operation').hide();
     new Promise((resolve) => getAvailableUsers(resolve)).then((contactList) => {
@@ -1034,6 +1035,35 @@ function setProfileData(userId) {
         $('#profile_modal .contact-profile .follow_btn .btn').removeClass('btn-danger');
         $('#profile_modal .contact-profile .follow_btn .btn').addClass('btn-success');
     }
+
+    // Notification and Block Switch Status
+    let form_data1 = new FormData();
+    form_data1.append('groupId', directGroupId);
+    $.ajax({
+        url: '/group/getGroupInfo',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: form_data1,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        success: function (res) {
+            if (res.state == 'true') {
+                let { data } = res;
+                console.log(res)
+                let notificationState = data.notification ? false : true;
+                $(".notification-switch").prop('checked', notificationState).trigger('click');
+                let blockState = res.blockState ? false : true;
+                $(".block-switch").prop('checked', blockState).trigger('click');
+            }
+        },
+        error: function (response) { }
+    });
+
+    // Show Rate Data 
     var form_data = new FormData();
     form_data.append('userId', userId);
     $.ajax({
@@ -1057,30 +1087,6 @@ function setProfileData(userId) {
 
     let directGroupId = getDirectGroupId(userId);
     showSharedMedia(directGroupId)
-
-    let form_data1 = new FormData();
-    form_data1.append('groupId', directGroupId);
-    $.ajax({
-        url: '/group/getGroupInfo',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        data: form_data1,
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        success: function (res) {
-            if (res.state == 'true') {
-                let { data } = res;
-                console.log(data)
-                let notificationState = data.notification ? false : true;
-                $(".notification-switch").prop('checked', notificationState).trigger('click')
-            }
-        },
-        error: function (response) { }
-    });
 }
 
 function setProfileRateData(data) {

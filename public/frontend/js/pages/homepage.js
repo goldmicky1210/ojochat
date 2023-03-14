@@ -536,7 +536,6 @@ function openAndCloseProfile() {
     // $('.app-sidebar').toggleClass('active'); //remove
     $('.chitchat-main').toggleClass("small-sidebar"); //remove
     if ($(window).width() <= 1440) {
-        $('.chitchat-container').toggleClass('sidebar-overlap');
         $('.chitchat-main').addClass("small-sidebar"); //remove
     }
     if ($('body').hasClass('menu-active')) {
