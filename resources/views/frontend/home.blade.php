@@ -616,8 +616,7 @@
                                 <div class="collapse" id="collapseFive" aria-labelledby="headingFive"
                                     data-parent="#accordion">
                                     <div class="card-body"><a class="p-0 req-info" id="demo" href="#"
-                                            onclick="document.getElementById(&quot;demo&quot;).innerHTML = &quot;Request sent&quot;">Request
-                                            Info </a>
+                                            onclick="document.getElementById(&quot;demo&quot;).innerHTML = &quot;Request sent&quot;">Password </a>
                                         <p> <b>Note : </b>Create a report of your account information and settings, which
                                             you can access ot port to another app.</p>
                                     </div>
@@ -1621,22 +1620,6 @@
                         </li>
                     </ul>
                 </div>
-                {{-- <div class="status">
-                    <ul>
-                        <li>
-                            <input class="js-switch" type="checkbox" />
-                            <h5>Block </h5>
-                        </li>
-                        <li>
-                            <input class="js-switch1" type="checkbox" />
-                            <h5>Mute </h5>
-                        </li>
-                        <li>
-                            <input class="js-switch2" type="checkbox" checked="" />
-                            <h5>Get Notification</h5>
-                        </li>
-                    </ul>
-                </div> --}}
                 <div class="status other">
                     <ul>
                         <li>
@@ -3388,10 +3371,10 @@
                                 <input class="js-switch block-switch" type="checkbox" />
                                 <h5>Block </h5>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <input class="js-switch1 mute-switch" type="checkbox" />
                                 <h5>Mute </h5>
-                            </li>
+                            </li> --}}
                             <li>
                                 <input class="js-switch2 notification-switch" type="checkbox" checked="" />
                                 <h5>Get Notification</h5>

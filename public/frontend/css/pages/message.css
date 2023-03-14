@@ -305,6 +305,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 }
 .msg-setting-main .content {
     overflow-wrap: anywhere;
+    white-space: pre-wrap;
 }
 
 .sent .msg-setting-main .content a {

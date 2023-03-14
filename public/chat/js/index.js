@@ -19,8 +19,8 @@
       ==========================*/
     var elem = document.querySelector('.js-switch');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
-    var elem = document.querySelector('.js-switch1');
-    var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
+    // var elem = document.querySelector('.js-switch1');
+    // var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch2');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch5');
