@@ -377,6 +377,7 @@ MagnificPopup.prototype = {
 		mfp.isOpen = true;
 		mfp.updateSize(windowHeight);
 		_mfpTrigger(OPEN_EVENT);
+		$('#profile_modal').modal('hide')
 
 		return data;
 	},
