@@ -68,6 +68,9 @@ $(document).ready(function () {
     });
 
     socket.on('read:message', message => {
+        console.log('read message')
+        console.log(message)
+        console.log('===========')
         setTimeout(() => {
             $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent');
             $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('arrived');

@@ -402,7 +402,7 @@ $(document).ready(function () {
             if (document.visibilityState == "visible") {
                 if (currentContactId == data.sender) {
                     //unread -> read
-                    let currentUserInfo = 
+                    
                     socket.emit('read:message', data);
                 }
             } else {
@@ -1180,7 +1180,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     if (userStatus.status == 2) {
                         if (messageData.length) {
                             messageData.reverse().forEach(item => {
-                                if (item && item.state != 3 && currentUserId != item.sender && !readReceiptsStatus) {
+                                console.log(readReceiptsStatus)
+                                if (item && item.state != 3 && currentUserId != item.sender && readReceiptsStatus) {
                                     let message = {
                                         from: item.sender,
                                         to: currentUserId,

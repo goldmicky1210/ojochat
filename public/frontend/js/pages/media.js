@@ -88,7 +88,7 @@ $(document).ready(() => {
                 let target = '.messages.active .contact-chat ul.chatappend';
                 if (messageData.length) {
                     messageData.reverse().forEach(item => {
-                        if (item.state != 3 && currentUserId != item.sender) {
+                        if (item.state != 3 && currentUserId != item.sender && readReceiptsStatus) {
                             let message = {
                                 from: item.sender,
                                 to: currentUserId,
