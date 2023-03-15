@@ -162,7 +162,6 @@ function getRecentChatUsers(type) {
                 $(itemTarget).empty();
                 res.data.forEach(item => {
                     if (item.lastMessage) {
-                        // console.log(item.lastMessage);s
                         let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
                             sender = "You";
@@ -170,7 +169,6 @@ function getRecentChatUsers(type) {
                         item.lastMessageSender = sender;
                         item.lastMessageContent = content;
                         item.lastMessageDate = new Date(item.lastMessage.created_at);
-                        // console.log(item.lastMessageDate);
                     }
                     addNewGroupItem(itemTarget, item);
                 });
@@ -324,7 +322,6 @@ function typingMessage(senderId, lastElement) {
         let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: url(${contactorInfo.avatar ? 'v1/api/downloadFile?path=' + contactorInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
         let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
-        console.log($(lastElement).length);
         if ($(lastElement).isInViewport()) {
             $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
         }
@@ -735,7 +732,6 @@ function displayPaymentHistory(userId) {
         dataType: "json",
         success: function (res) {
             if (res.state == 'true') {
-                console.log(res)
                 $('.history-list').empty();
                 res.data.forEach((item, index) => {
                     let status = ['Holding', 'Completed'];
@@ -1010,8 +1006,6 @@ function searchList() {
                         lastUserName = item.username;
                     });
                 } else {
-                    console.log(value)
-                    console.log(target)
                     $(target).find('.chat-main>li').each(function () {
                         let title = $(this).find('.details h5').text().toLowerCase();
                         if (title.includes(value.toLowerCase())) {
@@ -1025,7 +1019,6 @@ function searchList() {
                 if ($(this).closest('.modal-content').hasClass('search_user_modal')) {
                     let target = '#custom_modal .chat-main';
                     lastUserName = '';
-                    console.log(lastUserName)
                     $(target).empty();
                     let newUsersList = loadMoreUsers(lastUserName, '');
                     newUsersList.forEach(item => {
