@@ -1036,6 +1036,7 @@ function setProfileData(userId) {
         $('#profile_modal .contact-profile .follow_btn .btn').addClass('btn-success');
     }
 
+    let directGroupId = getDirectGroupId(userId);
     // Notification and Block Switch Status
     let form_data1 = new FormData();
     form_data1.append('groupId', directGroupId);
@@ -1085,7 +1086,6 @@ function setProfileData(userId) {
         error: function (response) { }
     });
 
-    let directGroupId = getDirectGroupId(userId);
     showSharedMedia(directGroupId)
 }
 
