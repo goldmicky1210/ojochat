@@ -69,7 +69,6 @@ $(document).ready(function () {
         let amount = $(this).val()
         clearTimeout(timer)
         timer = setTimeout(() => {
-            console.log(amount)
             $('#paypal-button-container').empty()
             initPayPalButton(amount)
         }, 300)            
@@ -107,8 +106,6 @@ function initPayPalButton(amount) {
 
                 // Or go to another URL:  actions.redirect('thank_you.html');
                 socket.emit('add:balance', { amount }, (res) => {
-                    console.log('add', amount)
-                    console.log($('.balance-amount').text())
                     let balance = parseFloat($('.balance-amount').text().slice(1)) + Number(amount);
                     $('.balance-amount').text(`$${Number(balance).toFixed(2)}`)
                 })

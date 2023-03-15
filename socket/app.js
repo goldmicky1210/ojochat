@@ -59,7 +59,6 @@ const onConnection = (socket) => {
     console.log(user_socketMap);
 
     socket.on('forward:message', data => {
-        console.log('forward Data', data);
         data.groupType = 1;
         data.msgType = data.forwardKind == 2 ? 'blink' : data.forwardKind == 4 ? 'media' : 'text';
         Notification.sendSMS(currentUserId, data.recipient, data);
@@ -69,10 +68,8 @@ const onConnection = (socket) => {
                 if (messageContent.length) {
                     db.query(`INSERT INTO photo_galleries(photo, original_thumb, back, blur, blur_price, content, original_content, owner) SELECT original_thumb, original_thumb, back, blur, blur_price, original_content, original_content, owner FROM photo_galleries WHERE id = ${messageContent[0]['content']}`, (error, newPhoto) => {
                         let forwardList = Array.from(new Set([...data.forwardList.split(','), currentUserId])).filter(item => item != '').join(',');
-                        console.log('forwardList', forwardList)
                         db.query(`UPDATE photo_galleries SET forward_list="${forwardList}" where id=${newPhoto.insertId}`, (error, photo) => {
                             if (error) throw error
-                            console.log(photo)
                         })
                         db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                             if (groupData.length) {
@@ -96,7 +93,6 @@ const onConnection = (socket) => {
             db.query(`SELECT group_id FROM \`groups\` INNER JOIN users_groups ON groups.id=users_groups.group_id WHERE (user_id=${currentUserId} OR user_id=${data.recipient}) AND type=1 GROUP BY group_id HAVING COUNT(group_id)=2`, (error, groupData) => {
                 if (error) throw error;
                 let groupId = groupData[0]['group_id'];
-                console.log('groupId', groupId)
                 db.query(`INSERT INTO messages(content, kind) SELECT content, kind FROM messages WHERE id = ${data.forwardId}`, (error, item) => {
                     db.query(`UPDATE messages SET sender = ${currentUserId}, group_id=${groupId} WHERE id=${item.insertId}`, (error, item) => {
                         if (error) throw error;
@@ -333,13 +329,11 @@ const onConnection = (socket) => {
 
                 let photoSender = item[0]['owner'];
                 let forwardList = item[0]['forward_list'].split(',');
-                console.log(forwardList)
                 if (forwardList[0] !== '') {
                     var forwardFlag = 1;
                     var ownerAddAmount = (data.addBalance / 2).toFixed(2);
                     let forwardAddAmount = (data.addBalance / 2 / forwardList.length).toFixed(2)
                     forwardList.forEach((item, index, array) => {
-                        console.log(item)
                         db.query(`UPDATE users SET balances=balances+${Number(forwardAddAmount)} WHERE id=${item}`, (error) => {
                             if (error) throw error;
                             db.query(`INSERT INTO payment_histories (sender, recipient, amount, refer_id, type, forward_flag) VALUES (${currentUserId}, ${item}, ${forwardAddAmount}, ${data.messageId}, 0, ${forwardFlag})`, (error, historyItem) => {

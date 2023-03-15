@@ -19,9 +19,6 @@ $(document).ready(function () {
     telInput.blur(function () {
         reset();
         let isValid = iti.isValidNumber();
-        console.log(iti.getNumber());
-        console.log(iti.getSelectedCountryData());
-        console.log(isValid);
         if (isValid) {
             validMsg.removeClass('hide');
         } else {
@@ -42,7 +39,6 @@ $(document).ready(function () {
         //     phoneNumber = phoneNumber.replace(`+${dialCode}`, '');
         // }
         let smsType = $('.smsTestBtns .btn.active').text().replace(/[^0-9]/g, '');
-        console.log('SMS' + smsType);
         if (!smsType) {
             alert('Please set SMS1 or SMS2.');
             return;
@@ -50,7 +46,6 @@ $(document).ready(function () {
 
         var form_data = new FormData();
         let isValid = iti.isValidNumber();
-        console.log(isValid);
         if (isValid) {
             form_data.append('isoCode2', isoCode2);
             form_data.append('dialCode', dialCode);
@@ -148,7 +143,6 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
                     if (res.state = true) {
                         alert('Image is uploaded Successfully');
                     } else {

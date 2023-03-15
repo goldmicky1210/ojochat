@@ -847,7 +847,6 @@ function addTextOnPhoto() {
         let modalId = $(e.target).closest('.modal').attr('id');
         let target = $(e.target).closest('.modal').attr('id') == 'createPhoto' ? canvas : photo_canvas;
         let color = e.color.toString();
-        console.log(color);
         $(this).css('backgroundColor', color);
         $(this).attr('value', color);
         if (target.getActiveObject()) {
@@ -1276,7 +1275,6 @@ function showBlinkData(blinkId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log(res);
             // $('.selected-emojis').css('left', canvasDimension + 40 + 'px');
             if (res.state == 'true') {
                 let emojis = JSON.parse(res.data[0].content);

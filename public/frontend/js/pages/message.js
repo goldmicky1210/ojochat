@@ -68,9 +68,6 @@ $(document).ready(function () {
     });
 
     socket.on('read:message', message => {
-        console.log('read message')
-        console.log(message)
-        console.log('===========')
         setTimeout(() => {
             $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('sent');
             $(`.chatappend .msg-item[key=${message.messageId}] h6`).removeClass('arrived');
@@ -100,8 +97,6 @@ $(document).ready(function () {
         if (confirm('Delete this Thread?')) {
             let recipients = $(this).closest('.date-status').closest('li').attr('recipients');
             let castTitle = $(this).closest('.date-status').closest('li').find('.details h5').text();
-            console.log(recipients);
-            console.log(castTitle);
             let form_data = new FormData();
             form_data.append('recipients', recipients);
             form_data.append('castTitle', castTitle);
@@ -194,17 +189,12 @@ $(document).ready(function () {
     //reply message
     $('.messages').on('click', '.replyBtn', function (e) {
         let replyKind = $(this).closest('li.msg-item').attr('kind');
-        console.log('replyKind:', replyKind);
         let messageContent = replyKind == 0 ? $(this).closest('li.msg-setting-main').find('.content').text() : '';
         if (replyKind == 2) {
             let imageSrc = $(this).closest('.msg-setting-main').find('.receive_photo').attr('src');
-            // let photoId = $(this).closest('.msg-setting-main').find('.receive_photo').attr('photoId');
-            // console.log(photoId)
             messageContent = `<img src="${imageSrc}" width="50">`;
         } else if (replyKind == 4) {
             let imageSrc = $(this).closest('.msg-setting-main').find('.file_photo').attr('src');
-            // let messageId = $(this).closest('.msg-setting-main').find('.file_photo').attr('messageId');
-            // console.log(messageId)
             messageContent = `<img src="${imageSrc}" width="50">`;
         }
         let replyId = $(this).closest('li.msg-item').attr('key');
@@ -284,8 +274,6 @@ $(document).ready(function () {
             let recipient = $(this).closest('li').attr('key');
             let senderName = getCertainUserInfoById(currentUserId).username;
             let globalGroupId = getDirectGroupId(recipient);
-            console.log(forwardList)
-            console.log(globalGroupId)
             if (globalGroupId) {
                 socket.emit('forward:message', { recipient, forwardId, forwardKind, forwardList: forwardList, senderName, globalGroupId });
             } else {
@@ -300,7 +288,6 @@ $(document).ready(function () {
     $('.messages').on('click', '.copyBtn', function (e) {
         copiedContent = $(this).closest('li.msg-setting-main').find('.content').text();
         // let element = $(this).closest('li.msg-setting-main').find('.content');
-        // console.log(copiedContent);
         var $temp = $("<input>");
         $("body").append($temp);
         $temp.val(copiedContent).select();

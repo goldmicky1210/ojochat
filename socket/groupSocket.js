@@ -22,7 +22,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('create:newGroup', (data, callback) => {
-        console.log('new group', data)
         db.query(`INSERT INTO \`groups\` (title, owner, admins) VALUES ("${data.senderName}", ${data.sender}, ${data.sender})`, (error, group) => {
             if (error) throw error;
             let groupId = group.insertId;
@@ -33,7 +32,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('send:groupMessage', async (data) => {
-        console.log(data)
         data.sender = currentUserId;
         if (data.globalGroupId) {
             if (data.msgType == 'text') {
@@ -63,8 +61,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         }
 
         if (data.groupType == 3) {
-            console.log('===================');
-            console.log(data.globalGroupUsers);
             let groupUsers = data.globalGroupUsers ? data.globalGroupUsers.split(',') : []
             groupUsers.filter(id => id != currentUserId).forEach(recipientId => {
                 db.query(`SELECT group_id
@@ -101,9 +97,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                 let groupId = group.insertId;
 
                                 db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, async(error, item) => {
-                                    // db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${data.sender}", "${groupId}", "${data.content}")`, (error, item) => {
-                                    //     console.log('You created new group');
-                                    // });
                                     if (data.msgType == 'text') {
                                         db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}")`, (error, item) => {
                                             
@@ -444,7 +437,6 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             } else if (group[0].fee_type == 3) {
                 expireDate = expireDate.setFullYear(expireDate.getFullYear() + 100);
             }
-            console.log(new Date(expireDate).toISOString().slice(0, 10));
             db.query(`UPDATE users_groups SET expire_date="${new Date(expireDate).toISOString().slice(0, 10)}" WHERE user_id = ${userId} AND group_id = ${groupId}`, (err, result) => {
                 if (err) throw err;
                 console.log(result);

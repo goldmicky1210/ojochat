@@ -299,7 +299,6 @@ $(document).ready(function () {
     $('#custom_modal .modal-body').on('change', '.group_fee_type select', function () {
         let groupFeeType = $(this).val();
         if (+groupFeeType) {
-            console.log(groupFeeType, ": ok");
             if (!$('#custom_modal .modal-body .group_fee_type .fee_value').length) {
                 $('#custom_modal').find('.modal-body .group_fee_type').append(`
                     <div class="form-group fee_value">
@@ -309,7 +308,6 @@ $(document).ready(function () {
                 `);
             }
         } else {
-            console.log(groupFeeType, ": delete");
             $('#custom_modal').find('.modal-body .group_fee_type .fee_value').remove();
         }
     });
@@ -812,7 +810,6 @@ function getNameStr(nameStr = '') {
     return str;
 }
 function addUsersListItem(target, data, statusItem) {
-    console.log(data.avatar)
     if ($(target).parents('.modal').length) {
         $(target).append(
             `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
@@ -956,7 +953,6 @@ function addGroupChatItem(target, data, loadFlag) {
             }
         } else {
             let messageContent = getMessgageContentById(replyId, replyKind);
-            console.log(messageContent.slice());
             if (replyKind == 0) {
                 var replyContent = messageContent;
             } else if (replyKind == 2 || replyKind == 4) {
@@ -1180,7 +1176,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     if (userStatus.status == 2) {
                         if (messageData.length) {
                             messageData.reverse().forEach(item => {
-                                console.log(readReceiptsStatus)
                                 if (item && item.state != 3 && currentUserId != item.sender && readReceiptsStatus) {
                                     let message = {
                                         from: item.sender,
@@ -1200,10 +1195,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                             let joinGroupAction = () => {
                                 socket.emit('join:group', { currentGroupId, currentGroupUsers }, res => {
                                     if (res.status == 'OK') {
-                                        console.log('You joined this group');
                                         alert('You joined this group Successfully');
                                     } else {
-                                        console.log(res.status);
                                         alert("You haven't enough balance.");
                                     }
                                 });

@@ -83,7 +83,6 @@ $(document).ready(() => {
             dataType: "json",
             success: function (res) {
                 $('.chat-content .spining').css('display', 'none');
-                console.log(res.messageData);
                 let messageData = res.messageData;
                 let target = '.messages.active .contact-chat ul.chatappend';
                 if (messageData.length) {
