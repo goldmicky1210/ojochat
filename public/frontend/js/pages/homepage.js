@@ -559,8 +559,12 @@ function showSharedMedia(groupId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
+            console.log('============');
+            console.log(res);
+            console.log('============');
+
+            $('.shared_media .media_list').empty();
             if (res.state == 'true') {
-                $('.shared_media .media_list').empty();
                 let count = (res.receiveData.length + res.sendData.length) || 0;
                 $('.media-gallery.portfolio-section .shared_media_count').text(count);
                 res.sendData.forEach(item => {
