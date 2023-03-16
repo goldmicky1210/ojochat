@@ -559,9 +559,6 @@ function showSharedMedia(groupId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            console.log('============');
-            console.log(res);
-            console.log('============');
 
             $('.shared_media .media_list').empty();
             if (res.state == 'true') {
