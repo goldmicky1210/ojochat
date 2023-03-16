@@ -1,4 +1,4 @@
-let readReceiptsStatus;
+
 
 $(document).ready(function () {
     var phoneNumberInput = document.querySelector('#phone');

@@ -16,6 +16,7 @@ let globalGroupId;
 let globalGroupUsers;
 let rateData;
 let recentChatUsers;
+let readReceiptsStatus;
 $(document).ready(() => {
 
     // cache function
@@ -32,7 +33,9 @@ $(document).ready(() => {
         displayRate();
         searchList();
         getNotificationList();
+        setCurrentUserInfo();
     });
+
 
 
 
@@ -1049,4 +1052,10 @@ function searchList() {
             }
         }, 100);
     });
+}
+
+function setCurrentUserInfo() {
+    let userInfo = getCertainUserInfoById(currentUserId);
+    readReceiptsStatus = userInfo.read_receipts ? false : true;
+    $(".read-receipts-switch").prop('checked', readReceiptsStatus).trigger('click');
 }
