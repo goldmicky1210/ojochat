@@ -178,7 +178,7 @@ $(document).ready(function () {
     $('.newPassword input').blur( function() {
         if ($(this).val().length < 6) {
             console.log($(this).val())
-            $('.newPassword').siblings('.text-danger').text('Password length should be at least 8');
+            $('.newPassword').siblings('.text-danger').text('Password length should be at least 6');
         }
     })
     $('.newPassword input').focus( function() {
