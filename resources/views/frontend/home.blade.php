@@ -624,6 +624,7 @@
                                                 <input type="password" class="form-control" />
                                                 <i class="fa fa-eye-slash"></i>
                                             </div>
+                                            <span class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
                                             <label>Confirm New Password</label>
@@ -631,6 +632,7 @@
                                                 <input type="password" class="form-control" />
                                                 <i class="fa fa-eye-slash"></i>
                                             </div>
+                                            <span class="text-danger"></span>
                                         </div>
                                         <button class="btn btn-primary button-effect btn-sm changePasswordBtn" type="button">Change Password</button>
 

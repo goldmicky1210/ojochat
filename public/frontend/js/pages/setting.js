@@ -175,10 +175,22 @@ $(document).ready(function () {
             target.attr('type', 'password');
         }
     });
+    $('.newPassword input').blur( function() {
+        if ($(this).val().length < 8) {
+            console.log($(this).val())
+            $('.newPassword').siblings('.text-danger').text('Password length should be at least 8');
+        }
+    })
+    $('.newPassword input').focus( function() {
+        $('.newPassword').siblings('.text-danger').text('');
+    })
+    $('.confirmNewPassword input').focus( function() {
+        $('.confirmNewPassword').siblings('.text-danger').text('');
+    })
     $('.changePasswordTab').on('click', '.changePasswordBtn', function () {
         let newPassword = $('.newPassword input').val();
         let confirmNewPassword = $('.confirmNewPassword input').val();
-        if (newPassword === confirmNewPassword) {
+        if (newPassword.length >=8 && newPassword === confirmNewPassword) {
             let form_data = new FormData();
             form_data.append('id', currentUserId); 
             form_data.append('password', newPassword); 
@@ -206,7 +218,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            alert('Password Not Matched');
+            $('.confirmNewPassword').siblings('.text-danger').text("Password doesn't match");
         }
     })
 })
