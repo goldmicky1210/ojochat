@@ -205,7 +205,7 @@ function removeContactRequest(userId, target) {
             }
         });
     }
-    confirmModal('', 'Remove this Contact?', removeAction)
+    confirmModal('', 'Remove this Notification?', removeAction)
 }
 
 function getContactListData(resolve) {

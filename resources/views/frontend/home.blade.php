@@ -392,8 +392,8 @@
                 <div class="theme-title">
                     <div class="media">
                         <div>
-                            <h2>Notification</h2>
-                            <h4>List of notification</h4>
+                            <h2>Notifications</h2>
+                            <h4>List of notifications</h4>
                         </div>
                         <div class="media-body text-end"> <a class="icon-btn btn-outline-light btn-sm close-panel"
                                 href="#"><i data-feather="x"></i></a></div>
@@ -611,14 +611,23 @@
                             <div class="card">
                                 <div class="card-header" id="headingFive" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                                    <a>Request account info<i class="fa fa-angle-down"></i></a>
+                                    <a>Password<i class="fa fa-angle-down"></i></a>
                                 </div>
                                 <div class="collapse" id="collapseFive" aria-labelledby="headingFive"
                                     data-parent="#accordion">
-                                    <div class="card-body"><a class="p-0 req-info" id="demo" href="#"
-                                            onclick="document.getElementById(&quot;demo&quot;).innerHTML = &quot;Request sent&quot;">Password </a>
-                                        <p> <b>Note : </b>Create a report of your account information and settings, which
-                                            you can access ot port to another app.</p>
+                                    <div class="card-body">
+                                        {{-- <a class="p-0 req-info" id="demo" href="#"
+                                            onclick="document.getElementById(&quot;demo&quot;).innerHTML = &quot;Request sent&quot;">Change Password </a> --}}
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input type="password" class="form-control" />
+                                            <i class="bi bi-eye-slash"></i>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirm Password</label>
+                                            <input type="password" class="form-control" />
+                                            <i class="bi bi-eye-slash"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -168,7 +168,7 @@ function getRecentChatUsers(type) {
                         let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
                             sender = "You";
-                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent a Audio' : 'Sent a message';
+                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';
                         item.lastMessageSender = sender;
                         item.lastMessageContent = content;
                         item.lastMessageDate = new Date(item.lastMessage.created_at);
@@ -263,7 +263,7 @@ function newMessage() {
     if (msgType == 'text') {
         $('.chat-main .active .details h6').html('<span>You : </span>' + content);
     } else if (msgType == 'audio') {
-        $('.chat-main .active .details h6').html('<span>You : Sent a Audio</span>');
+        $('.chat-main .active .details h6').html('<span>You : Sent an Audio</span>');
     }
 
     $('.message-input .setemoj').val(null);
