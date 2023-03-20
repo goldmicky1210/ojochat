@@ -59,20 +59,6 @@ $(document).ready(function () {
             errorMsg.removeClass("hide");
             return;
         }
-        // if (dialCode == 57) {
-        //     if (/3[0-9][0-9] \d{7}/.test(phoneNumber)) {
-        //         form_data.append('isoCode2', isoCode2);
-        //         form_data.append('dialCode', dialCode);
-        //         form_data.append('phoneNumber', phoneNumber);
-        //     }
-        // } else if ($("#phone").intlTelInput("isValidNumber")) {
-        //     form_data.append('isoCode2', isoCode2);
-        //     form_data.append('dialCode', dialCode);
-        //     form_data.append('phoneNumber', phoneNumber);
-        // } else {
-        //     alert('Please input valid phone number');
-        //     return;
-        // }
         form_data.append('smsType', smsType);
         $.ajax({
             url: '/setting/setPhoneNumber',
@@ -177,4 +163,50 @@ $(document).ready(function () {
             error: function (response) { }
         });
     });
+
+    // Password Setting
+    $('.passwordInput').on('click', 'i', function () {
+        let target = $(this).siblings('input');
+        $(this).toggleClass('fa-eye');
+        $(this).toggleClass('fa-eye-slash');
+        if (target.attr('type') == 'password') {
+            target.attr('type', 'text');
+        } else {
+            target.attr('type', 'password');
+        }
+    });
+    $('.changePasswordTab').on('click', '.changePasswordBtn', function () {
+        let newPassword = $('.newPassword input').val();
+        let confirmNewPassword = $('.confirmNewPassword input').val();
+        if (newPassword === confirmNewPassword) {
+            let form_data = new FormData();
+            form_data.append('id', currentUserId); 
+            form_data.append('password', newPassword); 
+            $.ajax({
+                url: '/updatePassword',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    if (res.state = true) {
+                        alert('Password Updated Successfully');
+                        window.location.reload()
+                    } else {
+                        alert('Update Failed');
+                    }
+                },
+                error: function (response) {
+    
+                }
+            });
+        } else {
+            alert('Password Not Matched');
+        }
+    })
 })

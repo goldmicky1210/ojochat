@@ -608,7 +608,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
+                            <div class="card changePasswordTab">
                                 <div class="card-header" id="headingFive" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
                                     <a>Password<i class="fa fa-angle-down"></i></a>
@@ -619,15 +619,21 @@
                                         {{-- <a class="p-0 req-info" id="demo" href="#"
                                             onclick="document.getElementById(&quot;demo&quot;).innerHTML = &quot;Request sent&quot;">Change Password </a> --}}
                                         <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" />
-                                            <i class="bi bi-eye-slash"></i>
+                                            <label>New Password</label>
+                                            <div class="passwordInput newPassword">
+                                                <input type="password" class="form-control" />
+                                                <i class="fa fa-eye-slash"></i>
+                                            </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Confirm Password</label>
-                                            <input type="password" class="form-control" />
-                                            <i class="bi bi-eye-slash"></i>
+                                            <label>Confirm New Password</label>
+                                            <div class="passwordInput confirmNewPassword">
+                                                <input type="password" class="form-control" />
+                                                <i class="fa fa-eye-slash"></i>
+                                            </div>
                                         </div>
+                                        <button class="btn btn-primary button-effect btn-sm changePasswordBtn" type="button">Change Password</button>
+
                                     </div>
                                 </div>
                             </div>

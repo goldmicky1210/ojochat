@@ -240,4 +240,23 @@ class AuthController extends Controller
 		for($i=0;$i<10;$i++)$res.=$pos[$i];
 		return $res;
 	}
+
+    public function updatePassword(Request $request){
+        $user=User::find($request->input('id'));
+        $user->password=Hash::make($request->input('password'));
+        $user->remember_token=Crypt::encryptString($user->email.'###'.$request->input('password'));  ;
+        $user->save();
+
+        // $mailData = new MailData();
+        // $mailData->template='temps.common';
+        // $mailData->fromEmail = config('mail.from.address');
+        // $mailData->userName = 'OLT Support';
+        // $mailData->toEmail = $user->email;
+        // $mailData->subject = 'Password reset';
+        // $mailData->mailType = 'MAGIC_LINK_TYPE';
+        // $mailData->content = "new password is: ".$request->input('password');
+        // Mail::to($mailData->toEmail)->send(new MailHelper($mailData));
+
+        exit(json_encode(array('state'=>'true')));
+    }
 }

@@ -26,6 +26,24 @@
     top: 0;
 }
 
+.passwordInput {
+    display: flex;
+    align-items: center;
+}
+
+.passwordInput .fa {
+    margin-left: -22px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.changePasswordTab .changePasswordBtn {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 @media (max-width: 1366px) {
     .notification-tab .chat-main .chat-box .date-status {
         top: 50%;
