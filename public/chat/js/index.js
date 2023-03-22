@@ -45,8 +45,8 @@
     // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     var elem = document.querySelector('.js-switch16');
     var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
-    var elem = document.querySelector('.js-switch17');
-    var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
+    // var elem = document.querySelector('.js-switch17');
+    // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
 
     /*=====================
     02 . calling timer js

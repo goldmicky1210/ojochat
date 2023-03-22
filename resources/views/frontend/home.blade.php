@@ -487,7 +487,7 @@
                                     data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                                     <a>Notification<i class="fa fa-angle-down"></i></a>
                                 </div>
-                                <div class="collapse show" id="collapseTwo" aria-labelledby="headingTwo"
+                                <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo"
                                     data-parent="#accordion">
                                     <div class="card-body">
                                         <div class="media">
@@ -549,10 +549,6 @@
                                                 <input class="js-switch13" type="checkbox" checked="" />
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can add in
                                                     groups or not. </p>
-                                            </li>
-                                            <li>
-                                                <h5>Screen Lock(Require Touch ID)</h5>
-                                                <input class="js-switch17" type="checkbox" />
                                             </li>
                                         </ul>
                                     </div>

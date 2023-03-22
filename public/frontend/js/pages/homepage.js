@@ -575,7 +575,7 @@ function showSharedMedia(groupId) {
                         title = item.title;
                     }
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
-                    $('.shared_media .send_data').append(`
+                    $('#profile_modal .shared_media .send_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
@@ -595,7 +595,7 @@ function showSharedMedia(groupId) {
                     if (item.type == 2) title = title + ' in ' + item.title;
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
 
-                    $('.shared_media .receive_data').append(`
+                    $('#profile_modal .shared_media .receive_data').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
