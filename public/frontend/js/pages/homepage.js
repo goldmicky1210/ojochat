@@ -76,6 +76,7 @@ $(document).ready(() => {
     });
 
     $('.balance-amount').on('click', () => {
+        $('.main-nav').removeClass("on");
         displayPaymentHistory(currentUserId);
     });
 

@@ -165,27 +165,14 @@ $(document).ready(function () {
     });
 
     // Password Setting
+    
     $('.passwordInput i').on('click touchstart touchend', function (e) {
-            console.log(e)
         let target = $(this).siblings('input');
         $(this).toggleClass('fa-eye');
         $(this).toggleClass('fa-eye-slash');
-        if (target.attr('type') == 'password') {
-            target.attr('type', 'text');
-        } else {
-            target.attr('type', 'password');
-        }
+        let type = target.attr('type') == 'password' ? 'text' : 'password';
+        target.attr('type', type);
     });
-    // $('.passwordInput i').on('touchstart touchend', function (e) {
-    //     let target = $(this).siblings('input');
-    //     $(this).toggleClass('fa-eye');
-    //     $(this).toggleClass('fa-eye-slash');
-    //     if (target.attr('type') == 'password') {
-    //         target.attr('type', 'text');
-    //     } else {
-    //         target.attr('type', 'password');
-    //     }
-    // });
 
     $('.newPassword input').blur( function() {
         if ($(this).val().length < 6) {

@@ -541,6 +541,9 @@
         iti.setNumber(userData.phone_number);
         // $("#phone").val(userData.phone_number);
 
+        // close left nav
+        $(".main-nav").removeClass("on");
+
 
         $('.smsTestBtns .btn').removeClass('active');
         $(`.smsTestBtns .btn:nth-child(${userData.sms_type})`).addClass('active');
