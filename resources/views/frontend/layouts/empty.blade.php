@@ -36,9 +36,33 @@
         input.form-control::placeholder {
             opacity: 0.5;
         }
+        .passwordInput {
+            display: flex;
+            align-items: center;
+        }
+
+        .passwordInput .fa {
+            margin-left: -28px;
+            font-size: 18px;
+            cursor: pointer;
+        }
     </style>
     <script src="/chat/js/jquery-3.3.1.min.js"></script>
     <script src="/frontend/js/constant.js"></script>
+    <script>
+        $(document).ready(() => {
+            $('.passwordInput i').on('click touchstart touchend', function (e) {
+                let target = $(this).siblings('input');
+                $(this).toggleClass('fa-eye');
+                $(this).toggleClass('fa-eye-slash');
+                if (target.attr('type') == 'password') {
+                    target.attr('type', 'text');
+                } else {
+                    target.attr('type', 'password');
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>

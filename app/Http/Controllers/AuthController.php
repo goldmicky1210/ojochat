@@ -53,7 +53,8 @@ class AuthController extends Controller
         $this->validate($request, [
             'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
             'email' => 'required|email|unique:users|max:50',
-            'password' => 'required'
+            'password' => 'required|string|min:6',
+            'password_confirm' => 'required_with:password|same:password',
         ], [
             'username.required' => 'The username field is required.',
             'username.unique' => 'Sorry, that username is taken. Please try again.',
@@ -66,6 +67,8 @@ class AuthController extends Controller
             'email.unique' => ' The email already exists.',
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
+            'password.min' => 'The password must be at least 6 characters long',
+            'password_confirm.same' => "The password doesn't macted"
         ]);
     
         $password=$request->input('password');//Str::random(7);

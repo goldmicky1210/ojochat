@@ -165,7 +165,8 @@ $(document).ready(function () {
     });
 
     // Password Setting
-    $('.passwordInput').on('click', 'i', function () {
+    $('.passwordInput i').on('click touchstart touchend', function (e) {
+            console.log(e)
         let target = $(this).siblings('input');
         $(this).toggleClass('fa-eye');
         $(this).toggleClass('fa-eye-slash');
@@ -175,17 +176,16 @@ $(document).ready(function () {
             target.attr('type', 'password');
         }
     });
-    $('.passwordInput i').on('touchstart touchend', function (e) {
-        console.log(e)
-        let target = $(this).siblings('input');
-        $(this).toggleClass('fa-eye');
-        $(this).toggleClass('fa-eye-slash');
-        if (target.attr('type') == 'password') {
-            target.attr('type', 'text');
-        } else {
-            target.attr('type', 'password');
-        }
-    });
+    // $('.passwordInput i').on('touchstart touchend', function (e) {
+    //     let target = $(this).siblings('input');
+    //     $(this).toggleClass('fa-eye');
+    //     $(this).toggleClass('fa-eye-slash');
+    //     if (target.attr('type') == 'password') {
+    //         target.attr('type', 'text');
+    //     } else {
+    //         target.attr('type', 'password');
+    //     }
+    // });
 
     $('.newPassword input').blur( function() {
         if ($(this).val().length < 6) {

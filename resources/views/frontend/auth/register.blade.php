@@ -2,6 +2,7 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/pages/page-auth.css">
+    <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/pages/page-auth.css">
 
     <div class="login-page1">
         <div class="container-fluid p-0"></div>
@@ -30,9 +31,21 @@
                                 </div>
                                 <div class="form-group" {{ $errors->has('password') ? 'has-error' : '' }}>
                                     <label class="col-form-label" for="inputPassword3">Password</label><span> </span>
-                                    <input class="form-control" id="inputPassword3" type="password" name="password"
-                                        placeholder="Password" value="{{ old('password') }}">
+                                    <div class="passwordInput password">
+                                        <input class="form-control" id="inputPassword3" type="password" name="password"
+                                            placeholder="Password" value="{{ old('password') }}">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </div>
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
+                                </div>
+                                <div class="form-group" {{ $errors->has('password_confirm') ? 'has-error' : '' }}>
+                                    <label class="col-form-label" for="inputPassword4">Confirm Password</label><span> </span>
+                                    <div class="passwordInput confirmPassword">
+                                        <input class="form-control" id="inputPassword4" type="password" name="password_confirm"
+                                            placeholder="Confirm Password" value="{{ old('password_confirm') }}">
+                                        <i class="fa fa-eye-slash"></i>
+                                    </div>
+                                    <span class="text-danger">{{ $errors->first('password_confirm') }}</span>
                                 </div>
                                 <div class="form-group">
                                     <div class="buttons"><a class="btn btn-primary button-effect signpbtn" href="#"
