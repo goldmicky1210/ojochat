@@ -484,7 +484,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-header" id="headingTwo" role="heading" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                     <a>Notification<i class="fa fa-angle-down"></i></a>
                                 </div>
                                 <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo"
