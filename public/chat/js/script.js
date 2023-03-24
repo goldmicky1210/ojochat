@@ -1027,8 +1027,8 @@ function setProfileData(userId) {
 
     convertListItems();
     $('#profile_modal .contact-profile').attr('userId', userId);
-    $('#profile_modal .profile-username').html(userInfo.username);
-    $('#profile_modal .contact-profile .name').html(userInfo.firstName || userInfo.username);
+    $('#profile_modal .profile-username').html(userInfo.login_name);
+    $('#profile_modal .contact-profile .name').html(userInfo.username);
     $('#profile_modal .contact-profile .location').html(userInfo.location);
     $('#profile_modal .contact-profile .description').html(userInfo.description);
 
