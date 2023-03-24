@@ -1412,7 +1412,7 @@
                     <div class="theme-title">
                         <div class="media">
                             <div>
-                                <h2>Profile</h2>
+                                <h2 class="profile-username">Profile</h2>
                                 <h4>Personal Information</h4>
                             </div>
                             <div class="media-body text-end"> <a
@@ -3272,7 +3272,7 @@
                         <div class="theme-title">
                             <div class="media">
                                 <div>
-                                    <h2>Profile</h2>
+                                    <h2 class="profile-username">Profile</h2>
                                     <h4>Personal Information</h4>
                                 </div>
                                 <div class="media-body text-end">
@@ -3296,7 +3296,7 @@
                         </div>
                         <div class="details">
                             <div class="contact-top " id="">
-                                <img class="bg-img" src="/images/default-avatar.png" alt="" />
+                                {{-- <img class="bg-img" src="/images/default-avatar.png" alt="" /> --}}
                             </div>
                             <div class="mt-2">
                                 <h3 class="name">John Doe</h3>

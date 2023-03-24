@@ -1017,14 +1017,17 @@ function setProfileData(userId) {
         contactList.find(item => item.id == userId) ? $('#profile_modal .open_chat_btn').show() : $('#profile_modal .open_chat_btn').hide();
     });
     let userInfo = getCertainUserInfoById(userId)
+
     if (userInfo.avatar) {
-        $('#profile_modal .contact-top').css('background-image', `url("v1/api/downloadFile?path=${userInfo.avatar}")`);
+        $('#profile_modal .contact-top').html(`<img class="bg-img" src="v1/api/downloadFile?path=${userInfo.avatar}" alt="Avatar" />`)
     } else {
-        $('#profile_modal .contact-top').css('background-image', `url("/images/default-avatar.png")`);
+        $('#profile_modal .contact-top').html(getNameStr(userInfo.username))
+        $('#profile_modal .contact-top').css('background-image', 'none')
     }
 
-    // convertListItems();
+    convertListItems();
     $('#profile_modal .contact-profile').attr('userId', userId);
+    $('#profile_modal .profile-username').html(userInfo.username);
     $('#profile_modal .contact-profile .name').html(userInfo.firstName || userInfo.username);
     $('#profile_modal .contact-profile .location').html(userInfo.location);
     $('#profile_modal .contact-profile .description').html(userInfo.description);

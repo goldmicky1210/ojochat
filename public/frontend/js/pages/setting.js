@@ -180,6 +180,7 @@ $(document).ready(function () {
             $('.newPassword').siblings('.text-danger').text('Password length should be at least 6');
         }
     })
+    
     $('.newPassword input').focus( function() {
         $('.newPassword').siblings('.text-danger').text('');
     })

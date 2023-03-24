@@ -1122,6 +1122,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 $('#setemoj').removeClass('disabled');
                 $('#send-photo').removeClass('disabled');
                 $('.send_attach_btn').removeClass('disabled');
+                
+
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
                     // setUserProfileContent(contactId);
@@ -1134,17 +1136,29 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     }
                     groupInfo.avatar = $('#direct .chat-main li.active .profile .bg-img').attr('src');
                     groupInfo.title = $('#direct .chat-main li.active .details h5').text();
-                    $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', `url(${groupInfo.avatar})`);
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', contactId);
+                    if (groupInfo.avatar) {
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').html(`<img class="bg-img" src="${groupInfo.avatar}" alt="Avatar" />`)
+                    } else {
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').html(getNameStr(groupInfo.title))
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', 'none')
+                    }
 
                 } else {
                     setGroupProfileContent(groupId);
                     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').attr('key', groupId);
+                    // if (groupInfo.avatar) {
+                    //     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
+                    // } else {
+                    //     $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', '/chat/images/avtar/teq.jpg');
+                    // }
                     if (groupInfo.avatar) {
-                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', `v1/api/downloadFile?path=${groupInfo.avatar}`);
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').html(`<img class="bg-img" src="v1/api/downloadFile?path=${groupInfo.avatar}" alt="Avatar" />`)
                     } else {
-                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger .bg-img').attr('src', '/chat/images/avtar/teq.jpg');
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').html(getNameStr(groupInfo.title))
+                        $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.profile.menu-trigger').css('background-image', 'none')
                     }
+
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
                     groupUsers.split(',').forEach(id => {
@@ -1160,8 +1174,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         </div>`).children('.gr-profile:last-child');
                     });
                     tippy('.gr-profile[data-tippy-content]', { placement: "right" });
-                    convertListItems();
                 }
+                convertListItems();
                 $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.group_title').html(groupInfo.title);
 
                 // show chat page display

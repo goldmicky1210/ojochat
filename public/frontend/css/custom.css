@@ -42,9 +42,6 @@ body {
     font-weight: 600;
     border: none;
 }
-.chitchat-main .message-input textarea {
-    /* height: 60px; */
-}
 
 #detailRequestModal .modal-footer {
     display: flex;
@@ -404,12 +401,6 @@ ul.chatappend .msg-box .camera-icon {
 .receive_photo {
     cursor: pointer;
     border-radius: 15px;
-}
-
-.receive_photo,
-.file_photo {
-    /* border: 1px solid gray; */
-    /* border-radius: 15px; */
 }
 
 .msg-setting-main {

@@ -27503,10 +27503,6 @@ ul.grop-icon li img {
     margin-bottom: 16px
 }
 
-.menu-trigger {
-    cursor: pointer
-}
-
 .menu-active .chitchat-right-sidebar {
     opacity: 1;
     right: 0;
@@ -27525,7 +27521,11 @@ ul.grop-icon li img {
 }
 
 .menu-trigger {
-    cursor: pointer
+    cursor: pointer;
+    background-color: cyan;
+    text-align: center;
+    line-height: 50px;
+    font-size: 22px;
 }
 
 .sidebar-active .sidebar-toggle .main-nav.on~.chitchat-main .message-input {

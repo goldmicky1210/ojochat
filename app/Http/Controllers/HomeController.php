@@ -181,7 +181,7 @@ class HomeController extends Controller
             $belongGroup = Group::where('id', $groupId)->get(['id as group_id', 'title', 'type']);
         }  
         foreach($belongGroup as $group) {
-            $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->get(['sender', 'group_id', 'content']);
+            $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->get(['sender', 'group_id', 'content']);
             foreach($messageData as $item) {
                 $tempData = PhotoGallery::where('id', $item['content'])->first();
                 $item['id'] = $tempData['id'];
