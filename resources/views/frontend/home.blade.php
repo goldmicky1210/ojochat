@@ -1413,7 +1413,6 @@
                         <div class="media">
                             <div>
                                 <h2 class="profile-username">Profile</h2>
-                                <h4>Personal Information</h4>
                             </div>
                             <div class="media-body text-end"> <a
                                     class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#"> <i
@@ -3273,7 +3272,6 @@
                             <div class="media">
                                 <div>
                                     <h2 class="profile-username">Profile</h2>
-                                    <h4>Personal Information</h4>
                                 </div>
                                 <div class="media-body text-end">
                                     <div class="open_chat_btn">
