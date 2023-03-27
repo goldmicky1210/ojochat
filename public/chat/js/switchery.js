@@ -1686,7 +1686,7 @@ Switchery.prototype.insertAfter = function(reference, target) {
  */
 
 Switchery.prototype.setPosition = function (clicked) {
-  var checked = this.isChecked()
+	var checked = this.isChecked()
     , switcher = this.switcher
     , jack = this.jack;
 

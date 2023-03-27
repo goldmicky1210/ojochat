@@ -1058,14 +1058,17 @@ function setProfileData(userId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-            if (res.state == 'true') {
                 let { data } = res;
-                console.log(res)
-                let notificationState = data.notification ? false : true;
-                $(".notification-switch").prop('checked', notificationState).trigger('click');
-                let blockState = res.blockState ? false : true;
-                $(".block-switch").prop('checked', blockState).trigger('click');
-            }
+                console.log(res.blockState)
+                if (data) {
+                    let notificationState = data.notification ? false : true;
+                    // $(".notification-switch").prop('checked', notificationState).trigger('click');
+                }
+                // let blockState = res.blockState ? false : true;
+                let blockState = res.blockState ? true : false;
+                blockSwich.checked = blockState;
+                // blockSwichery.handleOnchange(blockState);
+                toggleSwitchery(blockSwich, blockSwichery)
         },
         error: function (response) { }
     });
@@ -1131,3 +1134,13 @@ function setProfileRateData(data) {
     document.querySelector('#profile_modal .content-rating-list .video-call-rating')._tippy.setContent(videoCallRate.toFixed(2))
     document.querySelector('#profile_modal .content-rating-list .voice-call-rating')._tippy.setContent(voiceCallRate.toFixed(2))
 }
+
+function toggleSwitchery(switchElement, swicheryElement) {
+    // Destroy any existing Switchery instance on the switch element
+    if (switchElement.nextElementSibling !== null && switchElement.nextElementSibling.classList.contains('switchery')) {
+      switchElement.parentNode.removeChild(switchElement.nextElementSibling);
+    }
+  
+    // Create a new Switchery instance on the switch element
+    swicheryElement = new Switchery(switchElement, { color: '#3fcc35', size: 'small' });
+  }

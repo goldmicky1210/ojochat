@@ -17,12 +17,14 @@ let globalGroupUsers;
 let rateData;
 let recentChatUsers;
 let readReceiptsStatus;
+let blockList;
 $(document).ready(() => {
 
     // cache function
     getContactorInfoByGroupId = cachingDecorator(getContactorInfoByGroupId)
 
     new Promise(resolve => {
+        getBlockList();
         getUsersList(resolve);
     }).then(() => {
         $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
@@ -142,14 +144,15 @@ function getRecentChatUsers(type) {
         async: false,
         success: function (res) {
             if (res.state == 'true') {
-                globalGroupId = res.data.slice(-1)[0] ? res.data.slice(-1)[0].id : 0;
-                globalGroupUsers = res.data.slice(-1)[0] ? res.data.slice(-1)[0].users.join(',') : '';
+                let threadList = res.data.filter(item => !blockList.includes(item.id));
+                globalGroupId = threadList.slice(-1)[0] ? threadList.slice(-1)[0].id : 0;
+                globalGroupUsers = threadList.slice(-1)[0] ? threadList.slice(-1)[0].users.join(',') : '';
                 var itemTarget = `#myTabContent1 .tab-pane:nth-child(${type}) ul.chat-main`;
                 var messageTarget = `.messages:nth-of-type(${type + 1}) .chatappend`;
                 if (type == 1) {
                     currentDirectId = globalGroupId;
                     currentDirectUsers = globalGroupUsers;
-                    recentChatUsers = res.data.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
+                    recentChatUsers = threadList.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
                     displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     currentGroupId = globalGroupId;
@@ -164,7 +167,7 @@ function getRecentChatUsers(type) {
                     $(messageTarget).empty();
                 }
                 $(itemTarget).empty();
-                res.data.forEach(item => {
+                threadList.forEach(item => {
                     if (item.lastMessage) {
                         let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
@@ -1059,4 +1062,27 @@ function setCurrentUserInfo() {
     let userInfo = getCertainUserInfoById(currentUserId);
     readReceiptsStatus = userInfo.read_receipts ? false : true;
     $(".read-receipts-switch").prop('checked', readReceiptsStatus).trigger('click');
+}
+
+function getBlockList() {
+    let result
+    $.ajax({
+        url: '/home/getBlockList',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        async: false,
+        success: function (res) {
+            console.log(res.data);
+            blockList = res.data.map(item => item.group_id)
+            result = blockList
+        },
+        error: function (response) { }
+    });
+    return result;
 }

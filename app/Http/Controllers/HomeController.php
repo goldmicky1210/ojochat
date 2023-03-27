@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Http;
 
 use App\Models\Group;
 use App\Models\UsersGroup;
+use App\Models\Block;
 use Illuminate\Support\Collection;
 
 class HomeController extends Controller
@@ -48,6 +49,7 @@ class HomeController extends Controller
         $type = $request->input('type');
         $groupArrs = User::join('users_groups', 'users.id', '=', 'users_groups.user_id')
         ->join('groups', 'users_groups.group_id', '=', 'groups.id')
+        // ->join('blocks', 'users_groups.user_id', '=', 'blocks.user_id')
         ->where('users.id', $id)
         ->where('groups.type', $type)
         ->where('deleted', 0)
@@ -561,5 +563,14 @@ class HomeController extends Controller
         });
         
         return array('state'=>'true','messageData'=>$messages);
+    }
+
+    public function getBlockList(Request $request) {
+        $userId = Auth::id();
+        $result = Block::where('user_id', $userId)->get();
+        if (count($result)) {
+            return array('state'=>'true', 'data'=>$result);
+        }
+        return array('state'=>'no data', 'data'=>array());
     }
 }

@@ -52,10 +52,11 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/home/removeSavedBlink', 'HomeController@removeSavedBlink');
     Route::post('/home/getBlinkData', 'HomeController@getBlinkData');
     Route::post('/home/isContact', 'HomeController@isContact');
+    Route::post('/home/getPaymentHistories', 'HomeController@getPaymentHistories');
+    Route::post('/home/getBlockList', 'HomeController@getBlockList');
     Route::post('/message/getLastMessage', 'MessageController@getLastMessage');
     Route::post('/api/create-paypal-transaction', 'PaymentController@createPayment');
     Route::post('/api/confirm-paypal-transaction', 'PaymentController@confirmPayment');
-    Route::post('/home/getPaymentHistories', 'HomeController@getPaymentHistories');
     Route::get('/stripe', 'StripeController@stripe');
     Route::post('/stripe', 'StripeController@stripePost')->name('stripe.post');
     Route::post('/setting/setPhoneNumber', 'SettingController@setPhoneNumber');

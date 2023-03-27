@@ -11,14 +11,15 @@
 // 02. calling timer js
 // 03 .Add class to body for identify this is application page
 // 04. Mobile responsive screens
-
+let blockSwich
+let blockSwichery
 (function($) {
     "use strict";
     /*=====================
       01. Switchery  js
       ==========================*/
-    var elem = document.querySelector('.js-switch');
-    var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
+    blockSwich = document.querySelector('.js-switch');
+    blockSwichery = new Switchery(blockSwich, { color: '#3fcc35', size: 'small' });
     // var elem = document.querySelector('.js-switch1');
     // var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch2');
