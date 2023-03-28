@@ -31,8 +31,8 @@ let blockSwichery
     var elem = document.querySelector('.js-switch7');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch8');
-    var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
-    var elem = document.querySelector('.js-switch9');
+    // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
+    // var elem = document.querySelector('.js-switch9');
     var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     var elem = document.querySelector('.js-switch10');
     var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });

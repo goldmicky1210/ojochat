@@ -518,25 +518,6 @@
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can see last
                                                     seen or not.</p>
                                             </li>
-                                            {{-- <li>
-                                                <h5>Profile Photo</h5>
-                                                <input class="js-switch11" type="checkbox" />
-                                                <p>
-                                                    turn on this setting to whether your contact can see your profile or
-                                                    not.</p>
-                                            </li>
-                                            <li>
-                                                <h5>About</h5>
-                                                <input class="js-switch12" type="checkbox" />
-                                                <p> <b>Note : </b>turn on this setting to whether your contact can see about
-                                                    status or not.</p>
-                                            </li>
-                                            <li>
-                                                <h5>Status</h5>
-                                                <input class="js-switch14" type="checkbox" />
-                                                <p> <b>Note : </b>turn on this setting to whether your contact can see your
-                                                    status or not. </p>
-                                            </li> --}}
                                             <li>
                                                 <h5>Read receipts</h5>
                                                 <input class="js-switch16 read-receipts-switch" type="checkbox" />
@@ -550,28 +531,10 @@
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can add in
                                                     groups or not. </p>
                                             </li>
+                                            <li>
+                                                <h5 class="block-user-list-btn">Block Users</h5>
+                                            </li>
                                         </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="headingThree" role="heading" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <a>Two Step verification<i class="fa fa-angle-down"></i></a>
-                                </div>
-                                <div class="collapse" id="collapseThree" aria-labelledby="headingThree"
-                                    data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <h5>Enable</h5>
-                                            </div>
-                                            <div class="media-right">
-                                                <input class="js-switch9" type="checkbox" />
-                                            </div>
-                                        </div>
-                                        <p> <b>Note : </b>For added security, enable two-step verifiation, which will
-                                            require a PIN when registering your phone number with Ojochat again.</p>
                                     </div>
                                 </div>
                             </div>
@@ -635,6 +598,27 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- <div class="card">
+                                <div class="card-header" id="headingThree" role="heading" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <a>Two Step verification<i class="fa fa-angle-down"></i></a>
+                                </div>
+                                <div class="collapse" id="collapseThree" aria-labelledby="headingThree"
+                                    data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <h5>Enable</h5>
+                                            </div>
+                                            <div class="media-right">
+                                                <input class="js-switch9" type="checkbox" />
+                                            </div>
+                                        </div>
+                                        <p> <b>Note : </b>For added security, enable two-step verifiation, which will
+                                            require a PIN when registering your phone number with Ojochat again.</p>
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="card">
                                 <div class="card-header" id="headingSix" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">

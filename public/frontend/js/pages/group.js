@@ -36,7 +36,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#custom_modal').on('click','.follow_btn', function (e) {
+    $('#custom_modal').on('click', '.follow_btn', function (e) {
         e.stopPropagation()
         let followId = $(this).closest('.user_item').attr('key');
         $(this).find('.icon-btn').prop('disabled', true)
@@ -59,7 +59,7 @@ $(document).ready(function () {
             })
         }
     });
-    $('#profile_modal').on('click','.follow_btn', function (e) {
+    $('#profile_modal').on('click', '.follow_btn', function (e) {
         e.stopPropagation()
         let followId = $(this).closest('.contact-profile').attr('userId');
         if (currentUserId != followId) {
@@ -400,7 +400,7 @@ $(document).ready(function () {
             if (document.visibilityState == "visible") {
                 if (currentContactId == data.sender) {
                     //unread -> read
-                    
+
                     socket.emit('read:message', data);
                 }
             } else {
@@ -626,11 +626,11 @@ $(document).ready(function () {
         socket.emit('edit:groupUsers', { groupId, groupUsers }, (res) => {
             if (res.status == 'OK') {
                 let groupUsersTarget = $(`.messages.active`).find('.groupuser');
-                    groupUsersTarget.empty();
-                    groupUsers.split(',').forEach(id => {
-                        let userInfo = getCertainUserInfoById(id);
-                        let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
-                        groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">
+                groupUsersTarget.empty();
+                groupUsers.split(',').forEach(id => {
+                    let userInfo = getCertainUserInfoById(id);
+                    let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
+                    groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">
                         ${avatar ?
                             `<img class="bg-img" src="${avatar}" alt="Avatar" />`
                             :
@@ -638,9 +638,9 @@ $(document).ready(function () {
                         }
 
                         </div>`).children('.gr-profile:last-child');
-                    });
-                    tippy('.gr-profile[data-tippy-content]', { placement: "right" });
-                    convertListItems();
+                });
+                tippy('.gr-profile[data-tippy-content]', { placement: "right" });
+                convertListItems();
                 // $('#group-tab').click();
                 // $('#myTab1 .nav-item .nav-link.active').click();
             }
@@ -809,12 +809,12 @@ function getNameStr(nameStr = '') {
     }
     return str;
 }
-function addUsersListItem(target, data, statusItem) {
-    if (!blockUserList.includes(data.id)) {
+function addUsersListItem(target, data, statusItem, blockFlag) {
+    if (blockFlag) {
         if ($(target).parents('.modal').length) {
             $(target).append(
                 `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
-                    ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                    ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                     <div class="photoRating">
                         <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                     </div>
@@ -832,7 +832,7 @@ function addUsersListItem(target, data, statusItem) {
                 `<li class="user_item" data-to="blank" key="${data.id}">
                     <div class="chat-box">
                         <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
-                        ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                        ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                         </div>
                         <div class="details">
                             <h5>${data.username}</h5>
@@ -850,10 +850,51 @@ function addUsersListItem(target, data, statusItem) {
         }
         getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
     } else {
-        console.log('==========')
-        console.log(data.id, ' blocked')
-        console.log('==========')
+        if (!blockUserList.includes(data.id)) {
+            if ($(target).parents('.modal').length) {
+                $(target).append(
+                    `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
+                        ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                        <div class="photoRating">
+                            <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                        </div>
+                        <div class="details">
+                            <h5>${data.username}</h5>
+                            <h6>${data.description || ''}</h6>
+                        </div>
+                        <div class="date-status">
+                            ${statusItem}
+                        </div>
+                    </li>`
+                );
+            } else {
+                $(target).append(
+                    `<li class="user_item" data-to="blank" key="${data.id}">
+                        <div class="chat-box">
+                            <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
+                            ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                            </div>
+                            <div class="details">
+                                <h5>${data.username}</h5>
+                                <h6>${data.description || ''}</h6>
+                                <div class="photoRating">
+                                    <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                                </div>
+                            </div>
+                            <div class="date-status">
+                                ${statusItem}
+                            </div>
+                        </div>
+                    </li>`
+                );
+            }
+            getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
+        } else {
+            console.log('==========')
+            console.log(data.id, ' blocked')
+            console.log('==========')
 
+        }
     }
 }
 
@@ -880,10 +921,10 @@ function addNewGroupItem(target, data) {
             <div class="group-box">
                 <div class="profile">
                 ${avatar ?
-                    `<img class="bg-img" src="v1/api/downloadFile?path=${avatar}" alt="Avatar" />`
-                    :
-                    getNameStr(title)
-                }
+            `<img class="bg-img" src="v1/api/downloadFile?path=${avatar}" alt="Avatar" />`
+            :
+            getNameStr(title)
+        }
                 </div>
                 <div class="details">
                     <h5>${title}</h5>
@@ -1129,7 +1170,7 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                 $('#setemoj').removeClass('disabled');
                 $('#send-photo').removeClass('disabled');
                 $('.send_attach_btn').removeClass('disabled');
-                
+
 
                 if (pageSettingFlag == 1) {
                     let contactId = $('#direct .chat-main>li.active').attr('groupUsers').split(',').find(id => id != currentUserId);
@@ -1173,10 +1214,10 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
                         groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">
                         ${avatar ?
-                            `<img class="bg-img" src="${avatar}" alt="Avatar" />`
-                            :
-                            getNameStr(userInfo.username)
-                        }
+                                `<img class="bg-img" src="${avatar}" alt="Avatar" />`
+                                :
+                                getNameStr(userInfo.username)
+                            }
 
                         </div>`).children('.gr-profile:last-child');
                     });

@@ -164,8 +164,42 @@ $(document).ready(function () {
         });
     });
 
+    // block user list setting
+    $('.block-user-list-btn').on('click', function (e) {
+        $('#custom_modal').modal('show');
+
+        $('#custom_modal').find('.sub_title').hide();
+        $('#custom_modal').find('.btn_group .btn').hide();
+        $('#custom_modal').find('.modal-title').text('Block Users');
+
+        let target = '#custom_modal .chat-main';
+        $(target).empty();
+
+        let usersList = blockUserList.map(item => getCertainUserInfoById(item))
+        usersList.forEach(item => {
+            let follwStatus = isFollowing(item.id);
+            let statusItem = `
+                <div class="thread_info">
+                    <div class="follow_btn">
+                        <a class="icon-btn ${follwStatus ? 'btn-outline-danger' : 'btn-outline-primary'} button-effect btn-xs" href="#" title=${follwStatus ? 'UnFollow' : 'Follow'}>
+                            <i class="${follwStatus ? 'ti-heart-broken' : 'ti-heart'}"></i>
+                        </a>
+                    </div>
+                    <div class="contact_request_btn">
+                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                            <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+                        </a>
+                    </div>
+                </div>
+            `;
+            addUsersListItem(target, item, statusItem, 'blockflag')
+
+        });
+
+    });
+
     // Password Setting
-    
+
     $('.passwordInput i').on('click touchstart touchend', function (e) {
         let target = $(this).siblings('input');
         $(this).toggleClass('fa-eye');
@@ -174,27 +208,26 @@ $(document).ready(function () {
         target.attr('type', type);
     });
 
-    $('.newPassword input').blur( function() {
+    $('.newPassword input').blur(function () {
         if ($(this).val().length < 6) {
-            console.log($(this).val())
             $('.newPassword').siblings('.text-danger').text('Password length should be at least 6');
         }
     })
-    
-    $('.newPassword input').focus( function() {
+
+    $('.newPassword input').focus(function () {
         $('.newPassword').siblings('.text-danger').text('');
     })
-    $('.confirmNewPassword input').focus( function() {
+    $('.confirmNewPassword input').focus(function () {
         $('.confirmNewPassword').siblings('.text-danger').text('');
     })
 
     $('.changePasswordTab').on('click', '.changePasswordBtn', function () {
         let newPassword = $('.newPassword input').val();
         let confirmNewPassword = $('.confirmNewPassword input').val();
-        if (newPassword.length >=6 && newPassword === confirmNewPassword) {
+        if (newPassword.length >= 6 && newPassword === confirmNewPassword) {
             let form_data = new FormData();
-            form_data.append('id', currentUserId); 
-            form_data.append('password', newPassword); 
+            form_data.append('id', currentUserId);
+            form_data.append('password', newPassword);
             $.ajax({
                 url: '/updatePassword',
                 headers: {
@@ -215,11 +248,13 @@ $(document).ready(function () {
                     }
                 },
                 error: function (response) {
-    
+
                 }
             });
         } else {
             $('.confirmNewPassword').siblings('.text-danger').text("Password doesn't match");
         }
     })
+
+
 })
