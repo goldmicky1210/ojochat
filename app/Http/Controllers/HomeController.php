@@ -567,7 +567,7 @@ class HomeController extends Controller
 
     public function getBlockList(Request $request) {
         $userId = Auth::id();
-        $result = Block::where('user_id', $userId)->get();
+        $result = Block::where('user_id', $userId)->orWhere('block_id', $userId)->get();
         if (count($result)) {
             return array('state'=>'true', 'data'=>$result);
         }

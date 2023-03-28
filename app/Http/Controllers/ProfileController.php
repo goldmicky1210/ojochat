@@ -87,22 +87,23 @@ class ProfileController extends Controller
     }
 
     public function setProfileSetting(Request $request) {
-        $groupId = $request->input('groupId');
         $state = $request->input('state');
         $fieldName = $request->input('fieldName');
         if ($fieldName == 'notification') {
+            $groupId = $request->input('groupId');
             $group = Group::find($groupId);
             $group[$fieldName] = $state;
             $group->updated_at = date('Y-m-d H:i:s');
             $group->save();
         } else if ($fieldName == 'block') {
+            $blockId = $request->input('blockId');
             $userId = Auth::id();
             if ($state == 1) {
-                $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
+                $blockState = Block::where('user_id', $userId)->where('block_id', $blockId)->first();
                 if (!$blockState) {
                     Block::create([
                         'user_id' => $userId,
-                        'group_id' => $groupId
+                        'block_id' => $blockId
                     ]);
                 }
                 return array(
@@ -110,7 +111,7 @@ class ProfileController extends Controller
                     'status' => true,
                 );
             } else {
-                Block::where('user_id', $userId)->where('group_id', $groupId)->delete();
+                Block::where('user_id', $userId)->where('block_id', $blockId)->delete();
                 return array(
                     'message' => 'Remove Block Successfully',
                     'status' => true,

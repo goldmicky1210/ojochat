@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Block extends Model
 {
-    protected $fillable = ['user_id', 'group_id'];
+    protected $fillable = ['user_id', 'block_id'];
 
 }

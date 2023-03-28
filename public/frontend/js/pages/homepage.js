@@ -17,7 +17,8 @@ let globalGroupUsers;
 let rateData;
 let recentChatUsers;
 let readReceiptsStatus;
-let blockList;
+let blockGroupList;
+let blockUserList;
 $(document).ready(() => {
 
     // cache function
@@ -144,7 +145,7 @@ function getRecentChatUsers(type) {
         async: false,
         success: function (res) {
             if (res.state == 'true') {
-                let threadList = res.data.filter(item => !blockList.includes(item.id));
+                let threadList = res.data.filter(item => !blockGroupList.includes(item.id));
                 globalGroupId = threadList.slice(-1)[0] ? threadList.slice(-1)[0].id : 0;
                 globalGroupUsers = threadList.slice(-1)[0] ? threadList.slice(-1)[0].users.join(',') : '';
                 var itemTarget = `#myTabContent1 .tab-pane:nth-child(${type}) ul.chat-main`;
@@ -1078,9 +1079,9 @@ function getBlockList() {
         dataType: "json",
         async: false,
         success: function (res) {
-            console.log(res.data);
-            blockList = res.data.map(item => item.group_id)
-            result = blockList
+            blockUserList = Array.from(new Set(res.data.map(item => item.user_id == currentUserId?item.block_id : item.block_id==currentUserId?item.user_id: ''))).filter(item => item);
+            blockGroupList = blockUserList.map(item => getDirectGroupId(item)).filter(item => item);
+            result = blockUserList
         },
         error: function (response) { }
     });

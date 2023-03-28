@@ -810,44 +810,51 @@ function getNameStr(nameStr = '') {
     return str;
 }
 function addUsersListItem(target, data, statusItem) {
-    if ($(target).parents('.modal').length) {
-        $(target).append(
-            `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
-                ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
-                <div class="photoRating">
-                    <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                </div>
-                <div class="details">
-                    <h5>${data.username}</h5>
-                    <h6>${data.description || ''}</h6>
-                </div>
-                <div class="date-status">
-                    ${statusItem}
-                </div>
-            </li>`
-        );
-    } else {
-        $(target).append(
-            `<li class="user_item" data-to="blank" key="${data.id}">
-                <div class="chat-box">
-                    <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
+    if (!blockUserList.includes(data.id)) {
+        if ($(target).parents('.modal').length) {
+            $(target).append(
+                `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
                     ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                    <div class="photoRating">
+                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
                     </div>
                     <div class="details">
                         <h5>${data.username}</h5>
                         <h6>${data.description || ''}</h6>
-                        <div class="photoRating">
-                            <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                        </div>
                     </div>
                     <div class="date-status">
                         ${statusItem}
                     </div>
-                </div>
-            </li>`
-        );
+                </li>`
+            );
+        } else {
+            $(target).append(
+                `<li class="user_item" data-to="blank" key="${data.id}">
+                    <div class="chat-box">
+                        <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
+                        ${data.avatar ? "": `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
+                        </div>
+                        <div class="details">
+                            <h5>${data.username}</h5>
+                            <h6>${data.description || ''}</h6>
+                            <div class="photoRating">
+                                <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
+                            </div>
+                        </div>
+                        <div class="date-status">
+                            ${statusItem}
+                        </div>
+                    </div>
+                </li>`
+            );
+        }
+        getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
+    } else {
+        console.log('==========')
+        console.log(data.id, ' blocked')
+        console.log('==========')
+
     }
-    getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
 }
 
 function addNewGroupItem(target, data) {

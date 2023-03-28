@@ -13,9 +13,13 @@ $(document).ready(() => {
 function setProfileSetting(fieldName, state) {
     var form_data = new FormData();
     let userId = $('#profile_modal .contact-profile').attr('userId');
-    let directGroupId = getDirectGroupId(userId);
-    form_data.append('groupId', directGroupId);
-
+    
+    if (fieldName == 'block') {
+        form_data.append('blockId', userId);
+    } else if (fieldName == 'notification') {
+        let directGroupId = getDirectGroupId(userId);
+        form_data.append('groupId', directGroupId);
+    }
     form_data.append('fieldName', fieldName);
     form_data.append('state', state);
 

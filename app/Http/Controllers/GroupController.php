@@ -37,9 +37,10 @@ class GroupController extends Controller
         $userId = Auth::id();
         $groupId = $request->input('groupId');
         $result = Group::where('id', $groupId)->first();
-        $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
+        // $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
         if ($result) {
-            return array('state' => 'true', 'data' => $result, 'blockState'=> $blockState);
+            // return array('state' => 'true', 'data' => $result, 'blockState'=> $blockState);
+            return array('state' => 'true', 'data' => $result);
         } else {
             return array('state' => 'false');
         }

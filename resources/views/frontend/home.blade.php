@@ -860,7 +860,7 @@
                             <div class="col-7">
                                 <div class="media left">
                                     <div class="media-left me-3">
-                                        <div class="profile online menu-trigger">
+                                        <div class="profile menu-trigger">
                                             <img class="bg-img" src="/images/default-avatar.png" alt="Avatar" />
                                         </div>
                                     </div>
@@ -924,7 +924,7 @@
                             <div class="col-7">
                                 <div class="media left">
                                     <div class="media-left me-3">
-                                        <div class="profile online menu-trigger"><img class="bg-img"
+                                        <div class="profile menu-trigger"><img class="bg-img"
                                                 src="/chat/images/avtar/teq.jpg" alt="Avatar" /></div>
                                     </div>
                                     <div class="media-body">
@@ -1009,7 +1009,7 @@
                             <div class="col-7">
                                 <div class="media left">
                                     <div class="media-left me-3">
-                                        <div class="profile online menu-trigger"><img class="bg-img"
+                                        <div class="profile menu-trigger"><img class="bg-img"
                                                 src="/chat/images/avtar/teq.jpg" alt="Avatar" /></div>
                                     </div>
                                     <div class="media-body">
@@ -1083,7 +1083,7 @@
                             <div class="col">
                                 <div class="media left">
                                     <div class="media-left me-3">
-                                        <div class="profile online menu-trigger"><img class="bg-img"
+                                        <div class="profile menu-trigger"><img class="bg-img"
                                                 src="/images/default-avatar.png" alt="Avatar" /></div>
                                     </div>
                                     <div class="media-body">

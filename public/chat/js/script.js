@@ -1045,6 +1045,7 @@ function setProfileData(userId) {
     let directGroupId = getDirectGroupId(userId);
     // Notification and Block Switch Status
     let form_data1 = new FormData();
+    // form_data1.append('userId', userId);
     form_data1.append('groupId', directGroupId);
     $.ajax({
         url: '/group/getGroupInfo',
@@ -1059,13 +1060,12 @@ function setProfileData(userId) {
         dataType: "json",
         success: function (res) {
                 let { data } = res;
-                console.log(res.blockState)
                 if (data) {
                     let notificationState = data.notification ? false : true;
                     // $(".notification-switch").prop('checked', notificationState).trigger('click');
                 }
                 // let blockState = res.blockState ? false : true;
-                let blockState = res.blockState ? true : false;
+                let blockState = blockGroupList.includes(directGroupId) ? true : false;
                 blockSwich.checked = blockState;
                 // blockSwichery.handleOnchange(blockState);
                 toggleSwitchery(blockSwich, blockSwichery)

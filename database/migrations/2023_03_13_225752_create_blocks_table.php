@@ -16,7 +16,7 @@ class CreateBlocksTable extends Migration
         Schema::create('blocks', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('group_id');
+            $table->integer('block_id');
             
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

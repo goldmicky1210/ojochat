@@ -46476,7 +46476,8 @@ footer .footer-mobile-title {
     .chitchat-main .messages .contact-details .profile {
         width: 40px;
         height: 40px;
-        border-radius: 15px
+        border-radius: 15px;
+        line-height: 40px;
     }
     .sidebar-toggle .main-nav.on~.chitchat-main .messages .contact-details {
         width: 93.5vw !important
