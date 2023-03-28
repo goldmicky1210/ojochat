@@ -26,7 +26,7 @@ class AddReadReceiptsUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('notification');
+            $table->dropColumn('read_receipts');
         });
     }
 }
