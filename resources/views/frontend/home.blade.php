@@ -532,7 +532,7 @@
                                                     groups or not. </p>
                                             </li>
                                             <li>
-                                                <h5 class="block-user-list-btn">Block Users</h5>
+                                                <h5 class="block-user-list-btn">Blocked Users</h5>
                                             </li>
                                         </ul>
                                     </div>

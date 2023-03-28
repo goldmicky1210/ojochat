@@ -170,7 +170,7 @@ $(document).ready(function () {
 
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
-        $('#custom_modal').find('.modal-title').text('Block Users');
+        $('#custom_modal').find('.modal-title').text('Blocked Users');
 
         let target = '#custom_modal .chat-main';
         $(target).empty();
