@@ -101,6 +101,7 @@ $(document).ready(function () {
             error: function (response) { }
         });
     });
+    
 
     // wallpaper setting
     $('#backgroundImageFileSelect').on('change', function (e) {

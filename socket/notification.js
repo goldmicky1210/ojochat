@@ -91,8 +91,11 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
 exports.sendSMS = (sender, recipient, data) => {
     if (sender != recipient) {
         db.query(`SELECT * FROM users WHERE id = ${recipient}`, (error, row) => {
-            if (row.length) {
-                if (row[0].notification) {
+            console.log(recipient)
+            console.log(row)
+            if (row[0].notification) {
+                console.log('aaa')
+                    if (row.length) {
                     var val = Math.floor(100000 + Math.random() * 900000);
                     let phoneNumber = row[0].phone_number.replace(/[^0-9]/g, '');
                     let isoCode2 = row[0].national.toUpperCase();

@@ -95,6 +95,11 @@ class ProfileController extends Controller
             $group[$fieldName] = $state;
             $group->updated_at = date('Y-m-d H:i:s');
             $group->save();
+            return array(
+                'message' => 'notification Successfully',
+                'status' => true,
+                'data' => $group
+            );
         } else if ($fieldName == 'block') {
             $blockId = $request->input('blockId');
             $userId = Auth::id();

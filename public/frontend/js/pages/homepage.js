@@ -1061,8 +1061,14 @@ function searchList() {
 
 function setCurrentUserInfo() {
     let userInfo = getCertainUserInfoById(currentUserId);
-    readReceiptsStatus = userInfo.read_receipts ? false : true;
-    $(".read-receipts-switch").prop('checked', readReceiptsStatus).trigger('click');
+    readReceiptsStatus = userInfo.read_receipts ? true : false;
+    readReceiptsSwitch.checked = readReceiptsStatus;
+    toggleSwitchery(readReceiptsSwitch, readReceiptsSwitchery)
+
+    //notification switch
+    let notificationState = userInfo.notification ? true : false;
+    selfNotificationSwitch.checked = notificationState;
+    toggleSwitchery(selfNotificationSwitch, selfNotificationSwitchery)
 }
 
 function getBlockList() {

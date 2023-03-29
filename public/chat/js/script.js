@@ -547,9 +547,6 @@
 
         $('.smsTestBtns .btn').removeClass('active');
         $(`.smsTestBtns .btn:nth-child(${userData.sms_type})`).addClass('active');
-        //notification switch
-        let notificationState = userData.notification ? false : true;
-        $(".js-switch8").prop('checked', notificationState).trigger('click')
 
         $(".sidebar-top  a").removeClass("active");
         $(this).addClass("active");
@@ -1061,15 +1058,14 @@ function setProfileData(userId) {
         success: function (res) {
                 let { data } = res;
                 if (data) {
-                    let notificationState = data.notification ? false : true;
-                    // $(".notification-switch").prop('checked', notificationState).trigger('click');
+                    let notificationState = data.notification ? true : false;
+                    notificationSwitch.checked = notificationState;
+                    toggleSwitchery(notificationSwitch, notificationSwitchery)
                 }
-                // let blockState = res.blockState ? false : true;
                 let blockState = blockGroupList.includes(directGroupId) ? true : false;
-                blockSwich.checked = blockState;
-                // blockSwichery.handleOnchange(blockState);
-                toggleSwitchery(blockSwich, blockSwichery)
-        },
+                blockSwitch.checked = blockState;
+                toggleSwitchery(blockSwitch, blockSwitchery)
+            },
         error: function (response) { }
     });
 
@@ -1142,5 +1138,5 @@ function toggleSwitchery(switchElement, swicheryElement) {
     }
   
     // Create a new Switchery instance on the switch element
-    swicheryElement = new Switchery(switchElement, { color: '#3fcc35', size: 'small' });
+    swicheryElement = new Switchery(switchElement, { color: '#1c9dea', size: 'small' });
   }

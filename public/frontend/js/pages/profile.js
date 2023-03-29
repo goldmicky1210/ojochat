@@ -5,8 +5,6 @@ $(document).ready(() => {
     });
     $('.block-switch').on('change', () => {
         let state = $('.block-switch').prop('checked') ? 1 : 0;
-        console.log('=========')
-        console.log(state)
         setProfileSetting('block', state)
     });
 })

@@ -11,29 +11,34 @@
 // 02. calling timer js
 // 03 .Add class to body for identify this is application page
 // 04. Mobile responsive screens
-let blockSwich
-let blockSwichery
+let blockSwitch
+let blockSwitchery
+let notificationSwitch
+let notificationSwitchery
+let selfNotificationSwitch
+let selfNotificationSwitchery
+let readReceiptsSwitch
+let readReceiptsSwitchery
 (function($) {
     "use strict";
     /*=====================
       01. Switchery  js
       ==========================*/
-    blockSwich = document.querySelector('.js-switch');
-    blockSwichery = new Switchery(blockSwich, { color: '#3fcc35', size: 'small' });
-    // var elem = document.querySelector('.js-switch1');
-    // var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
-    var elem = document.querySelector('.js-switch2');
-    var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
+    blockSwitch = document.querySelector('.js-switch');
+    blockSwitchery = new Switchery(blockSwitch, { color: '#1c9dea', size: 'small' });
+    notificationSwitch = document.querySelector('.js-switch2');
+    notificationSwitchery = new Switchery(notificationSwitch, { color: '#1c9dea', size: 'small' });
+    selfNotificationSwitch = document.querySelector('.js-switch8');
+    selfNotificationSwitchery = new Switchery(selfNotificationSwitch, { color: '#1c9dea', size: 'small' });
+    readReceiptsSwitch = document.querySelector('.js-switch16');
+    readReceiptsSwitchery = new Switchery(readReceiptsSwitch, { color: '#1c9dea', size: 'small' });
+
     var elem = document.querySelector('.js-switch5');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch6');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
     var elem = document.querySelector('.js-switch7');
     var init = new Switchery(elem, { color: '#3fcc35', size: 'small' });
-    var elem = document.querySelector('.js-switch8');
-    // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
-    // var elem = document.querySelector('.js-switch9');
-    var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     var elem = document.querySelector('.js-switch10');
     var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     // var elem = document.querySelector('.js-switch11');
@@ -44,8 +49,6 @@ let blockSwichery
     var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     // var elem = document.querySelector('.js-switch14');
     // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
-    var elem = document.querySelector('.js-switch16');
-    var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
     // var elem = document.querySelector('.js-switch17');
     // var init = new Switchery(elem, { color: '#1c9dea', size: 'small' });
 
