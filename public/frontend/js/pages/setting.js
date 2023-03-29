@@ -101,7 +101,7 @@ $(document).ready(function () {
             error: function (response) { }
         });
     });
-    
+
 
     // wallpaper setting
     $('#backgroundImageFileSelect').on('change', function (e) {
@@ -169,14 +169,15 @@ $(document).ready(function () {
     $('.block-user-list-btn').on('click', function (e) {
         $('#custom_modal').modal('show');
 
+        
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
-        $('#custom_modal').find('.modal-title').text('Blocked Users');
-
+        $('#custom_modal').find('.modal-title').text(`Blocked Users(${blockUserList.length})`);
+        
+        let usersList = blockUserList.map(item => getCertainUserInfoById(item))
         let target = '#custom_modal .chat-main';
         $(target).empty();
 
-        let usersList = blockUserList.map(item => getCertainUserInfoById(item))
         usersList.forEach(item => {
             let follwStatus = isFollowing(item.id);
             let statusItem = `
