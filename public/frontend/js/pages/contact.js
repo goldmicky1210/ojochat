@@ -193,7 +193,6 @@ function removeContactRequest(userId, target) {
             type: 'POST',
             dataType: "json",
             success: function (res) {
-                console.log(res);
                 if (res.state) {
                     $(target).closest(`.user_item[key='${userId}']`).remove();
                     alert('Remove Successfully')

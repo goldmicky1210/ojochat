@@ -278,12 +278,6 @@ $(document).ready(function () {
             success: function (res) {
                 if (res.state == 'true') {
                     socket.emit('create:group', { title, description, feeType, feeValue, avatar: res.data, users, type: 2 });
-
-                    // socket.emit('edit:groupProfile', { groupId, groupTitle, groupDescription, groupFeeType, groupFeeValue, groupAvatar: res.data }, (res) => {
-                    //     if (res.status == 'OK') {
-                    //         console.log('Group Profile changed');
-                    //     }
-                    // });
                 }
             },
             error: function (response) {
@@ -810,50 +804,11 @@ function getNameStr(nameStr = '') {
     return str;
 }
 function addUsersListItem(target, data, statusItem, blockFlag) {
-    if (blockFlag) {
+
+    if (blockFlag || !blockUserList.includes(data.id)) {
         if ($(target).parents('.modal').length) {
             $(target).append(
                 `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
-                    ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
-                    <div class="photoRating">
-                        <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                    </div>
-                    <div class="details">
-                        <h5>${data.username}</h5>
-                        <h6>${data.description || ''}</h6>
-                    </div>
-                    <div class="date-status">
-                        ${statusItem}
-                    </div>
-                </li>`
-            );
-        } else {
-            $(target).append(
-                `<li class="user_item" data-to="blank" key="${data.id}">
-                    <div class="chat-box">
-                        <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
-                        ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
-                        </div>
-                        <div class="details">
-                            <h5>${data.username}</h5>
-                            <h6>${data.description || ''}</h6>
-                            <div class="photoRating">
-                                <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
-                            </div>
-                        </div>
-                        <div class="date-status">
-                            ${statusItem}
-                        </div>
-                    </div>
-                </li>`
-            );
-        }
-        getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
-    } else {
-        if (!blockUserList.includes(data.id)) {
-            if ($(target).parents('.modal').length) {
-                $(target).append(
-                    `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
                         ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                         <div class="photoRating">
                             <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
@@ -866,10 +821,10 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
                             ${statusItem}
                         </div>
                     </li>`
-                );
-            } else {
-                $(target).append(
-                    `<li class="user_item" data-to="blank" key="${data.id}">
+            );
+        } else {
+            $(target).append(
+                `<li class="user_item" data-to="blank" key="${data.id}">
                         <div class="chat-box">
                             <div class="profile ${data.logout ? 'offline' : 'online'} bg-size" ${data.avatar ? `style='background-image: url(v1/api/downloadFile?path=${data.avatar});'` : ''}>
                             ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
@@ -886,15 +841,9 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
                             </div>
                         </div>
                     </li>`
-                );
-            }
-            getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
-        } else {
-            console.log('==========')
-            console.log(data.id, ' blocked')
-            console.log('==========')
-
+            );
         }
+        getContentRate(`#custom_modal .chat-main>li[key="${data.id}"]`, Math.round(getAverageRate(data.rateData)));
     }
 }
 
