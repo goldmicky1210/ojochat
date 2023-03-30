@@ -947,6 +947,9 @@ function addGroupChatItem(target, data, loadFlag) {
             } else if (replyKind == 4) {
                 let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.file_photo').attr('src');
                 var replyContent = `<img src="${imageSrc}" width="50">`;
+            } else if (replyKind == 10) {
+                // let imageSrc = $('.chatappend').find(`li.msg-item[key="${replyId}"]`).find('.file_photo').attr('src');
+                var replyContent = `<i class="fa fa-microphone"></i>`;
             }
         } else {
             let messageContent = getMessgageContentById(replyId, replyKind);
@@ -954,6 +957,8 @@ function addGroupChatItem(target, data, loadFlag) {
                 var replyContent = messageContent;
             } else if (replyKind == 2 || replyKind == 4) {
                 var replyContent = `<img src="${messageContent}" width="50">`;
+            } else if(replyKind == 10) {
+                var replyContent = `<i class="fa fa-microphone"></i>`;
             }
         }
     }

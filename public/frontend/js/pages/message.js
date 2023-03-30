@@ -196,6 +196,8 @@ $(document).ready(function () {
         } else if (replyKind == 4) {
             let imageSrc = $(this).closest('.msg-setting-main').find('.file_photo').attr('src');
             messageContent = `<img src="${imageSrc}" width="50">`;
+        } else if (replyKind == 10) {
+            messageContent = `<i class="fa fa-microphone"></i>`;
         }
         let replyId = $(this).closest('li.msg-item').attr('key');
         $('#content .chat-content>.replyMessage .replyContent').html(messageContent);
