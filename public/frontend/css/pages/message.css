@@ -201,7 +201,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 #content .chat-content .replyMessage {
     padding: 15px;
     border-radius: 15px;
-    background-color: #82878f;
+    background-color: #B4BBC4;
     color: white;
 }
 
@@ -210,7 +210,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     width: 100%;
     position: absolute;
     bottom: 0;
-    background-color: #82878f;
+    background-color: #B4BBC4;
 }
 
 #content .chat-content .replyMessage .replyIcon {
