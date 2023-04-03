@@ -1,9 +1,7 @@
-.chatWallpaper>div {
-    margin-top: 10px;
+.chatWallpaper {
     display: flex;
     gap: 10px;
     align-items: flex-end;
-    position: relative;
 }
 
 .backgroundImagePreview {

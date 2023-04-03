@@ -284,12 +284,13 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     transform: translateY(-50%);
 }
 
-.gr-profile {
+.gr-profile, .profile {
     text-align: center;
     line-height: 50px;
     font-size: 22px;
     background-color: cyan;
 }
+
 
 .chat-main>li .chat-box .details {
     padding: 0;

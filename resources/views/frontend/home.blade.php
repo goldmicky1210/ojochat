@@ -60,7 +60,8 @@
                     </li>
                     <li class="notification_list_btn">
                         <div class="dot-danger grow">
-                            <a class="icon-btn btn-light button-effect" href="notification" data-tippy-content="Notification">
+                            <a class="icon-btn btn-light button-effect" href="notification"
+                                data-tippy-content="Notification">
                                 <i class="fa fa-bell"></i>
                             </a>
                         </div>
@@ -118,8 +119,8 @@
                                     <i data-feather="search"></i>
                                 </div>
                                 <!-- <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
-                                    <i class="ti-angle-right"></i>
-                                </a> -->
+                                                <i class="ti-angle-right"></i>
+                                            </a> -->
                                 <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
                                     <i class="ti-more-alt"></i>
                                 </a>
@@ -434,8 +435,7 @@
                                 <form class="form-radious form-sm">
                                     <div class="form-group mb-2">
                                         <input class="form-control username" type="text" name="username"
-                                            value="{{ Auth::user()->username }}"
-                                            placeholder="John Doe" />
+                                            value="{{ Auth::user()->username }}" placeholder="John Doe" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <input class="form-control location" type="text" name="address"
@@ -472,12 +472,15 @@
                                 <div class="collapse" id="collapseSeven" aria-labelledby="headingSeven"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <a class="font-primary button-effect balance" href="payment-histories">Show History</a>
-                                        <div >
-                                            <a class="font-primary button-effect deposit-modal-open" href="#" data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
-                                            <a class="font-primary button-effect" href="#" data-bs-toggle="modal" data-bs-target="#withdrawModal"> Withdraw </a>
+                                        <a class="font-primary button-effect balance" href="payment-histories">Show
+                                            History</a>
+                                        <div>
+                                            <a class="font-primary button-effect deposit-modal-open" href="#"
+                                                data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
+                                            <a class="font-primary button-effect" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#withdrawModal"> Withdraw </a>
                                         </div>
-                                        
+
                                         <p> <b>Note :</b>You can deposit the balance of OJOChat or withdraw money.</p>
                                     </div>
                                 </div>
@@ -512,12 +515,12 @@
                                     data-parent="#accordion">
                                     <div class="card-body">
                                         <ul class="privacy">
-                                            <li>
+                                            {{-- <li>
                                                 <h5>Last seen</h5>
                                                 <input class="js-switch10" type="checkbox" checked="" />
                                                 <p> <b>Note : </b>turn on this setting to whether your contact can see last
                                                     seen or not.</p>
-                                            </li>
+                                            </li> --}}
                                             <li>
                                                 <h5>Read receipts</h5>
                                                 <input class="js-switch16 read-receipts-switch" type="checkbox" />
@@ -525,12 +528,7 @@
                                                     recipts from contact. read receipts are always sent for group chats.
                                                 </p>
                                             </li>
-                                            <li>
-                                                <h5>Groups</h5>
-                                                <input class="js-switch13" type="checkbox" checked="" />
-                                                <p> <b>Note : </b>turn on this setting to whether your contact can add in
-                                                    groups or not. </p>
-                                            </li>
+                                            
                                             <li>
                                                 <h5 class="block-user-list-btn">Blocked Users</h5>
                                             </li>
@@ -593,32 +591,28 @@
                                             </div>
                                             <span class="text-danger"></span>
                                         </div>
-                                        <button class="btn btn-primary button-effect btn-sm changePasswordBtn" type="button">Change Password</button>
+                                        <button class="btn btn-primary button-effect btn-sm changePasswordBtn"
+                                            type="button">Change Password</button>
 
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="card">
-                                <div class="card-header" id="headingThree" role="heading" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                    <a>Two Step verification<i class="fa fa-angle-down"></i></a>
+                            {{-- @if (Auth::user()->username == 'OJOChat' || Auth::user()->username == 'Cool Dev') --}}
+                            <div class="card">
+                                <div class="card-header" id="headingSix" role="heading" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    <a>Chat Wallpaper<i class="fa fa-angle-down"></i></a>
                                 </div>
-                                <div class="collapse" id="collapseThree" aria-labelledby="headingThree"
+                                <div class="collapse" id="collapseSix" aria-labelledby="headingSix"
                                     data-parent="#accordion">
-                                    <div class="card-body">
-                                        <div class="media">
-                                            <div class="media-body">
-                                                <h5>Enable</h5>
-                                            </div>
-                                            <div class="media-right">
-                                                <input class="js-switch9" type="checkbox" />
-                                            </div>
-                                        </div>
-                                        <p> <b>Note : </b>For added security, enable two-step verifiation, which will
-                                            require a PIN when registering your phone number with Ojochat again.</p>
+                                    <div class="card-body chatWallpaper">
+                                        <div class="backgroundImagePreview"></div>
+                                        <input type="file" id="backgroundImageFileSelect">
+                                        <button class="uploadBackgroundImageBtn">Upload</button>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
+                            {{-- @endif --}}
                             <div class="card">
                                 <div class="card-header" id="headingSix" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -640,146 +634,6 @@
                         <div class="media-body">
                             <h3>Account</h3>
                             <h4>Update Your Account Details</h4>
-                        </div>
-                        <div class="media-right"> <a class="icon-btn btn-outline-light btn-sm pull-right next"
-                                href="#"> <i data-feather="chevron-right"> </i></a></div>
-                    </div>
-                </div>
-                <div class="setting-block">
-                    <div class="block">
-                        <div class="media">
-                            <div class="media-body">
-                                <h3>Chat</h3>
-                            </div>
-                            <div class="media-right"><a class="icon-btn btn-outline-light btn-sm pull-right previous"
-                                    href="#"> <i data-feather="chevron-left"> </i></a></div>
-                        </div>
-                        <ul class="help">
-                            <li>
-                                <h5>Chat Backup</h5>
-                                <ul class="switch-list">
-                                    <li>
-                                        <input class="js-switch5" type="checkbox" checked="" />
-                                        <h5>Auto Backup</h5>
-                                    </li>
-                                    <li>
-                                        <input class="js-switch6" type="checkbox" />
-                                        <h5>Include document</h5>
-                                    </li>
-                                    <li>
-                                        <input class="js-switch7" type="checkbox" />
-                                        <h5>Include Videos</h5>
-                                    </li>
-                                </ul>
-                            </li>
-                            @if (Auth::user()->username == 'OJOChat' || Auth::user()->username == 'Cool Dev')
-                                <li class="chatWallpaper">
-                                    <h5>Chat wallpaper</h5>
-                                    <div class="">
-                                        <div class="backgroundImagePreview"></div>
-                                        <input type="file" id="backgroundImageFileSelect">
-                                        <button class="uploadBackgroundImageBtn">Upload</button>
-                                    </div>
-                                </li>
-                            @endif
-                            <li>
-                                <h5> <a href="#">Archive all chat</a></h5>
-                            </li>
-                            <li>
-                                <h5> <a href="#"> Clear all chats</a></h5>
-                            </li>
-                            <li>
-                                <h5> <a class="font-danger" href="#">Delete all chats</a></h5>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h3>Chat</h3>
-                            <h4>Control Your Chat Backup</h4>
-                        </div>
-                        <div class="media-right"> <a class="icon-btn btn-outline-light btn-sm pull-right next"
-                                href="#"> <i data-feather="chevron-right"> </i></a></div>
-                    </div>
-                </div>
-                <div class="setting-block">
-                    <div class="block">
-                        <div class="media">
-                            <div class="media-body">
-                                <h3>Integratin</h3>
-                            </div>
-                            <div class="media-right"> <a class="icon-btn btn-outline-light btn-sm pull-right previous"
-                                    href="#"> <i data-feather="chevron-left"> </i></a></div>
-                        </div>
-                        <ul class="integratin">
-                            <li>
-                                <div class="media">
-                                    <div class="media-left"> <a class="fb" href="https://www.facebook.com/login"
-                                            target="_blank"><i class="fa fa-facebook"></i>
-                                            <h5>Facebook </h5>
-                                        </a></div>
-                                    <div class="media-right">
-                                        <div class="profile"><img class="bg-img" src="/chat/images/contact/1.jpg"
-                                                alt="Avatar" /></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="media-left"> <a class="insta"
-                                            href="https://www.instagram.com/accounts/login/?hl=en" target="_blank"><i
-                                                class="fa fa-instagram"></i>
-                                            <h5>instagram</h5>
-                                        </a></div>
-                                    <div class="media-right">
-                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
-                                                alt="Avatar" /></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="media-left"> <a class="twi" href="https://twitter.com/login"
-                                            target="_blank"><i class="fa fa-twitter"></i>
-                                            <h5>twitter </h5>
-                                        </a></div>
-                                    <div class="media-right">
-                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
-                                                alt="Avatar" /></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="media-left"> <a class="ggl"
-                                            href="https://accounts.google.com/signin/v2/identifier?service=mail&amp;passive=true&amp;rm=false&amp;continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&amp;ss=1&amp;scc=1&amp;ltmpl=default&amp;ltmplcache=2&amp;emr=1&amp;osid=1&amp;flowName=GlifWebSignIn&amp;flowEntry=ServiceLogin"
-                                            target="_blank"><i class="fa fa-google"></i>
-                                            <h5>google </h5>
-                                        </a></div>
-                                    <div class="media-right">
-                                        <div class="profile"><img class="bg-img" src="/images/default-avatar.png"
-                                                alt="Avatar" /></div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <div class="media-left"> <a class="slc" href="#"><i
-                                                class="fa fa-slack"></i>
-                                            <h5>Slack </h5>
-                                        </a></div>
-                                    <div class="media-right">
-                                        <div class="profile"><a href="https://slack.com/get-started#/" target="_blank"><i
-                                                    data-feather="plus-circle"></i></a></div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="media">
-                        <div class="media-body">
-                            <h3>Integratin</h3>
-                            <h4>Sync Your Other Social Account</h4>
                         </div>
                         <div class="media-right"> <a class="icon-btn btn-outline-light btn-sm pull-right next"
                                 href="#"> <i data-feather="chevron-right"> </i></a></div>
@@ -956,9 +810,9 @@
                                                     <h5>remove</h5>
                                                 </li>
                                                 <!-- <li class="block_group_btn">
-                                                                            <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
-                                                                            <h5>block</h5>
-                                                                        </li> -->
+                                                                                        <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
+                                                                                        <h5>block</h5>
+                                                                                    </li> -->
                                             </ul>
                                         </div>
                                     </li>
@@ -973,16 +827,16 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                                                    <h4>Group Users</h4>
-                                                </div> -->
+                                                                <h4>Group Users</h4>
+                                                            </div> -->
                         <ul class="chatappend">
                             <!-- <li class="groupuser">
-                                                        <h4>Group Users</h4>
-                                                        <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
-                                                                src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
-                                                        <div class="gr-profile dot-btn dot-success"><img class="bg-img"
-                                                                src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
-                                                    </li> -->
+                                                                    <h4>Group Users</h4>
+                                                                    <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
+                                                                            src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
+                                                                    <div class="gr-profile dot-btn dot-success"><img class="bg-img"
+                                                                            src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
+                                                                </li> -->
 
                         </ul>
                     </div>
@@ -1026,9 +880,9 @@
                                                     <h5>add users</h5>
                                                 </li>
                                                 <!-- <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
-                                                        href="#"><i data-feather="user"></i></a>
-                                                    <h5>profile</h5>
-                                                </li> -->
+                                                                    href="#"><i data-feather="user"></i></a>
+                                                                <h5>profile</h5>
+                                                            </li> -->
                                                 <li><a class="icon-btn btn-outline-success button-effect btn-sm"
                                                         href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>archive</h5>
@@ -1055,8 +909,8 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                                                    <h4>Cast Users</h4>
-                                                </div> -->
+                                                                <h4>Cast Users</h4>
+                                                            </div> -->
                         <ul class="chatappend">
                         </ul>
                     </div>
@@ -1159,7 +1013,8 @@
                 <div class="message-input">
                     <div class="wrap emojis-main">
                         <div class="dot-btn dot-primary me-3">
-                            <a class="icon-btn btn-outline-primary button-effect toggle-emoji" href="#"><i data-feather="smile"></i></a>
+                            <a class="icon-btn btn-outline-primary button-effect toggle-emoji" href="#"><i
+                                    data-feather="smile"></i></a>
                         </div>
 
                         <div class="contact-poll">
@@ -1170,13 +1025,14 @@
                                 <ul>
                                     <li><a id="createPhotoBtn"><i data-feather="image"></i>Blink</a></li>
                                     <li><a id="mediaBtn"><i data-feather="image"></i>Media</a></li>
-                                    <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i data-feather="camera"></i>Photo Request</a></li>
+                                    <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i
+                                                data-feather="camera"></i>Photo Request</a></li>
                                     <li><a href="#"><i data-feather="clipboard"> </i>File</a></li>
                                 </ul>
                             </div>
                         </div>
                         {{-- <input class="setemoj" id="setemoj" type="text" placeholder="Write your message..." /> --}}
-                        <textarea class="setemoj" id="setemoj" placeholder="Write your message..." ></textarea>
+                        <textarea class="setemoj" id="setemoj" placeholder="Write your message..."></textarea>
                         <audio class="setemoj hidden" id="voiceMsgTag" controls></audio>
                         <a class="icon-btn btn-outline-primary button-effect me-3 ms-3 voiceMsgBtn" href="#">
                             <i data-feather="mic"></i>
@@ -1193,14 +1049,15 @@
                             </div>
                             <div class="emojis-sub-contain custom-scroll">
                                 <ul>
-                                    
+
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <svg class="scroll-bottom-btn hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                    <path d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512s256-114.6 256-256S397.4 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z"/>
+                    <path
+                        d="M256 0C114.6 0 0 114.6 0 256S114.6 512 256 512s256-114.6 256-256S397.4 0 256 0zM135 241c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l87 87 87-87c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 345c-9.4 9.4-24.6 9.4-33.9 0L135 241z" />
                 </svg>
                 <div class="unread_msg_count hidden">0</div>
             </div>
@@ -1266,8 +1123,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="call-log-clear"> <i class="ti-trash font-danger"></i><span
-                                class="font-danger">Delete
+                        <div class="call-log-clear"> <i class="ti-trash font-danger"></i><span class="font-danger">Delete
                                 call log</span></div>
                     </div>
                 </div>
@@ -1278,8 +1134,8 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="user-profile">
-                                <div class="user-content"><img class="img-fluid bg-icon"
-                                        src="/images/default-avatar.png" alt="user-img" />
+                                <div class="user-content"><img class="img-fluid bg-icon" src="/images/default-avatar.png"
+                                        alt="user-img" />
                                     <h3>John Doe</h3>
                                     <ul>
                                         <li><i class="fa fa-twitch"> </i>massage</li>
@@ -1387,7 +1243,7 @@
         </div>
 
         <section class="section-py-space chitchat-main light-bg">
-            
+
         </section>
 
         <aside class="chitchat-right-sidebar" id="slide-menu">
@@ -1419,7 +1275,7 @@
                             <h5 class="mb-2">Alabma USA</h5>
                             <h6>add description</h6>
                         </div>
-                        
+
                         <div class="follow_btn">
                             <button class="btn btn-success button-effect btn-sm" type="button">Follow</button>
                         </div>
@@ -1512,11 +1368,11 @@
                             <div class="share-media zoom-gallery shared_media">
                                 <span>Sent Blinks</span>
                                 <div class="send_data media_list">
-                                    
+
                                 </div>
                                 <span>Received Blinks</span>
                                 <div class="receive_data media_list">
-                                        
+
                                 </div>
                             </div>
                         </div>
@@ -2670,9 +2526,9 @@
                                 placeholder="John Doe" />
                         </div>
                         <!-- <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h5>Contact number</h5>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h5>Contact number</h5>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -3197,12 +3053,12 @@
                         <ul class="nav nav-tabs" id="new_chat_tab" role="tablist">
                             <li class="nav-item"><a class="nav-link button-effect active" id="contact_tab"
                                     data-bs-toggle="tab" href="#contact_tab_content" role="tab"
-                                    aria-controls="direct" aria-selected="false"
-                                    data-to="direct_chat">Contacts</a></li>
+                                    aria-controls="direct" aria-selected="false" data-to="direct_chat">Contacts</a>
+                            </li>
                             <li class="nav-item"><a class="nav-link button-effect" id="follow_tab"
-                                    data-bs-toggle="tab" href="#follow_tab_content" role="tab" aria-controls="group"
-                                    aria-selected="true" data-to="group_chat">Followers</a></li>
-                            
+                                    data-bs-toggle="tab" href="#follow_tab_content" role="tab"
+                                    aria-controls="group" aria-selected="true" data-to="group_chat">Followers</a></li>
+
                         </ul>
                         <div class="tab-content" id="new_chat_tab_content">
                             <div class="tab-pane fade show active" id="contact_tab_content" role="tabpanel"
@@ -3236,8 +3092,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade add-popup" id="photo_modal" tabindex="-1" role="dialog"
-        aria-hidden="true">
+    <div class="modal fade add-popup" id="photo_modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -3263,7 +3118,8 @@
                                             <i class="ti-themify-favicon-alt"></i>
                                         </a>
                                     </div>
-                                    <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#" data-bs-dismiss="modal">
+                                    <a class="icon-btn btn-outline-light btn-sm close-profile ms-3" href="#"
+                                        data-bs-dismiss="modal">
                                         <i data-feather="x"> </i>
                                     </a>
                                 </div>
@@ -3385,11 +3241,11 @@
                                 <div class="share-media zoom-gallery shared_media">
                                     <span>Sent Blinks</span>
                                     <div class="send_data media_list">
-                                        
+
                                     </div>
                                     <span>Received Blinks</span>
                                     <div class="receive_data media_list">
-                                            
+
                                     </div>
                                 </div>
                             </div>
@@ -3402,7 +3258,9 @@
 
     <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
 
-    <script src="https://www.paypal.com/sdk/js?client-id=Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+    <script
+        src="https://www.paypal.com/sdk/js?client-id=Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7&enable-funding=venmo&currency=USD"
+        data-sdk-integration-source="button-factory"></script>
 
 
     <script src="/frontend/js/constant.js"></script>

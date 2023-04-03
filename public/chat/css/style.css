@@ -46770,7 +46770,8 @@ footer .footer-mobile-title {
     .contact-chat .profile {
         height: 40px;
         width: 40px;
-        border-radius: 15px
+        border-radius: 15px;
+        line-height: 40px;
     }
     .contact-chat>ul>li.sent .auto-gallery li,
     .contact-chat>ul>li.replies .auto-gallery li {
@@ -46838,10 +46839,6 @@ footer .footer-mobile-title {
     }
     .chitchat-container .chitchat-left-sidebar .recent-default .chat>.theme-tab.chat-tabs>ul>li>a {
         padding: 2px 10px
-    }
-    .contact-chat .profile {
-        height: 40px;
-        width: 40px
     }
     .contact-details>.row .icon-btn {
         background-color: transparent;

@@ -990,10 +990,11 @@ function addGroupChatItem(target, data, loadFlag) {
             </audio>`
         // <source src="upload/audio/${data.content}" type="audio/mp3">
     }
-
+    let avatarPath = 'v1/api/downloadFile?path=' + senderInfo.avatar;
     let item = `<li class="${type} msg-item" key="${data.messageId || data.id}" kind="${data.kind || 0}" forwardList="${data.forwardList}">
         <div class="media">
-            <div class="profile me-4 bg-size" style="background-image: url(${senderInfo.avatar ? 'v1/api/downloadFile?path=' + senderInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center;">
+            <div class="profile me-4 bg-size" style="background-image: ${senderInfo.avatar ? 'url(' + avatarPath + ')' : 'none'}; background-size: cover; background-position: center center;">
+                ${senderInfo.avatar ? "" : getNameStr(senderInfo.username)}
             </div>
             <div class="media-body">
                 <div class="contact-name">
