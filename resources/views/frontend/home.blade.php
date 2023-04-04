@@ -1024,7 +1024,7 @@
                             <div class="contact-poll-content">
                                 <ul>
                                     <li><a id="createPhotoBtn"><i data-feather="image"></i>Blink</a></li>
-                                    <li><a id="mediaBtn"><i data-feather="image"></i>Media</a></li>
+                                    <li><a id="mediaBtn"><i data-feather="camera"></i>Media</a></li>
                                     {{-- <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i
                                                 data-feather="camera"></i>Photo Request</a></li>
                                     <li><a href="#"><i data-feather="clipboard"> </i>File</a></li> --}}
