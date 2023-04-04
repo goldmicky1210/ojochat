@@ -2733,7 +2733,7 @@
                         <div class="request-content">
                             <div class="d-flex justify-between">
                                 <div class="request-title">I need your photo</div>
-                                <div class="request-price">100$</div>
+                                <div class="request-price">$100</div>
                             </div>
                             <div class="request-description">Hello, DongLong Cui. Nice to meet you. How are you. I am very
                                 interested in your photo. Could you send me your photo as 10$ to me? If you agree with my
@@ -3245,6 +3245,14 @@
                                     </div>
                                     <span>Received Blinks</span>
                                     <div class="receive_data media_list">
+
+                                    </div>
+                                    <span>Sent Images</span>
+                                    <div class="send_data image_list">
+
+                                    </div>
+                                    <span>Received Images</span>
+                                    <div class="receive_data image_list">
 
                                     </div>
                                 </div>

@@ -176,6 +176,8 @@ class HomeController extends Controller
         $groupId = $request->input('groupId');
         $sendData = array();
         $receiveData = array();
+        $sendImageData = array();
+        $receiveImageData = array();
         $belongGroup = array();
         if ($groupId == 'all') {
             $belongGroup = UsersGroup::join('groups', 'groups.id', '=', 'users_groups.group_id')->where('user_id', $userId)->get(['group_id', 'title', 'type']);
@@ -186,20 +188,37 @@ class HomeController extends Controller
             $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->get(['sender', 'group_id', 'content']);
             foreach($messageData as $item) {
                 $tempData = PhotoGallery::where('id', $item['content'])->first();
-                $item['id'] = $tempData['id'];
-                $item['photo'] = $tempData['photo'];
-                $item['original_thumb'] = $tempData['original_thumb'];
-                $item['title'] = $group['title'];
-                $item['type'] = $group['type'];
-                $item['created_at'] = $tempData['created_at'];
-                if ($item['sender'] == $userId) {
-                    array_push($sendData, $item);
-                } else {
-                    array_push($receiveData, $item);
+                if ($tempData) {
+                    $item['id'] = $tempData['id'];
+                    $item['photo'] = $tempData['photo'];
+                    $item['original_thumb'] = $tempData['original_thumb'];
+                    $item['title'] = $group['title'];
+                    $item['type'] = $group['type'];
+                    $item['created_at'] = $tempData['created_at'];
+                    if ($item['sender'] == $userId) {
+                        array_push($sendData, $item);
+                    } else {
+                        array_push($receiveData, $item);
+                    }
+                }
+            }
+            $imageData = Message::where('kind', 4)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->get(['sender', 'group_id', 'content']);
+            foreach($imageData as $item) {
+                $tempData = AttachFile::where('id', $item['content'])->whereIn('file_type', ['png', 'jpg', 'jpeg'])->first();
+                if ($tempData) {
+                    $item['id'] = $tempData['id'];
+                    $item['path'] = $tempData['path'];
+                    $item['file_name'] = $group['file_name'];
+                    $item['created_at'] = $tempData['created_at'];
+                    if ($item['sender'] == $userId) {
+                        array_push($sendImageData, $item);
+                    } else {
+                        array_push($receiveImageData, $item);
+                    }
                 }
             }
         }
-        return array('state'=>'true', 'sendData'=>$sendData, 'receiveData'=> $receiveData);
+        return array('state'=>'true', 'sendData'=>$sendData, 'receiveData'=> $receiveData, 'sendImageData'=>$sendImageData, 'receiveImageData'=> $receiveImageData);
     }
 
     public function showSavedBlinks(Request $request) {

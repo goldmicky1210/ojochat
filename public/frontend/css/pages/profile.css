@@ -8,7 +8,8 @@
 #profile_modal .media-gallery {
     margin-top: 15px;
 }
-.shared_media .media_list {
+.shared_media .media_list,
+.shared_media .image_list {
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
@@ -17,13 +18,13 @@
     margin-top: 10px;
 }
 
-.shared_media .media_list .media-small {
+.shared_media .media-small {
     overflow: hidden;
     height: auto;
     width: fit-content;
 }
 
-.shared_media .media_list .border-portfolio {
+.shared_media .border-portfolio {
     border: 1px solid gray;
 }
 

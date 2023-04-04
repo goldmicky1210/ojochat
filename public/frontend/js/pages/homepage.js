@@ -569,8 +569,9 @@ function showSharedMedia(groupId) {
         success: function (res) {
 
             $('.shared_media .media_list').empty();
+            $('.shared_media .image_list').empty();
             if (res.state == 'true') {
-                let count = (res.receiveData.length + res.sendData.length) || 0;
+                let count = (res.receiveData.length + res.sendData.length + res.sendImageData.length + res.receiveImageData.length) || 0;
                 $('.media-gallery.portfolio-section .shared_media_count').text(count);
                 res.sendData.forEach(item => {
                     let title = item.title;
@@ -580,7 +581,7 @@ function showSharedMedia(groupId) {
                         title = item.title;
                     }
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
-                    $('#profile_modal .shared_media .send_data').append(`
+                    $('#profile_modal .shared_media .send_data.media_list').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
@@ -600,7 +601,7 @@ function showSharedMedia(groupId) {
                     if (item.type == 2) title = title + ' in ' + item.title;
                     let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
 
-                    $('#profile_modal .shared_media .receive_data').append(`
+                    $('#profile_modal .shared_media .receive_data.media_list').append(`
                         <div class="media-small isotopeSelector filter" photoId=${item.id}>
                             <div class="overlay">
                                 <div class="border-portfolio">
@@ -609,6 +610,26 @@ function showSharedMedia(groupId) {
                                             <i class="ti-plus" aria-hidden="true"></i>
                                         </div>
                                         <img class="img-fluid bg-img" src=${item.photo} alt="portfolio-image"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
+                res.sendImageData.forEach(item => {
+                    let title = getCertainUserInfoById(item.sender).username;
+                    if (item.type == 2) title = title + ' in ' + item.title;
+                    let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
+                    $('#profile_modal .shared_media .send_data.image_list').append(`
+                        <div class="media-small isotopeSelector filter" photoId=${item.id}>
+                            <div class="overlay">
+                                <div class="border-portfolio">
+                                    <a href='v1/api/downloadFile?path=${item.path}' title="From: ${title}" date="${dateString}">
+                                        <div class="overlay-background">
+                                            <i class="ti-plus" aria-hidden="true"></i>
+                                        </div>
+                                        <img class="img-fluid bg-img" src='v1/api/downloadFile?path=${item.path}' alt="portfolio-image"/>
                                     </a>
                                 </div>
                             </div>
