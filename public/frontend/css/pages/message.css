@@ -19,6 +19,9 @@
 .modal ul.chat-main>li {
     border-radius: 0 5px 5px 0;
 }
+.chat-main {
+    margin-bottom: 35px;
+}
 
 ul.chat-main>li {
     background-color: #eff1f2;

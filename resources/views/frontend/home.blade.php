@@ -67,13 +67,13 @@
                         </div>
                         <p>Notifications</p>
                     </li>
-                    <li class="photo_request_list_btn">
+                    {{-- <li class="photo_request_list_btn">
                         <div class="dot-danger grow photo_request_icon">
                             <a class="icon-btn btn-light button-effect" href="request" data-tippy-content="PhotoRequest">
                                 <i class="fa fa-image"></i></a>
                         </div>
                         <p>Photo Request</p>
-                    </li>
+                    </li> --}}
                     <li class="setting_btn">
                         <a class="icon-btn btn-light button-effect" href="settings" data-tippy-content="Setting">
                             <i class="fa fa-cog"></i>
@@ -82,12 +82,12 @@
                     </li>
                 </ul>
                 <ul class="sidebar-bottom">
-                    <li>
+                    {{-- <li>
                         <a class="icon-btn btn-light button-effect mode" href="#" data-tippy-content="Theme Mode">
                             <i class="fa fa-moon-o"></i>
                         </a>
                         <p>Night</p>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="icon-btn btn-light" id="logoutBtn" href="/logout" data-tippy-content=" SignOut">
                             <i class="fa fa-power-off"> </i>
@@ -1025,9 +1025,9 @@
                                 <ul>
                                     <li><a id="createPhotoBtn"><i data-feather="image"></i>Blink</a></li>
                                     <li><a id="mediaBtn"><i data-feather="image"></i>Media</a></li>
-                                    <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i
+                                    {{-- <li><a data-bs-toggle="modal" data-bs-target="#photoRequestModal"><i
                                                 data-feather="camera"></i>Photo Request</a></li>
-                                    <li><a href="#"><i data-feather="clipboard"> </i>File</a></li>
+                                    <li><a href="#"><i data-feather="clipboard"> </i>File</a></li> --}}
                                 </ul>
                             </div>
                         </div>
