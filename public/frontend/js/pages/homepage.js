@@ -636,6 +636,26 @@ function showSharedMedia(groupId) {
                         </div>
                     `);
                 });
+                res.receiveImageData.forEach(item => {
+                    let title = getCertainUserInfoById(item.sender).username;
+                    if (item.type == 2) title = title + ' in ' + item.title;
+                    let dateString = new Date(item.created_at).toLocaleDateString() + ' ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
+                    $('#profile_modal .shared_media .receive_data.image_list').append(`
+                        <div class="media-small isotopeSelector filter" photoId=${item.id}>
+                            <div class="overlay">
+                                <div class="border-portfolio">
+                                    <a href='v1/api/downloadFile?path=${item.path}' title="From: ${title}" date="${dateString}">
+                                        <div class="overlay-background">
+                                            <i class="ti-plus" aria-hidden="true"></i>
+                                        </div>
+                                        <img class="img-fluid bg-img" src='v1/api/downloadFile?path=${item.path}' alt="portfolio-image"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                });
             }
         },
         error: function (response) { }
