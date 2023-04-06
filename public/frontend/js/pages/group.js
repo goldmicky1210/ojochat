@@ -181,7 +181,11 @@ $(document).ready(function () {
         new Promise(resolve => getUsersList(resolve)).then(usersList => {
             let item = usersList.find(item => item.id == userId);
             users = [userId, currentUserId];
-            socket.emit('create:group', { title: item.username, users, type: 1 });
+            if (getDirectGroupId(userId)) {
+                console.log('already this group with ' + userId);
+            } else {
+                socket.emit('create:group', { title: item.username, users, type: 1 });
+            }
             $('#new_chat_modal').modal('hide');
         });
     });

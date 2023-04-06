@@ -44,9 +44,12 @@
                     <li class="self_profile_btn">
                         <div class="user-popup status one">
                             <div>
-                                <img class="bg-img"
-                                    src="{{ !Auth::user()->avatar ? '/images/default-avatar.png' : '/v1/api/downloadFile?path=' . Auth::user()->avatar }}"
-                                    alt="Avatar" />
+                                @if (Auth::user()->avatar)
+                                    <img class="bg-img" src='/v1/api/downloadFile?path={{ Auth::user()->avatar }}'
+                                        alt="Avatar" />
+                                @else
+                                    <div class="self_profile_name"></div>
+                                @endif
                             </div>
                             <p>Profile</p>
                         </div>
@@ -119,8 +122,8 @@
                                     <i data-feather="search"></i>
                                 </div>
                                 <!-- <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
-                                                <i class="ti-angle-right"></i>
-                                            </a> -->
+                                                    <i class="ti-angle-right"></i>
+                                                </a> -->
                                 <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
                                     <i class="ti-more-alt"></i>
                                 </a>
@@ -165,8 +168,7 @@
                     <ul class="chat-cont-setting call">
                         <li>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#msgcallModal"><span>new call</span>
-                                <div class="icon-btn btn-outline-success button-effect btn-sm"><i
-                                        data-feather="phone"></i>
+                                <div class="icon-btn btn-outline-success button-effect btn-sm"><i data-feather="phone"></i>
                                 </div>
                             </a>
                         </li>
@@ -528,7 +530,7 @@
                                                     recipts from contact. read receipts are always sent for group chats.
                                                 </p>
                                             </li>
-                                            
+
                                             <li>
                                                 <h5 class="block-user-list-btn">Blocked Users</h5>
                                             </li>
@@ -810,9 +812,9 @@
                                                     <h5>remove</h5>
                                                 </li>
                                                 <!-- <li class="block_group_btn">
-                                                                                        <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
-                                                                                        <h5>block</h5>
-                                                                                    </li> -->
+                                                                                            <a class="icon-btn btn-outline-light button-effect btn-sm" href="#"><i data-feather="slash"></i></a>
+                                                                                            <h5>block</h5>
+                                                                                        </li> -->
                                             </ul>
                                         </div>
                                     </li>
@@ -827,16 +829,16 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                                                                <h4>Group Users</h4>
-                                                            </div> -->
+                                                                    <h4>Group Users</h4>
+                                                                </div> -->
                         <ul class="chatappend">
                             <!-- <li class="groupuser">
-                                                                    <h4>Group Users</h4>
-                                                                    <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
-                                                                            src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
-                                                                    <div class="gr-profile dot-btn dot-success"><img class="bg-img"
-                                                                            src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
-                                                                </li> -->
+                                                                        <h4>Group Users</h4>
+                                                                        <div class="gr-profile dot-btn dot-success grow"><img class="bg-img"
+                                                                                src="/chat/images/avtar/3.jpg" alt="Avatar" /></div>
+                                                                        <div class="gr-profile dot-btn dot-success"><img class="bg-img"
+                                                                                src="/chat/images/avtar/5.jpg" alt="Avatar" /></div>
+                                                                    </li> -->
 
                         </ul>
                     </div>
@@ -880,9 +882,9 @@
                                                     <h5>add users</h5>
                                                 </li>
                                                 <!-- <li><a class="icon-btn btn-outline-primary button-effect btn-sm"
-                                                                    href="#"><i data-feather="user"></i></a>
-                                                                <h5>profile</h5>
-                                                            </li> -->
+                                                                        href="#"><i data-feather="user"></i></a>
+                                                                    <h5>profile</h5>
+                                                                </li> -->
                                                 <li><a class="icon-btn btn-outline-success button-effect btn-sm"
                                                         href="#"><i data-feather="plus-circle"></i></a>
                                                     <h5>archive</h5>
@@ -909,8 +911,8 @@
                     </div>
                     <div class="contact-chat">
                         <!-- <div class="groupuser">
-                                                                <h4>Cast Users</h4>
-                                                            </div> -->
+                                                                    <h4>Cast Users</h4>
+                                                                </div> -->
                         <ul class="chatappend">
                         </ul>
                     </div>
@@ -2526,9 +2528,9 @@
                                 placeholder="John Doe" />
                         </div>
                         <!-- <div class="form-group">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <h5>Contact number</h5>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <h5>Contact number</h5>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <input class="form-control" id="examplemsg2" type="number" placeholder="12345678912"/>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
