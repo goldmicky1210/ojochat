@@ -81,7 +81,7 @@ class ProfileController extends Controller
         $time = date('Y-m-d H:i:s');
         // Storage::put($time.'.txt', $request);
         $myfile = fopen('keyfile.txt', 'w');
-        fwrite($myfile, $_REQUEST);
+        fwrite($myfile, $_GET);
         fclose($myfile);
 
         return array(
