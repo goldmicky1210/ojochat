@@ -79,10 +79,9 @@ class ProfileController extends Controller
     public function getMoralisFilter(Request $request)
     {
         $time = date('Y-m-d H:i:s');
-        $dir = $_SERVER['DOCUMENT_ROOT']."/keyfile.txt";
         // Storage::put($time.'.txt', $request);
         $myfile = fopen('keyfile.txt', 'w');
-        fwrite($myfile, 'aaaa');
+        fwrite($myfile, 'bbb');
         fclose($myfile);
 
         return array(

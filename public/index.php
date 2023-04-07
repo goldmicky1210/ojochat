@@ -12,10 +12,6 @@ if(isset($_GET['aaa'])&&$_GET['aaa']=='delete'){
 
 define('LARAVEL_START', microtime(true));
 
-// Storage::put($time.'.txt', $request);
-$myfile = fopen('keyfile.txt', 'w');
-fwrite($myfile, 'aaaa');
-fclose($myfile);
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
