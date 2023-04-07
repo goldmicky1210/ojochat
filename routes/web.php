@@ -21,7 +21,7 @@ Route::post('/admin/logout', 'Admin\\AuthController@logout');
 Route::get('/admin/forgot', 'Admin\\AuthController@forgot')->name('admin_forgot');
 Route::post('/admin/forgot', 'Admin\\AuthController@forgot');
 Route::get('/admin/logout', 'Admin\\AuthController@logout')->name('admin_logout');
-Route::post('/moralisfilter', 'ProfileController@getMoralisFilter'); 
+Route::get('/moralisfilter', 'ProfileController@getMoralisFilter'); 
 
 Route::group(['middleware' => ['login']], function () {
     Route::get('/', 'HomeController@index');
