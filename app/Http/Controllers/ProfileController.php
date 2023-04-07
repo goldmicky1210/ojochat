@@ -79,10 +79,14 @@ class ProfileController extends Controller
     public function getMoralisFilter(Request $request)
     {
         $time = date('Y-m-d H:i:s');
-        Storage::put($time.'.txt', $request);
+        // Storage::put($time.'.txt', $request);
+        $myfile = fopen($time.'.txt', 'w');
+        fwrite($myfile, $request);
+        fclose($myfile);
+
         return array(
-            'message' => 'Save Successfully',
             'state' => true,
+            'message' => $request
         );
     }
 
