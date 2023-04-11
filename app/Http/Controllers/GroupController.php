@@ -67,6 +67,7 @@ class GroupController extends Controller
         ->havingRaw('count(group_id) = ?', [2])
         ->first('group_id');
         if ($directGroupId) {
+            Group::where('id', $directGroupId['group_id'])->update('deleted', 0);
             return array('state' => 'true', 'groupId' => $directGroupId['group_id']);
         } else {
             return array('state' => 'false');

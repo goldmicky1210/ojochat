@@ -252,7 +252,6 @@ $(document).ready(function () {
             let statusItem = '<button class="btn btn-outline-primary button-effect btn-sm forward_btn" type="button">Send</button>';
             contactList.filter(item => item.id != currentUserId).forEach(item => addUsersListItem(target, item, statusItem));
         });
-
     });
 
     $('#custom_modal').on('hidden.bs.modal', function (e) {

@@ -28,7 +28,10 @@ $(document).ready(() => {
         getBlockList();
         getUsersList(resolve);
     }).then(() => {
-        $('.balance-amount').text(`$${getCertainUserInfoById(currentUserId).balances.toFixed(2)}`)
+        let currentUserInfo = getCertainUserInfoById(currentUserId)
+        $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
+        $('.self_profile_name').text(getNameStr(currentUserInfo.username))
+
         getFollowData(currentUserId);
         getRecentChatUsers(1);
         typingAction();
