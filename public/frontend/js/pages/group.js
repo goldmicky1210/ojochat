@@ -1394,9 +1394,10 @@ function getAvailableUsers(resolve) {
     });
 }
 
-function getDirectGroupId(userId) {
+function getDirectGroupId(userId, flag) {
     let form_data = new FormData();
     form_data.append('userId', userId);
+    form_data.append('flag', flag || 0);
     let result = 0;
     $.ajax({
         url: '/group/getDirectGroupId',

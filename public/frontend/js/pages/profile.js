@@ -15,7 +15,7 @@ function setProfileSetting(fieldName, state) {
     if (fieldName == 'block') {
         form_data.append('blockId', userId);
     } else if (fieldName == 'notification') {
-        let directGroupId = getDirectGroupId(userId);
+        let directGroupId = getDirectGroupId(userId, 1);
         form_data.append('groupId', directGroupId);
     }
     form_data.append('fieldName', fieldName);
