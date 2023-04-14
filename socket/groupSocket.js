@@ -98,7 +98,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
 
                                 db.query(`INSERT INTO users_groups (user_id, group_id, status) VALUES (${data.sender}, ${groupId}, 2), (${recipientId}, ${groupId}, 2)`, async(error, item) => {
                                     if (data.msgType == 'text') {
-                                        db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${data.content}")`, (error, item) => {
+                                        db.query(`INSERT INTO messages (sender, group_id, content) VALUES ("${currentUserId}", "${groupId}", "${data.content}")`, (error, item) => {
                                             
                                         });
                                     } else if (data.msgType == 'audio') {
@@ -108,7 +108,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
                                         let fileName = `${currentUserId}-${Date.now()}.wav`;
                                         fs.writeFile(`storage/app/upload/audio/${fileName}`, buffer, (err) => {
                                             if (err) throw err;
-                                            db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${result[0]['group_id']}", "${fileName}", 10)`, (error, item) => {
+                                            db.query(`INSERT INTO messages (sender, group_id, content, kind) VALUES ("${currentUserId}", "${groupId}", "${fileName}", 10)`, (error, item) => {
                                             });
                                         });
                                     }

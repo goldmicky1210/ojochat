@@ -436,8 +436,9 @@
                             <div class="details edit">
                                 <form class="form-radious form-sm">
                                     <div class="form-group mb-2">
-                                        <input class="form-control username" type="text" name="username"
+                                        <input class="form-control username" type="text" name="username" pattern="[A-Za-z]+" title="Please enter letters only"
                                             value="{{ Auth::user()->username }}" placeholder="John Doe" />
+                                            <span class="text-danger">{{ $errors->first('username') }}</span>
                                     </div>
                                     <div class="form-group mb-2">
                                         <input class="form-control location" type="text" name="address"

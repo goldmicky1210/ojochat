@@ -628,7 +628,6 @@
     });
     $(".edit-btn").on('click', function () {
         if ($(this).parent().parent().hasClass('open')) {
-            $(this).parent().parent().removeClass("open");
             // changeProfileInfo();
             var form_data = new FormData();
             let username = $(this).parents('.media').find('input.username').val();
@@ -650,7 +649,11 @@
                 type: 'POST',
                 dataType: "json",
                 success: function (res) {
+                    console.log(res)
+                    $('#settings .details.edit .text-danger').text('');
                     if (res.update == true) {
+                        $(this).parent().parent().removeClass("open");
+
                         $('#settings .profile-box .details .setting__profile--name').html(username);
                         $('#settings .profile-box .details .setting__profile--location').html(location);
                         $('#settings .profile-box .details .setting__profile--description').html(description);
@@ -658,7 +661,8 @@
                     $('#profileImageUploadBtn').css('pointer-events', 'none');
                 },
                 error: function (response) {
-
+                    console.log(response)
+                    $('#settings .details.edit .text-danger').text(response.responseJSON.errors.username[0]);
                 }
             });
         } else {
@@ -1052,16 +1056,16 @@ function setProfileData(userId) {
         type: 'POST',
         dataType: "json",
         success: function (res) {
-                let { data } = res;
-                if (data) {
-                    let notificationState = data.notification ? true : false;
-                    notificationSwitch.checked = notificationState;
-                    toggleSwitchery(notificationSwitch, notificationSwitchery)
-                }
-                let blockState = blockGroupList.includes(directGroupId) ? true : false;
-                blockSwitch.checked = blockState;
-                toggleSwitchery(blockSwitch, blockSwitchery)
-            },
+            let { data } = res;
+            if (data) {
+                let notificationState = data.notification ? true : false;
+                notificationSwitch.checked = notificationState;
+                toggleSwitchery(notificationSwitch, notificationSwitchery)
+            }
+            let blockState = blockGroupList.includes(directGroupId) ? true : false;
+            blockSwitch.checked = blockState;
+            toggleSwitchery(blockSwitch, blockSwitchery)
+        },
         error: function (response) { }
     });
 
@@ -1130,9 +1134,9 @@ function setProfileRateData(data) {
 function toggleSwitchery(switchElement, swicheryElement) {
     // Destroy any existing Switchery instance on the switch element
     if (switchElement.nextElementSibling !== null && switchElement.nextElementSibling.classList.contains('switchery')) {
-      switchElement.parentNode.removeChild(switchElement.nextElementSibling);
+        switchElement.parentNode.removeChild(switchElement.nextElementSibling);
     }
-  
+
     // Create a new Switchery instance on the switch element
     swicheryElement = new Switchery(switchElement, { color: '#1c9dea', size: 'small' });
-  }
+}
