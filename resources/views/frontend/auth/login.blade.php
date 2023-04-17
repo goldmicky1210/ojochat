@@ -23,7 +23,7 @@
                                 @endif
                                 <form class="form1 auth-login-form" action="/login" method="POST">
                                     <div class="form-group">
-                                        <label class="col-form-label" for="login-email">Email Address</label>
+                                        <label class="col-form-label" for="login-email">Username or Email Address </label>
                                         <input class="form-control" id="login-email" name="email" type="email"
                                             placeholder="Demo@123gmail.com" value="{{ old('email') }}">
                                         <!-- <span class="text-danger">{{ $errors->first('email') }}</span>                             -->
