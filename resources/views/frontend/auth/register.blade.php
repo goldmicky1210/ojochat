@@ -67,6 +67,9 @@
                             <div class="termscondition">
                                 <h4><span>*</span>Terms and condition<b>&amp;</b>Privacy policy</h4>
                             </div>
+                            <div class="patent_pending">
+                                Patent Pending 
+                            </div>
                         </div>
                     </div>
                     <div class="right-page">

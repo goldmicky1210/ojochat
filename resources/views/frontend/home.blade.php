@@ -2774,7 +2774,9 @@
                         @yield('photoCreation')
                     </div>
                 </div>
-
+                <div class="patent_pending">
+                    Patent Pending 
+                </div>
             </div>
         </div>
     </div>

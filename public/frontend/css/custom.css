@@ -1,7 +1,9 @@
 body {
     -webkit-text-size-adjust: 100%;
 }
-
+.patent_pending {
+    font-size: 15px;
+}
 .config-submenu .nav-link.active {
     border-color: transparent;
     box-shadow: unset;
