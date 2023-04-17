@@ -9,3 +9,19 @@
     cursor: pointer;
 }
 
+.login-content h3 {
+    text-align: center;
+    font-size: 30px;
+    color: red;
+}
+.login-content .medialogo ul {
+    gap: 20px;
+}
+.login-content .fa-apple {
+    font-size: 50px;
+    color: gray;
+}
+.login-content .fa-android {
+    font-size: 50px;
+    color: green;
+}

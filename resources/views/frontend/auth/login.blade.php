@@ -2,6 +2,7 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/pages/page-auth.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/pages/register.css">
     
     <div class="login-page1">
         <div class="container-fluid p-0">
@@ -12,8 +13,7 @@
                             <div class="login-content">
                                 <div class="login-content-header">
                                     <img class="image-fluid" src="/chat/images/logo/landing-logo.gif" loop=infinite alt="images"></div>
-                                <h3>Hello Everyone , We are Ojochat</h3>
-                                <h4>Wellcome to ojochat please login to your account.</h4>
+                                <h3>(BETA)</h3>
                                 <span class="alert alert-danger" style="display:none;"></span>
                                 @if (isset($msg) && $msg != '')
                                     <p class="card-text mb-2 alert-normal">Your password is <span
@@ -49,16 +49,14 @@
                                     </div>
                                 </form>
                                 <div class="line">
-                                    <h6>OR Connect with</h6>
+                                    <h6>Coming Soon</h6>
                                 </div>
                                 <div class="medialogo">
                                     <ul>
-                                        <li><a class="icon-btn btn-danger button-effect" href="#"><i
-                                                    class="fa fa-google"></i></a></li>
-                                        <li><a class="icon-btn btn-primary button-effect" href="#"><i
-                                                    class="fa fa-twitter"></i></a></li>
-                                        <li><a class="icon-btn btn-facebook button-effect" href="#"><i
-                                                    class="fa fa-facebook-f"></i></a></li>
+                                        <li><a class="button-effect" href="#"><i
+                                                    class="fa fa-apple"></i></a></li>
+                                        <li><a class="button-effect" href="#"><i
+                                                    class="fa fa-android"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="termscondition">

@@ -2,7 +2,7 @@
 @section('content')
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/pages/page-auth.css">
-    <link rel="stylesheet" type="text/css" href="/vuexy/app-assets/css/pages/page-auth.css">
+    <link rel="stylesheet" type="text/css" href="/frontend/css/pages/register.css">
 
     <div class="login-page1">
         <div class="container-fluid p-0"></div>
@@ -13,14 +13,14 @@
                         <div class="login-content">
                             <div class="login-content-header"><img src="/chat/images/logo/landing-logo.gif" alt="images">
                             </div>
-                            <h3>Hello Everyone , We are Ojochat</h3>
-                            <h4>Wellcome to ojochat please login to your account.</h4>
+                            <h3>(BETA)</h3>
                             <form class="form1" action="/register" method="POST">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <div class="form-group" {{ $errors->has('username') ? 'has-error' : '' }}>
                                     <label class="col-form-label" for="uname">Username</label>
                                     <input class="form-control" id="uname" type="text" name="username"
-                                        placeholder="Demo@123" value="{{ old('username') }}" minlegnth="3" maxlength="15" pattern="[a-zA-Z0-9._-]+">
+                                        placeholder="Demo@123" value="{{ old('username') }}" minlegnth="3" maxlength="15"
+                                        pattern="[a-zA-Z0-9._-]+">
                                     <span class="text-danger">{{ $errors->first('username') }}</span>
                                 </div>
                                 <div class="form-group" {{ $errors->has('email') ? 'has-error' : '' }}>
@@ -39,10 +39,12 @@
                                     <span class="text-danger">{{ $errors->first('password') }}</span>
                                 </div>
                                 <div class="form-group" {{ $errors->has('password_confirm') ? 'has-error' : '' }}>
-                                    <label class="col-form-label" for="inputPassword4">Confirm Password</label><span> </span>
+                                    <label class="col-form-label" for="inputPassword4">Confirm Password</label><span>
+                                    </span>
                                     <div class="passwordInput confirmPassword">
-                                        <input class="form-control" id="inputPassword4" type="password" name="password_confirm"
-                                            placeholder="Confirm Password" value="{{ old('password_confirm') }}">
+                                        <input class="form-control" id="inputPassword4" type="password"
+                                            name="password_confirm" placeholder="Confirm Password"
+                                            value="{{ old('password_confirm') }}">
                                         <i class="fa fa-eye-slash"></i>
                                     </div>
                                     <span class="text-danger">{{ $errors->first('password_confirm') }}</span>
@@ -51,20 +53,17 @@
                                     <div class="buttons"><a class="btn btn-primary button-effect signpbtn" href="#"
                                             onclick="$('.form1').submit();">Signup</a></div>
                                 </div>
+                                <div class="line">
+                                    <h6>Coming Soon</h6>
+                                </div>
                                 <div class="medialogo">
                                     <ul>
-                                        <li><a class="icon-btn btn-danger button-effect" href="#"><i
-                                                    class="fa fa-google"></i></a></li>
-                                        <li><a class="icon-btn btn-primary button-effect" href="#"><i
-                                                    class="fa fa-twitter"></i></a></li>
-                                        <li><a class="icon-btn btn-facebook button-effect" href="#"><i
-                                                    class="fa fa-facebook-f"></i></a></li>
+                                        <li><a class="button-effect" href="#"><i class="fa fa-apple"></i></a></li>
+                                        <li><a class="button-effect" href="#"><i class="fa fa-android"></i></a></li>
                                     </ul>
                                 </div>
                             </form>
-                            <div class="line">
-                                <h6>OR Connect with</h6>
-                            </div>
+
                             <div class="termscondition">
                                 <h4><span>*</span>Terms and condition<b>&amp;</b>Privacy policy</h4>
                             </div>
