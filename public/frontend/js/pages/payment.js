@@ -126,7 +126,7 @@ function tempAction() {
     socket.emit('pay:blink', { messageId, photoId, selectedEmojis, addBalance, totalPrice }, (res) => {
         if (res.status == 'OK') {
             $('#checkoutModal').modal('hide');
-            alert('You paid Successfully');
+            alert("You've paid Successfully");
             payWholePhotoPrice();
             photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
             let thumbnailPhoto = photo_canvas.toDataURL('image/png');

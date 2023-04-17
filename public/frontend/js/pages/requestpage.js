@@ -1118,7 +1118,7 @@ function showPhotoContent(id) {
                                         } else {
                                             if (((new Date().getTime()) - touchtime) < 800) {
                                                 if (oImg.price == -1) {
-                                                    alert('This is static Element')
+                                                    alert('Sticky!')
                                                     return;
                                                 }
                                                 if (oImg.price == 0 || oImg.payersList.includes(currentUserId))
@@ -1183,7 +1183,7 @@ function showPhotoContent(id) {
                                     } else {
                                         if (((new Date().getTime()) - touchtime) < 800) {
                                             if (textBox.price == -1) {
-                                                alert('This is static Element')
+                                                alert('Sticky!')
                                                 return;
                                             }
                                             if (textBox.price == 0 || textBox.payersList.includes(currentUserId))
