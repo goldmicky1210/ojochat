@@ -728,7 +728,7 @@
                                                 <li class="add_contact_user">
                                                     <a class="icon-btn btn-outline-primary button-effect btn-sm"
                                                         href="#"><i data-feather="users"></i></a>
-                                                    <h5>Send Contact Request</h5>
+                                                    <h5>Contact Request</h5>
                                                 </li>
                                                 <li class="show_profile_btn">
                                                     <a class="icon-btn btn-outline-primary button-effect btn-sm"

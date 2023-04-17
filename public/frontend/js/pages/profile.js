@@ -7,6 +7,13 @@ $(document).ready(() => {
         let state = $('.block-switch').prop('checked') ? 1 : 0;
         setProfileSetting('block', state)
     });
+
+    $('.show_profile_btn').on('click', function () {
+        let userId = $('#direct_chat > div.contact-details  div.media-left.me-3 .profile').attr('key')
+        setProfileData(userId)
+        $('#profile_modal').modal('show');
+
+    })
 })
 function setProfileSetting(fieldName, state) {
     var form_data = new FormData();
