@@ -81,7 +81,7 @@ class AuthController extends Controller
             'email' => $email,
             'password' => $cryptpass,
             'remember_token'=>$token,
-            'balances' => 25
+            'balances' => 25,
         ]);
         return redirect('/login');
     }
