@@ -10,7 +10,10 @@
     cursor: pointer;
     font-weight: 400;
 }
-
+.media-body .dot-btn:before {
+    top: 0px;
+    right: -2px;
+}
 .recent-default .recent .theme-title .media {
     align-items: center;
 }

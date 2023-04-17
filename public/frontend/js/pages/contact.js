@@ -107,6 +107,7 @@ $(document).ready(() => {
     });
     // show contact request
     $('.sidebar-top li.notification_list_btn').on('click', () => {
+        getNotificationList();
         // let target = '.notification-tab  .chat-main';
         // new Promise(resolve => getPendingContactListData(resolve)).then(data => {
         //     $(target).empty();

@@ -124,9 +124,11 @@
                                 <!-- <a class="icon-btn btn-outline-light button-effect pull-right mobile-back" href="#">
                                                     <i class="ti-angle-right"></i>
                                                 </a> -->
-                                <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
-                                    <i class="ti-more-alt"></i>
-                                </a>
+                                <div class="dot-danger menu-hide-btn">
+                                    <a class="icon-btn btn-outline-light button-effect pull-right mainnav" href="#">
+                                        <i class="ti-more-alt"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -726,9 +728,9 @@
                                                 <li class="add_contact_user">
                                                     <a class="icon-btn btn-outline-primary button-effect btn-sm"
                                                         href="#"><i data-feather="users"></i></a>
-                                                    <h5>Add Contact</h5>
+                                                    <h5>Send Contact Request</h5>
                                                 </li>
-                                                <li>
+                                                <li class="show_profile_btn">
                                                     <a class="icon-btn btn-outline-primary button-effect btn-sm"
                                                         href="#"><i data-feather="user"></i></a>
                                                     <h5>Show Profile</h5>

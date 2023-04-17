@@ -121,8 +121,10 @@ function getNotificationList() {
         data.sendData.forEach(item => addUsersListItem(target, item, sendStatusItem))
         if (data.receiveData.length) {
             $('.notification_list_btn .dot-danger').addClass('dot-btn');
+            $('.menu-hide-btn').addClass('dot-btn');
         } else {
             $('.notification_list_btn .dot-danger').removeClass('dot-btn');
+            $('.menu-hide-btn').removeClass('dot-btn');
         }
     });
 }
