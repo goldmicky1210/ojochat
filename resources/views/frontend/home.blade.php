@@ -504,7 +504,7 @@
                                                 <input class="js-switch8" type="checkbox" />
                                             </div>
                                         </div>
-                                        <p> <b>Note : </b>turn on this setting to recive notification when you get message.
+                                        <p> <b>Note : </b>Turn on this setting to receive text notifications when you receive a message.
                                         </p>
                                     </div>
                                 </div>
@@ -527,8 +527,7 @@
                                             <li>
                                                 <h5>Read receipts</h5>
                                                 <input class="js-switch16 read-receipts-switch" type="checkbox" />
-                                                <p> <b>Note : </b>If turn off this option you won't be able to see read
-                                                    recipts from contact. read receipts are always sent for group chats.
+                                                <p> <b>Note : </b>If you turn off this option you will not  be able to see read recipts from contacts. Read  receipts are always sent for group chats.
                                                 </p>
                                             </li>
 
@@ -672,7 +671,7 @@
                     <div class="media">
                         <div class="media-body">
                             <h3>Help</h3>
-                            <h4>You are Confusion, Tell me</h4>
+                            {{-- <h4>You are Confusion, Tell me</h4> --}}
                         </div>
                         <div class="media-right"> <a class="icon-btn btn-outline-light btn-sm pull-right next"
                                 href="#"> <i data-feather="chevron-right"></i></a></div>
