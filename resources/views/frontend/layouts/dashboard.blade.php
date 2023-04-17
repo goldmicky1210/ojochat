@@ -17,9 +17,11 @@
     <link rel="icon" href="/chat/images/favicon/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="/chat/images/favicon/favicon.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,600&amp;display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap">
 
     <link rel="stylesheet" href="https://www.jquery-az.com/boots/css/bootstrap-colorpicker/bootstrap-colorpicker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
@@ -53,9 +55,10 @@
 <body class="">
     <!-- <script src="https://code.jquery.com/jquery-latest.min.js"></script> -->
     <script src="/chat/js/jquery-3.3.1.min.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    
+
     <script src="https://www.jquery-az.com/boots/js/bootstrap-colorpicker/bootstrap-colorpicker.js"></script>
     <!-- phone number select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.16/js/intlTelInput.min.js"></script>
@@ -64,14 +67,14 @@
 
     <script src="/frontend/js/pages/fabric.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"
-    integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="/frontend/js/dropzone.js"></script>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.min.js"></script> -->
-    
-        @yield('content')
-    
+
+    @yield('content')
+
     <script src="/chat/js/owl.carousel.js"></script>
     <script src="/chat/js/popper.min.js"></script>
     <script src="/chat/js/tippy-bundle.iife.min.js"></script>
@@ -96,7 +99,40 @@
 
     <script src="/chat/js/script.js"></script>
 
-   
+    <!-- Start of Woopra Code -->
+    <script>
+        ! function() {
+            var t, o, c, e = window,
+                n = document,
+                r = arguments,
+                a = "script",
+                i = ["call", "cancelAction", "config", "identify", "push", "track", "trackClick", "trackForm", "update",
+                    "visit"
+                ],
+                s = function() {
+                    var t, o = this,
+                        c = function(t) {
+                            o[t] = function() {
+                                return o._e.push([t].concat(Array.prototype.slice.call(arguments, 0))), o
+                            }
+                        };
+                    for (o._e = [], t = 0; t < i.length; t++) c(i[t])
+                };
+            for (e.__woo = e.__woo || {}, t = 0; t < r.length; t++) e.__woo[r[t]] = e[r[t]] = e[r[t]] || new s;
+            (o = n.createElement(a)).async = 1, o.src = "https://static.woopra.com/js/w.js", (c = n.getElementsByTagName(a)[
+                0]).parentNode.insertBefore(o, c)
+        }("woopra");
+
+        woopra.config({
+            domain: "ojochat.com",
+            outgoing_tracking: true,
+            download_tracking: true,
+            click_tracking: true
+        });
+
+        woopra.track();
+    </script>
+    <!-- End of Woopra Code -->
 </body>
 
 
