@@ -165,9 +165,10 @@ function addContact(userId) {
         dataType: "json",
         success: function (res) {
             if (res.state) {
+                getNotificationList();
                 senderName = getCertainUserInfoById(currentUserId).username
                 socket.emit('accept:contactRequest', { userId, senderName })
-                alert('Contact is added Successfully');
+                alert('Contact added Successfully');
             }
         },
         error: function (response) {
