@@ -418,11 +418,10 @@ class HomeController extends Controller
         $location = $request->input('location');
         $description = $request->input('description');
         $this->validate($request, [
-            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
+            'username' => 'required|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
             
         ], [
             'username.required' => 'The display name field is required.',
-            'username.unique' => 'Sorry, that display name is taken. Please try again.',
             'username.max' => 'The display name must be at least 3 characters long.',
             'username.max' => 'The display name may not be greater than 15 characters.',
             'username.regex' => 'Sorry, display name may only contain letters, numbers, hyphen, underscore, or period. Please try again.',
