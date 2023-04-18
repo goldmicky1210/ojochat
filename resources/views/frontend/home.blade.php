@@ -422,7 +422,7 @@
                         </div>
                     </div>
                     <div class="profile-box">
-                        <div class="media">
+                        <div class="media profile-edit-save-form">
                             <div class="profile" style="position: relative">
                                 <img class="bg-img" id="profileImage"
                                     src="{{ !Auth::user()->avatar ? '/images/default-avatar.png' : 'v1/api/downloadFile?path=' . Auth::user()->avatar }}"

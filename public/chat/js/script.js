@@ -627,7 +627,7 @@
         $(this).toggleClass("btn-outline-primary").toggleClass("btn-primary");
     });
     $(".edit-btn").on('click', function () {
-        if ($(this).parent().parent().hasClass('open')) {
+        if ($('.profile-edit-save-form').hasClass('open')) {
             // changeProfileInfo();
             var form_data = new FormData();
             let username = $(this).parents('.media').find('input.username').val();
@@ -652,7 +652,7 @@
                     console.log(res)
                     $('#settings .details.edit .text-danger').text('');
                     if (res.update == true) {
-                        $(this).parent().parent().removeClass("open");
+                        $('.profile-edit-save-form').removeClass("open");
 
                         $('#settings .profile-box .details .setting__profile--name').html(username);
                         $('#settings .profile-box .details .setting__profile--location').html(location);
