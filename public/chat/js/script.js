@@ -649,7 +649,6 @@
                 type: 'POST',
                 dataType: "json",
                 success: function (res) {
-                    console.log(res)
                     $('#settings .details.edit .text-danger').text('');
                     if (res.update == true) {
                         $('.profile-edit-save-form').removeClass("open");
