@@ -57,7 +57,8 @@
                     <!-- <li><a class="icon-btn btn-light button-effect" href="favourite" data-tippy-content="Favourite"><i class="fa fa-star"></i></a></li> -->
                     <li class="contact_list_btn">
                         <a class="icon-btn btn-light button-effect" href="contact-list" data-tippy-content="Contact List">
-                            <i class="fa fa-users"></i>
+                            {{-- <i class="fa fa-users"></i> --}}
+                            <i data-feather="users" style="fill: #223645 !important"></i>
                         </a>
                         <p>Contacts</p>
                     </li>
