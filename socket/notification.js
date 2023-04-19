@@ -119,14 +119,14 @@ exports.sendSMS = (sender, recipient, data) => {
                                         if (spainish) {
                                             message = `Hola ${row[0].username}, tienes un nuevo ${spanishMsgType} de ${data.senderName}. Inicie sesion en Ojochat para ver sus mensajes. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, you have a new ${englishMsgType} from ${data.senderName || 'Someone'}. Login to Ojochat.com to view your messages. ${val}`;
+                                            message = `Hey ${row[0].username}, you have a new ${englishMsgType} from ${data.senderName || 'Someone'}. Login to Ojochat to view your messages. ${val}`;
                                         }
                                     } else if (groupType == 2) {
                                         // Group Message
                                         if (spainish) {
                                             message = `Hola ${row[0].username}, ${data.senderName} ha publicado un nuevo ${spanishMsgType} en el grupo ${groupInfo[0]['title']}. Inicie sesión en Ojochat para ver nuevos mensajes de grupo. ${val}`;
                                         } else {
-                                            message = `Hey ${row[0].username}, a new ${englishMsgType} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat.com to view new group messages. ${val}`;
+                                            message = `Hey ${row[0].username}, a new ${englishMsgType} has been posted by ${data.senderName} in the group ${groupInfo[0]['title']}. Login to Ojochat to view new group messages. ${val}`;
                                         }
                                     }
                                 }
@@ -155,13 +155,13 @@ exports.sendSMS = (sender, recipient, data) => {
                                     if (spainish) {
                                         message = `Hola ${row[0].username}, tienes un nuevo mensaje multimedia de ${data.senderName}.  Inicie sesión en Ojochat para ver sus mensajes. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat.com to view your messages ${val}`
+                                        message = `Hey ${row[0].username}, You have a new media message from ${data.senderName}. Login to Ojochat to view your messages ${val}`
                                     }
                                 } else if (data.msgType == 'editBlink') {
                                     if (spainish) {
                                         message = `Hola ${row[0].username}, ${data.senderName} ha editado un Blink. Inicie sesión en Ojochat para ver sus mensajes. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat.com to view your messages. ${val}`;
+                                        message = `Hey ${row[0].username}, a Blink has been edited by ${data.senderName}. Login to Ojochat to view your messages. ${val}`;
                                     }
                                 } else if (data.msgType == 'thanks') {
                                     if (spainish) {
@@ -173,13 +173,13 @@ exports.sendSMS = (sender, recipient, data) => {
                                     if (spainish) {
                                         message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}. Inicie sesion en OJOChat para aceptar. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, you have received a contact request from ${data.senderName}. Login to OJOChat.com to accept. ${val}`;
+                                        message = `Hey ${row[0].username}, you have received a contact request from ${data.senderName}. Login to OJOChat to accept. ${val}`;
                                     }
                                 } else if (data.msgType == 'acceptContactRequest') {
                                     if (spainish) {
                                         message = `Hola ${row[0].username}, ha recibido una solicitud de contacto de ${data.senderName}. Inicie sesion en OJOChat para aceptar. ${val}`;
                                     } else {
-                                        message = `Hey ${row[0].username}, ${data.senderName} has accepted your contact request. Visit OJOChat.com and start chatting. ${val}`;
+                                        message = `Hey ${row[0].username}, ${data.senderName} has accepted your contact request. Visit OJOChat and start chatting. ${val}`;
                                     }
                                 }
                                 console.log('message=', message);
