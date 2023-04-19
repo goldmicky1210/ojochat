@@ -183,6 +183,8 @@ $(document).ready(function () {
             users = [userId, currentUserId];
             if (getDirectGroupId(userId)) {
                 console.log('already this group with ' + userId);
+                getRecentChatUsers(1);
+                
             } else {
                 socket.emit('create:group', { title: item.username, users, type: 1 });
             }

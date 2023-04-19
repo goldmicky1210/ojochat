@@ -70,7 +70,7 @@ class GroupController extends Controller
         if ($directGroupId) {
             if (!$flag) {
                 Group::where('id', $directGroupId['group_id'])->update(['deleted' => 0]);
-                Message::where('group_id', $directGroupId['group_id'])->update(['deleted' => 0]);
+                // Message::where('group_id', $directGroupId['group_id'])->update(['deleted' => 0]);
             }
             return array('state' => 'true', 'groupId' => $directGroupId['group_id']);
         } else {
