@@ -542,7 +542,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-header" id="headingFour" role="heading" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" >
                                     <a>Phone Number<i class="fa fa-angle-down"></i></a>
                                 </div>
                                 <div class="collapse" id="collapseFour" aria-labelledby="headingFour"
@@ -2610,7 +2610,7 @@
                             <div class="todo-main-content">
                                 <div class="form-group">
                                     <input type="checkbox" aria-label="Checkbox for following text input" />
-                                    <input class="w-100" id="user_input123" type="text"
+                                    <input class="w-100" id="user_input1234" type="text"
                                         placeholder="Fill Your Fillings " />
                                 </div>
                                 <div class="drop-picker">

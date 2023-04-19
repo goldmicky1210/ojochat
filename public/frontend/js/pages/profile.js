@@ -45,7 +45,6 @@ function setProfileSetting(fieldName, state) {
         data: form_data,
         success: function (res) { 
             console.log(res)
-            $('.messages.active .chatappend').empty();
         },
         error: function (response) { }
     });
@@ -69,6 +68,7 @@ function deleteConversation(groupId) {
         success: function (res) { 
             console.log(res)
             if (res.state == 'true') {
+                $('.messages.active .chatappend').empty();
 
             }
         },
