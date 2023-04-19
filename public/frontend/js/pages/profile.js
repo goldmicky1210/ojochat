@@ -14,6 +14,10 @@ $(document).ready(() => {
         $('#profile_modal').modal('show');
 
     })
+    $('.remove_conversation_btn').on('click', function () {
+        deleteConversation(currentDirectId);
+    })
+
 })
 function setProfileSetting(fieldName, state) {
     var form_data = new FormData();
@@ -41,6 +45,32 @@ function setProfileSetting(fieldName, state) {
         data: form_data,
         success: function (res) { 
             console.log(res)
+            $('.messages.active .chatappend').empty();
+        },
+        error: function (response) { }
+    });
+}
+
+function deleteConversation(groupId) {
+    let form_data = new FormData();
+    form_data.append('groupId', groupId);
+
+    $.ajax({
+        url: '/message/deleteConversation',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        data: form_data,
+        success: function (res) { 
+            console.log(res)
+            if (res.state == 'true') {
+
+            }
         },
         error: function (response) { }
     });

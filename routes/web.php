@@ -55,6 +55,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/home/getPaymentHistories', 'HomeController@getPaymentHistories');
     Route::post('/home/getBlockList', 'HomeController@getBlockList');
     Route::post('/message/getLastMessage', 'MessageController@getLastMessage');
+    Route::post('/message/deleteConversation', 'MessageController@deleteConversation');
     Route::post('/api/create-paypal-transaction', 'PaymentController@createPayment');
     Route::post('/api/confirm-paypal-transaction', 'PaymentController@confirmPayment');
     Route::get('/stripe', 'StripeController@stripe');

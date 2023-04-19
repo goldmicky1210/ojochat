@@ -79,6 +79,14 @@ class MessageController extends Controller
             return array('state' => 'false');
         }
     }
+    public function deleteConversation(Request $request) {
+        $groupId = $request->input('groupId');
+        // $res = Group::where("id", $groupId)->update(array('deleted'=>1));
+        Message::where("group_id", $groupId)->update(array('deleted'=>1));
+        Message::where('content', $groupId)->where('kind', 3)->update(array('deleted'=>1)); 
+        return array('state'=>'true');
+        
+    }
 
     public function getMessgageContentById(Request $request) {
         $messageId = $request->input('messageId');

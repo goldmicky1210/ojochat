@@ -735,16 +735,16 @@
                                                         href="#"><i data-feather="user"></i></a>
                                                     <h5>Show Profile</h5>
                                                 </li>
-                                                <li>
+                                                <li class="remove_conversation_btn">
                                                     <a class="icon-btn btn-outline-danger button-effect btn-sm"
                                                         href="#"><i data-feather="trash-2"></i></a>
                                                     <h5>Delete Conversation</h5>
                                                 </li>
-                                                <li>
+                                                {{-- <li class="block_user_btn">
                                                     <a class="icon-btn btn-outline-light button-effect btn-sm"
                                                         href="#"><i data-feather="slash"></i></a>
                                                     <h5>Block</h5>
-                                                </li>
+                                                </li> --}}
                                             </ul>
                                         </div>
                                     </li>
