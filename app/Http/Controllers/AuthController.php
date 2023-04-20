@@ -51,7 +51,7 @@ class AuthController extends Controller
             return view('frontend.auth.register',['page_title' => 'Register']);
         
         $this->validate($request, [
-            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-\$\@\?]+$',
+            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-\$\@\?]+$/',
             'email' => 'required|email|unique:users|max:50',
             'password' => 'required|string|min:6',
             'password_confirm' => 'required_with:password|same:password',
