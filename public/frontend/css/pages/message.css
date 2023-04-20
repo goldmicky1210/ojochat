@@ -320,7 +320,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 #custom_modal .chat-main>li .details>h5,
 #custom_modal .chat-main>li .details>h6 {
     width: 100%;
-    max-width: 320px;
+    max-width: 150px;
 }
 
 .msg-chat-modal .chat-main li .chat-box .details,
