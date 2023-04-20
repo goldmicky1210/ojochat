@@ -15,7 +15,8 @@ $(document).ready(() => {
 
     })
     $('.remove_conversation_btn').on('click', function () {
-        deleteConversation(currentDirectId);
+        confirmModal('', 'Are you sure you want to delete all messages?', () => deleteConversation(currentDirectId))
+        // deleteConversation(currentDirectId);
     })
 
 })

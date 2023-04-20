@@ -979,7 +979,7 @@ function addGroupChatItem(target, data, loadFlag) {
                 <button class="btn btn-sm btn-success">Pay & Join</button>
             </div>` :
             `<div class="content invite_link" inviteGroupId=${data.content}>
-                <p class="invite_group_title">Invited Group is delelted</p>
+                <p class="invite_group_title">Invited Group is deleted</p>
             </div>`;
     } else if (data.kind == 4) {
         var fileContent = getFileContent(data);
