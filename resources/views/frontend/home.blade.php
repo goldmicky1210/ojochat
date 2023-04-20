@@ -2998,7 +2998,7 @@
                     <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body custom-scroll">
                     <div class="sub_title">
                         <div class="input-group input-group mb-3">
                             <span class="input-group-text custom_title">Sub Title</span>

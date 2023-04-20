@@ -773,6 +773,18 @@ h6.read {
     line-height: 15px;
 }
 
+/* .search_user_modal {
+    max-height: 90vh;
+}
+
+.search_user_modal .modal-body {
+    overflow: auto;
+}
+.search_user_modal .modal-body .chat-main {
+    height: auto;
+    overflow: hidden;
+} */
+
 @media (max-width: 510px) {
 
     #createPhoto .modal-dialog,

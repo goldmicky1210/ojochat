@@ -51,7 +51,7 @@ class AuthController extends Controller
             return view('frontend.auth.register',['page_title' => 'Register']);
         
         $this->validate($request, [
-            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
+            'username' => 'required|unique:users|max:15|min:3|regex:/^[a-zA-Z0-9._\$@?-]+$/|not_regex:/ojo/i',
             'email' => 'required|email|unique:users|max:50',
             'password' => 'required|string|min:6',
             'password_confirm' => 'required_with:password|same:password',
@@ -70,7 +70,7 @@ class AuthController extends Controller
             'password.min' => 'The password must be at least 6 characters long',
             'password_confirm.same' => "The password doesn't matched"
         ]);
-    
+        
         $password=$request->input('password');//Str::random(7);
         $cryptpass=Hash::make($password);
         $email=$request->input('email');

@@ -6,6 +6,7 @@ var typingTime;
 var timerId;
 let State = ['', 'sent', 'arrived', 'read'];
 
+let currentUserInfo;
 let currentGroupId;
 let currentGroupUsers;
 let currentDirectId;
@@ -28,10 +29,9 @@ $(document).ready(() => {
         getBlockList();
         getUsersList(resolve);
     }).then(() => {
-        let currentUserInfo = getCertainUserInfoById(currentUserId)
+        currentUserInfo = getCertainUserInfoById(currentUserId)
         $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
         $('.self_profile_name').text(getNameStr(currentUserInfo.username))
-
         getFollowData(currentUserId);
         getRecentChatUsers(1);
         typingAction();
