@@ -68,7 +68,7 @@ class AuthController extends Controller
             'email.max' => 'The email length should be less than 50',
             'password.required' => 'The password field is required',
             'password.min' => 'The password must be at least 6 characters long',
-            'password_confirm.same' => "The password doesn't macted"
+            'password_confirm.same' => "The password doesn't matched"
         ]);
     
         $password=$request->input('password');//Str::random(7);
