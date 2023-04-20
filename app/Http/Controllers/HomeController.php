@@ -418,7 +418,7 @@ class HomeController extends Controller
         $location = $request->input('location');
         $description = $request->input('description');
         $this->validate($request, [
-            'username' => 'required|max:15|min:3|regex:/^[a-zA-Z0-9._-]+$/|not_regex:/ojo/i',
+            'username' => 'required|max:15|min:3|regex:/^[a-zA-Z0-9._\$@?-]+$/',
             
         ], [
             'username.required' => 'The display name field is required.',
