@@ -30,6 +30,9 @@ $(document).ready(() => {
         getUsersList(resolve);
     }).then(() => {
         currentUserInfo = getCertainUserInfoById(currentUserId)
+        if (!currentUserInfo.phone_number) {
+            alert('You should add phone number to get SMS!');
+        }
         $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
         $('.self_profile_name').text(getNameStr(currentUserInfo.username))
         getFollowData(currentUserId);

@@ -426,7 +426,6 @@ class HomeController extends Controller
             'username.max' => 'The display name may not be greater than 15 characters.',
             'username.regex' => 'Sorry, display name may only contain letters, numbers, hyphen, underscore, or period. Please try again.',
             'username.not_regex' => 'Sorry, that display name is not available. Please try again.',
-            
         ]);
         $user = User::find($id);
         $user->username = $username;
