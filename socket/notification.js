@@ -4,7 +4,7 @@ const KindConstant = require("./constant").KindConstant;
 const axios = require('axios');
 
 exports.sendPaySMS = (sender, recipient, amount) => {
-    db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {\
+    db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {
         if (row.length) {
             if (row[0].notification) {
                 // var val = Math.floor(100000 + Math.random() * 900000);
