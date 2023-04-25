@@ -31,7 +31,7 @@ $(document).ready(() => {
     }).then(() => {
         currentUserInfo = getCertainUserInfoById(currentUserId)
         if (!currentUserInfo.phone_number) {
-            alert('Add a phone number to receive text notifications.');
+            alert('For text notifications please add your mobile in Settings > Account > Phone Number.');
         }
         $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
         $('.self_profile_name').text(getNameStr(currentUserInfo.username))
