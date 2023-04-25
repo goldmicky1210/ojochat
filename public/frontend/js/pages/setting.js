@@ -5,27 +5,31 @@ $(document).ready(function () {
         errorMsg = $("#error-msg"),
         validMsg = $("#valid-msg");
 
-    // var iti = window.intlTelInput(phoneNumberInput, {
-    //     utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.16/js/utils.js"
-    // })
     var reset = function () {
         telInput.removeClass("error");
         errorMsg.addClass("hide");
         validMsg.addClass("hide");
     };
-
+    telInput.on("countrychange", function () {
+        let countryData = iti.getSelectedCountryData();
+        if (countryData.dialCode == '55') {
+            $('.smsTestBtns').hide();
+        } else {
+            $('.smsTestBtns').show();
+        }
+    });
     // on blur: validate
     telInput.blur(function () {
         reset();
         let isValid = iti.isValidNumber();
         if (isValid) {
             validMsg.removeClass('hide');
-            let countryData = iti.getSelectedCountryData();
-            if (countryData.dialCode == '55') {
-                $('.smsTestBtns').hide();
-            } else {
-                $('.smsTestBtns').show();
-            }
+            // let countryData = iti.getSelectedCountryData();
+            // if (countryData.dialCode == '55') {
+            //     $('.smsTestBtns').hide();
+            // } else {
+            //     $('.smsTestBtns').show();
+            // }
         } else {
             telInput.addClass("error");
             errorMsg.removeClass("hide");
@@ -175,11 +179,11 @@ $(document).ready(function () {
     $('.block-user-list-btn').on('click', function (e) {
         $('#custom_modal').modal('show');
 
-        
+
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.btn_group .btn').hide();
         $('#custom_modal').find('.modal-title').text(`Blocked Users(${blockUserList.length})`);
-        
+
         let usersList = blockUserList.map(item => getCertainUserInfoById(item))
         let target = '#custom_modal .chat-main';
         $(target).empty();
