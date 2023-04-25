@@ -1,7 +1,6 @@
 
 
 $(document).ready(function () {
-    var phoneNumberInput = document.querySelector('#phone');
     var telInput = $("#phone"),
         errorMsg = $("#error-msg"),
         validMsg = $("#valid-msg");
