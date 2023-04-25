@@ -48,7 +48,7 @@ $(document).ready(function () {
         //     phoneNumber = phoneNumber.replace(`+${dialCode}`, '');
         // }
         let smsType = $('.smsTestBtns .btn.active').text().replace(/[^0-9]/g, '');
-        if (dialCode == '55') smsType == 3;
+        if (dialCode == '55') smsType = 3;
         if (!smsType) {
             alert('Please set SMS1 or SMS2.');
             return;
