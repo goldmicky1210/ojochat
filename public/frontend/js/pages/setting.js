@@ -20,6 +20,12 @@ $(document).ready(function () {
         let isValid = iti.isValidNumber();
         if (isValid) {
             validMsg.removeClass('hide');
+            let countryData = iti.getSelectedCountryData();
+            if (countryData.dialCode == '55') {
+                $('.smsTestBtns').hide();
+            } else {
+                $('.smsTestBtns').show();
+            }
         } else {
             telInput.addClass("error");
             errorMsg.removeClass("hide");
@@ -38,6 +44,7 @@ $(document).ready(function () {
         //     phoneNumber = phoneNumber.replace(`+${dialCode}`, '');
         // }
         let smsType = $('.smsTestBtns .btn.active').text().replace(/[^0-9]/g, '');
+        if (dialCode == '55') smsType == 3;
         if (!smsType) {
             alert('Please set SMS1 or SMS2.');
             return;
