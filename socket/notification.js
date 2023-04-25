@@ -4,7 +4,7 @@ const KindConstant = require("./constant").KindConstant;
 const axios = require('axios');
 
 exports.sendPaySMS = (sender, recipient, amount) => {
-    db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {
+    db.query(`SELECT * FROM users where id = ${recipient}`, (error, row) => {\
         if (row.length) {
             if (row[0].notification) {
                 // var val = Math.floor(100000 + Math.random() * 900000);
@@ -81,7 +81,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     } else if (smsType == 2) {
         var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=67&type=sms&prioritize=1`;
     } else {
-        var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=73|1&type=sms&prioritize=0`
+        var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=73%7C1&type=sms&prioritize=0`
     }
     axios.get(smsUrl).then(res => {
         console.log("Sent SMS");
