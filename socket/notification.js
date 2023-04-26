@@ -17,7 +17,7 @@ exports.sendPaySMS = (sender, recipient, amount) => {
                         if (phone_code == 1) {
                             fullPhoneNumber = phoneNumber;
                         } else if (phone_code == 55) {
-                            fullPhoneNumber = '+' + phoneNumber;
+                            fullPhoneNumber = phoneNumber;
                         } else {
                             fullPhoneNumber = '011' + phoneNumber;
                         }
@@ -51,7 +51,7 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
                         if (phone_code != 1) {
                             fullPhoneNumber = phoneNumber;
                         } else if (phone_code == 55) {
-                            fullPhoneNumber = '+' + phoneNumber;
+                            fullPhoneNumber = phoneNumber;
                         } else {
                             fullPhoneNumber = '011' + phoneNumber;
                         }
@@ -86,7 +86,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     } else if (smsType == 2) {
         var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=67&type=sms&prioritize=1`;
     } else {
-        var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${phoneNumber}&message=${message}&devices=73%7C1&type=sms&prioritize=0`
+        var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=%2B${phoneNumber}&message=${message}&devices=73%7C1&type=sms&prioritize=0`
     }
     axios.get(smsUrl).then(res => {
         console.log("Sent SMS");
@@ -110,7 +110,7 @@ exports.sendSMS = (sender, recipient, data) => {
                             if (phone_code == 1) {
                                 fullPhoneNumber = phoneNumber;
                             } else if (phone_code == 55){
-                                fullPhoneNumber = '+' + phoneNumber;
+                                fullPhoneNumber = phoneNumber;
                             } else {
                                 fullPhoneNumber = '011' + phoneNumber;
                             }
