@@ -14,10 +14,12 @@ exports.sendPaySMS = (sender, recipient, amount) => {
                     db.query(`SELECT * FROM country_phone_codes where country_id = ${country[0].id}`, (error, phoneInfo) => {
                         let phone_code = phoneInfo[0].phone_code;
                         let fullPhoneNumber = '';
-                        if (phone_code != 1) {
-                            fullPhoneNumber = '011' + phoneNumber;
-                        } else {
+                        if (phone_code == 1) {
                             fullPhoneNumber = phoneNumber;
+                        } else if (phone_code == 55) {
+                            fullPhoneNumber = '+' + phoneNumber;
+                        } else {
+                            fullPhoneNumber = '011' + phoneNumber;
                         }
                         db.query(`SELECT * FROM users where id=${sender}`, (error, user) => {
                             let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
@@ -47,9 +49,11 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
                         let phone_code = phoneInfo[0].phone_code;
                         let fullPhoneNumber = '';
                         if (phone_code != 1) {
-                            fullPhoneNumber = '011' + phoneNumber;
-                        } else {
                             fullPhoneNumber = phoneNumber;
+                        } else if (phone_code == 55) {
+                            fullPhoneNumber = '+' + phoneNumber;
+                        } else {
+                            fullPhoneNumber = '011' + phoneNumber;
                         }
                         db.query(`SELECT * FROM users where id=${sender}`, (error, user) => {
                             let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
