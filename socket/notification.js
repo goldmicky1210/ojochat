@@ -106,7 +106,7 @@ exports.sendSMS = (sender, recipient, data) => {
                             if (phone_code == 1) {
                                 fullPhoneNumber = phoneNumber;
                             } else if (phone_code == 55){
-                                fullPhoneNumber = phoneNumber;
+                                fullPhoneNumber = '+' + phoneNumber;
                             } else {
                                 fullPhoneNumber = '011' + phoneNumber;
                             }
