@@ -542,7 +542,7 @@ function sendBlink() {
         data.content = getEmojisInfo(canvas._objects);
         socket.emit('save:blink', data, res => {
             if (res.status == 'OK') {
-                alert('Blink is saved Successfully');
+                alert('Blink saved Successfully');
             }
         });
     });
