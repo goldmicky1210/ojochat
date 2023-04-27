@@ -12,7 +12,7 @@ $(document).ready(function () {
     };
     telInput.on("countrychange", function () {
         let countryData = iti.getSelectedCountryData();
-        if (countryData.dialCode == '55') {
+        if (countryData.dialCode == '55' || countryData.iso2 == 'us') {
             $('.smsTestBtns').hide();
         } else {
             $('.smsTestBtns').show();
@@ -49,6 +49,7 @@ $(document).ready(function () {
         // }
         let smsType = $('.smsTestBtns .btn.active').text().replace(/[^0-9]/g, '');
         if (dialCode == '55') smsType = 3;
+        if (isoCode2 == 'us') smsType = 1;
         if (!smsType) {
             alert('Please set SMS1 or SMS2.');
             return;
