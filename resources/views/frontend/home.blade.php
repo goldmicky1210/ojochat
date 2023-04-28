@@ -207,7 +207,7 @@
                         </div>
                     </div>
                     <div class="theme-tab tab-sm chat-tabs">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        {{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item" data-to="chat-content"><a class="nav-link button-effect active"
                                     id="chat-tab" data-bs-toggle="tab" href="#chat" role="tab"
                                     aria-controls="chat" aria-selected="true"><i data-feather="message-square">
@@ -216,10 +216,10 @@
                                     data-bs-toggle="tab" href="#call" role="tab" aria-controls="call"
                                     aria-selected="false"><i data-feather="phone"> </i>Call</a></li>
                             <li class="nav-item" data-to="contact-content"><a class="nav-link button-effect"
-                                    id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab"
+                                    id="contact-tab" data-bs-toggle="tab" href="contact-list"  role="tab"
                                     aria-controls="contact" aria-selected="false"> <i data-feather="users">
                                     </i>Contact</a></li>
-                        </ul>
+                        </ul> --}}
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="chat" role="tabpanel"
                                 aria-labelledby="chat-tab">
