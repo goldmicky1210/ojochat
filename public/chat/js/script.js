@@ -365,7 +365,8 @@
     });
 
     $('.chat-cont-toggle').on('click', function (e) {
-        let className = $('#myTab .nav-item .nav-link.active').attr('id').split('-')[0];
+        // let className = $('#myTab .nav-item .nav-link.active').attr('id').split('-')[0];
+        let className = 'chat';
         $(`.chat-cont-setting:not(.${className})`).removeClass('open');
         $(`.chat-cont-setting.${className}`).toggleClass('open');
     });
