@@ -655,7 +655,7 @@
                         </div>
                         <ul class="help">
                             <li>
-                                <h5> <a href="#">FAQ</a></h5>
+                                <h5> <a target="_blank" href="https://www.reddit.com/r/OJOchat/?utm_source=share&utm_medium=ios_app&utm_name=ioscss&utm_content=1&utm_term=1&rdt=54268">FAQ</a></h5>
                             </li>
                             <li>
                                 <h5> <a href="#"> Contact Us</a></h5>
@@ -667,7 +667,7 @@
                                 <h5> <a href="#">Licenses</a></h5>
                             </li>
                             <li>
-                                <h5> <a href="#">2019 - 20 Powered by Pixelstrap</a></h5>
+                                <h5> <a href="#">2013 - 2024 Powered by OJO</a></h5>
                             </li>
                         </ul>
                     </div>

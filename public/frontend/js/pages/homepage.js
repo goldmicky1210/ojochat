@@ -334,9 +334,13 @@ function typingMessage(senderId, lastElement) {
     // else {
     var delta = (new Date() - typingTime);
     // }
+    // <div class="profile me-4 bg-size" style="background-image: ${senderInfo.avatar ? 'url(' + avatarPath + ')' : 'none'}; background-size: cover; background-position: center center;">
+    // ${senderInfo.avatar ? "" : getNameStr(senderInfo.username)}
+// </div>
     if (!$('.typing-m').length) {
         let contactorInfo = getCertainUserInfoById(senderId);
-        $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: url(${contactorInfo.avatar ? 'v1/api/downloadFile?path=' + contactorInfo.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center center; display: block;"></div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
+        $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: ${contactorInfo.avatar ? 'url(' + avatarPath + ')' : 'none'}; background-size: cover; background-position: center center; display: block;">${contactorInfo.avatar ? "" : getNameStr(contactorInfo.username)}
+        </div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
         let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
         if ($(lastElement).isInViewport()) {
             $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
