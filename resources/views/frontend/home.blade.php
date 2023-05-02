@@ -655,7 +655,7 @@
                         </div>
                         <ul class="help">
                             <li>
-                                <h5> <a target="_blank" href="https://www.reddit.com/r/OJOchat/?utm_source=share&utm_medium=ios_app&utm_name=ioscss&utm_content=1&utm_term=1&rdt=54268">FAQ</a></h5>
+                                <h5> <a target="_blank" href="https://www.reddit.com/r/OJOchat">FAQ</a></h5>
                             </li>
                             <li>
                                 <h5> <a href="#"> Contact Us</a></h5>
