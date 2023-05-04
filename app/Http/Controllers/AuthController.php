@@ -179,18 +179,18 @@ class AuthController extends Controller
             if(count($login))$login[0]->delete();
             $newPassword = Str::random(8);
             $_newPassword = Hash::make($newPassword);
-
-            User::where('id', $user->userId)->update(['password'=>$_newPassword]);
+            $token=Crypt::encryptString($email.'###'.$_newPassword);
+            User::where('id', $user->userId)->update(['password'=>$_newPassword, 'remember_token' => $token]);
 
             $mailData = new MailData();
+
             $mailData->template='temps.password_changed';
             $mailData->fromEmail = config('mail.from.address');
-            $mailData->userName = $user->userName;
+            $mailData->userName = $user->username;
             $mailData->toEmail = $email;
             $mailData->subject = 'OJOChat - Password Reset';
             $mailData->mailType = 'RESET_LINK_TYPE';
             $mailData->content = $newPassword;
-
             Mail::to($mailData->toEmail)->send(new MailHelper($mailData));
 
             return redirect()->intended('login');
