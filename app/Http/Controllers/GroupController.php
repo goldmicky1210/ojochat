@@ -39,6 +39,8 @@ class GroupController extends Controller
         $result = Group::where('id', $groupId)->first();
         // $blockState = Block::where('user_id', $userId)->where('group_id', $groupId)->first();
         if ($result) {
+            $users = UsersGroup::where('group_id', $result['id'])->get('user_id')->toArray();
+            $result['users'] = array_values($users);
             // return array('state' => 'true', 'data' => $result, 'blockState'=> $blockState);
             return array('state' => 'true', 'data' => $result);
         } else {

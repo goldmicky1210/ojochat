@@ -181,10 +181,34 @@ $(document).ready(function () {
         new Promise(resolve => getUsersList(resolve)).then(usersList => {
             let item = usersList.find(item => item.id == userId);
             users = [userId, currentUserId];
-            if (getDirectGroupId(userId)) {
+            let groupId = getDirectGroupId(userId)
+            if (groupId) {
                 console.log('already this group with ' + userId);
-                getRecentChatUsers(1);
-                
+                // getRecentChatUsers(1);
+                let form_data = new FormData();
+                form_data.append('groupId', groupId);
+                $.ajax({
+                    url: '/group/getGroupInfo',
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: form_data,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.state == 'true') {
+                            console.log(res)
+                            var target = '#direct > ul.chat-main';
+                            res.data.users = res.data.users.map(item => item.user_id);
+                            console.log(res.data)
+                            addNewGroupItem(target, res.data)
+                        }
+                    },
+                    error: function (response) { }
+                });
             } else {
                 socket.emit('create:group', { title: item.username, users, type: 1 });
             }
@@ -854,6 +878,7 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
 }
 
 function addNewGroupItem(target, data) {
+    console.log(data)
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
@@ -963,7 +988,7 @@ function addGroupChatItem(target, data, loadFlag) {
                 var replyContent = messageContent;
             } else if (replyKind == 2 || replyKind == 4) {
                 var replyContent = `<img src="${messageContent}" width="50">`;
-            } else if(replyKind == 10) {
+            } else if (replyKind == 10) {
                 var replyContent = `<i class="fa fa-microphone"></i>`;
             }
         }

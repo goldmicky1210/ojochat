@@ -185,8 +185,10 @@ function getRecentChatUsers(type) {
                         item.lastMessageSender = sender;
                         item.lastMessageContent = content;
                         item.lastMessageDate = new Date(item.lastMessage.created_at);
+                        addNewGroupItem(itemTarget, item);
+                    } else {
+                        deleteGroup(item.id, null)
                     }
-                    addNewGroupItem(itemTarget, item);
                 });
                 convertListItems();
                 $(`${itemTarget}>li:first-child`).addClass('active');
@@ -336,7 +338,7 @@ function typingMessage(senderId, lastElement) {
     // }
     // <div class="profile me-4 bg-size" style="background-image: ${senderInfo.avatar ? 'url(' + avatarPath + ')' : 'none'}; background-size: cover; background-position: center center;">
     // ${senderInfo.avatar ? "" : getNameStr(senderInfo.username)}
-// </div>
+    // </div>
     if (!$('.typing-m').length) {
         let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: ${contactorInfo.avatar ? 'url(' + avatarPath + ')' : 'none'}; background-size: cover; background-position: center center; display: block;">${contactorInfo.avatar ? "" : getNameStr(contactorInfo.username)}
@@ -1138,7 +1140,7 @@ function getBlockList() {
         dataType: "json",
         async: false,
         success: function (res) {
-            blockUserList = Array.from(new Set(res.data.map(item => item.user_id == currentUserId?item.block_id : item.block_id==currentUserId?item.user_id: ''))).filter(item => item);
+            blockUserList = Array.from(new Set(res.data.map(item => item.user_id == currentUserId ? item.block_id : item.block_id == currentUserId ? item.user_id : ''))).filter(item => item);
             blockGroupList = blockUserList.map(item => getDirectGroupId(item)).filter(item => item);
             result = blockUserList
         },

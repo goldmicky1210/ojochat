@@ -385,6 +385,7 @@ function checkExpireStatus(userId, groupId) {
         }
     });
 }
+
 function deleteGroup(groupId, element) {
     let form_data = new FormData();
     form_data.append('groupId', groupId);
