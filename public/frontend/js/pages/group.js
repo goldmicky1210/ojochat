@@ -206,6 +206,7 @@ $(document).ready(function () {
                             console.log(res.data)
                             addNewGroupItem(target, res.data)
                             convertListItems();
+                            $(`#myTabContent1 .tab-pane.active .group-main li[groupId=${res.data.id}]`).click();
 
                         }
                     },
