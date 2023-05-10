@@ -205,6 +205,8 @@ $(document).ready(function () {
                             res.data.users = res.data.users.map(item => item.user_id);
                             console.log(res.data)
                             addNewGroupItem(target, res.data)
+                            convertListItems();
+
                         }
                     },
                     error: function (response) { }
