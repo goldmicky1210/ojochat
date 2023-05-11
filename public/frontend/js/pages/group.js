@@ -157,7 +157,7 @@ $(document).ready(function () {
         $(target1).empty();
 
         let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item ? item.split(',') : []);
-
+        console.log(recentChatUsersList)
         let statusItem = '';
         new Promise((resolve) => getContactListData(resolve)).then((usersList) => {
             usersList.filter(item => item.id != currentUserId && !recentChatUsersList.some(userIds => userIds.includes(item.id.toString()))).forEach(item => {
@@ -200,10 +200,8 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (res) {
                         if (res.state == 'true') {
-                            console.log(res)
                             var target = '#direct > ul.chat-main';
                             res.data.users = res.data.users.map(item => item.user_id);
-                            console.log(res.data)
                             addNewGroupItem(target, res.data)
                             convertListItems();
                             $(`#myTabContent1 .tab-pane.active .group-main li[groupId=${res.data.id}]`).click();
@@ -881,7 +879,6 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
 }
 
 function addNewGroupItem(target, data) {
-    console.log(data)
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
