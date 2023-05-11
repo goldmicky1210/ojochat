@@ -156,7 +156,7 @@ $(document).ready(function () {
         let target1 = '#new_chat_modal #contact_tab_content .chat-main';
         $(target1).empty();
 
-        let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item.split(','));
+        let recentChatUsersList = Array.from($('#direct .chat-main').children()).map(item => $(item).attr('groupUsers')).map(item => item ? item.split(',') : []);
 
         let statusItem = '';
         new Promise((resolve) => getContactListData(resolve)).then((usersList) => {
