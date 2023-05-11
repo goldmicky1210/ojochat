@@ -263,6 +263,18 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     display: flex;
 }
 
+.empty_message_content {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 20px;
+}
+.empty_message_content>span {
+    font-size: 20px;
+}
 .chat-main li .chat-box .profile {
     position: relative;
     background-color: cyan;

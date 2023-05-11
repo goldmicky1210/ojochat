@@ -4,7 +4,7 @@ let lastUserName = '';
 
 $(document).ready(function () {
     // search new user start
-    $('.search_user_btn').on('click', function () {
+    $('.chitchat-left-sidebar').on('click', '.search_user_btn',function () {
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('search_user_modal');
         $('#custom_modal').find('.modal-title').text('Search Users');

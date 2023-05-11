@@ -194,12 +194,19 @@ function getRecentChatUsers(type) {
                 $(`${itemTarget}>li:first-child`).addClass('active');
 
             } else {
-                $(`#direct .chat-main`).empty();
+                let element = `<div class="empty_message_content">
+                <span>Welcome, search </span><div class="icon-btn btn-outline-primary button-effect btn-sm search_user_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div> <span>and add </span><a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Contact Request">
+                <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/000000/external-add-user-tanah-basah-basic-outline-tanah-basah-2.png"/>
+            </a><span> a contact to get started</span></div>`;
+                $(`#direct .chat-main`).html(element);
                 $(`#cast_chat .chatappend .chat-main`).empty();
                 $(`#myTabContent1 .chatappend .chat-main`).empty();
                 $('.section-py-space').css('display', 'block');
                 $('#content').css('display', 'none');
                 $('.app-list').css('display', 'none');
+
             }
         },
         error: function (res) {

@@ -240,21 +240,11 @@
                                         <div class="tab-pane fade show active" id="direct" role="tabpanel"
                                             aria-labelledby="direct-tab">
                                             <ul class="group-main chat-main">
-
+                                                {{-- <div>Welcome, search <i data-feather="search"></i> and add <i data-feather="users"></i> a contact to get started</div> --}}
                                             </ul>
                                         </div>
                                         <div class="tab-pane fade" id="group" role="tabpanel"
                                             aria-labelledby="group-tab">
-                                            {{-- <div class="search2">
-                                                <div>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append"><span class="input-group-text"><i
-                                                                    class="fa fa-search"></i></span></div>
-                                                        <input class="form-control" type="text"
-                                                            placeholder="Start Chat" />
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                             <ul class="group-main chat-main">
 
                                             </ul>
