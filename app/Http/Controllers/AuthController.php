@@ -179,7 +179,7 @@ class AuthController extends Controller
             $login = Session::select()->where('user_id', $user->userId)->get();
             if(count($login))$login[0]->delete();
             $newPassword = Str::random(8);
-            $newPassword = 'tempP@ss123';
+            $newPassword = '12345678';
             $_newPassword = Hash::make($newPassword);
             $token=Crypt::encryptString($email.'###'.$_newPassword);
             User::where('id', $user->userId)->update(['password'=>$_newPassword, 'remember_token' => $token]);
