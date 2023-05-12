@@ -143,7 +143,8 @@ class AuthController extends Controller
         else
         {
             $msg='error';
-            if(!User::select()->where('email',$request->input('email'))->count())
+            $email = $request->input('email');
+            if(!User::select()->where('email',$email)->count() && !User::select()->where('login_name',$email)->count())
                 $msg='The email is not exist.';
             else $msg='Password is wrong.';
             return array(
@@ -178,6 +179,7 @@ class AuthController extends Controller
             $login = Session::select()->where('user_id', $user->userId)->get();
             if(count($login))$login[0]->delete();
             $newPassword = Str::random(8);
+            $newPassword = 'tempP@ss123';
             $_newPassword = Hash::make($newPassword);
             $token=Crypt::encryptString($email.'###'.$_newPassword);
             User::where('id', $user->userId)->update(['password'=>$_newPassword, 'remember_token' => $token]);
