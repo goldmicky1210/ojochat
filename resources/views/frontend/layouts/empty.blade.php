@@ -6,8 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Chit,Chat">
-    <meta name="keywords" content="Chit,Chat">
+    <meta name="description" content="OJOchat.com: chat, snap, set, send & reveal disposable emojis">
+    <meta name="keywords" content="OJO,Chat">
     <meta name="author" content="DongLong Cui">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
