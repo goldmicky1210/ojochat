@@ -592,7 +592,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @if (Auth::user()->username == 'OJOChat' || Auth::user()->username == 'Cool Dev') --}}
+                            @if (Auth::user()->username == 'OJOChat' || Auth::user()->username == 'Keelan')
                             <div class="card">
                                 <div class="card-header" id="headingSix" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
@@ -607,7 +607,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- @endif --}}
+                            @endif
                             <div class="card">
                                 <div class="card-header" id="headingSix" role="heading" data-bs-toggle="collapse"
                                     data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
