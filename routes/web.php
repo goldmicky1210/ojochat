@@ -14,6 +14,7 @@ Route::get('/forgot', 'AuthController@forgot')->name('forgot');
 Route::post('/forgot', 'AuthController@forgot');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::post('/updatePassword', 'AuthController@updatePassword');
+Route::get('send-email', 'TestEmailController@sendEmail');
 
 Route::get('/admin/login', 'Admin\\AuthController@login')->name('admin_login');
 Route::post('/admin/login', 'Admin\\AuthController@login');
