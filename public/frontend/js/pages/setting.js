@@ -225,14 +225,14 @@ $(document).ready(function () {
         if ($(this).val().length < 6) {
             $('.newPassword').siblings('.text-danger').text('Password length should be at least 6');
         }
-    })
+    });
 
     $('.newPassword input').focus(function () {
         $('.newPassword').siblings('.text-danger').text('');
-    })
+    });
     $('.confirmNewPassword input').focus(function () {
         $('.confirmNewPassword').siblings('.text-danger').text('');
-    })
+    });
 
     $('.changePasswordTab').on('click', '.changePasswordBtn', function () {
         let newPassword = $('.newPassword input').val();
@@ -267,7 +267,35 @@ $(document).ready(function () {
         } else {
             $('.confirmNewPassword').siblings('.text-danger').text("Password doesn't match");
         }
-    })
+    });
 
+    // Delete Account
+    $('.delete_account_btn').on('click', function() {
+        let form_data = new FormData();
+            form_data.append('id', currentUserId);
+            $.ajax({
+                url: '/setting/deleteAccount',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    if (res.state = true) {
+                        alert('Account has been deleted');
+                        window.location.href = '/login';
+                    } else {
+                        alert('Delete Failed');
+                    }
+                },
+                error: function (response) {
+
+                }
+            });
+    });
 
 })

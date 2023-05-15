@@ -144,7 +144,7 @@ class AuthController extends Controller
         {
             $msg='error';
             $email = $request->input('email');
-            if(!User::select()->where('email',$email)->count() && !User::select()->where('login_name',$email)->count())
+            if(!User::select()->where('email', $email)->count() && !User::select()->where('login_name', $email)->count())
                 $msg='The email is not exist.';
             else $msg='Password is wrong.';
             return array(

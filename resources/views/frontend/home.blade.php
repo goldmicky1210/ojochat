@@ -615,7 +615,7 @@
                                 </div>
                                 <div class="collapse" id="collapseSix" aria-labelledby="headingSix"
                                     data-parent="#accordion">
-                                    <div class="card-body"><a class="p-0 req-info font-danger" href="#">Delete
+                                    <div class="card-body"><a class="p-0 req-info font-danger delete_account_btn" href="#">Delete
                                             Account </a>
                                         <p> <b>Note :</b>Deleting your account will delete your account info, profile photo,
                                             all groups & chat history.</p>

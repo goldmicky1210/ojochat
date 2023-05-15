@@ -14,7 +14,7 @@ Route::get('/forgot', 'AuthController@forgot')->name('forgot');
 Route::post('/forgot', 'AuthController@forgot');
 Route::get('/logout', 'AuthController@logout')->name('logout');
 Route::post('/updatePassword', 'AuthController@updatePassword');
-Route::get('send-email', 'TestEmailController@sendEmail');
+Route::get('/send-email', 'TestEmailController@sendEmail');
 
 Route::get('/admin/login', 'Admin\\AuthController@login')->name('admin_login');
 Route::post('/admin/login', 'Admin\\AuthController@login');
@@ -66,6 +66,7 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/setting/setNotification', 'SettingController@setNotification');
     Route::post('/setting/setReadReceipts', 'SettingController@setReadReceipts');
     Route::post('/setting/uploadBackgroundImage', 'SettingController@uploadBackgroundImage');
+    Route::post('/setting/deleteAccount', 'SettingController@deleteAccount');
     Route::post('/message/deleteChatThread', 'MessageController@deleteChatThread');
     Route::post('/message/deleteCastThread', 'MessageController@deleteCastThread');
     Route::post('/message/deleteThread', 'MessageController@deleteThread');

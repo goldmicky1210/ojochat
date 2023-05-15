@@ -52,7 +52,7 @@ class HomeController extends Controller
         // ->join('blocks', 'users_groups.user_id', '=', 'blocks.user_id')
         ->where('users.id', $id)
         ->where('groups.type', $type)
-        ->where('deleted', 0)
+        ->where('groups.deleted', 0)
         ->orderBy('groups.created_at', 'desc')
         ->get('groups.*')->toArray();
         if (count($groupArrs)) {
