@@ -19,6 +19,7 @@
 .modal ul.chat-main>li {
     border-radius: 0 5px 5px 0;
 }
+
 .chat-main {
     margin-bottom: 35px;
 }
@@ -35,6 +36,12 @@ ul.chat-main>li {
     display: grid;
     grid-template-columns: 49% 49%;
     grid-gap: 2%;
+}
+
+#withdrawListModal ul.chat-main {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
 }
 
 .modal ul.chat-main li.user_item {
@@ -272,9 +279,11 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     gap: 10px;
     font-size: 20px;
 }
+
 .empty_message_content>span {
     font-size: 20px;
 }
+
 .chat-main li .chat-box .profile {
     position: relative;
     background-color: cyan;
@@ -300,7 +309,8 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     transform: translateY(-50%);
 }
 
-.gr-profile, .profile {
+.gr-profile,
+.profile {
     text-align: center;
     line-height: 50px;
     font-size: 22px;
@@ -320,6 +330,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
     overflow: hidden;
     white-space: nowrap;
 }
+
 .msg-setting-main .content {
     overflow-wrap: anywhere;
     white-space: pre-wrap;

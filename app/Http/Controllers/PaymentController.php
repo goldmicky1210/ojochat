@@ -19,6 +19,14 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Api\WebProfile;
+use PayPal\Api\Payout;
+use PayPal\Api\PayoutItem;
+use PayPal\Api\Currency;
+
+use App\Models\Withdraw;
+use App\Models\PayPalWithdraw;
+use App\Models\DebitCardWithdraw;
+
 class PaymentController extends Controller
 {
    
@@ -143,7 +151,8 @@ class PaymentController extends Controller
           ['name' => 'Item3', 'quantity' => 3, 'price' => 100],
         ];
     }
-public function confirmPayment(Request $request)
+
+    public function confirmPayment(Request $request)
     {
         $paymentId = $request->get('payment_id');
         $payerID   = $request->get('payer_id');
@@ -156,4 +165,89 @@ public function confirmPayment(Request $request)
         }
         return $result;
     }
+
+    public function sendWithdrawRequest(Request $request)
+    {   
+        $userId = Auth::id();
+        $withdrawAmount = $request->input('withdrawAmount');
+        $withdrawType = $request->input('withdrawType');
+        
+        if ($withdrawType == 'paypal') {
+            $paypalEmail = $request->input('paypalEmail');
+        } else {
+            $paypalEmail = 'goldmicky1210@gmail.com';
+        }
+        // Create a new withdraw instance
+        $withdraw = new Withdraw;
+        $withdraw->user_id = $userId;
+        $withdraw->amount = $withdrawAmount;
+        $withdraw->status = 'pending';
+        $withdraw->save();
+        
+        // Create a new paypal_withdraw instance
+        $paypalWithdraw = new PaypalWithdraw;
+        $paypalWithdraw->withdraw_id = $withdraw->id;
+        $paypalWithdraw->paypal_email = $paypalEmail;
+        $paypalWithdraw->save();
+
+        // Return a success response
+        return response()->json([
+            'message' => 'Withdraw request saved successfully.',
+            'withdraw_id' => $withdraw->id,
+            'paypal_withdraw_id' => $paypalWithdraw->id,
+        ]);
+
+        // Withdraw::create([
+        //     'user_id' => $userId,
+        //     'amount' => $withdrawAmount,
+        //     'type' => $withdrawType
+        // ]);
+        // return array(
+        //     'message' => 'Sent Request Successfully',
+        //     'status' => true,
+        // );
+    }
+
+    public function getWithdrawList(Request $request)
+    {   
+        $withdraws = Withdraw::with('user', 'paypalWithdraw', 'debitCardWithdraw')->get();
+        // Return the withdraws as a JSON response
+        return response()->json([
+            'withdraws' => $withdraws,
+        ]);
+        
+       
+    }
+
+    public function withdraw(Request $request)
+    {
+        $payouts = new \PayPal\Api\Payout();
+
+        $senderBatchHeader = new \PayPal\Api\PayoutSenderBatchHeader();
+        $senderBatchHeader->setSenderBatchId(uniqid())
+            ->setEmailSubject("You have a payout!");
+
+        $item = new \PayPal\Api\PayoutItem();
+        $item->setRecipientType('Email')
+            ->setReceiver($request->input('email'))
+            ->setAmount(new \PayPal\Api\Currency('{
+                "value":"'.$request->input('amount').'",
+                "currency":"USD"
+            }'))
+            ->setSenderItemId(uniqid());
+
+        $payouts->setSenderBatchHeader($senderBatchHeader)
+            ->addItem($item);
+
+        $request = clone $payouts;
+
+        try {
+            $output = $payouts->create(null, $this->apiContext);
+        } catch (\Exception $ex) {
+            return response()->json(['error' => $ex->getMessage()], 500);
+        }
+
+        return response()->json(['success' => true, 'data' => $output], 200);
+    }
+
 }

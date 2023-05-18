@@ -429,8 +429,6 @@ function setUserProfileContent(userId) {
         $('.right-sidebar .contact-profile .follow_btn .btn').text('Follow');
         $('.right-sidebar .contact-profile .follow_btn .btn').removeClass('btn-danger');
         $('.right-sidebar .contact-profile .follow_btn .btn').addClass('btn-success');
-
-
     }
     var form_data = new FormData();
     form_data.append('userId', userId);

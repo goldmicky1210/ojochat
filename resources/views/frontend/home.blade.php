@@ -475,6 +475,10 @@
                                                 data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
                                             <a class="font-primary button-effect" href="#" data-bs-toggle="modal"
                                                 data-bs-target="#withdrawModal"> Withdraw </a>
+                                            @if (Auth::user()->username == 'CoolDev' || Auth::user()->username == '$OJOCHAT')
+                                                <a class="font-primary button-effect withdrawList" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#withdrawListModal"> Withdraw List </a>
+                                            @endif
                                         </div>
 
                                         <p> <b>Note :</b>You can deposit the balance of OJOChat or withdraw money.</p>
@@ -2946,16 +2950,54 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="deposit-amount form-group group_title mb-3">
+                    <p>Available Credit: <span class="avaialble_credit_amount">$100</span></p>
+                    <div class="withdraw_request_amount form-group group_title mb-3">
                         <label>Withdraw Amount</label>
-                        <input type="text" class="form-control" />
+                        <input type="number" min="25" class="form-control" />
+                    </div>
+                    <div class="withdraw_request_type form-group group_title mb-3">
+                        <label>Withdrawal Type</label>
+                        <select class="form-control" >
+                            <option value='paypal'>PayPal</option>
+                            <option value='debitcard'>Debit Card</option>
+                            <option value='cashapp'>CashApp</option>
+                            <option value='venmo'>Venmo</option>
+                            <option value='zelle'>Zelle</option>
+                        </select>
+                    </div>
+                    <div class="withdraw_detail_info">
+                        <div class="paypal_detail form-group group_title mb-3">
+                            <label>Paypal Email Address</label>
+                            <input type="email" class="form-control" />
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary confirmWithdrawBtn"
+                    <button type="button" class="btn btn-primary sendWithdrawRequestBtn"
                         data-bs-dismiss="modal">OK</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="withdrawListModal" tabindex="-1" aria-labelledby="withdrawListModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawListModalLabel">Withdraw List</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="chat-main">
+                        
+                    </ul>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-primary sendWithdrawRequestBtn"
+                        data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div> -->
             </div>
         </div>
     </div>

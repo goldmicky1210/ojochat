@@ -26816,7 +26816,8 @@ ul.grop-icon li img {
 .chitchat-container .chitchat-left-sidebar .notification-tab,
 .chitchat-container .chitchat-left-sidebar .settings-tab,
 .chitchat-container .chitchat-left-sidebar .recent-default,
-.chitchat-container .chitchat-left-sidebar .status-tab {
+.chitchat-container .chitchat-left-sidebar .status-tab, 
+.chitchat-container .chitchat-left-sidebar .withdraw-tab {
     position: absolute;
     min-height: calc(100vh);
     overflow: auto;

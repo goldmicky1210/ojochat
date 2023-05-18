@@ -65,17 +65,109 @@ $(document).ready(function () {
         }
     });
     let timer;
-    $('.deposit-amount').on('keyup','input', function () {
+    $('.deposit-amount').on('keyup', 'input', function () {
         let amount = $(this).val()
         clearTimeout(timer)
         timer = setTimeout(() => {
             $('#paypal-button-container').empty()
             initPayPalButton(amount)
-        }, 300)            
-    })
+        }, 300)
+    });
 
+    $('.withdraw_request_type select').on('change', function (e) {
+        $('.withdraw_detail_info').empty()
+        if (e.target.value == 'paypal') {
+            $('.withdraw_detail_info').append(`
+                <div class="paypal_detail form-group group_title mb-3">
+                    <label>Paypal Email Address</label>
+                    <input type="email" class="form-control" />
+                </div>`
+            );
+        } else {
+            $('.withdraw_detail_info').append(`
+                <div class="debit_card_detail form-group group_title mb-3">
+                    <label>Phone Number</label>
+                    <input type="text" class="form-control" />
+                </div>`
+            );
+        }
+    });
 
+    $('.sendWithdrawRequestBtn').on('click', function () {
+        let withdrawAmount = $('.withdraw_request_amount input').val();
+        let withdrawType = $('.withdraw_request_type select').val();
+        let form_data = new FormData();
+        form_data.append('withdrawAmount', withdrawAmount);
+        form_data.append('withdrawType', withdrawType);
+        if (withdrawType == 'paypal') {
+            form_data.append('paypalEmail', $('.paypal_detail input').val());
+        }
+        $.ajax({
+            url: '/payment/sendWithdrawRequest',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (response) {
+
+            }
+        });
+    });
+
+    $('#withdrawListModal').on('shown.bs.modal', function (e) {
+        $('#withdrawListModal .modal-body .chat-main').empty();
+        $.ajax({
+            url: '/payment/getWithdrawList',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                res.withdraws.forEach((item, index) => {
+                    var dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
+                    $('#withdrawListModal .modal-body .chat-main').append(`
+                        <li class="" data-to="blank" key="${index}">
+                            <div class="chat-box">
+                                <div class="profile bg-size"
+                                    style="background-image: url(${item.user.avatar ? 'v1/api/downloadFile?path=' + item.user.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
+                                    center; display: block;">
+                                </div>
+                                <div class="details">
+                                    <h5>${item.user.username}</h5>
+                                    <h6 class="title">${dateString}</h6>
+                                </div>
+                                <div class="date-status">
+                                    <span class=${'font-danger'}>$${item.amount}</span>
+                                    <h6 class="status ${item.status=="success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+                                </div>
+                            </div>
+                        </li>`);
+                    convertListItem();
+                })
+
+            },
+            error: function (response) {
+
+            }
+        });
+        
+    });
 });
+
 
 function initPayPalButton(amount) {
     paypal.Buttons({
@@ -156,10 +248,10 @@ function payPhoto() {
     });
 }
 
-function debounce(func, timeout = 300){
+function debounce(func, timeout = 300) {
     let timer;
     return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        clearTimeout(timer);
+        timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
-  }
+}

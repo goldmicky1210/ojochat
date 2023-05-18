@@ -270,32 +270,32 @@ $(document).ready(function () {
     });
 
     // Delete Account
-    $('.delete_account_btn').on('click', function() {
+    $('.delete_account_btn').on('click', function () {
         let form_data = new FormData();
-            form_data.append('id', currentUserId);
-            $.ajax({
-                url: '/setting/deleteAccount',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                dataType: "json",
-                success: function (res) {
-                    if (res.state = true) {
-                        alert('Account has been deleted');
-                        window.location.href = '/login';
-                    } else {
-                        alert('Delete Failed');
-                    }
-                },
-                error: function (response) {
-
+        form_data.append('id', currentUserId);
+        $.ajax({
+            url: '/setting/deleteAccount',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                if (res.state = true) {
+                    alert('Account has been deleted');
+                    window.location.href = '/login';
+                } else {
+                    alert('Delete Failed');
                 }
-            });
+            },
+            error: function (response) {
+
+            }
+        });
     });
 
 })

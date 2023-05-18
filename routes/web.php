@@ -59,6 +59,8 @@ Route::group(['middleware' => ['login']], function () {
     Route::post('/message/deleteConversation', 'MessageController@deleteConversation');
     Route::post('/api/create-paypal-transaction', 'PaymentController@createPayment');
     Route::post('/api/confirm-paypal-transaction', 'PaymentController@confirmPayment');
+    Route::post('/payment/sendWithdrawRequest', 'PaymentController@sendWithdrawRequest');
+    Route::post('/payment/getWithdrawList', 'PaymentController@getWithdrawList');
     Route::get('/stripe', 'StripeController@stripe');
     Route::post('/stripe', 'StripeController@stripePost')->name('stripe.post');
     Route::post('/setting/setPhoneNumber', 'SettingController@setPhoneNumber');
