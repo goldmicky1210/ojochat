@@ -140,7 +140,7 @@ $(document).ready(function () {
                     var dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
 
                     $('#withdrawListModal .modal-body .chat-main').append(`
-                        <li class="" data-to="blank" key="${index}">
+                        <li class="" data-to="blank" withdrawId="${item.id}">
                             <div class="chat-box">
                                 <div class="profile">
                                     ${item.user.avatar ?
@@ -164,8 +164,8 @@ $(document).ready(function () {
                                                 <i class="ti-check"></i>
                                             </a>
                                         </div>
-                                        <div class="remove_request_btn">
-                                            <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
+                                        <div class="reject_request_btn">
+                                            <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Reject Request">
                                                 <i class="ti-close"></i>
                                             </a>
                                         </div>
@@ -182,6 +182,25 @@ $(document).ready(function () {
             }
         });
         
+    });
+
+    $('#withdrawListModal .chat-main').on('click', '.accept_request_btn', function () {
+        let withdrawId = $(this).closest('li').attr('withdrawId');
+        console.log(withdrawId);
+        const acceptRequest = () => {
+            console.log(withdrawId, ' is rejected!');
+        }
+        confirmModal('', "Accept this withdraw request?", acceptRequest);
+    });
+
+    $('#withdrawListModal .chat-main').on('click', '.reject_request_btn', function () {
+        let withdrawId = $(this).closest('li').attr('withdrawId');
+
+        const rejectRequest = () => {
+            console.log(withdrawId, ' is rejected!');
+        }
+        confirmModal('', "Reject this withdraw request?", rejectRequest);
+
     });
 });
 
@@ -272,3 +291,4 @@ function debounce(func, timeout = 300) {
         timer = setTimeout(() => { func.apply(this, args); }, timeout);
     };
 }
+
