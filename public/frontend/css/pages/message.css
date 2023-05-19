@@ -171,7 +171,7 @@ body>div.chitchat-container.sidebar-toggle.mobile-menu>section>a {
 
 .chat-main>li .chat-box .date-status i.ti-trash {
     font-size: 16px;
-    color: #1c9dea;
+    /* color: #1c9dea; */
 }
 
 /* .messages .replies.msg-item .replyBtn {

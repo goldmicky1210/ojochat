@@ -1,0 +1,14 @@
+#withdrawListModal .chat-main .date-status {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#withdrawListModal .chat-main .date-status .thread_info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+#withdrawListModal .chat-main>li {
+    padding-right: 10px;
+}

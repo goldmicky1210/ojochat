@@ -468,18 +468,21 @@
                                 <div class="collapse" id="collapseSeven" aria-labelledby="headingSeven"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <a class="font-primary button-effect balance" href="payment-histories">Show
+                                        <a class="btn-primary button-effect balance" href="payment-histories">Show
                                             History</a>
                                         <div>
-                                            <a class="font-primary button-effect deposit-modal-open" href="#"
+                                            <a class="btn-primary button-effect deposit-modal-open" href="#"
                                                 data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
-                                            <a class="font-primary button-effect" href="#" data-bs-toggle="modal"
+                                            <a class="btn-primary button-effect" href="#" data-bs-toggle="modal"
                                                 data-bs-target="#withdrawModal"> Withdraw </a>
-                                            @if (Auth::user()->username == 'CoolDev' || Auth::user()->username == '$OJOCHAT')
-                                                <a class="font-primary button-effect withdrawList" href="#" data-bs-toggle="modal"
-                                                data-bs-target="#withdrawListModal"> Withdraw List </a>
-                                            @endif
+                                            
                                         </div>
+                                        @if (Auth::user()->username == 'CoolDev' || Auth::user()->username == '$OJOCHAT')
+                                        <div>
+                                            <a class="btn-primary button-effect withdrawList" href="#" data-bs-toggle="modal"
+                                                data-bs-target="#withdrawListModal"> Withdraw List </a>
+                                        </div>    
+                                        @endif
 
                                         <p> <b>Note :</b>You can deposit the balance of OJOChat or withdraw money.</p>
                                     </div>
@@ -2990,7 +2993,7 @@
                 </div>
                 <div class="modal-body">
                     <ul class="chat-main">
-                        
+
                     </ul>
                 </div>
                 <!-- <div class="modal-footer">

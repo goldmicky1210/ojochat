@@ -142,21 +142,38 @@ $(document).ready(function () {
                     $('#withdrawListModal .modal-body .chat-main').append(`
                         <li class="" data-to="blank" key="${index}">
                             <div class="chat-box">
-                                <div class="profile bg-size"
-                                    style="background-image: url(${item.user.avatar ? 'v1/api/downloadFile?path=' + item.user.avatar : "/images/default-avatar.png"}); background-size: cover; background-position: center
-                                    center; display: block;">
+                                <div class="profile">
+                                    ${item.user.avatar ?
+                                        `<img class="bg-img" src="v1/api/downloadFile?path=${item.user.avatar}" alt="Avatar" />`
+                                        :
+                                        getNameStr(item.user.username)
+                                    }
                                 </div>
                                 <div class="details">
                                     <h5>${item.user.username}</h5>
                                     <h6 class="title">${dateString}</h6>
                                 </div>
                                 <div class="date-status">
-                                    <span class=${'font-danger'}>$${item.amount}</span>
-                                    <h6 class="status ${item.status=="success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+                                    <div class="text_info">
+                                        <span class=${'font-danger'}>$${item.amount}</span>
+                                        <h6 class="status ${item.status=="success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+                                    </div>
+                                    <div class="thread_info">
+                                        <div class="accept_request_btn">
+                                            <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                                <i class="ti-check"></i>
+                                            </a>
+                                        </div>
+                                        <div class="remove_request_btn">
+                                            <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </li>`);
-                    convertListItem();
+                    convertListItems();
                 })
 
             },

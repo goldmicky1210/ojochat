@@ -30,7 +30,7 @@ $(document).ready(() => {
                         </a>
                     </div>
                     <div class="remove_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                        <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
                             <i class="ti-trash"></i>
                         </a>
                     </div>
@@ -119,7 +119,7 @@ $(document).ready(() => {
         //                 </a>
         //             </div>
         //             <div class="remove_request_btn">
-        //                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+        //                 <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
         //                     <i class="ti-trash"></i>
         //                 </a>
         //             </div>
@@ -127,7 +127,7 @@ $(document).ready(() => {
         //     let sendStatusItem = `
         //         <div class="thread_info">
         //             <div class="remove_request_btn">
-        //                 <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+        //                 <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
         //                     <i class="ti-trash"></i>
         //                 </a>
         //             </div>

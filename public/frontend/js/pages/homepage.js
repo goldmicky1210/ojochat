@@ -107,7 +107,7 @@ function getNotificationList() {
                         </a>
                     </div>
                     <div class="remove_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                        <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
                             <i class="ti-trash"></i>
                         </a>
                     </div>
@@ -115,7 +115,7 @@ function getNotificationList() {
         let sendStatusItem = `
                 <div class="thread_info">
                     <div class="remove_request_btn">
-                        <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#" title="Remove Request">
+                        <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Remove Request">
                             <i class="ti-trash"></i>
                         </a>
                     </div>
@@ -1152,4 +1152,24 @@ function getBlockList() {
         error: function (response) { }
     });
     return result;
+}
+
+function convertListItems() {
+    $(".bg-top").parent().addClass('b-top');
+    $(".bg-bottom").parent().addClass('b-bottom');
+    $(".bg-center").parent().addClass('b-center');
+    $(".bg_size_content").parent().addClass('b_size_content');
+    $(".bg-img").parent().addClass('bg-size');
+    $('.bg-img').each(function () {
+        var el = $(this),
+            src = el.attr('src'),
+            parent = el.parent();
+        parent.css({
+            'background-image': 'url(' + src + ')',
+            'background-size': 'cover',
+            'background-position': 'center',
+            'display': 'block'
+        });
+        el.hide();
+    });
 }
