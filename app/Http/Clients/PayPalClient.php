@@ -20,8 +20,8 @@ class PayPalClient
      */
     protected function credentials()
     {
-        $clientId     = 'AVrTY9IbOorMiALM0KXOlNd9TN6T5RyZjowCqRu9yQ92cWZxDRt_kYXX-FpXs-W5ACPn7lRaGY4nc37Z';
-        $clientSecret = 'ENEa0ol2_LjtwO44aio95TXf8H5ys2TbXcHFRKHHaEnOMIXk5Wt6QQDkZtNI4ywPtxGxCQhYbf8ANU6j';
+        $clientId     = 'Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7';
+        $clientSecret = 'EG4lBROZ5qsT4YEZOhqHkm-N7HGPuZV7D2XJjSsapWFrdpU8GO5f375IGuaIxkDqjzquZqZmV7tkBUzN';
         return new OAuthTokenCredential($clientId, $clientSecret);
     }
 }

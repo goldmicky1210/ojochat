@@ -192,6 +192,30 @@ $(document).ready(function () {
             $(this).closest('li').find('.text_info .status').text('success');
             $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
             $(this).closest('li').find('.text_info .status').addClass('font-success');
+            
+            let form_data = new FormData();
+            form_data.append('withdrawId', withdrawId);
+            $.ajax({
+                url: '/payment/withdraw',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if(res.success == true) {
+                        alert(res.message);
+                    }
+                },
+                error: function (response) {
+    
+                }
+            });
         }
         confirmModal('', "Accept this withdraw request?", acceptRequest);
     });

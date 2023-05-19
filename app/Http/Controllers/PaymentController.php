@@ -19,9 +19,15 @@ use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Api\WebProfile;
+use PayPal\Rest\ApiContext;
+use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\Payout;
+use PayPal\Api\PayoutSenderBatchHeader;
 use PayPal\Api\PayoutItem;
 use PayPal\Api\Currency;
+use PayPal\Exception\PayPalConnectionException;
+use PayPal\Exception\PayPalInvalidCredentialException;
+
 
 use App\Models\Withdraw;
 use App\Models\PayPalWithdraw;
@@ -221,33 +227,54 @@ class PaymentController extends Controller
 
     public function withdraw(Request $request)
     {
-        $payouts = new \PayPal\Api\Payout();
+        $withdrawId = $request->input('withdrawId');
+        $withdrawInfo = Withdraw::with('user', 'paypalWithdraw', 'debitCardWithdraw')->find($withdrawId);
 
-        $senderBatchHeader = new \PayPal\Api\PayoutSenderBatchHeader();
+        $clientId = 'Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7';
+        $clientSecret = 'EG4lBROZ5qsT4YEZOhqHkm-N7HGPuZV7D2XJjSsapWFrdpU8GO5f375IGuaIxkDqjzquZqZmV7tkBUzN';
+        $apiContext = new ApiContext(
+            new OAuthTokenCredential($clientId, $clientSecret)
+        );
+
+        $payout = new Payout();
+
+        $senderBatchHeader = new PayoutSenderBatchHeader();
         $senderBatchHeader->setSenderBatchId(uniqid())
-            ->setEmailSubject("You have a payout!");
+                          ->setEmailSubject('You have a payout!');
+        $payout->setSenderBatchHeader($senderBatchHeader);
 
-        $item = new \PayPal\Api\PayoutItem();
+        $amount = $withdrawInfo['amount'];
+        $recipient = $withdrawInfo['paypalWithdraw']['paypal_email'];
+        $item = new PayoutItem();
         $item->setRecipientType('Email')
-            ->setReceiver($request->input('email'))
-            ->setAmount(new \PayPal\Api\Currency('{
-                "value":"'.$request->input('amount').'",
-                "currency":"USD"
-            }'))
-            ->setSenderItemId(uniqid());
-
-        $payouts->setSenderBatchHeader($senderBatchHeader)
-            ->addItem($item);
-
-        $request = clone $payouts;
+             ->setReceiver($recipient)
+             ->setAmount(new Currency(['value' => $amount, 'currency' => 'USD']))
+             ->setNote('Withdraw from OJOChat!');
+        $payout->addItem($item);
 
         try {
-            $output = $payouts->create(null, $this->apiContext);
-        } catch (\Exception $ex) {
-            return response()->json(['error' => $ex->getMessage()], 500);
-        }
+            // Initiate PayPal payout
+            $payoutBatch = $payout->create(null, $apiContext);
 
-        return response()->json(['success' => true, 'data' => $output], 200);
+            // Return success response
+            return response()->json([
+                'success' => true,
+                'message' => 'Withdrawal successful',
+                'payout_batch_id' => $payoutBatch->getBatchHeader()->getPayoutBatchId()
+            ]);
+        } catch (PayPalConnectionException $e) {
+            // Handle connection error
+            return response()->json([
+                'success' => false,
+                'message' => 'Connection error: '.$e->getMessage()
+            ]);
+        } catch (PayPalInvalidCredentialException $e) {
+            // Handle invalid credential error
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credential error: '.$e->getMessage()
+            ]);
+        }
     }
 
 }
