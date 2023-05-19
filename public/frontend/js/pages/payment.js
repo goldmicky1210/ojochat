@@ -144,10 +144,10 @@ $(document).ready(function () {
                             <div class="chat-box">
                                 <div class="profile">
                                     ${item.user.avatar ?
-                                        `<img class="bg-img" src="v1/api/downloadFile?path=${item.user.avatar}" alt="Avatar" />`
-                                        :
-                                        getNameStr(item.user.username)
-                                    }
+                            `<img class="bg-img" src="v1/api/downloadFile?path=${item.user.avatar}" alt="Avatar" />`
+                            :
+                            getNameStr(item.user.username)
+                        }
                                 </div>
                                 <div class="details">
                                     <h5>${item.user.username}</h5>
@@ -156,7 +156,7 @@ $(document).ready(function () {
                                 <div class="date-status">
                                     <div class="text_info">
                                         <span class=${'font-danger'}>$${item.amount}</span>
-                                        <h6 class="status ${item.status=="success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+                                        <h6 class="status ${item.status == "success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
                                     </div>
                                     <div class="thread_info">
                                         <div class="accept_request_btn">
@@ -181,7 +181,7 @@ $(document).ready(function () {
 
             }
         });
-        
+
     });
 
     $('#withdrawListModal .chat-main').on('click', '.accept_request_btn', function () {
@@ -189,6 +189,9 @@ $(document).ready(function () {
         console.log(withdrawId);
         const acceptRequest = () => {
             console.log(withdrawId, ' is rejected!');
+            $(this).closest('li').find('.text_info .status').text('success');
+            $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
+            $(this).closest('li').find('.text_info .status').addClass('font-success');
         }
         confirmModal('', "Accept this withdraw request?", acceptRequest);
     });
@@ -198,6 +201,9 @@ $(document).ready(function () {
 
         const rejectRequest = () => {
             console.log(withdrawId, ' is rejected!');
+            $(this).closest('li').find('.text_info .status').text('failed');
+            $(this).closest('li').find('.text_info .status').removeClass('font-warning');
+            $(this).closest('li').find('.text_info .status').addClass('font-danger');
         }
         confirmModal('', "Reject this withdraw request?", rejectRequest);
 
