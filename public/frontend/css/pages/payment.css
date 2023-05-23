@@ -1,3 +1,7 @@
+#withdrawListModal .chat-main {
+    max-height: 500px;
+    overflow: auto;
+}
 #withdrawListModal .chat-main .date-status {
     display: flex;
     align-items: center;
