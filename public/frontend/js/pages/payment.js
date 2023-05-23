@@ -282,7 +282,6 @@ $(document).ready(function () {
                 success: function (res) {
                     console.log(res);
                     if (res.success == true) {
-                        console.log(withdrawId, ' is accepte!');
                         
                         // alert(res.message);
                         let withdrawId = res.withdrawInfo.id;
