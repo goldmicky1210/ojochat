@@ -264,6 +264,7 @@ $(document).ready(function () {
             $(this).closest('li').find('.text_info .status').text('success');
             $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
             $(this).closest('li').find('.text_info .status').addClass('font-success');
+            $(this).closest('li').find('.thread_info').remove();
 
             let form_data = new FormData();
             form_data.append('withdrawId', withdrawId);
