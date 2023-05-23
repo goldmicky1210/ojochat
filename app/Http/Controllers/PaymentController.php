@@ -31,7 +31,7 @@ use PayPal\Exception\PayPalInvalidCredentialException;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Withdraw;
-use App\Models\PayPalWithdraw;
+use App\Models\PaypalWithdraw;
 use App\Models\DebitCardWithdraw;
 use App\Models\User;
 
