@@ -440,8 +440,9 @@ const onConnection = (socket) => {
     socket.on('test:SMS', data => {
         db.query(`SELECT * FROM countries where iso_code2 = '${data.isoCode2}'`, (error, country) => {
             let spainish = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
+            let portuguese = SpanishCountries.map(item => item.toLowerCase()).includes(country[0].name.toLowerCase());
             if (data.dialCode != 1) {
-                var fullPhoneNumber = '011' + data.phoneNumber.replace(/[^0-9]/g, '');
+                var fullPhoneNumber = '011' + datacon.phoneNumber.replace(/[^0-9]/g, '');
             } else {
                 var fullPhoneNumber = data.phoneNumber.replace(/[^0-9]/g, '');
             }

@@ -9,6 +9,14 @@
     align-items: center;
     gap: 5px;
 }
+
 #withdrawListModal .chat-main>li {
+    padding-left: 10px;
     padding-right: 10px;
+}
+
+@media (max-width: 1366px) {
+    #withdrawListModal ul.chat-main {
+        padding: 0 20px;
+    }
 }

@@ -72,7 +72,7 @@ class PaymentController extends Controller
     )
     {
         $this->paypalClient     = $payPalClient;
-        $this->payer            = $payer;
+        $this->payer            = $payer; 
         $this->payment          = $payment;
         $this->itemList         = $itemList;
         $this->transaction      = $transaction;
@@ -111,7 +111,7 @@ class PaymentController extends Controller
         $inputFields->setNoShipping(1);
         $this->webProfile->setName('test' . uniqid())->setInputFields($inputFields);
         $webProfileId = $this->webProfile->create($this->paypalClient->context())->getId();
-        $this->payment->setExperienceProfileId($webProfileId);
+        $this->payment->setExperienceProfileId($webProfileId); 
         $this->payment->setIntent("sale")
         ->setPayer($this->payer)
         ->setRedirectUrls($this->redirectUrls)
@@ -198,6 +198,7 @@ class PaymentController extends Controller
 
         // Return a success response
         return response()->json([
+            'state' => true,
             'message' => 'Withdraw request saved successfully.',
             'withdraw_id' => $withdraw->id,
             'paypal_withdraw_id' => $paypalWithdraw->id,
@@ -260,7 +261,8 @@ class PaymentController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Withdrawal successful',
-                'payout_batch_id' => $payoutBatch->getBatchHeader()->getPayoutBatchId()
+                'payout_batch_id' => $payoutBatch->getBatchHeader()->getPayoutBatchId(),
+                'withdrawInfo' => $withdrawInfo
             ]);
         } catch (PayPalConnectionException $e) {
             // Handle connection error

@@ -115,6 +115,11 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 console.log(res);
+                if (res.state == true) {
+                    let senderName = getCertainUserInfoById(currentUserId).username;
+                    socket.emit('send:sendWithdrawRequest', { senderName });
+
+                }
             },
             error: function (response) {
 
@@ -158,18 +163,20 @@ $(document).ready(function () {
                                         <span class=${'font-danger'}>$${item.amount}</span>
                                         <h6 class="status ${item.status == "success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
                                     </div>
-                                    <div class="thread_info">
-                                        <div class="accept_request_btn">
-                                            <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
-                                                <i class="ti-check"></i>
-                                            </a>
-                                        </div>
-                                        <div class="reject_request_btn">
-                                            <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Reject Request">
-                                                <i class="ti-close"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    ${item.status == 'pending' ?
+                            `<div class="thread_info">
+                                            <div class="accept_request_btn">
+                                                <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+                                                    <i class="ti-check"></i>
+                                                </a>
+                                            </div>
+                                            <div class="reject_request_btn">
+                                                <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Reject Request">
+                                                    <i class="ti-close"></i>
+                                                </a>
+                                            </div>
+                                        </div>` : ''
+                        }
                                 </div>
                             </div>
                         </li>`);
@@ -188,11 +195,11 @@ $(document).ready(function () {
         let withdrawId = $(this).closest('li').attr('withdrawId');
         console.log(withdrawId);
         const acceptRequest = () => {
-            console.log(withdrawId, ' is rejected!');
+
             $(this).closest('li').find('.text_info .status').text('success');
             $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
             $(this).closest('li').find('.text_info .status').addClass('font-success');
-            
+
             let form_data = new FormData();
             form_data.append('withdrawId', withdrawId);
             $.ajax({
@@ -208,12 +215,19 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (res) {
                     console.log(res);
-                    if(res.success == true) {
-                        alert(res.message);
+                    if (res.success == true) {
+                        console.log(withdrawId, ' is accepte!');
+                        
+                        // alert(res.message);
+                        let withdrawId = res.withdrawInfo.id;
+                        let userId = res.withdrawInfo.user_id;
+                        socket.emit('send:acceptWithdrawRequest', { userId, withdrawId })
+                        // let senderName = getCertainUserInfoById(currentUserId).username;
+                        // socket.emit('send:sendWithdrawRequest', { senderName });
                     }
                 },
                 error: function (response) {
-    
+
                 }
             });
         }
@@ -225,9 +239,17 @@ $(document).ready(function () {
 
         const rejectRequest = () => {
             console.log(withdrawId, ' is rejected!');
-            $(this).closest('li').find('.text_info .status').text('failed');
-            $(this).closest('li').find('.text_info .status').removeClass('font-warning');
-            $(this).closest('li').find('.text_info .status').addClass('font-danger');
+            socket.emit('send:rejectWithdrawRequest', { withdrawId }, (res) => {
+                console.log(res);
+                if (res.status == 'OK') {
+                    $(this).closest('li').find('.text_info .status').text('failed');
+                    $(this).closest('li').find('.text_info .status').removeClass('font-warning');
+                    $(this).closest('li').find('.text_info .status').addClass('font-danger');
+                    $(this).closest('li').find('.thread_info').remove();
+                }
+
+            })
+
         }
         confirmModal('', "Reject this withdraw request?", rejectRequest);
 
