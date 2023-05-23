@@ -127,6 +127,71 @@ $(document).ready(function () {
         });
     });
 
+    $('#withdrawModal').on('shown.bs.modal', function (e) {
+        let currentUserBalance = getCertainUserInfoById(currentUserId).balances;
+        $('#withdrawModal .modal-body .avaialble_credit_amount').text(`$${currentUserBalance}`);
+        // $.ajax({
+        //     url: '/payment/getWithdrawList',
+        //     headers: {
+        //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     cache: false,
+        //     contentType: false,
+        //     processData: false,
+        //     type: 'POST',
+        //     dataType: "json",
+        //     success: function (res) {
+        //         console.log(res);
+        //         res.withdraws.forEach((item, index) => {
+        //             var dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
+
+        //             $('#withdrawListModal .modal-body .chat-main').append(`
+        //                 <li class="" data-to="blank" withdrawId="${item.id}">
+        //                     <div class="chat-box">
+        //                         <div class="profile">
+        //                             ${item.user.avatar ?
+        //                     `<img class="bg-img" src="v1/api/downloadFile?path=${item.user.avatar}" alt="Avatar" />`
+        //                     :
+        //                     getNameStr(item.user.username)
+        //                 }
+        //                         </div>
+        //                         <div class="details">
+        //                             <h5>${item.user.username}</h5>
+        //                             <h6 class="title">${dateString}</h6>
+        //                         </div>
+        //                         <div class="date-status">
+        //                             <div class="text_info">
+        //                                 <span class=${'font-danger'}>$${item.amount}</span>
+        //                                 <h6 class="status ${item.status == "success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+        //                             </div>
+        //                             ${item.status == 'pending' ?
+        //                     `<div class="thread_info">
+        //                                     <div class="accept_request_btn">
+        //                                         <a class="icon-btn btn-outline-primary button-effect btn-xs" href="#">
+        //                                             <i class="ti-check"></i>
+        //                                         </a>
+        //                                     </div>
+        //                                     <div class="reject_request_btn">
+        //                                         <a class="icon-btn btn-outline-danger button-effect btn-xs" href="#" title="Reject Request">
+        //                                             <i class="ti-close"></i>
+        //                                         </a>
+        //                                     </div>
+        //                                 </div>` : ''
+        //                 }
+        //                         </div>
+        //                     </div>
+        //                 </li>`);
+        //             convertListItems();
+        //         })
+
+        //     },
+        //     error: function (response) {
+
+        //     }
+        // });
+
+    });
+
     $('#withdrawListModal').on('shown.bs.modal', function (e) {
         $('#withdrawListModal .modal-body .chat-main').empty();
         $.ajax({

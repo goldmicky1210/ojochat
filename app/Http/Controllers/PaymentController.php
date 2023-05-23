@@ -28,10 +28,12 @@ use PayPal\Api\Currency;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Exception\PayPalInvalidCredentialException;
 
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Withdraw;
 use App\Models\PayPalWithdraw;
 use App\Models\DebitCardWithdraw;
+use App\Models\User;
 
 class PaymentController extends Controller
 {
@@ -230,7 +232,6 @@ class PaymentController extends Controller
     {
         $withdrawId = $request->input('withdrawId');
         $withdrawInfo = Withdraw::with('user', 'paypalWithdraw', 'debitCardWithdraw')->find($withdrawId);
-
         $clientId = 'Ae5iKpz9uVQtYf-5eto3sWE5d-nJGq2BVIw63cqg4UJZP4EwDjKh1gGvC2zLpfyZJoKAdQGZdx7iS7J7';
         $clientSecret = 'EG4lBROZ5qsT4YEZOhqHkm-N7HGPuZV7D2XJjSsapWFrdpU8GO5f375IGuaIxkDqjzquZqZmV7tkBUzN';
         $apiContext = new ApiContext(
@@ -256,6 +257,10 @@ class PaymentController extends Controller
         try {
             // Initiate PayPal payout
             $payoutBatch = $payout->create(null, $apiContext);
+
+            // update balance
+            $userId = $withdrawInfo['user_id'];
+            $res = User::where("id", $userId)->update(['balances'=>DB::raw('balances - '.$amount)]);
 
             // Return success response
             return response()->json([
