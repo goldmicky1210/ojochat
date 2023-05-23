@@ -448,8 +448,6 @@ const onConnection = (socket) => {
             }
             if (spainish) {
                 var message = `Oye, tu numero de movil ${data.phoneNumber} ha sido actualizado en OJO.`;
-            } else if (portuguese) {
-                var message = `Hey, your mobile number ${data.phoneNumber} has been updated at OJO.`;
             } else {
                 var message = `Hey, your mobile number ${data.phoneNumber} has been updated at OJO.`;
             }
