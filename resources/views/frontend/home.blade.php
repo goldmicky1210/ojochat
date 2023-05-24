@@ -2976,8 +2976,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary sendWithdrawRequestBtn"
-                        data-bs-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary sendWithdrawRequestBtn">OK</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>

@@ -93,38 +93,44 @@ $(document).ready(function () {
         }
     });
 
-    $('.sendWithdrawRequestBtn').on('click', function () {
-        let withdrawAmount = $('.withdraw_request_amount input').val();
+    $('.sendWithdrawRequestBtn').on('click', function (e) {
+        let withdrawAmount = +$('.withdraw_request_amount input').val();
         let withdrawType = $('.withdraw_request_type select').val();
-        let form_data = new FormData();
-        form_data.append('withdrawAmount', withdrawAmount);
-        form_data.append('withdrawType', withdrawType);
-        if (withdrawType == 'paypal') {
-            form_data.append('paypalEmail', $('.paypal_detail input').val());
-        }
-        $.ajax({
-            url: '/payment/sendWithdrawRequest',
-            headers: {
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: form_data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: 'POST',
-            dataType: "json",
-            success: function (res) {
-                console.log(res);
-                if (res.state == true) {
-                    let senderName = getCertainUserInfoById(currentUserId).username;
-                    socket.emit('send:sendWithdrawRequest', { senderName });
+        let availableCreditAmount = getCertainUserInfoById(currentUserId).balances;
 
-                }
-            },
-            error: function (response) {
-
+        if (availableCreditAmount >= withdrawAmount + 30) {
+            let form_data = new FormData();
+            form_data.append('withdrawAmount', withdrawAmount);
+            form_data.append('withdrawType', withdrawType);
+            if (withdrawType == 'paypal') {
+                form_data.append('paypalEmail', $('.paypal_detail input').val());
             }
-        });
+            $.ajax({
+                url: '/payment/sendWithdrawRequest',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: form_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if (res.state == true) {
+                        let senderName = getCertainUserInfoById(currentUserId).username;
+                        socket.emit('send:sendWithdrawRequest', { senderName });
+                        $('#withdrawModal').modal('hide');
+                    }
+                },
+                error: function (response) {
+    
+                }
+            });
+        } else {
+            alert('Withdraw Amount is invalid!');
+        }
     });
 
     $('#withdrawModal').on('shown.bs.modal', function (e) {
