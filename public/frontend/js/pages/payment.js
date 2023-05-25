@@ -93,50 +93,92 @@ $(document).ready(function () {
             );
         }
     });
+    $(".paypal_detail input").blur(function () {
+        var email = $(this).val();
+        if (email != "") {
+            var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (regex.test(email)) {
+                $("#emailError").text("");
+            } else {
+                $("#emailError").text("Invalid email address");
+            }
+        } else {
+            $("#emailError").text("Email address is required");
+        }
+    });
 
     $('.sendWithdrawRequestBtn').on('click', function (e) {
         let withdrawAmount = +$('.withdraw_request_amount input').val();
         let withdrawType = $('.withdraw_request_type select').val();
+        let withdrawEmail = $('.paypal_detail input').val();
         let availableCreditAmount = getCertainUserInfoById(currentUserId).balances;
 
-        if (availableCreditAmount >= withdrawAmount + 30) {
-            let form_data = new FormData();
-            form_data.append('withdrawAmount', withdrawAmount);
-            form_data.append('withdrawType', withdrawType);
-            if (withdrawType == 'paypal') {
-                form_data.append('paypalEmail', $('.paypal_detail input').val());
-            }
-            $.ajax({
-                url: '/payment/sendWithdrawRequest',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: form_data,
-                cache: false,
-                contentType: false,
-                processData: false,
-                type: 'POST',
-                dataType: "json",
-                success: function (res) {
-                    console.log(res);
-                    if (res.state == true) {
-                        let senderName = getCertainUserInfoById(currentUserId).username;
-                        socket.emit('send:sendWithdrawRequest', { senderName });
-                        $('#withdrawModal').modal('hide');
-                    }
-                },
-                error: function (response) {
-    
+        function validateEmail(email) {
+            if (email != "") {
+                var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (regex.test(email)) {
+                    $("#emailError").text("");
+                    return true;
+                } else {
+                    $("#emailError").text("Invalid email address");
                 }
-            });
+            } else {
+                $("#emailError").text("Email address is required");
+            }
+            return false;
+        }
+        if (availableCreditAmount > withdrawAmount) {
+            if (validateEmail(withdrawEmail)) {
+                $('#withdrawModal').modal('hide');
+                $('#withdrawConfirmModal').modal('show');
+                $('#withdrawConfirmModal .withdrawAmount span').text(`$${withdrawAmount.toFixed(2)}`);
+                $('#withdrawConfirmModal .withdrawType span').text(withdrawType);
+                $('#withdrawConfirmModal .withdrawEmail span').text(withdrawEmail);
+            }
         } else {
             alert('Withdraw Amount is invalid!');
         }
     });
+    $('#withdrawConfirmModal').on('click', '.withdrawConfirmBtn', function () {
+
+        let withdrawAmount = +$('.withdraw_request_amount input').val();
+        let withdrawType = $('.withdraw_request_type select').val();
+        let form_data = new FormData();
+        form_data.append('withdrawAmount', withdrawAmount);
+        form_data.append('withdrawType', withdrawType);
+        if (withdrawType == 'paypal') {
+            form_data.append('paypalEmail', $('.paypal_detail input').val());
+        }
+        $('#withdrawModal').modal('hide');
+
+        $('#withdrawConfirmModal').modal('show');
+        $.ajax({
+            url: '/payment/sendWithdrawRequest',
+            headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+                console.log(res);
+                if (res.state == true) {
+                    let senderName = getCertainUserInfoById(currentUserId).username;
+                    socket.emit('send:sendWithdrawRequest', { senderName });
+                }
+            },
+            error: function (response) {
+
+            }
+        });
+    })
 
     $('#withdrawModal').on('shown.bs.modal', function (e) {
         let currentUserBalance = getCertainUserInfoById(currentUserId).balances;
-        $('#withdrawModal .modal-body .avaialble_credit_amount').text(`$${currentUserBalance}`);
+        $('#withdrawModal .modal-body .avaialble_credit_amount').text(`$${currentUserBalance.toFixed(2)}`);
         // $.ajax({
         //     url: '/payment/getWithdrawList',
         //     headers: {
@@ -289,7 +331,7 @@ $(document).ready(function () {
                 success: function (res) {
                     console.log(res);
                     if (res.success == true) {
-                        
+
                         // alert(res.message);
                         let withdrawId = res.withdrawInfo.id;
                         let userId = res.withdrawInfo.user_id;

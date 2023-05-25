@@ -2972,6 +2972,7 @@
                         <div class="paypal_detail form-group group_title mb-3">
                             <label>Paypal Email Address</label>
                             <input type="email" class="form-control" />
+                            <span class="text-danger" id="emailError"></span>
                         </div>
                     </div>
                 </div>
@@ -3003,7 +3004,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
+    <!-- <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -3021,8 +3022,28 @@
                 </div>
             </div>
         </div>
+    </div> -->
+    <div class="modal fade" id="withdrawConfirmModal" tabindex="-1" aria-labelledby="withdrawConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawConfirmModalLabel">Withdraw Confirm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h3 class="withdrawAmount">You are withdrawing: <span>$100</span></h3>
+                    <h3 class="withdrawType">Payment Type: <span>Paypal</span></h3>
+                    <h3 class="withdrawEmail">Email: <span>paypal@bouncesms.com</span></h3>
+                </div>
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-sm btn-primary withdrawConfirmBtn"
+                        data-bs-dismiss="modal">Complete</button>
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
     </div>
-
     <div class="modal fade add-popup msg-chat-modal" id="custom_modal" tabindex="-1" role="dialog"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
