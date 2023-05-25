@@ -133,6 +133,7 @@ function getNotificationList() {
 }
 
 function getCertainUserInfoById(id) {
+    
     return usersList.find(item => item.id == id);
 }
 
@@ -244,6 +245,7 @@ function getLastMessage(groupId, resolve) {
 }
 
 function getUsersList(resolve) {
+    let result
     $.ajax({
         url: '/home/getUsersList',
         headers: {
@@ -254,9 +256,10 @@ function getUsersList(resolve) {
         processData: false,
         type: 'POST',
         dataType: "json",
+        async: false,
         success: function (res) {
             usersList = res.data;
-
+            result = res.data;
             if (resolve) {
                 resolve(res.data);
             }
@@ -266,6 +269,7 @@ function getUsersList(resolve) {
             alert('UserList Error');
         }
     });
+    return result;
 }
 
 function newMessage() {

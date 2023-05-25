@@ -53,6 +53,7 @@ $(document).ready(function () {
     });
 
     $('.payWithBalanceBtn').on('click', () => {
+        usersList = getUsersList();
         let userInfo = getCertainUserInfoById(currentUserId);
         if (!totalPrice) {
             payWholePhotoPrice();
