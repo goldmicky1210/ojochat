@@ -273,7 +273,12 @@ class HomeController extends Controller
                 }
             }
         } else {
-            $userList = User::all()->random(10);
+            $userCount = User::count();
+            if ($userCount <= 10) {
+                $userList = User::all();
+            } else {
+                $userList = User::all()->random(10);
+            }
             // $userList = User::orderBy('username', 'asc')->where('id', '<>', $id)->where('username', '>', $lastUserName)->limit(10)->get();
         }
         
