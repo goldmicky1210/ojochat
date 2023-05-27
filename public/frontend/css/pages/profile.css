@@ -76,3 +76,9 @@
     margin-top: 10px;
     text-align: center;
 }
+#custom_modal .dot-btn::before {
+    right: 5px;
+}
+.dot-btn.dot-light:before {
+    background-color: #bfc8cd !important;
+}

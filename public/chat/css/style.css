@@ -22507,7 +22507,7 @@ a:hover {
 
 .dot-btn.dot-light:before {
     background-color: #eff1f2 !important;
-    background-color: #223645 !important
+    /* background-color: #223645 !important */
 }
 
 .dot-btn.dot-light.grow:after {

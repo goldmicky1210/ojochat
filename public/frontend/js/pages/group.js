@@ -839,7 +839,7 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
     if (blockFlag || !blockUserList.includes(data.id)) {
         if ($(target).parents('.modal').length) {
             $(target).append(
-                `<li class="user_item" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
+                `<li class="user_item dot-btn ${data.logout ? 'dot-light' : 'dot-success'}" data-to="blank" key="${data.id}" style='background-image: ${data.avatar ? `url(v1/api/downloadFile?path=${data.avatar})` : "none"}'>
                         ${data.avatar ? "" : `<div class='back-user-name'><div>${getNameStr(data.username)}</div></div>`}
                         <div class="photoRating">
                             <div>★</div><div>★</div><div>★</div><div>★</div><div>★</div>
