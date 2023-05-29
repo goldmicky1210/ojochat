@@ -29,12 +29,7 @@ $(document).ready(() => {
         getBlockList();
         getUsersList(resolve);
     }).then(() => {
-        currentUserInfo = getCertainUserInfoById(currentUserId)
-        if (!currentUserInfo.phone_number) {
-            alert('For text notifications please add your mobile in Settings > Account > Phone Number.');
-        }
-        $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
-        $('.self_profile_name').text(getNameStr(currentUserInfo.username))
+
         getFollowData(currentUserId);
         getRecentChatUsers(1);
         typingAction();
@@ -133,7 +128,7 @@ function getNotificationList() {
 }
 
 function getCertainUserInfoById(id) {
-    
+
     return usersList.find(item => item.id == id);
 }
 
@@ -178,17 +173,19 @@ function getRecentChatUsers(type) {
                 }
                 $(itemTarget).empty();
                 threadList.forEach(item => {
-                    if (item.lastMessage) {
-                        let sender = item.lastMessage.sender ? getCertainUserInfoById(item.lastMessage.sender).username : '';
-                        if (item.lastMessage.sender == currentUserId)
-                            sender = "You";
-                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';
-                        item.lastMessageSender = sender;
-                        item.lastMessageContent = content;
-                        item.lastMessageDate = new Date(item.lastMessage.created_at);
-                        addNewGroupItem(itemTarget, item);
-                    } else {
+                    if (!item.lastMessage && item.type == 1) {
                         deleteGroup(item.id, null)
+                    } else {
+                        if (item.lastMessage) {
+                            let sender = item.lastMessage ? getCertainUserInfoById(item.lastMessage.sender).username : '';
+                            if (item.lastMessage.sender == currentUserId) 
+                                sender = "You";
+                            var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';
+                            item.lastMessageSender = sender;
+                            item.lastMessageContent = content;
+                            item.lastMessageDate = new Date(item.lastMessage.created_at);
+                        }
+                        addNewGroupItem(itemTarget, item);
                     }
                 });
                 convertListItems();
@@ -1124,13 +1121,20 @@ function searchList() {
 }
 
 function setCurrentUserInfo() {
-    let userInfo = getCertainUserInfoById(currentUserId);
-    readReceiptsStatus = userInfo.read_receipts ? true : false;
+    currentUserInfo = getCertainUserInfoById(currentUserId)
+    if (!currentUserInfo.phone_number) {
+        alert('For text notifications please add your mobile in Settings > Account > Phone Number.');
+    }
+    $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
+    $('.self_profile_name').text(getNameStr(currentUserInfo.username))
+
+    // read Receipts Status switch
+    readReceiptsStatus = currentUserInfo.read_receipts ? true : false;
     readReceiptsSwitch.checked = readReceiptsStatus;
     toggleSwitchery(readReceiptsSwitch, readReceiptsSwitchery)
 
     //notification switch
-    let notificationState = userInfo.notification ? true : false;
+    let notificationState = currentUserInfo.notification ? true : false;
     selfNotificationSwitch.checked = notificationState;
     toggleSwitchery(selfNotificationSwitch, selfNotificationSwitchery)
 }
