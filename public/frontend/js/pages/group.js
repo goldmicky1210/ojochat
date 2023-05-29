@@ -292,6 +292,8 @@ $(document).ready(function () {
         let feeValue = $('#custom_modal').find('.group_fee_type .fee_value input').val();
         let avatar = $('#group_avatar_select')[0].files[0];
         let users = Array.from($('#custom_modal .chat-main li.active')).map(item => $(item).attr('key'));
+        let owner= `${currentUserId}`
+        let admins= `${currentUserId}`
         users.push(currentUserId);
         var form_data = new FormData();
         form_data.append('avatar', avatar || null);
@@ -308,7 +310,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (res) {
                 if (res.state == 'true') {
-                    socket.emit('create:group', { title, description, feeType, feeValue, avatar: res.data, users, type: 2 });
+                    socket.emit('create:group', { title, description, feeType, feeValue, avatar: res.data, users, type: 2, owner, admins });
                 }
             },
             error: function (response) {
@@ -879,6 +881,7 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
 }
 
 function addNewGroupItem(target, data) {
+    console.log(data);
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
