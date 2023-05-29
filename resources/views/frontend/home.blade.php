@@ -23,7 +23,7 @@
     </script>
     <div class="chitchat-loader">
         <div><img src="/chat/images/logo/logo_big.png" alt="" />
-            <h3>Simple, secure messaging for fast connect to world..!</h3>
+            <h3>Chat, snap, send and reveal disposable emojis</h3>
         </div>
     </div>
     <div class="chitchat-container sidebar-toggle">
