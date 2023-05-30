@@ -468,8 +468,7 @@
                                 <div class="collapse" id="collapseSeven" aria-labelledby="headingSeven"
                                     data-parent="#accordion">
                                     <div class="card-body">
-                                        <a class="btn-primary button-effect balance" href="payment-histories">Show
-                                            History</a>
+                                        <a class="btn-primary button-effect balance" href="payment-histories">Show History</a>
                                         <div>
                                             <a class="btn-primary button-effect deposit-modal-open" href="#"
                                                 data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
