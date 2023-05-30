@@ -1,3 +1,16 @@
+
+@media (max-width: 600px){
+	.chitchat-main .message-input {	   
+	    z-index: 999;
+	    bottom: 0px;
+	    transform: translate3d(0,0,0);
+	}
+	.chitchat-main .messages {
+	    height: calc(100vh - 60px);
+	    min-height: calc(100vh - 60px);
+	}
+}
+
 .contact-chat>ul.chatappend>li:last-child:first-child .msg-box>li .msg-dropdown {
     bottom: unset !important;
     top: 45px !important;
