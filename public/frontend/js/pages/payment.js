@@ -163,11 +163,13 @@ $(document).ready(function () {
             processData: false,
             type: 'POST',
             dataType: "json",
+            async: false,
             success: function (res) {
                 console.log(res);
                 if (res.state == true) {
                     let senderName = getCertainUserInfoById(currentUserId).username;
-                    socket.emit('send:sendWithdrawRequest', { senderName });
+                    let withdrawId = res.withdraw_id;
+                    socket.emit('send:sendWithdrawRequest', { senderName, withdrawId, withdrawAmount, withdrawType });
                 }
             },
             error: function (response) {
@@ -329,7 +331,6 @@ $(document).ready(function () {
                 type: 'POST',
                 dataType: "json",
                 success: function (res) {
-                    console.log(res);
                     if (res.success == true) {
 
                         // alert(res.message);

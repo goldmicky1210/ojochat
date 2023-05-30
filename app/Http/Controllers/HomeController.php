@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Http;
 use App\Models\Group;
 use App\Models\UsersGroup;
 use App\Models\Block;
+use App\Models\PaypalWithdraw;
+use App\Models\Withdraw;
 use Illuminate\Support\Collection;
 
 class HomeController extends Controller
@@ -538,6 +540,11 @@ class HomeController extends Controller
                         $item['blinkOwner'] = $temp[0]['owner'];
                         $item['lastSender'] = $message[0]['sender'];
                     }
+                }
+            } else if($item['type'] == 5) {
+                $temp = PaypalWithdraw::where('withdraw_id', $item['refer_id'])->get();
+                if (count($temp)) {
+                    $item['paypalEmail'] = $temp[0]['paypal_email'];
                 }
             } else {
                 // Group fee

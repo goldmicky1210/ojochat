@@ -19,6 +19,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         data.msgType = 'sendWithdrawRequest';
         db.query(`SELECT * FROM users WHERE username='$OJOCHAT'`, (error, item) => {
             if (error) throw error;
+            db.query(`INSERT INTO payment_histories (recipient, amount, state, refer_id, type) VALUES (${currentUserId}, ${data.withdrawAmount}, 0, ${data.withdrawId}, 5)`, (error, withdrawItem) => {
+                console.log(withdrawItem)
+            });
             if (item.length) {
                 Notification.sendSMS(currentUserId, item[0].id, data);
             }
@@ -29,6 +32,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         console.log(data);
         data.kind = 0;
         data.msgType = 'acceptWithdrawRequest';
+        db.query(`Update payment_histories SET state=1 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
+            console.log(withdrawItem)
+        });
         db.query(`UPDATE withdraws SET status='success' WHERE id=${data.withdrawId}`, (error, item) => {
             if (error) throw error;
             Notification.sendSMS(currentUserId, data.userId, data);
