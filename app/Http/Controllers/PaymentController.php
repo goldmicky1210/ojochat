@@ -219,7 +219,7 @@ class PaymentController extends Controller
 
     public function getWithdrawList(Request $request)
     {   
-        $withdraws = Withdraw::with('user', 'paypalWithdraw', 'debitCardWithdraw')->get();
+        $withdraws = Withdraw::with('user', 'paypalWithdraw', 'debitCardWithdraw')->orderBy('created_at', 'desc')->get();
         // Return the withdraws as a JSON response
         return response()->json([
             'withdraws' => $withdraws,
