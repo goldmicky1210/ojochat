@@ -349,7 +349,8 @@ function typingMessage(senderId, lastElement) {
     // </div>
     if (!$('.typing-m').length) {
         let contactorInfo = getCertainUserInfoById(senderId);
-        $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: ${contactorInfo.avatar ? 'url(' + contactorInfo.avatar + ')' : 'none'}; background-size: cover; background-position: center center; display: block;">${contactorInfo.avatar ? "" : getNameStr(contactorInfo.username)}
+        console.log(contactorInfo);
+        $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: ${contactorInfo.avatar ? 'url(v1/api/downloadFile?path=' + contactorInfo.avatar + ')' : 'none'}; background-size: cover; background-position: center center; display: block;">${contactorInfo.avatar ? "" : getNameStr(contactorInfo.username)}
         </div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
         let lastMsgItem = '.messages.active .chatappend .msg-item:last-of-type';
         if ($(lastMsgItem).isInViewport()) {
@@ -1056,6 +1057,7 @@ $.fn.isInViewport = function () {
     var viewportBottom = viewportTop + $(window).height();
     return elementBottom > viewportTop && elementTop < viewportBottom;
 };
+
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
