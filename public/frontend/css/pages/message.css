@@ -2,7 +2,7 @@
 @media (max-width: 600px){
 	.chitchat-main .message-input {	   
 	    z-index: 999;
-	    bottom: 0px;
+	    bottom: 100px;
 	    transform: translate3d(0,0,0);
 	}
 	.chitchat-main .messages {
