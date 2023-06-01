@@ -1,8 +1,8 @@
 
 @media (max-width: 600px){
 	.chitchat-main .message-input {	   
-	    z-index: 999;
-	    bottom: 100px;
+	    z-index: 99999;
+	    bottom: 1px;
 	    transform: translate3d(0,0,0);
 	}
 	.chitchat-main .messages {
