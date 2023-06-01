@@ -55,11 +55,12 @@ $(document).ready(function () {
     $('.payWithBalanceBtn').on('click', () => {
         usersList = getUsersList();
         let userInfo = getCertainUserInfoById(currentUserId);
+        let availableCreditAmount = userInfo.balances - userInfo.locked_balances;
         if (!totalPrice) {
             payWholePhotoPrice();
             return;
         }
-        if (userInfo.balances >= totalPrice) {
+        if (availableCreditAmount >= totalPrice) {
             tempAction();
         } else {
             alert('⚠️Low Balance⚠️ Please add funds to your account.');
@@ -336,7 +337,8 @@ $(document).ready(function () {
                         // alert(res.message);
                         let withdrawId = res.withdrawInfo.id;
                         let userId = res.withdrawInfo.user_id;
-                        socket.emit('send:acceptWithdrawRequest', { userId, withdrawId })
+                        let withdrawAmount = res.withdrawInfo.amount;
+                        socket.emit('send:acceptWithdrawRequest', { userId, withdrawId, withdrawAmount })
                         // let senderName = getCertainUserInfoById(currentUserId).username;
                         // socket.emit('send:sendWithdrawRequest', { senderName });
                     }
@@ -403,6 +405,7 @@ function initPayPalButton(amount) {
                 socket.emit('add:balance', { amount }, (res) => {
                     let balance = parseFloat($('.balance-amount').text().slice(1)) + Number(amount);
                     $('.balance-amount').text(`$${Number(balance).toFixed(2)}`)
+
                 })
             });
         },

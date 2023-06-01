@@ -1155,6 +1155,11 @@ function setCurrentUserInfo() {
         alert('For text notifications please add your mobile in Settings > Account > Phone Number.');
     }
     $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
+    if (currentUserInfo.locked_balances) {
+        $('.locked-balance-amount').text(`Locked $${currentUserInfo.locked_balances.toFixed(2)}`)
+    } else {
+        $('.locked-balance-amount').text('')
+    }
     $('.self_profile_name').text(getNameStr(currentUserInfo.username))
 
     // read Receipts Status switch
