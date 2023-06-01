@@ -45890,10 +45890,10 @@ footer .footer-mobile-title {
     }
     .chitchat-container .chitchat-main .message-input {
         width: 100vw;
-        -webkit-animation: fadeInRight 300ms ease-in-out;
+        /* -webkit-animation: fadeInRight 300ms ease-in-out;
         animation: fadeInRight 300ms ease-in-out;
         -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease
+        transition: all 0.3s ease */
     }
     .chitchat-container .chitchat-main .messages {
         padding: 25px
