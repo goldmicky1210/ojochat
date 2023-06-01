@@ -1156,7 +1156,7 @@ function setCurrentUserInfo() {
     }
     $('.balance-amount').text(`$${currentUserInfo.balances.toFixed(2)}`)
     if (currentUserInfo.locked_balances) {
-        $('.locked-balance-amount').text(`Locked $${currentUserInfo.locked_balances.toFixed(2)}`)
+        $('.locked-balance-amount').text(`Hold $${currentUserInfo.locked_balances.toFixed(2)}`)
     } else {
         $('.locked-balance-amount').text('')
     }
