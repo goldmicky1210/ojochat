@@ -6,8 +6,8 @@
 	    position: sticky;
 	}
 	.chitchat-main .messages {
-	    height: calc(100vh - 1px);
-	    min-height: calc(100vh - 1px);
+	    height: calc(100vh - 25px);
+	    min-height: calc(100vh - 25px);
 	}
 }
 
