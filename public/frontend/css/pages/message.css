@@ -3,17 +3,17 @@
     @media (max-width: 600px){
         .chitchat-main .message-input {	   
             z-index: 999;
-            bottom: 110px;
+            bottom: 1px;
             transform: translate3d(0,0,0);
             position: -webkit-sticky;
         }
         .chitchat-main .messages {
-            height: calc(100vh - 110px);
-            min-height: calc(100vh - 110px);
+            height: calc(100vh - 1px);
+            min-height: calc(100vh - 1px);
         }
-        .chat-content .scroll-bottom-btn {
-            bottom: 120px;
-        }
+        /* .chat-content .scroll-bottom-btn {
+            bottom: 1px;
+        } */
     }
     
     }
