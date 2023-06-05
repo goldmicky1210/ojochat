@@ -50,7 +50,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         console.log(data);
         data.kind = 0;
         data.msgType = 'rejectWithdrawRequest';
-        db.query(`UPDATE withdraws SET status='failed' WHERE id=${data.withdrawId}`, (error, item) => {
+        db.query(`UPDATE withdraws SET status='canceled' WHERE id=${data.withdrawId}`, (error, item) => {
             if (error) throw error;
             // Notification.sendSMS(currentUserId, data.userId, data);
             callback({ status: 'OK' })

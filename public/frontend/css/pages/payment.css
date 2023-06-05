@@ -8,6 +8,9 @@
     align-items: center;
     gap: 15px;
 }
+#withdrawListModal .chat-main .date-status .status{
+    text-transform: capitalize;
+}
 
 #withdrawListModal .chat-main .date-status .thread_info {
     display: flex;

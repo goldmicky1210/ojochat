@@ -359,7 +359,7 @@ $(document).ready(function () {
             socket.emit('send:rejectWithdrawRequest', { withdrawId }, (res) => {
                 console.log(res);
                 if (res.status == 'OK') {
-                    $(this).closest('li').find('.text_info .status').text('failed');
+                    $(this).closest('li').find('.text_info .status').text('Canceled');
                     $(this).closest('li').find('.text_info .status').removeClass('font-warning');
                     $(this).closest('li').find('.text_info .status').addClass('font-danger');
                     $(this).closest('li').find('.thread_info').remove();
