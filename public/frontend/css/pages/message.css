@@ -18,7 +18,7 @@
         } */
     }
 }
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     .chitchat-main .messages {
         padding-bottom: 50px !important;
     }
