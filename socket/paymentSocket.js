@@ -50,6 +50,12 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         console.log(data);
         data.kind = 0;
         data.msgType = 'rejectWithdrawRequest';
+        db.query(`Update payment_histories SET state=2 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
+            console.log(withdrawItem)
+        });
+        db.query(`UPDATE users SET locked_balances=locked_balances-${data.withdrawAmount} WHERE id=${data.userId}`, (error, data) => {
+            console.log(data);
+        });
         db.query(`UPDATE withdraws SET status='canceled' WHERE id=${data.withdrawId}`, (error, item) => {
             if (error) throw error;
             // Notification.sendSMS(currentUserId, data.userId, data);

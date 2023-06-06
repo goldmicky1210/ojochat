@@ -804,7 +804,7 @@ function displayPaymentHistory(userId) {
             if (res.state == 'true') {
                 $('.history-list').empty();
                 res.data.forEach((item, index) => {
-                    let status = ['Pending', 'Completed'];
+                    let status = ['Pending', 'Completed', 'Canceled'];
                     let senderInfo = getCertainUserInfoById(item.sender);
                     var receiverInfo = getCertainUserInfoById(item.recipient);
                     let sendFlag = item.sender == currentUserId ? true : false;
