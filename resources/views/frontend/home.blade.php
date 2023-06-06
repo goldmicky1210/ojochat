@@ -35,6 +35,7 @@
                 <a class="button-effect balance" href="payment-histories">
                     <div class="">
                         <span class="balance-amount">$0.00</span>
+                        <br/>
                         <span class="locked-balance-amount">$0.00</span>
                     </div>
                 </a>
