@@ -278,7 +278,7 @@ $(document).ready(function () {
                                 <div class="date-status">
                                     <div class="text_info">
                                         <span class=${'font-danger'}>$${item.amount}</span>
-                                        <h6 class="status ${item.status == "success" ? 'font-success' : 'font-warning'}" request-status="4"> ${[item.status]}</h6>
+                                        <h6 class="status ${item.status == "pending" ? 'font-warning' : item.status == "success" ? 'font-success' : 'font-danger'}" request-status="4"> ${[item.status]}</h6>
                                     </div>
                                     ${item.status == 'pending' ?
                             `<div class="thread_info">

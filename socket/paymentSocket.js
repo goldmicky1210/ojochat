@@ -33,7 +33,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     socket.on('send:acceptWithdrawRequest', (data, callback) => {
         data.kind = 0;
         data.msgType = 'acceptWithdrawRequest';
-        db.query(`Update payment_histories SET state=1 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
+        db.query(`UPDATE payment_histories SET state=1 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
             console.log(withdrawItem)
         });
         db.query(`UPDATE users SET locked_balances=locked_balances-${data.withdrawAmount} WHERE id=${data.userId}`, (error, data) => {
@@ -52,7 +52,7 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
         console.log('=======');
         data.kind = 0;
         data.msgType = 'rejectWithdrawRequest';
-        db.query(`Update payment_histories SET state=2 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
+        db.query(`UPDATE payment_histories SET state=2 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
             console.log(withdrawItem)
         });
         db.query(`UPDATE users SET locked_balances=locked_balances-${data.withdrawAmount} WHERE id=${data.userId}`, (error, data) => {
