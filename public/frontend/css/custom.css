@@ -613,7 +613,7 @@ h6.read {
     color: rgb(42 169 0);
 }
 .msg-setting-main .msg-dropdown-main .msg-dropdown {
-    top: 75px;
+    top: 50px;
 }
 .msg-setting-main .msg-dropdown-main .msg-open-btn {
     display: none;
