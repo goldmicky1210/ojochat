@@ -821,7 +821,7 @@ function displayPaymentHistory(userId) {
                                             <h6 class="title">${dateString}</h6>
                                         </div>
                                         <div class="date-status">
-                                            <span class=${item.state ? 'font-success' : 'font-danger'}>-$${item.amount.toFixed(2)}</span>
+                                            <span class=${item.state == 2 ?'font-danger' : 'font-warning'}>-$${item.amount.toFixed(2)}</span>
                                             <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
                                         </div>
                                     </div>
