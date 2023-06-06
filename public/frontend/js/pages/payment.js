@@ -262,7 +262,7 @@ $(document).ready(function () {
                     var dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
 
                     $('#withdrawListModal .modal-body .chat-main').append(`
-                        <li class="" data-to="blank" withdrawId="${item.id}">
+                        <li class="" data-to="blank" withdrawId="${item.id}" userId="${item.user_id}">
                             <div class="chat-box">
                                 <div class="profile">
                                     ${item.user.avatar ?
@@ -353,10 +353,12 @@ $(document).ready(function () {
 
     $('#withdrawListModal .chat-main').on('click', '.reject_request_btn', function () {
         let withdrawId = $(this).closest('li').attr('withdrawId');
+        let userId = $(this).closest('li').attr('userId');
+        let withdrawAmount = parseFloat($(this).closest('li').find('.text_info>span').text().slice(1));
 
         const rejectRequest = () => {
             console.log(withdrawId, ' is rejected!');
-            socket.emit('send:rejectWithdrawRequest', { withdrawId }, (res) => {
+            socket.emit('send:rejectWithdrawRequest', { withdrawId, userId, withdrawAmount }, (res) => {
                 console.log(res);
                 if (res.status == 'OK') {
                     $(this).closest('li').find('.text_info .status').text('Canceled');

@@ -47,7 +47,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
     });
 
     socket.on('send:rejectWithdrawRequest', (data, callback) => {
+        console.log('=======');
         console.log(data);
+        console.log('=======');
         data.kind = 0;
         data.msgType = 'rejectWithdrawRequest';
         db.query(`Update payment_histories SET state=2 WHERE refer_id=${data.withdrawId}`, (error, withdrawItem) => {
