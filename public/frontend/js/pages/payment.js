@@ -312,8 +312,6 @@ $(document).ready(function () {
         let withdrawId = $(this).closest('li').attr('withdrawId');
         console.log(withdrawId);
         const acceptRequest = () => {
-            
-
             let form_data = new FormData();
             form_data.append('withdrawId', withdrawId);
             $.ajax({
