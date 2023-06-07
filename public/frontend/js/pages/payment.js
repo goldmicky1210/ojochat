@@ -312,11 +312,7 @@ $(document).ready(function () {
         let withdrawId = $(this).closest('li').attr('withdrawId');
         console.log(withdrawId);
         const acceptRequest = () => {
-
-            $(this).closest('li').find('.text_info .status').text('success');
-            $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
-            $(this).closest('li').find('.text_info .status').addClass('font-success');
-            $(this).closest('li').find('.thread_info').remove();
+            
 
             let form_data = new FormData();
             form_data.append('withdrawId', withdrawId);
@@ -331,9 +327,9 @@ $(document).ready(function () {
                 processData: false,
                 type: 'POST',
                 dataType: "json",
+                async:false,
                 success: function (res) {
                     if (res.success == true) {
-
                         // alert(res.message);
                         let withdrawId = res.withdrawInfo.id;
                         let userId = res.withdrawInfo.user_id;
@@ -347,6 +343,10 @@ $(document).ready(function () {
 
                 }
             });
+            $(this).closest('li').find('.text_info .status').text('success');
+            $(this).closest('li').find('.text_info .status').removeClass('font-warning font-danger');
+            $(this).closest('li').find('.text_info .status').addClass('font-success');
+            $(this).closest('li').find('.thread_info').remove();
         }
         confirmModal('', "Accept this withdraw request?", acceptRequest);
     });
