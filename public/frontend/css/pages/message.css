@@ -1,6 +1,9 @@
 @supports (-webkit-touch-callout: none) {
 
     @media (max-width: 600px) {
+        .chitchat-container .chitchat-main {
+            height: calc(100vh - 60px);
+        }
         .chitchat-main .message-input {
             z-index: 999;
             bottom: 1px;
