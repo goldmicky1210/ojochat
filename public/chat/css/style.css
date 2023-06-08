@@ -32232,10 +32232,19 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
     width: 450px;
     margin: 0 auto
 }
-
+.login-content-header {
+    text-align: center;
+}
+.login-content-header .logo-text {
+    font-size: 16px;
+    color: black;
+    margin-left: 54px;
+    margin-top: -10px;
+}
 .login-content .login-content-header img {
-    height: 50px;
-    width: auto
+    width: auto;
+    height: 60px;
+    margin-top: 20px
 }
 
 .login-content h3,
@@ -32677,9 +32686,7 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
     padding-bottom: 5px
 }
 
-.login-page1 .login-content-header img {
-    margin-bottom: 20px
-}
+
 
 .login-page1 .left-page {
     position: relative;
@@ -32794,7 +32801,6 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
 }
 
 .login-page2 .login-content-main .login-content .login-content-header {
-    padding-bottom: 20px;
     text-align: center
 }
 
@@ -33045,9 +33051,6 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
     .right-login .login-img {
         width: 65%
     }
-    .login-content .login-content-header {
-        padding-bottom: 27px
-    }
     .login-content h4,
     .login-content .h4 {
         margin-bottom: 24px
@@ -33139,12 +33142,6 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
     .login-content {
         width: auto;
         padding: 50px
-    }
-    .login-content .login-content-header {
-        padding-bottom: 17px
-    }
-    .login-content .login-content-header img {
-        height: 40px
     }
     .login-content h4,
     .login-content .h4 {
@@ -33247,9 +33244,6 @@ ul.chat-cont-setting li a .icon-chat-cont svg {
     .login-content .form1 .form-group .form-control::placeholder,
     .login-content .form2 .form-group .form-control::placeholder {
         font-size: 13px
-    }
-    .login-content .login-content-header img {
-        height: 30px
     }
     .login-page1 .left-page {
         padding: 0

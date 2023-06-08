@@ -12,7 +12,9 @@
                         <div class="left-page">
                             <div class="login-content">
                                 <div class="login-content-header">
-                                    <img class="image-fluid" src="/chat/images/logo/landing-logo.gif" loop=infinite alt="images"></div>
+                                    <img class="image-fluid" src="/chat/images/logo/landing-logo.gif" loop=infinite alt="images">
+                                    <p class="logo-text">send disposable emojis</p>
+                                </div>
                                 <h3>(BETA)</h3>
                                 <span class="alert alert-danger" style="display:none;"></span>
                                 @if (isset($msg) && $msg != '')
