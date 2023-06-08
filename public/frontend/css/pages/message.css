@@ -9,8 +9,8 @@
         }
 
         .chitchat-main .messages {
-            height: calc(100vh - 1px);
-            min-height: calc(100vh - 1px);
+            height: calc(100vh - 60px);
+            min-height: calc(100vh - 60px);
         }
 
         /* .chat-content .scroll-bottom-btn {
