@@ -3,6 +3,7 @@ body {
 }
 .patent_pending {
     font-size: 15px;
+    text-align: center;
 }
 .config-submenu .nav-link.active {
     border-color: transparent;
