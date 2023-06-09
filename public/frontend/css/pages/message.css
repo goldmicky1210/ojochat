@@ -2,7 +2,7 @@
 
     @media (max-width: 600px) {
         .chitchat-container .chitchat-main {
-            height: calc(100vh - 60px);
+            /* height: calc(100vh - 60px); */
         }
         .chitchat-main .message-input {
             z-index: 999;
