@@ -8,11 +8,10 @@
             min-height: calc(100vh - env(safe-area-inset-bottom));
         }
 
-        .chitchat-main .message-input {
-            z-index: 999;
+        /* .chitchat-main .message-input {
             bottom: 0;
             transform: translate3d(0, 0, 0);
-        }
+        } */
 
         .chitchat-main .messages {
             min-height: calc(100vh - constant(safe-area-inset-bottom) -60px);
