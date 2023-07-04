@@ -15,8 +15,8 @@
         }
 
         .chitchat-main .messages {
-            min-height: calc(100vh - constant(safe-area-inset-bottom));
-            min-height: calc(100vh - env(safe-area-inset-bottom));
+            min-height: calc(100vh - constant(safe-area-inset-bottom) -60px);
+            min-height: calc(100vh - env(safe-area-inset-bottom)-60px);
         }
 
         /* .chat-content .scroll-bottom-btn {
