@@ -656,7 +656,7 @@
                                 <h5> <a target="_blank" href="https://www.reddit.com/r/OJOchat">FAQ</a></h5>
                             </li>
                             <li>
-                                <h5> <a href="#"> Contact Us</a></h5>
+                                <h5> <a href="#" class="contact_us_btn"> Contact Us</a></h5>
                             </li>
                             <li>
                                 <h5> <a href="#">Terms and Privacy Policy</a></h5>

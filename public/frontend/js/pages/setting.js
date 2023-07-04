@@ -298,4 +298,20 @@ $(document).ready(function () {
         });
     });
 
+    // Contact Us
+    $('.contact_us_btn').on('click', function() {
+        let helpUser = usersList.find(item => item.username=='@OJOCHAT')
+        let userId = helpUser ? helpUser.id : 0;
+        if (userId) {
+            $.post('/home/sendContactRequest', { userId }, (res) => {
+                if (res.message == 'sent') {
+                    senderName = getCertainUserInfoById(currentUserId).username
+                    socket.emit('send:contactRequest', { userId, senderName });
+                    alert('Contact Request sent Successfully');
+                } else if (res.message == 'exist') {
+                    alert('Contact Request already exist');
+                }
+            });
+        }
+    }) 
 })
