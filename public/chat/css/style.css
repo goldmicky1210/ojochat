@@ -45147,9 +45147,9 @@ footer .footer-mobile-title {
     .notification-tab .chat-main .chat-box .details .h5 {
         line-height: 1.5
     }
-    .notification-tab .chat-main .chat-box .profile {
+    /* .notification-tab .chat-main .chat-box .profile {
         top: 10px
-    }
+    } */
     .notification-tab .chat-main .chat-box .date-status {
         top: 10px
     }
