@@ -4,6 +4,7 @@
         .chitchat-container .chitchat-main {
             /* height: calc(100vh - 60px); */
         }
+
         .chitchat-main .message-input {
             z-index: 999;
             bottom: 1px;
@@ -11,16 +12,17 @@
             position: -webkit-sticky;
         }
 
-        .chitchat-main .messages {
+        /* .chitchat-main .messages {
             height: calc(100vh - 1px);
             min-height: calc(100vh - 1px);
-        }
+        } */
 
-        /* .chat-content .scroll-bottom-btn {
-            bottom: 1px;
+        /* .chitchat-main .messages {
+            padding-bottom: 80px !important;
         } */
     }
 }
+
 @media (max-width: 800px) {
     .chitchat-main .messages {
         padding-bottom: 50px !important;

@@ -167,7 +167,7 @@ function getRecentChatUsers(type) {
                     currentCastUsers = globalGroupUsers;
                 }
                 if (globalGroupId) {
-                    showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
+                    // showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
                 } else {
                     $(messageTarget).empty();
                 }
