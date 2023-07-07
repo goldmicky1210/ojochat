@@ -150,24 +150,32 @@ function getRecentChatUsers(type) {
         success: function (res) {
             if (res.state == 'true') {
                 let threadList = res.data.filter(item => !blockGroupList.includes(item.id));
-                globalGroupId = threadList.slice(-1)[0] ? threadList.slice(-1)[0].id : 0;
-                globalGroupUsers = threadList.slice(-1)[0] ? threadList.slice(-1)[0].users.join(',') : '';
+                // globalGroupId = threadList.slice(-1)[0] ? threadList.slice(-1)[0].id : 0;
+                // globalGroupUsers = threadList.slice(-1)[0] ? threadList.slice(-1)[0].users.join(',') : '';
                 var itemTarget = `#myTabContent1 .tab-pane:nth-child(${type}) ul.chat-main`;
                 var messageTarget = `.messages:nth-of-type(${type + 1}) .chatappend`;
                 if (type == 1) {
-                    currentDirectId = globalGroupId;
-                    currentDirectUsers = globalGroupUsers;
+                    // currentDirectId = globalGroupId;
+                    // currentDirectUsers = globalGroupUsers;
+                    globalGroupId = currentDirectId
+                    globalGroupUsers = currentDirectUsers
                     recentChatUsers = threadList.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
                     displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
-                    currentGroupId = globalGroupId;
-                    currentGroupUsers = globalGroupUsers;
+                    // currentGroupId = globalGroupId;
+                    // currentGroupUsers = globalGroupUsers;
+                    globalGroupId = currentGroupId
+                    globalGroupUsers = currentGroupUsers
                 } else if (type == 3) {
-                    currentCastId = globalGroupId;
-                    currentCastUsers = globalGroupUsers;
+                    globalGroupId = currentCastId
+                    globalGroupUsers = currentCastUsers
+                    // currentCastId = globalGroupId;
+                    // currentCastUsers = globalGroupUsers;
                 }
+                console.log(globalGroupId)
+                console.log(globalGroupUsers)
                 if (globalGroupId) {
-                    // showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
+                    showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
                 } else {
                     $(messageTarget).empty();
                 }
@@ -189,7 +197,10 @@ function getRecentChatUsers(type) {
                     }
                 });
                 convertListItems();
-                $(`${itemTarget}>li:first-child`).addClass('active');
+                // $(`${itemTarget}>li:first-child`).addClass('active');
+                if (globalGroupId) {
+                    $(`${itemTarget}>li[groupId='${globalGroupId}']`).addClass('active');
+                }
 
             } else {
                 let element = `<div class="empty_message_content">
