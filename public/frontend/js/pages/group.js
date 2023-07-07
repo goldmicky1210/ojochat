@@ -881,7 +881,6 @@ function addUsersListItem(target, data, statusItem, blockFlag) {
 }
 
 function addNewGroupItem(target, data) {
-    console.log(data);
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
