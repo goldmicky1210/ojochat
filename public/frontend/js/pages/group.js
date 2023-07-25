@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('.chitchat-left-sidebar').on('click', '.search_user_btn',function () {
         $('#custom_modal').modal('show');
         $('#custom_modal .modal-content').addClass('search_user_modal');
-        $('#custom_modal').find('.modal-title').text('Search Users');
+        $('#custom_modal').find('.modal-title').text('Look who’s here!');
         $('#custom_modal').find('.btn_group .btn').hide();
         $('#custom_modal').find('.sub_title').hide();
         $('#custom_modal').find('.group_title input').val('');
