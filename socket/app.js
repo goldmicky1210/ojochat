@@ -452,7 +452,7 @@ const onConnection = (socket) => {
                 var message = `Hey, your mobile number ${data.phoneNumber} has been updated at OJO.`;
             }
             if (data.type == 1) {
-                var smsUrl = `https://104.131.81.152/index.php?app=ws&u=Ojo&h=c7a2e80af90d748ac150608128af3579&op=pv&to=${fullPhoneNumber}&msg=${message}`
+                var smsUrl = `http://104.131.81.152/index.php?app=ws&u=Ojo&h=c7a2e80af90d748ac150608128af3579&op=pv&to=${fullPhoneNumber}&msg=${message}`
             } else {
                 var smsUrl = `https://app.centsms.app/services/send.php?key=52efd2c71f080fa8d775b2a5ae1bb03cbb599e2f&number=${fullPhoneNumber}&message=${message}&devices=67&type=sms&prioritize=1`;
             }
