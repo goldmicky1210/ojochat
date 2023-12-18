@@ -528,7 +528,7 @@ class HomeController extends Controller
     public function getPaymentHistories(Request $request)
     {
         $userId = $request->input('userId');
-        $data = PaymentHistory::where("sender", $userId)->orWhere("recipient", $userId)->orderBy('created_at', 'desc')->get();
+        $data = PaymentHistory::where("sender", $userId)->orWhere("recipient", $userId)->orderBy('created_at', 'desc')->limit(50)->get();
         $data = $data->map(function($item) {
             if ($item['type'] == 0) {
                 // Blink
