@@ -181,20 +181,20 @@ function getRecentChatUsers(type) {
                 }
                 $(itemTarget).empty();
                 threadList.forEach(item => {
-                    if (!item.lastMessage && item.type == 1) {
-                        deleteGroup(item.id, null)
-                    } else {
-                        if (item.lastMessage) {
-                            let sender = item.lastMessage ? getCertainUserInfoById(item.lastMessage.sender).username : '';
-                            if (item.lastMessage.sender == currentUserId) 
-                                sender = "You";
-                            var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';
-                            item.lastMessageSender = sender;
-                            item.lastMessageContent = content;
-                            item.lastMessageDate = new Date(item.lastMessage.created_at);
-                        }
-                        addNewGroupItem(itemTarget, item);
+                    // if (!item.lastMessage && item.type == 1) {
+                    //     deleteGroup(item.id, null)
+                    // } else {
+                    if (item.lastMessage) {
+                        let sender = item.lastMessage ? getCertainUserInfoById(item.lastMessage.sender).username : '';
+                        if (item.lastMessage.sender == currentUserId)
+                            sender = "You";
+                        var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';
+                        item.lastMessageSender = sender;
+                        item.lastMessageContent = content;
+                        item.lastMessageDate = new Date(item.lastMessage.created_at);
                     }
+                    addNewGroupItem(itemTarget, item);
+                    // }
                 });
                 convertListItems();
                 // $(`${itemTarget}>li:first-child`).addClass('active');
@@ -362,7 +362,7 @@ function typingMessage(senderId, lastElement) {
         let contactorInfo = getCertainUserInfoById(senderId);
         $(`<li class="sent last typing-m"> <div class="media"> <div class="profile me-4 bg-size" style="background-image: ${contactorInfo.avatar ? 'url(v1/api/downloadFile?path=' + contactorInfo.avatar + ')' : 'none'}; background-size: cover; background-position: center center; display: block;">${contactorInfo.avatar ? "" : getNameStr(contactorInfo.username)}
         </div><div class="media-body"> <div class="contact-name"> <h5>${contactorInfo.username}</h5> <h6>${typingTime.toLocaleTimeString()}</h6> <ul class="msg-box"> <li> <h5> <div class="type"> <div class="typing-loader"></div></div></h5> </li></ul> </div></div></div></li>`).appendTo($('.messages .chatappend'));
-        
+
         if ($(lastElement).isInViewport()) {
             $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
         }
@@ -832,7 +832,7 @@ function displayPaymentHistory(userId) {
                                             <h6 class="title">${dateString}</h6>
                                         </div>
                                         <div class="date-status">
-                                            <span class=${item.state == 2 ?'font-danger' : 'font-warning'}>-$${item.amount.toFixed(2)}</span>
+                                            <span class=${item.state == 2 ? 'font-danger' : 'font-warning'}>-$${item.amount.toFixed(2)}</span>
                                             <h6 class="status ${item.state ? 'font-success' : 'font-warning'}" request-status="4"> ${status[item.state]}</h6>
                                         </div>
                                     </div>
@@ -965,7 +965,7 @@ function displayPaymentHistory(userId) {
                             var avatar = sendFlag ? receiverInfo.avatar : senderInfo.avatar;
                             var amount = sendFlag ? (item.amount).toFixed(2) : (item.amount * 0.7).toFixed(2);
                             let dateString = new Date(item.created_at).toLocaleDateString() + ' @ ' + new Date(item.created_at).toLocaleTimeString().replace(/:\d{1,2}:/g, ':')
-    
+
                             $('.history-list').append(`
                                 <li class="accordion-item" userId=${sendFlag ? receiverInfo.id : senderInfo.id} sendFlag=${sendFlag} paymentId=${item.id}>
                                     <h2 class="accordion-header" id="headingOne-${index}">

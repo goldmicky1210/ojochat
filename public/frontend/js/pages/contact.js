@@ -52,9 +52,10 @@ $(document).ready(() => {
         $('#group').removeClass('active show');
         $('#direct').addClass('active show');
         $(`#direct .chat-main>li`).removeClass('active');
-        getRecentChatUsers(1)
-
+        
         let directGroupId = getDirectGroupId(userId);
+        currentDirectId = directGroupId;
+        getRecentChatUsers(1);
         if (directGroupId) {
             if ($(`#direct .chat-main>li[groupId=${directGroupId}]`).length) {
                 $(`#direct .chat-main>li[groupId=${directGroupId}]`).click()
