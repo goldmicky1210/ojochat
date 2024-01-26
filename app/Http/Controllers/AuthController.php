@@ -13,13 +13,15 @@ use Stevebauman\Location\Facades\Location;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\Helper\MailHelper;
+// use App\Http\Controllers\Helper\MailHelper;
 
 use App\Models\Session;
 use App\Models\User;
 use App\Models\National;
-use App\Datas\MailData;
+// use App\Datas\MailData;
 use App\Models\LastLogin;
+use App\Mail\ForgetEmail;
+
 class AuthController extends Controller
 {
     public function __invoke(Request $request)
@@ -179,22 +181,15 @@ class AuthController extends Controller
             $login = Session::select()->where('user_id', $user->userId)->get();
             if(count($login))$login[0]->delete();
             $newPassword = Str::random(8);
-            $newPassword = '12345678';
             $_newPassword = Hash::make($newPassword);
             $token=Crypt::encryptString($email.'###'.$_newPassword);
             User::where('id', $user->userId)->update(['password'=>$_newPassword, 'remember_token' => $token]);
 
-            $mailData = new MailData();
-
-            $mailData->template='temps.password_changed';
-            $mailData->fromEmail = config('mail.from.address');
-            $mailData->userName = $user->username;
-            $mailData->toEmail = $email;
-            $mailData->subject = 'OJOChat - Password Reset';
-            $mailData->mailType = 'RESET_LINK_TYPE';
-            $mailData->content = $newPassword;
-            Mail::to($mailData->toEmail)->send(new MailHelper($mailData));
-
+            $data = [
+                'username' => $user->userName,
+                'password' => $newPassword,
+            ];
+            Mail::to($email)->send(new ForgetEmail($data));
             return redirect()->intended('login');
         }
         else{

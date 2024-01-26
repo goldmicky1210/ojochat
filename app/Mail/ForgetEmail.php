@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEmail extends Mailable
+class ForgetEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -31,15 +31,18 @@ class TestEmail extends Mailable
     public function build()
     {
         $address = env('MAIL_FROM_ADDRESS');
-        $subject = 'This is a demo!';
-        $name = 'Jane Doe';
+        $subject = 'Password Reset Confirmation - Your OJO Account';
+        $name = 'OJOChat';
 
-        return $this->view('emails.test')
+        return $this->view('emails.forget')
                     ->from($address, $name)
                     ->cc($address, $name)
                     ->bcc($address, $name)
                     ->replyTo($address, $name)
                     ->subject($subject)
-                    ->with([ 'test_message' => $this->data['message'] ]);
+                    ->with([
+                        'username' => $this->data['username'],
+                        'password' => $this->data['password']
+                    ]);
     }
 }
