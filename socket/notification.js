@@ -90,6 +90,7 @@ exports.sendSMSFinal = (phoneNumber, message, smsType) => {
     }
     axios.get(smsUrl).then(res => {
         console.log("Sent SMS");
+        console.log(res);
     }).catch(error => {
         console.log(error);
     });
