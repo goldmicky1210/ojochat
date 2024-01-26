@@ -48,7 +48,7 @@ exports.sendRateSMS = (sender, recipient, rate, kindIndex) => {
                     db.query(`SELECT * FROM country_phone_codes where country_id = ${country[0].id}`, (error, phoneInfo) => {
                         let phone_code = phoneInfo[0].phone_code;
                         let fullPhoneNumber = '';
-                        if (phone_code != 1) {
+                        if (phone_code == 1) {
                             fullPhoneNumber = phoneNumber;
                         } else if (phone_code == 55) {
                             fullPhoneNumber = phoneNumber;
