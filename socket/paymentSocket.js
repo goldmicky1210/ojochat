@@ -21,9 +21,9 @@ module.exports = (io, socket, user_socketMap, socket_userMap) => {
             db.query(`INSERT INTO payment_histories (recipient, amount, state, refer_id, type) VALUES (${currentUserId}, ${data.withdrawAmount}, 0, ${data.withdrawId}, 5)`, (error, withdrawItem) => {
                 console.log(withdrawItem)
             });
-            db.query(`UPDATE users SET locked_balances=locked_balances+${data.withdrawAmount} WHERE id=${currentUserId}`, (error, data) => {
-                console.log(data);
-            });
+            // db.query(`UPDATE users SET locked_balances=locked_balances+${data.withdrawAmount} WHERE id=${currentUserId}`, (error, data) => {
+            //     console.log(data);
+            // });
             if (item.length) {
                 Notification.sendSMS(currentUserId, item[0].id, data);
             }

@@ -198,6 +198,9 @@ class PaymentController extends Controller
         $paypalWithdraw->paypal_email = $paypalEmail;
         $paypalWithdraw->save();
 
+        $user = User::find($userId);
+        $user->locked_balances += $withdrawAmount;
+        $user->save();
         // Return a success response
         return response()->json([
             'state' => true,
@@ -205,6 +208,7 @@ class PaymentController extends Controller
             'withdraw_id' => $withdraw->id,
             'paypal_withdraw_id' => $paypalWithdraw->id,
         ]);
+
 
         // Withdraw::create([
         //     'user_id' => $userId,

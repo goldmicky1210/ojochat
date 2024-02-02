@@ -1,4 +1,5 @@
 let totalPrice = 0;
+var isWithdrawModalEnabled = true;
 
 $(document).ready(function () {
     payPhoto();
@@ -153,6 +154,7 @@ $(document).ready(function () {
         $('#withdrawModal').modal('hide');
 
         $('#withdrawConfirmModal').modal('show');
+        disableWithdrawModal();
         $.ajax({
             url: '/payment/sendWithdrawRequest',
             headers: {
@@ -172,6 +174,8 @@ $(document).ready(function () {
                     let withdrawId = res.withdraw_id;
                     socket.emit('send:sendWithdrawRequest', { senderName, withdrawId, withdrawAmount, withdrawType });
                 }
+                enableWithdrawModal();
+
             },
             error: function (response) {
 
@@ -325,7 +329,7 @@ $(document).ready(function () {
                 processData: false,
                 type: 'POST',
                 dataType: "json",
-                async:false,
+                async: false,
                 success: function (res) {
                     if (res.success == true) {
                         // alert(res.message);
@@ -373,6 +377,25 @@ $(document).ready(function () {
     });
 });
 
+function openWithdrawModal() {
+    if (isWithdrawModalEnabled) {
+        // Open the modal
+        $('#withdrawModal').modal('show');
+    } else {
+        // Prevent the modal from opening
+        event.preventDefault();
+    }
+}
+
+// To disable the modal
+function disableWithdrawModal() {
+    isWithdrawModalEnabled = false;
+}
+
+// To enable the modal
+function enableWithdrawModal() {
+    isWithdrawModalEnabled = true;
+}
 
 function initPayPalButton(amount) {
     paypal.Buttons({
