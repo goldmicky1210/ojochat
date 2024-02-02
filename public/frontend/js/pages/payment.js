@@ -108,6 +108,7 @@ $(document).ready(function () {
             $("#emailError").text("Email address is required");
         }
     });
+    $('#withdrawBtn').on('click', openWithdrawModal);
 
     $('.sendWithdrawRequestBtn').on('click', function (e) {
         let withdrawAmount = +$('.withdraw_request_amount input').val();
@@ -141,6 +142,7 @@ $(document).ready(function () {
             alert('Withdraw Amount is invalid!');
         }
     });
+
     $('#withdrawConfirmModal').on('click', '.withdrawConfirmBtn', function () {
 
         let withdrawAmount = +$('.withdraw_request_amount input').val();

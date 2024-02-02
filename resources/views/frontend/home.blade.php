@@ -474,7 +474,7 @@
                                         <div>
                                             <a class="btn-primary button-effect deposit-modal-open" href="#"
                                                 data-bs-toggle="modal" data-bs-target="#depositModal"> Deposit</a>
-                                            <a class="btn-primary button-effect" href="#" onclick="openWithdrawModal();"> Withdraw </a>
+                                            <a class="btn-primary button-effect" id="withdrawBtn" href="#"> Withdraw </a>
                                             
                                         </div>
                                         @if (Auth::user()->username == 'CoolDev' || Auth::user()->username == '$OJOCHAT')
