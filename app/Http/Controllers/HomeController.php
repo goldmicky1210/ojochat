@@ -257,9 +257,12 @@ class HomeController extends Controller
     }
 
     public function getCertainUserInfoById(Request $request) {
-        $id = Auth::id();
+        $id = $request->input('userId');
+
         // $userList = User::where('id', '<>', $id)->get();
         $user = User::find($id);
+        $rateData = Rate::join('messages', 'rates.message_id', '=', 'messages.id')->where('messages.sender', $id)->get(['rate', 'kind']);
+        $user['rateData'] = $rateData;
        
         return array('state' => 'true', 'data' => $user);
     }
