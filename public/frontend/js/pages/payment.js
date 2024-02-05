@@ -111,10 +111,11 @@ $(document).ready(function () {
     $('#withdrawBtn').on('click', openWithdrawModal);
 
     $('.sendWithdrawRequestBtn').on('click', function (e) {
+        let currentUser = getCertainUserInfoById(currentUserId);
+        let availableCreditAmount = currentUser.balances - currentUser.locked_balances;
         let withdrawAmount = +$('.withdraw_request_amount input').val();
         let withdrawType = $('.withdraw_request_type select').val();
         let withdrawEmail = $('.paypal_detail input').val();
-        let availableCreditAmount = getCertainUserInfoById(currentUserId).balances;
 
         function validateEmail(email) {
             if (email != "") {
@@ -186,8 +187,9 @@ $(document).ready(function () {
     })
 
     $('#withdrawModal').on('shown.bs.modal', function (e) {
-        let currentUserBalance = getCertainUserInfoById(currentUserId).balances;
-        $('#withdrawModal .modal-body .avaialble_credit_amount').text(`$${currentUserBalance.toFixed(2)}`);
+        let currentUser = getCertainUserInfoById(currentUserId);
+        let availableCreditAmount = currentUser.balances - currentUser.locked_balances;
+        $('#withdrawModal .modal-body .avaialble_credit_amount').text(`$${availableCreditAmount.toFixed(2)}`);
         // $.ajax({
         //     url: '/payment/getWithdrawList',
         //     headers: {

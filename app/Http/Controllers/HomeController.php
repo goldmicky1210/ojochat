@@ -256,6 +256,16 @@ class HomeController extends Controller
         return array('state' => 'true', 'data' => $userList);
     }
 
+    public function getCertainUserInfoById(Request $request) {
+        $id = Auth::id();
+        // $userList = User::where('id', '<>', $id)->get();
+        $user = User::find($id);
+       
+        return array('state' => 'true', 'data' => $user);
+    }
+
+    
+
     public function getUsersForList(Request $request) {
         $id = Auth::id();
         $lastUserName = $request->input('lastUserName');

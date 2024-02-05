@@ -1,18 +1,19 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+require('dotenv').config();
 
 const db = require("./config.js");
 const Notification = require("./notification.js");
 const MsgType = require("./constant").MsgType;
-
 const SpanishCountries = ['Argentina', 'Bolivia', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Dominican Republic', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras', 'Mexico', 'Nicaragua', 'Panama', 'Paraguay', 'Peru', 'Puerto Rico', 'Uruguay', 'Venezuela', 'Spain'];
 const KindConstant = ['text', 'request', 'photo', 'video', 'audio', 'video_call', 'voice_call'];
 
 
 const server = require('http').createServer(app);
-// const port = process.env.PORT || 4000
-const port = 4000;
+
+const port = process.env.PORT || 4000
+// const port = 4000;
 const io = require('socket.io')(server, {
     cors: {
         origins: '*',
