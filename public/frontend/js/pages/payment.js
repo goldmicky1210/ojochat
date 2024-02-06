@@ -171,9 +171,8 @@ $(document).ready(function () {
             dataType: "json",
             async: false,
             success: function (res) {
-                console.log(res);
                 if (res.state == true) {
-                    let senderName = getCertainUserInfoById(currentUserId).username;
+                    let senderName = currentUserInfo.username;
                     let withdrawId = res.withdraw_id;
                     socket.emit('send:sendWithdrawRequest', { senderName, withdrawId, withdrawAmount, withdrawType });
                 }

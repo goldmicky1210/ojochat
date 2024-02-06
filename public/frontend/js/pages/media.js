@@ -99,7 +99,7 @@ $(document).ready(() => {
                         }
                         addGroupChatItem(target, item);
                         $(".messages.active").animate({ scrollTop: $('.messages.active .contact-chat').height() }, 'fast');
-                        item.senderName = getCertainUserInfoById(currentUserId).username;
+                        item.senderName = currentUserInfo.username;
                         socket.emit('send:mediaNotification', item);
                     });
                 }

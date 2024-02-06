@@ -160,7 +160,7 @@ $(document).ready(function () {
         photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
         let data = {};
         data.sender = currentUserId;
-        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.senderName = currentUserInfo.username;
         data.content = getEmojisInfo(photo_canvas._objects);
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $('#photo_item').find('.modal-content').attr('photoId');
@@ -217,8 +217,10 @@ function getRequestList() {
                         let target = 'ul.request-list';
                         $(target).empty();
                         res.data.forEach(item => {
-                            let senderInfo = getCertainUserInfoById(item.from);
-                            let receiverInfo = getCertainUserInfoById(item.to);
+                            // let senderInfo = getCertainUserInfoById(item.from);
+                            let senderInfo = usersList.find(user => item.from == user.id);
+                            // let receiverInfo = getCertainUserInfoById(item.to);
+                            let receiverInfo = usersList.find(user => item.to == user.id);
                             addRequestItem(senderInfo, receiverInfo, item);
                         });
                     }
@@ -467,7 +469,7 @@ function savePhoto() {
         photo_canvas._objects.filter(item => item.kind == 'temp').forEach(item => photo_canvas.remove(item));
         let data = {};
         data.sender = currentUserId;
-        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.senderName = currentUserInfo.username;
         data.content = getEmojisInfo(photo_canvas._objects);
         data.photo = photo_canvas.toDataURL('image/png');
         data.photoId = $(this).closest('.modal-content').attr('photoId');
@@ -496,7 +498,7 @@ function sendBlink() {
         canvas._objects.filter(item => item.kind == 'temp').forEach(item => canvas.remove(item));
         let data = {};
         data.sender = currentUserId;
-        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.senderName = currentUserInfo.username;
         data.photo = canvas.toDataURL('image/png');
         data.original_thumb = canvas.toDataURL('image/png');
         data.back = ori_image || (canvas.backgroundImage && canvas.backgroundImage._originalElement.currentSrc);
@@ -533,7 +535,7 @@ function sendBlink() {
         canvas._objects.filter(item => item.kind == 'temp').forEach(item => canvas.remove(item));
         let data = {};
         data.sender = currentUserId;
-        data.senderName = getCertainUserInfoById(currentUserId).username;
+        data.senderName = currentUserInfo.username;
         data.photo = canvas.toDataURL('image/png');
         data.back = ori_image || (canvas.backgroundImage && canvas.backgroundImage._originalElement.currentSrc);
         data.blur = canvas.backgroundImage && canvas.backgroundImage.blur || 0;
@@ -610,7 +612,7 @@ function showPhoto() {
         if ($(this).find('.fa-heart').hasClass('ti-heart')) {
             let userId = $(this).closest('.accordion-item').attr('userId');
             let paymentId = $(this).closest('.accordion-item').attr('paymentId');
-            let senderName = getCertainUserInfoById(currentUserId).username;
+            let senderName = currentUserInfo.username;
             socket.emit('send:thanksMessage', { userId, paymentId, senderName }, (res) => {
                 $(this).find('.fa-heart').removeClass('ti-heart');
                 $(this).find('.fa-heart').addClass('fa');

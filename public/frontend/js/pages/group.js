@@ -82,7 +82,7 @@ $(document).ready(function () {
         let userId = $(this).closest('.user_item').attr('key');
         $.post('/home/sendContactRequest', { userId }, (res) => {
             if (res.message == 'sent') {
-                senderName = getCertainUserInfoById(currentUserId).username
+                senderName = currentUserInfo.username
                 socket.emit('send:contactRequest', { userId, senderName });
                 alert('Contact Request sent Successfully');
             } else if (res.message == 'exist') {
@@ -655,7 +655,7 @@ $(document).ready(function () {
                 let groupUsersTarget = $(`.messages.active`).find('.groupuser');
                 groupUsersTarget.empty();
                 groupUsers.split(',').forEach(id => {
-                    let userInfo = getCertainUserInfoById(id);
+                    let userInfo = usersList.find(item => item.id == id);
                     let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
                     groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">
                         ${avatar ?
@@ -697,7 +697,7 @@ $(document).ready(function () {
     $('#custom_modal').on('click', '.modal-content.invite_group_modal .btn_group .btn', function () {
         let groupUsers = Array.from($('#custom_modal ul.chat-main li.active')).map(listItem => $(listItem).attr('key')).join(',');
         let groupTitle = $('#group .chat-main>li.active .details>h5').text();
-        let senderName = getCertainUserInfoById(currentUserId).username || 'Someone';
+        let senderName = currentUserInfo.username || 'Someone';
         socket.emit('invite:groupUsers', { currentGroupId, groupUsers, groupTitle, senderName }, (res) => {
             if (res.status == 'OK') {
                 $('#group-tab').click();
@@ -792,11 +792,13 @@ $(document).ready(function () {
             alert('This user is already Admin of this group ' + groupTitle);
         } else {
             admins = admins + ',' + addId;
-            let senderName = getCertainUserInfoById(currentUserId).username;
+            let senderInfo
+            let senderName = currentUserInfo.username;
             socket.emit('add:groupAdmin', { globalGroupId, admins, addId, groupTitle, senderName }, res => {
                 if (res.status == 'OK') {
-                    let addName = getCertainUserInfoById(addId).username;
-                    let currentUsername = getCertainUserInfoById(addId).username;
+                    let addInfo = getCertainUserInfoById(addId);
+                    let addName = addInfo.username;
+                    let currentUsername = addInfo.username;
                     console.log(`${addName} has become as admin of group ${groupTitle} by ${currentUsername}`);
                 }
             });
@@ -808,7 +810,7 @@ $(document).ready(function () {
         let groupTitle = $('#myTabContent1 .tab-pane.active .chat-main>li.active .details h5').text();
         let admins = $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('admins');
         let removeId = $('.chitchat-right-sidebar .contact-profile .group_operation').attr('profileId');
-        let senderName = getCertainUserInfoById(currentUserId).username;
+        let senderName = currentUserInfo.username;
         if (currentUserId != removeId) {
             if (admins.split(',').includes(removeId.toString())) {
                 admins = admins.split(',').filter(id => id != removeId).join(',');
@@ -821,7 +823,7 @@ $(document).ready(function () {
                     $('#myTabContent1 .tab-pane.active .chat-main>li.active').attr('groupUsers', groupUsers);
                     $('.messages.active .groupuser').find(`.gr-profile[data-user-id=${removeId}]`).remove();
                     let removeName = getCertainUserInfoById(removeId).username;
-                    let currentUsername = getCertainUserInfoById(currentUserId).username;
+                    let currentUsername = currentUserInfo.username;
                     console.log(`${removeName} has been removed from group ${groupTitle} by ${currentUsername}`);
                 }
             });
@@ -884,13 +886,15 @@ function addNewGroupItem(target, data) {
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
-        let userInfo = getCertainUserInfoById(directId);
+        // let userInfo = getCertainUserInfoById(directId);
+        let userInfo = usersList.find(user => user.id == directId);
         avatar = userInfo.avatar;
         title = userInfo.username;
         var description = userInfo.description;
     }
     let groupUsersAvatar = users.filter((item, index) => index < 3).map(item => {
-        let avatar = getCertainUserInfoById(item).avatar;
+        let avatar = usersList.find(user => user.id == item).avatar;
+        // let avatar = getCertainUserInfoById(item).avatar;
         avatar = avatar ? `v1/api/downloadFile?path=${avatar}` : '/images/default-avatar.png';
         return { id: item, avatar: avatar };
     });
@@ -1198,7 +1202,8 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
                     groupUsers.split(',').forEach(id => {
-                        let userInfo = getCertainUserInfoById(id);
+                        // let userInfo = getCertainUserInfoById(id);
+                        let userInfo = usersList.find(item => item.id == id);
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
                         groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">
                         ${avatar ?

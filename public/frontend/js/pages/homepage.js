@@ -181,7 +181,8 @@ function getRecentChatUsers(type) {
                     // currentDirectUsers = globalGroupUsers;
                     globalGroupId = currentDirectId
                     globalGroupUsers = currentDirectUsers
-                    recentChatUsers = threadList.map(item => item.users.find(userId => userId != currentUserId)).map(id => getCertainUserInfoById(id));
+                    let recentChatUserIds =  threadList.map(item => item.users.find(userId => userId != currentUserId));
+                    recentChatUsers = usersList.filter(item => recentChatUserIds.includes(item));
                     displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     // currentGroupId = globalGroupId;
@@ -194,8 +195,6 @@ function getRecentChatUsers(type) {
                     // currentCastId = globalGroupId;
                     // currentCastUsers = globalGroupUsers;
                 }
-                console.log(globalGroupId)
-                console.log(globalGroupUsers)
                 if (globalGroupId) {
                     showCurrentChatHistory(messageTarget, globalGroupId, globalGroupUsers, type);
                 } else {
@@ -207,7 +206,8 @@ function getRecentChatUsers(type) {
                     //     deleteGroup(item.id, null)
                     // } else {
                     if (item.lastMessage) {
-                        let sender = item.lastMessage ? getCertainUserInfoById(item.lastMessage.sender).username : '';
+                        // let sender = item.lastMessage ? getCertainUserInfoById(item.lastMessage.sender).username : '';
+                        let sender = item.lastMessage ? usersList.find(user => user.id == item.lastMessage.sender).username : '';
                         if (item.lastMessage.sender == currentUserId)
                             sender = "You";
                         var content = item.lastMessage.kind == 0 ? item.lastMessage.content : item.lastMessage.kind == 2 ? 'Sent a Blink' : item.lastMessage.kind == 4 ? 'Sent a Media' : item.lastMessage.kind == 10 ? 'Sent an Audio' : 'Sent a message';

@@ -7,7 +7,7 @@ $(document).ready(() => {
                 // addContact(userId);
                 $.post('/home/sendContactRequest', { userId }, (res) => {
                     if (res.message == 'sent') {
-                        senderName = getCertainUserInfoById(currentUserId).username
+                        senderName = currentUserInfo.username;
                         socket.emit('send:contactRequest', { userId, senderName });
                         alert('Contact Request sent Successfully');
                     } else if (res.message == 'exist') {

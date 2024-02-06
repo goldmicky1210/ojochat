@@ -532,13 +532,12 @@
         $('.' + active_class).addClass("active");
     });
     $(".sidebar-top a, .balance").on('click', function () {
-        let userData = getCertainUserInfoById(currentUserId);
         //phone number setting
         // iti.setCountry(userData.national);
         // $("#phone").intlTelInput("selectCountry", userData.national);
         // $("#phone").intlTelInput("setNumber", userData.phone_number.replace(/[^0-9]/g, ''));
         // $("#phone").val(userData.phone_number);
-        iti.setNumber(userData.phone_number);
+        iti.setNumber(currentUserInfo.phone_number);
         // $("#phone").val(userData.phone_number);
 
         // close left nav
@@ -546,7 +545,7 @@
 
 
         $('.smsTestBtns .btn').removeClass('active');
-        $(`.smsTestBtns .btn:nth-child(${userData.sms_type})`).addClass('active');
+        $(`.smsTestBtns .btn:nth-child(${currentUserInfo.sms_type})`).addClass('active');
 
         $(".sidebar-top  a").removeClass("active");
         $(this).addClass("active");
