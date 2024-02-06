@@ -182,7 +182,9 @@ function getRecentChatUsers(type) {
                     globalGroupId = currentDirectId
                     globalGroupUsers = currentDirectUsers
                     let recentChatUserIds =  threadList.map(item => item.users.find(userId => userId != currentUserId));
-                    recentChatUsers = usersList.filter(item => recentChatUserIds.includes(item));
+                    console.log(recentChatUserIds);
+                    recentChatUsers = usersList.filter(item => recentChatUserIds.includes(item.id));
+                    console.log(recentChatUsers);
                     displayRecentChatFriends(recentChatUsers);
                 } else if (type == 2) {
                     // currentGroupId = globalGroupId;
