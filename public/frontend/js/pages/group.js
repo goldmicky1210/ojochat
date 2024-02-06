@@ -999,7 +999,8 @@ function addGroupChatItem(target, data, loadFlag) {
             }
         }
     }
-    let senderInfo = getCertainUserInfoById(data.sender);
+    // let senderInfo = getCertainUserInfoById(data.sender);
+    let senderInfo = usersList.find(user => user.id == data.sender);
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
     if (data.kind == 3) {
