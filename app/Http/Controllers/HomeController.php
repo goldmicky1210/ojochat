@@ -105,7 +105,7 @@ class HomeController extends Controller
     public function getCurrentGroupChatContent(Request $request) {
         $id = Auth::id();
         $groupId = $request->input('currentGroupId');
-        $messageSet = Message::where('group_id', $groupId)->update(['state' => 3]);
+        $messageSet = Message::where('group_id', $groupId)->where('sender', '!=', $id)->update(['state' => 3]);
         $messageData = Message::where("group_id", $groupId)->where('deleted', 0)->orderBy('created_at', 'desc')->limit(15)->get();
         $messages = $messageData->map(function($item) {
             $rate = Rate::where('message_id', $item['id'])->avg('rate');
