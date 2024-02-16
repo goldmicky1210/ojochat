@@ -73,7 +73,7 @@ $(document).ready(function () {
 
     socket.on('receive:request', data => {
         let senderInfo = getCertainUserInfoById(data.from);
-        let receiverInfo = getCertainUserInfoById(currentUserId);
+        let receiverInfo = currentUserInfo;
         addRequestItem(senderInfo, receiverInfo, data);
         if (data.from != currentUserId)
             $('.photo_request_icon').addClass('dot-btn');
@@ -113,7 +113,7 @@ $(document).ready(function () {
     });
 
     $('#detailRequestModal .btn-warning').click(e => {
-        let senderInfo = getCertainUserInfoById(currentUserId);
+        let senderInfo = currentUserInfo;
         let receiverInfo = getCertainUserInfoById(currentContactId);
         e.preventDefault();
         let reason = prompt('Please enter the reject reason.');
@@ -217,9 +217,7 @@ function getRequestList() {
                         let target = 'ul.request-list';
                         $(target).empty();
                         res.data.forEach(item => {
-                            // let senderInfo = getCertainUserInfoById(item.from);
                             let senderInfo = usersList.find(user => item.from == user.id);
-                            // let receiverInfo = getCertainUserInfoById(item.to);
                             let receiverInfo = usersList.find(user => item.to == user.id);
                             addRequestItem(senderInfo, receiverInfo, item);
                         });

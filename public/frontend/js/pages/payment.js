@@ -340,8 +340,6 @@ $(document).ready(function () {
                         let userId = res.withdrawInfo.user_id;
                         let withdrawAmount = res.withdrawInfo.amount;
                         socket.emit('send:acceptWithdrawRequest', { userId, withdrawId, withdrawAmount })
-                        // let senderName = getCertainUserInfoById(currentUserId).username;
-                        // socket.emit('send:sendWithdrawRequest', { senderName });
                     }
                 },
                 error: function (response) {

@@ -128,30 +128,30 @@ function getNotificationList() {
 }
 
 function getCertainUserInfoById(id) {
-    let form_data = new FormData();
-    form_data.append('userId', id);
-    let result;
-    $.ajax({
-        url: '/home/getCertainUserInfoById',
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-        type: 'POST',
-        dataType: "json",
-        data: form_data,
-        async: false,
-        success: function (res) {
-           result = res.data;
-        },
-        error: function (res) {
-            // document.location.href = '/login';
-        }
-    });
-    return result;
-    // return usersList.find(item => item.id == id);
+    // let form_data = new FormData();
+    // form_data.append('userId', id);
+    // let result;
+    // $.ajax({
+    //     url: '/home/getCertainUserInfoById',
+    //     headers: {
+    //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    //     },
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     type: 'POST',
+    //     dataType: "json",
+    //     data: form_data,
+    //     async: false,
+    //     success: function (res) {
+    //        result = res.data;
+    //     },
+    //     error: function (res) {
+    //         // document.location.href = '/login';
+    //     }
+    // });
+    // return result;
+    return usersList.find(item => item.id == id);
 }
 
 function getRecentChatUsers(type) {
@@ -324,24 +324,7 @@ function newMessage() {
 
     $('.message-input .setemoj').val(null);
 
-    let senderName = getCertainUserInfoById(currentUserId).username;
-
-    // $.ajax({
-    //     type: "POST",
-    //     headers: {
-    //         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    //     },
-    //     url: "/home/sendMessage",
-    //     data: {
-    //         id: getCertainUserInfoById(currentUserId).id,
-    //         content,
-    //         foo: 'bar',
-    //         currentContactID: currentContactId
-    //     },
-    //     success: function (datas) {
-    //         console.log("Request Sent");
-    //     },
-    // });
+    let senderName = currentUserInfo.username;
 
     if ($('#direct_chat').hasClass('active')) {
         globalGroupId = currentDirectId;

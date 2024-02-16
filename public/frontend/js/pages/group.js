@@ -886,7 +886,6 @@ function addNewGroupItem(target, data) {
     let { id, title, avatar, type, users, owner, admins, unreadCount } = data;
     if (type == 1) {
         let directId = users.find(item => item != currentUserId);
-        // let userInfo = getCertainUserInfoById(directId);
         let userInfo = usersList.find(user => user.id == directId);
         avatar = userInfo.avatar;
         title = userInfo.username;
@@ -894,7 +893,6 @@ function addNewGroupItem(target, data) {
     }
     let groupUsersAvatar = users.filter((item, index) => index < 3).map(item => {
         let avatar = usersList.find(user => user.id == item).avatar;
-        // let avatar = getCertainUserInfoById(item).avatar;
         avatar = avatar ? `v1/api/downloadFile?path=${avatar}` : '/images/default-avatar.png';
         return { id: item, avatar: avatar };
     });
@@ -999,7 +997,6 @@ function addGroupChatItem(target, data, loadFlag) {
             }
         }
     }
-    // let senderInfo = getCertainUserInfoById(data.sender);
     let senderInfo = usersList.find(user => user.id == data.sender);
     let type = senderInfo.id == currentUserId ? "replies" : "sent";
     let time = data.created_at ? new Date(data.created_at) : new Date();
@@ -1203,7 +1200,6 @@ function showCurrentChatHistory(target, groupId, groupUsers, pageSettingFlag) {
                     let groupUsersTarget = $(`.messages:nth-of-type(${pageSettingFlag + 1})`).find('.groupuser');
                     groupUsersTarget.empty();
                     groupUsers.split(',').forEach(id => {
-                        // let userInfo = getCertainUserInfoById(id);
                         let userInfo = usersList.find(item => item.id == id);
                         let avatar = userInfo.avatar ? `v1/api/downloadFile?path=${userInfo.avatar}` : '';
                         groupUsersTarget.append(`<div class="gr-profile dot-btn dot-success" data-user-id=${userInfo.id} data-tippy-content="${userInfo.username}">

@@ -188,7 +188,7 @@ class HomeController extends Controller
             $belongGroup = Group::where('id', $groupId)->get(['id as group_id', 'title', 'type']);
         }  
         foreach($belongGroup as $group) {
-            $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->get(['sender', 'group_id', 'content']);
+            $messageData = Message::where('kind', 2)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->limit(15)->get(['sender', 'group_id', 'content']);
             foreach($messageData as $item) {
                 $tempData = PhotoGallery::where('id', $item['content'])->first();
                 if ($tempData) {
@@ -205,7 +205,7 @@ class HomeController extends Controller
                     }
                 }
             }
-            $imageData = Message::where('kind', 4)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->get(['sender', 'group_id', 'content']);
+            $imageData = Message::where('kind', 4)->where('group_id', $group['group_id'])->orderBy('id', 'desc')->limit(15)->get(['sender', 'group_id', 'content']);
             foreach($imageData as $item) {
                 $tempData = AttachFile::where('id', $item['content'])->whereIn('file_type', ['png', 'jpg', 'jpeg'])->first();
                 if ($tempData) {
