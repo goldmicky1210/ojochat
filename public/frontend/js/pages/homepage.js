@@ -153,6 +153,32 @@ function getCertainUserInfoById(id) {
     // return result;
     return usersList.find(item => item.id == id);
 }
+function getRealUserInfoById(id) {
+    let form_data = new FormData();
+    form_data.append('userId', id);
+    let result;
+    $.ajax({
+        url: '/home/getCertainUserInfoById',
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        dataType: "json",
+        data: form_data,
+        async: false,
+        success: function (res) {
+           result = res.data;
+        },
+        error: function (res) {
+            // document.location.href = '/login';
+        }
+    });
+    return result;
+    // return usersList.find(item => item.id == id);
+}
 
 function getRecentChatUsers(type) {
     let form_data = new FormData();

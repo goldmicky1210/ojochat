@@ -111,7 +111,7 @@ $(document).ready(function () {
     $('#withdrawBtn').on('click', openWithdrawModal);
 
     $('.sendWithdrawRequestBtn').on('click', function (e) {
-        let currentUser = getCertainUserInfoById(currentUserId);
+        let currentUser = getRealUserInfoById(currentUserId);
         let availableCreditAmount = currentUser.balances - currentUser.locked_balances;
         let withdrawAmount = +$('.withdraw_request_amount input').val();
         let withdrawType = $('.withdraw_request_type select').val();
