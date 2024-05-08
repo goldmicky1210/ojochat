@@ -134,6 +134,10 @@
         woopra.track();
     </script>
     <!-- End of Woopra Code -->
+    <script async data-id="101452794" src="//static.getclicky.com/js"></script>
+    <noscript><p><img alt="Clicky" width="1" height="1" src="//in.getclicky.com/101452794ns.gif" /></p></noscript>
+
+
 </body>
 
 
